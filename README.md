@@ -20,7 +20,7 @@ Bagaimana fungsinya :
 Objective:
 ===========
 
-Untuk memperingatkan pengguna via twitter, setiap kali laptop-nya telah diakses.
+Untuk memperingatkan pengguna via twitter, setiap kali laptop-nya telah diakses seseorang yang tidak dikehendakinya.
 
 
 Pre-requisites:
@@ -77,6 +77,6 @@ Procedure:
 For Suggestions and Contributing :
 ==================================
 
-- Developer : @idbmb - Bambang Rahmadi K.P
+- Developer : [@idbmb](https://github.com/idbmb/) - Bambang Rahmadi K.P
 - Email     : bmb.router@gmail.com
 - Telegram  : +6285342854277
