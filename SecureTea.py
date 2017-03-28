@@ -18,7 +18,7 @@ twitter_username = 'XXXX'
 localtime = time.asctime( time.localtime(time.time()) )
 auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, API_KEY, API_SECRET)
 twitter = Twitter( auth=auth)
-welcome_msg = "\nSelamat Datang di SecureTea..!! Initializing System @ " +localtime
+welcome_msg = "\nWelcome to SecureTea..!! Initializing System @ " +localtime
 print ( welcome_msg )
 twitter.direct_messages.new(user=twitter_username,text=welcome_msg  )
 
@@ -52,7 +52,7 @@ while( 1 ):
 	if ( posx>100 or posy>100 or  posx < -100 or posy < -100 ) :
 		localtime = time.asctime( time.localtime(time.time()) )
 
-		msg = 'Alert(' + str( alert_count ) + ') : Seseorang telah mengakses laptop anda waktu ' + localtime
+		msg = 'Alert(' + str( alert_count ) + ') : Someone has access your laptop when ' + localtime
 
 		# Menunjukkan msg peringatan pada console
 		if ( debug == 1) :
@@ -68,13 +68,13 @@ while( 1 ):
 
 		# Tunggu 10 detik, untuk menghindari terlalu banyak Pesan peringatan
 		if ( debug == 1) :
-			print ("Program akan tidur selama 10 detik")
+			print ("The program will sleep for 10 seconds")
 
 		time.sleep(10)
 
 		# Siap untuk memantau pergerakan selanjutnya
 		if ( debug == 1 ) :
-			print ( "Siap untuk memantau pergerakan selanjutnya..!!" )
+			print ( "Ready to monitor further movement .. !!" )
 
 
 print ( "End of program")
