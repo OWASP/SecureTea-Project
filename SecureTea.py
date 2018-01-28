@@ -1,9 +1,9 @@
-# untuk mendeteksi gerakan mouse dan posting di Twitter
+# To share mouse gestures and post on Twitter
 import struct
 import sys
 import time
 
-# Jika belum terinstal, silahkan men-download & install paket twitter dari
+# If it is not already installed, please download & install the twitter package from
 # https://pypi.python.org/pypi/twitter
 from twitter import *
 
@@ -44,35 +44,35 @@ while( 1 ):
 	posx =  posx + x
 	posy =  posy + y
 
-	# Ini harus up to date, ketika mouse bergerak bahkan sedikit
+	# It should be up to date, when the mouse moves even slightly
 	if ( debug == 1 ) :
 		print posx , posy
 
-	# Laptop diakses seseorang dengan menggerakkan mouse/touchpad
+	# Laptops accessed someone by moving the mouse / touchpad
 	if ( posx>100 or posy>100 or  posx < -100 or posy < -100 ) :
 		localtime = time.asctime( time.localtime(time.time()) )
 
 		msg = 'Alert(' + str( alert_count ) + ') : Someone has access your laptop when ' + localtime
 
-		# Menunjukkan msg peringatan pada console
+		# Shows the warning msg on the console
 		if ( debug == 1) :
 			print msg
 
-		# Kirim pesan peringatan melalui akun twitter
+		# Send a warning message via twitter account
 		twitter.direct_messages.new(user=twitter_username,text=msg )
 
-		# Reset / Update counter untuk pergerakan selanjutnya.
+		# Reset / Update counter for the next move
 		posx = 0
 		posy = 0
 		alert_count = alert_count + 1
 
-		# Tunggu 10 detik, untuk menghindari terlalu banyak Pesan peringatan
+		# Wait 10 seconds, to avoid too many Warning messages
 		if ( debug == 1) :
 			print ("The program will sleep for 10 seconds")
 
 		time.sleep(10)
 
-		# Siap untuk memantau pergerakan selanjutnya
+		# Ready to monitor the next move
 		if ( debug == 1 ) :
 			print ( "Ready to monitor further movement .. !!" )
 

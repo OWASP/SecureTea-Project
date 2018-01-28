@@ -1,8 +1,8 @@
-# SecureTea
-Small IOT (Internet of Things) to notify users via twitter, whenever anyone accessing his laptop. This small application using the touchpad / mouse / wireless mouse and developed in python and tested on a linux (TeaLinuxOS)
+# OWASP SECURETEA TOOL PROJECT
+Small IOT (Internet of Things) to notify users via twitter, whenever anyone accessing his laptop. This small application using the touchpad / mouse / wireless mouse and developed in python and tested on a linux.
 
 The purpose of this application is to warn the user (on twitter) whenever her laptop accessible.
-This small application was developed and tested in python in linux machine [TeaLinuxOS] (http://tealinuxos.org/) is likely to work well on the Raspberry Pi as well.
+This small application was developed and tested in python in linux machine is likely to work well on the Raspberry Pi as well.
 
 
 Target User:
@@ -73,10 +73,16 @@ Procedure:
 10. Checks Alert message on the console and on twitter your inbox.
 `Alert (1): Someone has access your laptop when Mon Mar 20 17:04:13 2017`
 
+Tested on:
+==========
+
+[TealinuxOS] (http://tealinuxos.org/) - Worked
+[Deepin] (https://www.deepin.org/en/) - Worked
+
 
 For Suggestions and Contributing :
 ==================================
 
-- Developer : [@idbmb](https://github.com/idbmb/) - Bambang Rahmadi K.P
-- Email     : bmb.router@gmail.com
-- Telegram  : +6285342854277
+- [OWASP Indonesia (Jakarta) Chapter Leader](https://www.owasp.org/index.php/Ade_Yoseman_Putra) - Ade Yoseman Putra
+- [OWASP SecureTea Tool Project Leader](https://www.owasp.org/index.php/User:Idbmb) - Bambang Rahmadi K.P
+- [OWASP Indonesia (Jakarta) Chapter](http://www.owasp.org/index.php/Jakarta) - An Indonesian Chapter
