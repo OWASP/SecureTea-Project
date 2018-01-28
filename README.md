@@ -76,13 +76,13 @@ Procedure:
 Tested on:
 ==========
 
-[TealinuxOS] (http://tealinuxos.org/) - Worked
-[Deepin] (https://www.deepin.org/en/) - Worked
+- [TealinuxOS](http://tealinuxos.org/) - Worked
+- [Deepin](https://www.deepin.org/en/) - Worked
 
 
 For Suggestions and Contributing :
 ==================================
 
-- [OWASP Indonesia (Jakarta) Chapter Leader](https://www.owasp.org/index.php/Ade_Yoseman_Putra) - Ade Yoseman Putra
-- [OWASP SecureTea Tool Project Leader](https://www.owasp.org/index.php/User:Idbmb) - Bambang Rahmadi K.P
-- [OWASP Indonesia (Jakarta) Chapter](http://www.owasp.org/index.php/Jakarta) - An Indonesian Chapter
+- [OWASP Indonesia (Jakarta) Chapter Leader](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
+- [OWASP SecureTea Tool Project Leader](https://www.owasp.org/index.php/User:Idbmb)
+- [OWASP Indonesia (Jakarta) Chapter](http://www.owasp.org/index.php/Jakarta)
