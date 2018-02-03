@@ -40,37 +40,44 @@ II. SOFTWARE :
 - Mobile phones are already installed Twitter application (Optional)
 
 
-Procedure:
-==========
+Procedure Installation :
+========================
 
-1. Python must be installed. (If not already installed: `sudo apt-get install python`)
+1. Python and python-setuptools must be installed. (If not already installed: `sudo apt-get install python`)
+ and then
+ `sudo apt-get install python-setuptools`
 
-2. Install twitter package of this repo:
-- `cd SecureTea / twitter-1.17.1 /`
-- `sudo python setup.py build install`
+2. Download/Clone repository from : https://github.com/idbmb/SecureTea.git
+ - `git clone https://github.com/idbmb/SecureTea.git`
 
-3. Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
+3. Install twitter package of this repo:
+ - `cd SecureTea/twitter-1.17.1`
+ - `sudo python setup.py build install`
 
-4. Open the "SecureTea.py" with a text editor and edit the following variables:
+4. Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
 
-- API_KEY = 'XXXX'
-- API_SECRET = 'XXXX'
-- ACCESS_TOKEN = 'XXXX'
-- ACCESS_TOKEN_SECRET = 'XXXX'
-- TWITTER_USERNAME = 'XXXX'
+5. Open the "SecureTea.py" with a text editor and edit the following variables :
 
-5. Optionally in "SecureTea.py" You can set debug = `1` to enable the console log (default: enabled). or `set debug = 0` without logging in console.
+ Copy/Paste API KEY and TOKEN from Twitter apps
 
-6. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / Raspberry machine).
+ - API_KEY = 'XXXX'
+ - API_SECRET = 'XXXX'
+ - ACCESS_TOKEN = 'XXXX'
+ - ACCESS_TOKEN_SECRET = 'XXXX'
+ - TWITTER_USERNAME = 'XXXX'
 
-7. Okay, Run program -> `sudo python SecureTea.py`
+6. Optionally in "SecureTea.py" You can set debug = `1` to enable the console log (default: enabled). or `set debug = 0` without logging in console.
 
-8. Notice his WELCOME_MSG Like this:
+7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / Raspberry machine).
+
+8. Okay, Run program -> `sudo python SecureTea.py`
+
+9. Notice his WELCOME_MSG Like this:
 `Welcome to SecureTea .. !! Initializing System @ Mon Mar 20 17:06:28 2017`
 
-9. laptop access by moving the mouse / touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
+10. laptop access by moving the mouse / touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
 
-10. Checks Alert message on the console and on twitter your inbox.
+11. Checks Alert message on the console and on twitter your inbox.
 `Alert (1): Someone has access your laptop when Mon Mar 20 17:04:13 2017`
 
 Tested on:
