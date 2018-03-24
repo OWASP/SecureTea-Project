@@ -47,8 +47,8 @@ Procedure Installation :
  and then
  `sudo apt-get install python-setuptools`
 
-2. Download/Clone repository from : https://github.com/idbmb/SecureTea.git
- - `git clone https://github.com/idbmb/SecureTea.git`
+2. Download/Clone repository from : https://github.com/OWASP/SecureTea-Project.git
+ - `git clone https://github.com/OWASP/SecureTea-Project.git`
 
 3. Install twitter package of this repo:
  - `cd SecureTea/twitter-1.17.1`
