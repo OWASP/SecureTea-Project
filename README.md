@@ -97,6 +97,6 @@ For Suggestions and Contributing :
 
 
 Wanna Contribute :
-====== ===
-OWASP Slack channel (owasp.slack.com)
+==================
+OWASP Slack channel (owasp.slack.com) 
 #project-securetea
