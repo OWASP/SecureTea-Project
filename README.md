@@ -95,3 +95,8 @@ For Suggestions and Contributing :
 - [OWASP SecureTea Tool Project Leader](https://www.owasp.org/index.php/User:Idbmb)
 - [OWASP Indonesia Chapter](http://www.owasp.org/index.php/Jakarta)
 
+
+Wanna Contribute :
+====== ===
+OWASP Slack channel (owasp.slack.com)
+#project-securetea
