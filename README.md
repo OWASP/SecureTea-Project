@@ -97,7 +97,7 @@ For Suggestions and Contributing :
     
 Wanna Contribute :
 ==================
-Join the OWASP Slack Channel and ask questions at #project-blt Github activity can be seen in #project-securetea
+Join the OWASP Slack Channel and ask questions at #project-securetea
 
 Roadmap :
 ==================
