@@ -91,13 +91,18 @@ For Suggestions and Contributing :
 ==================================
 
 - For contributors Please add your name below 
-- [OWASP Indonesia Chapter Leader](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
-- [OWASP SecureTea Tool Project Leader](https://www.owasp.org/index.php/User:Idbmb)
-- [OWASP Indonesia Chapter](http://www.owasp.org/index.php/Jakarta)
-
-
+- [Ade Yoseman](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
+- [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
+- 
+    
 Wanna Contribute :
 ==================
-OWASP Slack channel (owasp.slack.com) 
+Join the OWASP Slack Channel and ask questions at #project-blt Github activity can be seen in #project-securetea
 
-#project-securetea
+Roadmap :
+==================
+1. Notify by Twitter (done)
+2. Notify by Whatsapp
+3. Notify by Sms Alerts
+
+
