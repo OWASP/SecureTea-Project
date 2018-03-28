@@ -104,5 +104,5 @@ Roadmap :
 1. Notify by Twitter (done)
 2. Notify by Whatsapp
 3. Notify by Sms Alerts
-
+4. Notify by Line
 
