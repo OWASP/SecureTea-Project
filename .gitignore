@@ -2,3 +2,5 @@
 .tmp
 API
 .idea
+*.pyc
+*.swp
