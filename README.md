@@ -96,11 +96,7 @@ For Suggestions and Contributing :
 - [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
 - [Felex kemboi](https://github.com/felexkemboi/)
 - [Lojislav Bezimenov](https://github.com/lojikil/)
-    
-Contributing:
-==================
 
-Join the OWASP Slack Channel and ask questions at #project-securetea
 
 Roadmap:
 ==================
