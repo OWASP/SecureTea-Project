@@ -13,11 +13,11 @@ Attributes:
     welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
-import struct
 import time
 
 # If it is not already installed, please download & install the twitter package from
 # https://pypi.python.org/pypi/twitter
+from pynput import mouse
 from twitter import *
 
 debug = 1
@@ -34,25 +34,7 @@ twitter = Twitter(auth=auth)
 welcome_msg = "\nWelcome to SecureTea..!! Initializing System @ " + localtime
 print(welcome_msg)
 twitter.direct_messages.new(user=twitter_username, text=welcome_msg)
-
-
-def get_mouse_event():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
-    """
-    with open("/dev/input/mice", "rb") as fh:
-        buf = fh.read(3)
-        button = ord(buf[0])
-        # what is the purpose of these? they're
-        # not used...
-        bLeft = button & 0x1
-        bMiddle = (button & 0x4) > 0
-        bRight = (button & 0x2) > 0
-        x, y = struct.unpack("bb", buf[1:])
-
-    return x, y
+alert_count = 1
 
 
 def notification_to_twitter(msg):
@@ -63,50 +45,57 @@ def notification_to_twitter(msg):
         print("Notification not sent, error is: " + str(e))
 
 
+def on_move(x, y):
+    """Docstring.
+
+    Args:
+        x (TYPE): X - mouse position
+        y (TYPE): y - mouse position
+    """
+    global alert_count
+
+    if (debug == 1):
+        print('Pointer moved to {0}'.format((x, y)))
+
+    localtime = time.asctime(time.localtime(time.time()))
+
+    msg = 'Alert(' + str(alert_count) + \
+        ') : Someone has access your laptop when ' + localtime
+
+    # Shows the warning msg on the console
+    if (debug == 1):
+        print(msg)
+
+    # Send a warning message via twitter account
+    notification_to_twitter(msg)
+
+    # Update counter for the next move
+    alert_count += 1
+
+    if (debug == 1):
+        print("The program will sleep for 10 seconds")
+
+    time.sleep(10)
+
+    # Ready to monitor the next move
+    if (debug == 1):
+        print("Ready to monitor further movement .. !!")
+
+    # Stop the listener
+    return False
+
+
 def main():
     """Docstring."""
-    alert_count = 1
-    posx = 0
-    posy = 0
-    while(1):
-        x, y = get_mouse_event()
-        posx = posx + x
-        posy = posy + y
-
-        # It should be up to date, when the mouse moves even slightly
-        if (debug == 1):
-            print(posx, posy)
-
-        # Laptops accessed someone by moving the mouse / touchpad
-        if (posx > 100 or posy > 100 or posx < -100 or posy < -100):
-            localtime = time.asctime(time.localtime(time.time()))
-
-            msg = 'Alert(' + str(alert_count) + \
-                ') : Someone has access your laptop when ' + localtime
-
-            # Shows the warning msg on the console
-            if (debug == 1):
-                print(msg)
-
-            # Send a warning message via twitter account
-            notification_to_twitter(msg)
-            # Reset / Update counter for the next move
-            posx = 0
-            posy = 0
-            alert_count = alert_count + 1
-
-            # Wait 10 seconds, to avoid too many Warning messages
-            if (debug == 1):
-                print("The program will sleep for 10 seconds")
-
-            time.sleep(10)
-
-            # Ready to monitor the next move
-            if (debug == 1):
-                print("Ready to monitor further movement .. !!")
+    try:
+        while 1:
+            # Starting mouse event listner
+            with mouse.Listener(on_move=on_move) as listener:
+                listener.join()
+    except Exception as e:
+        print("Something went wrong: " + str(e))
 
 
 if __name__ == '__main__':
-
     main()
     print("End of program")
