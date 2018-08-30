@@ -25,36 +25,35 @@ import time
 # Please make sure to install the package twitter from
 # https://pypi.python.org/pypi/twitter
 from pynput import mouse
-from twitter import *
 import logger
+import secureTeaTwitter
 
 debug = 1
-API_KEY = 'XXXX'              # Change me
-API_SECRET = 'XXXX'           # Change me
-ACCESS_TOKEN = 'XXXX'         # Change me
+API_KEY = 'XXXX'  # Change me
+API_SECRET = 'XXXX'  # Change me
+ACCESS_TOKEN = 'XXXX'  # Change me
 ACCESS_TOKEN_SECRET = 'XXXX'  # Change me
-twitter_username = 'XXXX'     # Change me
+twitter_username = 'XXXX'  # Change me
+
+alert_count = 1
 
 
 moduleName = 'Notification'
 logger = logger.SecureTeaLogger(moduleName)
-auth = OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, API_KEY, API_SECRET)
-twitter = Twitter(auth=auth)
+twitter = secureTeaTwitter.SecureTeaTwitter(
+    moduleName,
+    ACCESS_TOKEN,
+    ACCESS_TOKEN_SECRET,
+    API_KEY,
+    API_SECRET,
+    twitter_username,
+    logger
+)
+
 welcome_msg = "Welcome to SecureTea..!! Initializing System"
+
 logger.log(welcome_msg)
-twitter.direct_messages.new(user=twitter_username, text=welcome_msg)
-alert_count = 1
-
-
-def notification_to_twitter(msg):
-    """Docstring."""
-    try:
-        twitter.direct_messages.new(user=twitter_username, text=msg)
-    except Exception as e:
-        logger.log(
-            "Notification not sent, error is: " + str(e),
-            logtype="error"
-        )
+twitter.notify(welcome_msg)
 
 
 def on_move(x, y):
@@ -77,7 +76,7 @@ def on_move(x, y):
         logger.log(msg, logtype="warning")
 
     # Send a warning message via twitter account
-    notification_to_twitter(msg)
+    twitter.notify(msg)
 
     # Update counter for the next move
     alert_count += 1
