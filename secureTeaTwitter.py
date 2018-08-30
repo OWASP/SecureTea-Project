@@ -12,9 +12,10 @@ Project:
 """
 import time
 
+import logger
+
 from twitter import OAuth
 from twitter import Twitter
-import logger
 
 
 class SecureTeaTwitter():
@@ -67,6 +68,9 @@ class SecureTeaTwitter():
         try:
             message = str(msg) + " at " + self.getdatetime()
             self.twitter.direct_messages.new(user=self.username, text=message)
+            self.logger.log(
+                "Notification sent."
+            )
         except Exception as e:
             self.logger.log(
                 "Notification not sent, error is: " + str(e),
