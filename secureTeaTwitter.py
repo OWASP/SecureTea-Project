@@ -11,6 +11,7 @@ Project:
 
 """
 import time
+
 from twitter import OAuth
 from twitter import Twitter
 
@@ -25,20 +26,22 @@ class SecureTeaTwitter():
 
     """
 
-    def __init__(self, modulename, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, API_KEY, API_SECRET, username, logger):
+    def __init__(self, modulename, cred, logger):
         """Init logger params.
 
         Args:
             modulename (str): Script module name
-            ACCESS_TOKEN (TYPE): Twitter access token
-            ACCESS_TOKEN_SECRET (TYPE): Twitter access token secret
-            API_KEY (TYPE): Twitter API key
-            API_SECRET (TYPE): Twitter API secret
+            cred (dict): Twitter credentials
             username (TYPE): Twitter username to post the message
         """
         self.modulename = modulename
-        self.username = username
-        auth = OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, API_KEY, API_SECRET)
+        self.username = cred['username']
+        auth = OAuth(
+            cred['access_token'],
+            cred['access_token_secret'],
+            cred['api_key'],
+            cred['api_secret_key']
+        )
         self.twitter = Twitter(auth=auth)
         self.logger = logger
 

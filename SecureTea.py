@@ -20,33 +20,25 @@ Attributes:
     welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
-import time
-
-# Please make sure to install the package twitter from
-# https://pypi.python.org/pypi/twitter
-from pynput import mouse
 import logger
 import secureTeaTwitter
+import time
 
-debug = False
-API_KEY = 'XXXX'  # Change me
-API_SECRET = 'XXXX'  # Change me
-ACCESS_TOKEN = 'XXXX'  # Change me
-ACCESS_TOKEN_SECRET = 'XXXX'  # Change me
-twitter_username = 'XXXX'  # Change me
+from configurations import get_creds
+from pynput import mouse
 
 alert_count = 1
-
-
 moduleName = 'Notification'
-logger = logger.SecureTeaLogger(moduleName, debug)
+cred = get_creds()
+
+logger = logger.SecureTeaLogger(
+    moduleName,
+    cred['debug']
+)
+
 twitter = secureTeaTwitter.SecureTeaTwitter(
     moduleName,
-    ACCESS_TOKEN,
-    ACCESS_TOKEN_SECRET,
-    API_KEY,
-    API_SECRET,
-    twitter_username,
+    cred['twitter'],
     logger
 )
 
