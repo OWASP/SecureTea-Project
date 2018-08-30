@@ -28,7 +28,7 @@ from configurations import get_creds
 from pynput import mouse
 
 alert_count = 1
-moduleName = 'Notification'
+moduleName = 'Core'
 cred = get_creds()
 
 logger = logger.SecureTeaLogger(
@@ -37,9 +37,8 @@ logger = logger.SecureTeaLogger(
 )
 
 twitter = secureTeaTwitter.SecureTeaTwitter(
-    moduleName,
     cred['twitter'],
-    logger
+    cred['debug']
 )
 
 welcome_msg = "Welcome to SecureTea..!! Initializing System"

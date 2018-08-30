@@ -14,6 +14,7 @@ import time
 
 from twitter import OAuth
 from twitter import Twitter
+import logger
 
 
 class SecureTeaTwitter():
@@ -26,7 +27,9 @@ class SecureTeaTwitter():
 
     """
 
-    def __init__(self, modulename, cred, logger):
+    modulename = "Twitter"
+
+    def __init__(self, cred, debug):
         """Init logger params.
 
         Args:
@@ -34,7 +37,6 @@ class SecureTeaTwitter():
             cred (dict): Twitter credentials
             username (TYPE): Twitter username to post the message
         """
-        self.modulename = modulename
         self.username = cred['username']
         auth = OAuth(
             cred['access_token'],
@@ -43,7 +45,10 @@ class SecureTeaTwitter():
             cred['api_secret_key']
         )
         self.twitter = Twitter(auth=auth)
-        self.logger = logger
+        self.logger = logger.SecureTeaLogger(
+            self.modulename,
+            debug
+        )
 
     def getdatetime(self):
         """Summary.
