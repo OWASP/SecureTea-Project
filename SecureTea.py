@@ -1,5 +1,6 @@
+#!/bin/python
 """Docstring."""
-from Core import SecureTea
+from securetea.core import SecureTea
 
 if __name__ == '__main__':
 

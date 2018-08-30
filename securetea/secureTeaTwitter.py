@@ -12,7 +12,7 @@ Project:
 """
 import time
 
-import logger
+from securetea import logger
 
 from twitter import OAuth
 from twitter import Twitter

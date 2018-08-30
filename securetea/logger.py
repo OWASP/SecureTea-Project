@@ -39,7 +39,7 @@ class SecureTeaLogger():
     ERROR = '\033[91m' + BOLD + "Error: " + ENDC + '\033[91m'
     YELLOW = '\033[33m'
 
-    def __init__(self, modulename, debug):
+    def __init__(self, modulename, debug=False):
         """Init logger params.
 
         Args:

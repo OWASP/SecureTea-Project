@@ -20,11 +20,11 @@ Attributes:
     welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
-import logger
-import secureTeaTwitter
+from securetea import logger
+from securetea import secureTeaTwitter
 import time
 
-from configurations import get_creds
+from securetea import configurations
 from pynput import mouse
 
 
@@ -36,7 +36,8 @@ class SecureTea(object):
     def __init__(self):
         """Docstring."""
         modulename = 'Core'
-        cred = get_creds()
+        credentials = configurations.SecureTeaConf()
+        cred = credentials.get_creds()
 
         self.logger = logger.SecureTeaLogger(
             modulename,
