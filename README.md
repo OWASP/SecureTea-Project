@@ -57,19 +57,19 @@ Procedure Installation :
 
 4. Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
 
-5. Open the "SecureTea.py" with a text editor and edit the following variables :
+5. Open the "conf.json" with a text editor and edit the following variables :
 
  Copy/Paste API KEY and TOKEN from Twitter apps
+ ```
+"api_key": "XXXX",
+"api_secret_key": "XXXX",
+"access_token": "XXXX",
+"access_token_secret": "XXXX",
+"username": "XXXX"
+```
+6. Optionally in "conf.json" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
 
-- `API_KEY = 'XXXX'`
-- `API_SECRET = 'XXXX'`
-- `ACCESS_TOKEN = 'XXXX'`
-- `ACCESS_TOKEN_SECRET = 'XXXX'`
-- `TWITTER_USERNAME = 'XXXX'`
-
-6. Optionally in "SecureTea.py" You can set debug = `1` to enable the console log (default: enabled). or `set debug = 0` to disable logging to console.
-
-7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / Raspberry Pi machine).
+7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / macOS / Raspberry Pi machine).
 
 8. Okay, Run program -> `sudo python SecureTea.py`
 
@@ -86,7 +86,9 @@ Tested on:
 
 - [TealinuxOS](http://tealinuxos.org/) - Worked
 - [Deepin](https://www.deepin.org/en/) - Worked
-
+- [Raspbian](https://www.raspbian.org/) - Worked
+- [macOS](https://www.apple.com/in/macos/high-sierra/) - Worked
+- [Ubuntu](https://www.ubuntu.com/) - Worked
 
 For Suggestions and Contributing :
 ==================================
@@ -96,6 +98,8 @@ For Suggestions and Contributing :
 - [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
 - [Felex kemboi](https://github.com/felexkemboi/)
 - [Lojislav Bezimenov](https://github.com/lojikil/)
+- [Rejah Rehim](https://rejahrehim.com)
+- [Ananthu S](https://github.com/sananthu)
 
 
 Roadmap:
@@ -105,4 +109,5 @@ Roadmap:
 2. Notify by Whatsapp
 3. Notify by SMS Alerts
 4. Notify by Line
+5. Notify by Telegram
 
