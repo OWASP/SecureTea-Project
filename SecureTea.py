@@ -28,7 +28,7 @@ from pynput import mouse
 import logger
 import secureTeaTwitter
 
-debug = 1
+debug = False
 API_KEY = 'XXXX'  # Change me
 API_SECRET = 'XXXX'  # Change me
 ACCESS_TOKEN = 'XXXX'  # Change me
@@ -39,7 +39,7 @@ alert_count = 1
 
 
 moduleName = 'Notification'
-logger = logger.SecureTeaLogger(moduleName)
+logger = logger.SecureTeaLogger(moduleName, debug)
 twitter = secureTeaTwitter.SecureTeaTwitter(
     moduleName,
     ACCESS_TOKEN,
@@ -65,15 +65,13 @@ def on_move(x, y):
     """
     global alert_count
 
-    if (debug == 1):
-        logger.log('Pointer moved to {0}'.format((x, y)))
+    logger.log('Pointer moved to {0}'.format((x, y)))
 
     msg = '(' + str(alert_count) + \
         ') : Someone has access your laptop when '
 
     # Shows the warning msg on the console
-    if (debug == 1):
-        logger.log(msg, logtype="warning")
+    logger.log(msg, logtype="warning")
 
     # Send a warning message via twitter account
     twitter.notify(msg)
@@ -81,14 +79,12 @@ def on_move(x, y):
     # Update counter for the next move
     alert_count += 1
 
-    if (debug == 1):
-        logger.log("The program will sleep for 10 seconds")
+    logger.log("The program will sleep for 10 seconds")
 
     time.sleep(10)
 
     # Ready to monitor the next move
-    if (debug == 1):
-        logger.log("Ready to monitor further movement .. !!")
+    logger.log("Ready to monitor further movement .. !!")
 
     # Stop the listener
     return False

@@ -39,7 +39,7 @@ class SecureTeaLogger():
     ERROR = '\033[91m' + BOLD + "Error: " + ENDC + '\033[91m'
     YELLOW = '\033[33m'
 
-    def __init__(self, modulename):
+    def __init__(self, modulename, debug):
         """Init logger params.
 
         Args:
@@ -49,6 +49,7 @@ class SecureTeaLogger():
         self.LEGEND = self.VIOLET + '[' + self.modulename + ']' + \
             '  ' + self.YELLOW + '[ ' + \
             str(time.strftime("%Y-%m-%d %H:%M")) + ' ]  '
+        self.debug = debug
 
     def printinfo(self, message):
         """Print info.
@@ -81,13 +82,14 @@ class SecureTeaLogger():
             message (str): Message to log
             logtype (TYPE): Type of the logging, error, info or warning.
         """
-        if logtype == "error":
-            self.printerror(message)
+        if self.debug:
+            if logtype == "error":
+                self.printerror(message)
 
-        elif logtype == "info":
-            self.printinfo(message)
+            elif logtype == "info":
+                self.printinfo(message)
 
-        elif logtype == "warning":
-            self.printwarning(message)
-        else:
-            pass
+            elif logtype == "warning":
+                self.printwarning(message)
+            else:
+                pass

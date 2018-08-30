@@ -11,7 +11,8 @@ Project:
 
 """
 import time
-from twitter import *
+from twitter import OAuth
+from twitter import Twitter
 
 
 class SecureTeaTwitter():
