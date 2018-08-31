@@ -1,11 +1,11 @@
 OWASP SECURETEA TOOL PROJECT:
 ============================
 
-Small IoT (Internet of Things) to notify users via twitter, whenever someone accesses their laptop. This application uses the touchpad / mouse / wireless mouse
+Small IoT (Internet of Things) to notify users via Twitter, whenever someone accesses their laptop. This application uses the touchpad/mouse/wireless mouse
 to determine activity and is developed in Python and tested on Linux.
 
-The purpose of this application is to warn the user (via twitter) whenever their laptop accessed.
-This small application was developed and tested in python in linux machine is likely to work well on the Raspberry Pi as well.
+The purpose of this application is to warn the user (via various communication mechanisms) whenever their laptop accessed.
+This small application was developed and tested in python in Linux machine is likely to work well on the Raspberry Pi as well.
 
 
 Target User:
@@ -15,15 +15,15 @@ It was written to be used by anyone who is interested in Security IOT (Internet 
 
 How it functions:
 
-- Keep track of the movement of the mouse / touchpad
-- Detect who access the laptop with mouse / touchpad is installed
+- Keep track of the movement of the mouse/touchpad
+- Detect who access the laptop with mouse/touchpad is installed
 - Send warning messages on Twitter
 
 
 Objective:
 ===========
 
-To alert the user via twitter, whenever her laptop had been accessed someone.
+To alert the user via Twitter, whenever his/her laptop had been accessed by someone.
 
 
 Pre-requisites:
@@ -31,11 +31,11 @@ Pre-requisites:
 
 I. HARDWARE :
 
-- Linux OS / Raspberry Pi - have sudo access on the terminal / console
+- Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
 - Mouse / Wireless Mouse / Touchpad congenital laptop
-- Mobile phones are already installed Twitter application (Optional)
+- The Twitter application is already installed on the Mobile phones  (Optional)
 
-II. SOFTWARE :
+II. Software :
 
 - Python - https://www.python.org/ (`sudo apt-get install python`)
 - Twitter Python Package - https://pypi.python.org/pypi/twitter (install via `pip` thusly: `pip install -r requirements.txt`)
@@ -51,13 +51,11 @@ Procedure Installation :
 2. Download/Clone repository from: https://github.com/OWASP/SecureTea-Project.git
  - `git clone https://github.com/OWASP/SecureTea-Project.git`
 
-3. Install twitter package of this repo:
- - `cd SecureTea/twitter-1.17.1`
- - `sudo python setup.py build install`
+3. Install SecureTea package:
+ - `cd SecureTea-Project`
+ - `python setup.py install`
 
-4. Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
-
-5. Open the "conf.json" with a text editor and edit the following variables :
+5. Open the "securetea.conf" in your home directory (~/.securetea/securetea.conf) with a text editor and edit the following variables :
 
  Copy/Paste API KEY and TOKEN from Twitter apps
  ```
@@ -67,19 +65,33 @@ Procedure Installation :
 "access_token_secret": "XXXX",
 "username": "XXXX"
 ```
-6. Optionally in "conf.json" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
+6. Optionally in "securetea.json" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
 
 7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / macOS / Raspberry Pi machine).
 
-8. Okay, Run program -> `sudo python SecureTea.py`
+8. Okay, Run program -> `sudo SecureTea.py`
 
 9. Notice a `WELCOME_MSG` Like this:
-`Welcome to SecureTea .. !! Initializing System @ Mon Mar 20 17:06:28 2017`
+`[Core]  [ 2018-08-30 16:50 ]  Info : Welcome to SecureTea..!! Initializing System`
 
-10. laptop access by moving the mouse / touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
+10. laptop access by moving the mouse/touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
 
 11. Checks Alert message on the console and on twitter your inbox.
-`Alert (1): Someone has access your laptop when Mon Mar 20 17:04:13 2017`
+`[Core]  [ 2018-08-30 16:50 ]  Warn : (3) : Someone has access your laptop when`
+
+
+Missing Dependency :
+====================
+
+`twitter` package is a dependency, it will be installed automatically installed while installing SecureTea. If not installed Please install it as follows
+
+- Install twitter package from repo:
+ - `cd SecureTea/twitter-1.17.1`
+ - `sudo python setup.py build install`
+
+Getting Twitter Tokens:
+=======================
+- Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
 
 Tested on:
 ==========
@@ -93,7 +105,7 @@ Tested on:
 For Suggestions and Contributing :
 ==================================
 
-- For contributors Please add your name below 
+- For contributors Please add your name below
 - [Ade Yoseman](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
 - [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
 - [Felex kemboi](https://github.com/felexkemboi/)
