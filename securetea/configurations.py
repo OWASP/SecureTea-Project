@@ -88,7 +88,6 @@ class SecureTeaConf():
                     child_key = keys[1]
                     self.set_value(parent_key, child_key, args[key])
                 else:
-                    print(key, args[key])
                     self.set_value(False, key, args[key])
 
     def set_value(self, parent, child, value):
