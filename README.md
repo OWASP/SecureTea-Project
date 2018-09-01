@@ -65,7 +65,7 @@ Procedure Installation :
 "access_token_secret": "XXXX",
 "username": "XXXX"
 ```
-6. Optionally in "securetea.json" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
+6. Optionally in "securetea.conf" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
 
 7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / macOS / Raspberry Pi machine).
 
