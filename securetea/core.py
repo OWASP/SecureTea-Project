@@ -20,14 +20,21 @@ Attributes:
     welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
+import struct
 import sys
 import time
 
-from pynput import mouse
 from securetea import configurations
 from securetea import logger
 from securetea import secureTeaTwitter
 from securetea.arguments import get_args
+
+pynput_status = True
+
+try:
+    from pynput import mouse
+except Exception as e:
+    pynput_status = False
 
 
 class SecureTea(object):
@@ -92,13 +99,35 @@ class SecureTea(object):
         # Stop the listener
         return False
 
+    def get_mouse_event(self):
+        """Docstring."""
+        with open("/dev/input/mice", "rb") as fh:
+            buf = fh.read(3)
+            x, y = struct.unpack("bb", buf[1:])
+
+    def get_by_mice(self):
+        """Docstring."""
+        posx = 0
+        posy = 0
+        while(1):
+            x, y = self.get_mouse_event()
+            posx = posx + x
+            posy = posy + y
+            if (posx > 100 or posy > 100 or posx < -100 or posy < -100):
+                posx = 0
+                posy = 0
+                self.on_move(posx, posy)
+
     def run(self):
         """Docstring."""
         try:
-            while 1:
-                # Starting mouse event listner
-                with mouse.Listener(on_move=self.on_move) as listener:
-                    listener.join()
+            if not pynput_status:
+                self.get_by_mice()
+            else:
+                while 1:
+                    # Starting mouse event listner
+                    with mouse.Listener(on_move=self.on_move) as listener:
+                        listener.join()
         except Exception as e:
             self.logger.log(
                 "Something went wrong: " + str(e) + "End of program",
