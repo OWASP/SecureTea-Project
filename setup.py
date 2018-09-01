@@ -29,7 +29,7 @@ if not os_name:
         os_name = 'centos'
 
 files_definition = [
-    ('{}/.securetea/'.format(os.environ['HOME']), ['securetea.conf']),
+    ('/etc/securetea', ['securetea.conf']),
 ]
 
 
@@ -109,7 +109,7 @@ if os_name == 'Ubuntu':
     if os_major_version >= 16:
         files_definition.append((
             '/usr/lib/systemd/system',
-            ['bin/rpm/systemd/securetea.service']
+            ['bin/systemd/securetea.service']
         ))
 if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
     files_definition.append((
@@ -119,7 +119,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
     if os_major_version >= 7 and not os_name == 'debian':
         files_definition.append((
             '/usr/lib/systemd/system',
-            ['bin/rpm/systemd/securetea.service']
+            ['bin/systemd/securetea.service']
         ))
 
 setup(

@@ -39,8 +39,8 @@ class SecureTeaConf():
         if args.conf:
             confpath = args.conf
         else:
-            confdir = '{}/.securetea/'.format(os.environ['HOME'])
-            confpath = confdir + "securetea.conf"
+            confpath = "/etc/securetea/securetea.conf"
+
         self.credentials = self.get_json(confpath)
         self.check_args(vars(args))
         self.set_json(confpath)
