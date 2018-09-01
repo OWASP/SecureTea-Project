@@ -71,8 +71,14 @@ class SecureTeaConf():
         Args:
             path (TYPE): Description
         """
-        with open(path, 'w') as f:
-            json.dump(self.credentials, f, ensure_ascii=False)
+        try:
+            with open(path, 'w') as f:
+                json.dump(self.credentials, f, ensure_ascii=False)
+        except Exception as e:
+            self.logger.log(
+                "Config file not found in path: " + str(e),
+                logtype="error"
+            )
 
     def check_args(self, args):
         """Docstring.
