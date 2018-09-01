@@ -13,7 +13,6 @@ Project:
 import time
 
 from securetea import logger
-
 from twitter import OAuth
 from twitter import Twitter
 
@@ -29,6 +28,7 @@ class SecureTeaTwitter():
     """
 
     modulename = "Twitter"
+    enabled = True
 
     def __init__(self, cred, debug):
         """Init logger params.
@@ -38,6 +38,19 @@ class SecureTeaTwitter():
             cred (dict): Twitter credentials
             username (TYPE): Twitter username to post the message
         """
+        self.logger = logger.SecureTeaLogger(
+            self.modulename,
+            debug
+        )
+        for key in cred:
+            if cred[key] == "XXXX":
+                self.enabled = False
+                self.logger.log(
+                    "Credentials not set, please set twitter configurations at ~/.securetea/securetea.conf ",
+                    logtype="error"
+                )
+                break
+
         self.username = cred['username']
         auth = OAuth(
             cred['access_token'],
@@ -46,10 +59,6 @@ class SecureTeaTwitter():
             cred['api_secret_key']
         )
         self.twitter = Twitter(auth=auth)
-        self.logger = logger.SecureTeaLogger(
-            self.modulename,
-            debug
-        )
 
     def getdatetime(self):
         """Summary.

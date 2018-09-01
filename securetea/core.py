@@ -20,12 +20,14 @@ Attributes:
     welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
-from securetea import logger
-from securetea import secureTeaTwitter
+import sys
 import time
 
-from securetea import configurations
 from pynput import mouse
+from securetea import configurations
+from securetea import logger
+from securetea import secureTeaTwitter
+from securetea.arguments import get_args
 
 
 class SecureTea(object):
@@ -36,8 +38,9 @@ class SecureTea(object):
     def __init__(self):
         """Docstring."""
         modulename = 'Core'
+        args = get_args()
         credentials = configurations.SecureTeaConf()
-        cred = credentials.get_creds()
+        cred = credentials.get_creds(args)
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -48,8 +51,15 @@ class SecureTea(object):
             cred['twitter'],
             cred['debug']
         )
-        self.logger.log("Welcome to SecureTea..!! Initializing System")
-        self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+        if not self.twitter.enabled:
+            self.logger.log(
+                "Twitter not configured properly. Exiting..."
+            )
+            sys.exit(0)
+
+        else:
+            self.logger.log("Welcome to SecureTea..!! Initializing System")
+            self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
         """Docstring.
