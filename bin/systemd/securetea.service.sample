@@ -1,0 +1,11 @@
+[Unit]
+Description=SecureTea
+
+[Service]
+ExecStart=/usr/bin/python /usr/bin/securetea
+Type=forking
+#If not using default pid, make sure you change PIDFile setting
+PIDFile=/var/run/securetea.pid
+
+[Install]
+WantedBy=multi-user.target
