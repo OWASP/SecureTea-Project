@@ -29,7 +29,7 @@ if not os_name:
         os_name = 'centos'
 
 files_definition = [
-    ('{}/.securetea/'.format(os.environ['HOME']), ['securetea.conf']),
+    ('/etc/securetea', ['securetea.conf']),
 ]
 
 
