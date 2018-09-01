@@ -41,7 +41,6 @@ class SecureTea(object):
         args = get_args()
         credentials = configurations.SecureTeaConf()
         cred = credentials.get_creds(args)
-
         self.logger = logger.SecureTeaLogger(
             modulename,
             cred['debug']
@@ -53,7 +52,8 @@ class SecureTea(object):
         )
         if not self.twitter.enabled:
             self.logger.log(
-                "Twitter not configured properly. Exiting..."
+                "Twitter not configured properly. Exiting...",
+                logtype="error"
             )
             sys.exit(0)
 
