@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 u"""Arguments module for SecureTea.
 
 Project:
@@ -65,14 +66,6 @@ def get_args():
         type=str,
         required=False,
         help='Twitter access token secret'
-    )
-
-    parser.add_argument(
-        '--twitter_username',
-        '-tuser',
-        type=str,
-        required=False,
-        help='Twitter username'
     )
 
     args = parser.parse_args()

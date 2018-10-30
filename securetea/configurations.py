@@ -1,4 +1,16 @@
-"""Docstring."""
+# -*- coding: utf-8 -*-
+u"""Configuration module for SecureTea.
+
+Project:
+    ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
+    ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
+    ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
+
+    Author: Rejah Rehim <rejah@appfabs.com> , Aug 31 2018
+    Version: 1.1
+    Module: SecureTea
+
+"""
 import json
 import os
 
@@ -17,6 +29,7 @@ class SecureTeaConf():
 
     modulename = "Config"
     credentials = {}
+    confpath = "/etc/securetea/securetea.conf"
 
     def __init__(self):
         """Init logger params."""
@@ -37,13 +50,9 @@ class SecureTeaConf():
             TYPE: Description
         """
         if args.conf:
-            confpath = args.conf
-        else:
-            confpath = "/etc/securetea/securetea.conf"
+            self.confpath = args.conf
 
-        self.credentials = self.get_json(confpath)
-        self.check_args(vars(args))
-        self.set_json(confpath)
+        self.credentials = self.get_json(self.confpath)
         return self.credentials
 
     def get_json(self, path):
@@ -61,50 +70,25 @@ class SecureTeaConf():
                 return creds
         except Exception as e:
             self.logger.log(
-                "Config file loading errored: " + str(e),
+                "Config file loading errored, " + str(e),
                 logtype="error"
             )
 
-    def set_json(self, path):
+    def save_creds(self, data):
         """Docstring.
 
         Args:
             path (TYPE): Description
+
+        Returns:
+            TYPE: Description
         """
         try:
-            with open(path, 'w') as f:
-                json.dump(self.credentials, f, ensure_ascii=False)
+            os.makedirs(os.path.dirname(self.confpath), exist_ok=True)
+            with open(self.confpath, 'w') as outfile:
+                json.dump(data, outfile)
         except Exception as e:
             self.logger.log(
-                "Config file not found in path: " + str(e),
+                "Error in save Config " + str(e),
                 logtype="error"
             )
-
-    def check_args(self, args):
-        """Docstring.
-
-        Args:
-            args (TYPE): Description
-        """
-        for key in args:
-            if args[key]:
-                keys = key.split('_', 1)
-                if keys[0] in self.integrations:
-                    parent_key = keys[0]
-                    child_key = keys[1]
-                    self.set_value(parent_key, child_key, args[key])
-                else:
-                    self.set_value(False, key, args[key])
-
-    def set_value(self, parent, child, value):
-        """Docstring.
-
-        Args:
-            parent (TYPE): Description
-            child (TYPE): Description
-            value (TYPE): Description
-        """
-        if parent:
-            self.credentials[parent][child] = value
-        else:
-            self.credentials[child] = value

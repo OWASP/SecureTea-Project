@@ -1,2 +1,7 @@
-twitter==1.17.1
+requests
+requests_oauthlib
+py_cpuinfo
+psutil
+flask
+flask_cors
 pynput

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 u"""SecureTea.
 
 Project:
@@ -7,17 +8,6 @@ Project:
 
     Version: 1.1
     Module: SecureTea
-
-Attributes:
-    ACCESS_TOKEN (str): Access token of twitter
-    ACCESS_TOKEN_SECRET (str): Access token secret of twitter
-    API_KEY (str): Api key
-    API_SECRET (str): Api secret
-    auth (TYPE): Description
-    debug (int): Debug flag
-    twitter (TYPE): Description
-    twitter_username (str): Username in twitter
-    welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
 import struct
@@ -45,9 +35,26 @@ class SecureTea(object):
     def __init__(self):
         """Docstring."""
         modulename = 'Core'
+        cred = {}
         args = get_args()
         credentials = configurations.SecureTeaConf()
-        cred = credentials.get_creds(args)
+        if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
+                args.twitter_access_token_secret):
+            twitter = {}
+            twitter['api_key'] = args.twitter_api_key
+            twitter['api_secret_key'] = args.twitter_api_secret_key
+            twitter['access_token'] = args.twitter_access_token
+            twitter['access_token_secret'] = args.twitter_access_token_secret
+            cred['twitter'] = twitter
+            cred['debug'] = args.debug
+            credentials.save_creds(cred)
+        else:
+            cred = credentials.get_creds(args)
+
+        if not cred:
+            print('Config not found')
+            sys.exit(0)
+
         self.logger = logger.SecureTeaLogger(
             modulename,
             cred['debug']
@@ -104,6 +111,7 @@ class SecureTea(object):
         with open("/dev/input/mice", "rb") as fh:
             buf = fh.read(3)
             x, y = struct.unpack("bb", buf[1:])
+            return x, y
 
     def get_by_mice(self):
         """Docstring."""
@@ -120,6 +128,7 @@ class SecureTea(object):
 
     def run(self):
         """Docstring."""
+        time.sleep(10)
         try:
             if not pynput_status:
                 self.get_by_mice()
@@ -130,7 +139,7 @@ class SecureTea(object):
                         listener.join()
         except Exception as e:
             self.logger.log(
-                "Something went wrong: " + str(e) + "End of program",
+                "Something went wrong: " + str(e) + " End of program",
                 logtype="error"
             )
         except KeyboardInterrupt as e:
