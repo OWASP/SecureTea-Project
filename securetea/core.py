@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 u"""SecureTea.
 
 Project:
@@ -7,25 +8,23 @@ Project:
 
     Version: 1.1
     Module: SecureTea
-
-Attributes:
-    ACCESS_TOKEN (str): Access token of twitter
-    ACCESS_TOKEN_SECRET (str): Access token secret of twitter
-    API_KEY (str): Api key
-    API_SECRET (str): Api secret
-    auth (TYPE): Description
-    debug (int): Debug flag
-    twitter (TYPE): Description
-    twitter_username (str): Username in twitter
-    welcome_msg (TYPE): Welcome message
 """
 # To share mouse gestures and post on Twitter
-from securetea import logger
-from securetea import secureTeaTwitter
+import struct
+import sys
 import time
 
 from securetea import configurations
-from pynput import mouse
+from securetea import logger
+from securetea import secureTeaTwitter
+from securetea.arguments import get_args
+
+pynput_status = True
+
+try:
+    from pynput import mouse
+except Exception as e:
+    pynput_status = False
 
 
 class SecureTea(object):
@@ -36,8 +35,25 @@ class SecureTea(object):
     def __init__(self):
         """Docstring."""
         modulename = 'Core'
+        cred = {}
+        args = get_args()
         credentials = configurations.SecureTeaConf()
-        cred = credentials.get_creds()
+        if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
+                args.twitter_access_token_secret):
+            twitter = {}
+            twitter['api_key'] = args.twitter_api_key
+            twitter['api_secret_key'] = args.twitter_api_secret_key
+            twitter['access_token'] = args.twitter_access_token
+            twitter['access_token_secret'] = args.twitter_access_token_secret
+            cred['twitter'] = twitter
+            cred['debug'] = args.debug
+            credentials.save_creds(cred)
+        else:
+            cred = credentials.get_creds(args)
+
+        if not cred:
+            print('Config not found')
+            sys.exit(0)
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -48,8 +64,16 @@ class SecureTea(object):
             cred['twitter'],
             cred['debug']
         )
-        self.logger.log("Welcome to SecureTea..!! Initializing System")
-        self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+        if not self.twitter.enabled:
+            self.logger.log(
+                "Twitter not configured properly. Exiting...",
+                logtype="error"
+            )
+            sys.exit(0)
+
+        else:
+            self.logger.log("Welcome to SecureTea..!! Initializing System")
+            self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
         """Docstring.
@@ -82,16 +106,40 @@ class SecureTea(object):
         # Stop the listener
         return False
 
+    def get_mouse_event(self):
+        """Docstring."""
+        with open("/dev/input/mice", "rb") as fh:
+            buf = fh.read(3)
+            x, y = struct.unpack("bb", buf[1:])
+            return x, y
+
+    def get_by_mice(self):
+        """Docstring."""
+        posx = 0
+        posy = 0
+        while(1):
+            x, y = self.get_mouse_event()
+            posx = posx + x
+            posy = posy + y
+            if (posx > 100 or posy > 100 or posx < -100 or posy < -100):
+                posx = 0
+                posy = 0
+                self.on_move(posx, posy)
+
     def run(self):
         """Docstring."""
+        time.sleep(10)
         try:
-            while 1:
-                # Starting mouse event listner
-                with mouse.Listener(on_move=self.on_move) as listener:
-                    listener.join()
+            if not pynput_status:
+                self.get_by_mice()
+            else:
+                while 1:
+                    # Starting mouse event listner
+                    with mouse.Listener(on_move=self.on_move) as listener:
+                        listener.join()
         except Exception as e:
             self.logger.log(
-                "Something went wrong: " + str(e) + "End of program",
+                "Something went wrong: " + str(e) + " End of program",
                 logtype="error"
             )
         except KeyboardInterrupt as e:

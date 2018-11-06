@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 u"""Logger module for SecureTea.
 
 Project:
