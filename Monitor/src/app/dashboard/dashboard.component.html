@@ -1,0 +1,77 @@
+<div id="main-wrapper">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <app-sidebar></app-sidebar>
+    <div class="page-wrapper">
+        <div class="row page-titles pt-2 pb-1 mb-1">
+            <div class="col-md-5 align-self-center">
+                <h1 class="text-primary head-1">Dashboard</h1>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href='/dashboard'>Home</a></li>
+                    <li class="breadcrumb-item active">Storage</li>
+                </ol>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-heartbeat f-s-50 color-danger"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <div class="dcard"> {{ cpu }} %</div>
+                                <div class="description">Cpu</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-microchip f-s-50 color-pink"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <div class="dcard"> {{ ram }} %</div>
+                                <div class="description">Ram</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-tasks f-s-50 color-success"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <div class="dcard"> {{ swap }} %</div>
+                                <div class="description">Swap</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa fa-clock-o f-s-50 color-primary"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <div class="dcard"> {{ uptime }}</div>
+                                <div class="description">Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-body [ram]="ExRam" [cpu]="ExCpu" [swap]="ExSwap"></app-body>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

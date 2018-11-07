@@ -1,0 +1,53 @@
+<div id="main-wrapper">
+  <div class="header">
+      <app-header></app-header>
+  </div>
+  <app-sidebar></app-sidebar>
+  <div class="page-wrapper">
+      <div class="row page-titles pt-2 pb-1 mb-1">
+          <div class="col-md-5 align-self-center">
+        <h1 class="text-primary head-1">Networks</h1>
+    </div>
+          <div class="col-md-7 align-self-center">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href='/dashboard'>Home</a></li>
+                  <li class="breadcrumb-item active">Network</li>
+              </ol>
+          </div>
+      </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Network</h2>
+            <h3 class="card-subtitle">Current network status</h3>
+            <table id="myTable" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Is up</th>
+                  <th>IPV4</th>
+                  <th>IPV6</th>
+                  <th>Sent(Kbps)</th>
+                  <th>Receive(Kbps)</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let adapter of network">
+                    <td class="py-0">{{ adapter['name'] }}</td>
+                    <td class="py-0">{{ adapter['isup'] }}</td>
+                    <td class="py-0">{{ adapter['ipv4'] }}</td>
+                    <td class="py-0">{{ adapter['ipv6'] }}</td>
+                    <td class="py-0">{{ adapter['sent'] }}</td>
+                    <td class="py-0">{{ adapter['receive'] }}</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+</div>

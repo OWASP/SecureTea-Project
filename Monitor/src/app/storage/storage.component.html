@@ -1,0 +1,53 @@
+<div id="main-wrapper">
+  <div class="header">
+      <app-header></app-header>
+  </div>
+  <app-sidebar></app-sidebar>
+  <div class="page-wrapper">
+    <div class="row page-titles pt-2 pb-1 mb-1">
+        <div class="col-md-5 align-self-center">
+            <h1 class="text-primary head-1">Storage</h1> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href='/dashboard'>Home</a></li>
+                <li class="breadcrumb-item active">Storage</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Disk usage</h2>
+          <h3 class="card-subtitle">Usage of each partition</h3>
+          <div class="table-responsive m-t-40">
+            <table id="myTable" class="table table-bordered table-striped">
+              <thead>
+                <tr class="head">
+                  <th>Device</th>
+                  <th>Path</th>
+                  <th>Type</th>
+                  <th>Free</th>
+                  <th>Used</th>
+                  <th>Total</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody class="head">
+                  <tr *ngFor="let drive of storage">
+                    <td>{{ drive['device'] }}</td>
+                    <td>{{ drive['path'] }}</td>
+                    <td>{{ drive['fstype'] }}</td>
+                    <td>{{ drive['free'] }}</td>
+                    <td>{{ drive['used'] }}</td>
+                    <td>{{ drive['total'] }}</td>
+                    <td>{{ drive['percent'] }}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

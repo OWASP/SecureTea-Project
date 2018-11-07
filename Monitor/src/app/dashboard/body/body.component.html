@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-lg-7">
+        <h2 class="sub-head">Processor </h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="p-1 grey cpu">Brand<span class="pull-right">{{ brand }}</span></div>
+                <div class="p-1 cpu">Vendor<span class="pull-right">{{ vendor_id }}</span></div>
+                <div class="p-1 grey cpu">Bits<span class="pull-right">{{ bits }}</span></div>
+                <div class="p-1 cpu">Number of cores<span class="pull-right">{{ count }}</span></div>
+                <div class="p-1 grey cpu">Clock speed<span class="pull-right">{{ hz_advertised }}</span></div>
+                <div class="p-1 cpu">l1 data cache size<span class="pull-right">{{ l1_data_cache_size }}</span></div>
+                <div class="p-1 grey cpu">l1 instruction cache size<span class="pull-right">{{ l1_instruction_cache_size }}</span></div>
+                <div class="p-1 cpu">l2 cache size<span class="pull-right">{{ l2_cache_size }}</span></div>
+                <div class="p-1 grey cpu">l3 cache size<span class="pull-right">{{ l3_cache_size }}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <h2 class="sub-head">Ram </h2>
+        <div class="card p-1">
+            <div class="card-body p-3">
+                <h3 class="small">{{ ram_total }} gb<span class="pull-right">{{ ram_percentage }} % used</span></h3>
+                <div class="myprogressbar">
+                        <div class="used" [style.width]="ram_width">
+                                {{ ram_used }}
+                        </div>
+                        <div class="free">
+                                {{ ram_free }}
+                        </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="sub-head">Swap </h2>
+        <div class="card p-1">
+            <div class="card-body p-3">
+                <h3 class="small">{{ swap_total }} gb<span class="pull-right">{{ swap_percentage }} % used</span></h3>
+                <div class="myprogressbar">
+                        <div class="used" [style.width]="swap_width">
+                                {{ swap_used }}
+                        </div>
+                        <div class="free">
+                                {{ swap_free }}
+                        </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="sub-head">Disk </h2>
+        <div class="card p-1">
+            <div class="card-body p-3">
+                <h3 class="small">Read speed<span class="pull-right"><span class="view">{{ read }}</span> kb/s</span></h3>
+                <h3 class="small">Write speed<span class="pull-right"><span class="view">{{ write }}</span> kb/s</span></h3>
+            </div>
+        </div>
+    </div>
+</div>
