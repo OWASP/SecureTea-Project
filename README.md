@@ -81,7 +81,7 @@ Procedure Installation :
 `[Core]  [ 2018-08-30 16:50 ]  Warn : (3) : Someone has access your laptop when`
 
 12. If you want to monitor your system from a webapp, 
- - `cd Monitor`
+ - `cd gui`
  - `npm install`
  - `ng serve`
 
