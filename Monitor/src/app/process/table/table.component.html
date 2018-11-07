@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="row">
+    <p style="margin-left:5px;">Auto reload</p>
+    <label class="switch">
+      <input type="checkbox" (change)="toggleVisibility($event)" checked/>
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead class="head">
+        <tr>
+          <th (click)="sortBy('cpu')">Cpu percent</th>
+          <th (click)="sortBy('memory')">Memory</th>
+          <th (click)="sortBy('name')">Name </th>
+          <!-- <th (click)="sortBy('cmd')">Cmd </th> -->
+          <th (click)="sortBy('status')">Status</th>
+          <th (click)="sortBy('createTime')">Create time</th>
+          <th (click)="sortBy('username')">User</th>
+        </tr>
+      </thead>
+      <tbody class="head">
+        <tr *ngFor="let data of search()">
+          <td class="p-0">{{data.cpu}}</td>
+          <td class="p-0">{{data.memory}}</td>
+          <td class="p-0">{{data.name}}</td>
+          <!-- <td class="p-0">{{data.cmd}}</td> -->
+          <td class="p-0">{{data.status}}</td>
+          <td class="p-0">{{data.createTime}}</td>
+          <td class="p-0">{{data.username}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+      

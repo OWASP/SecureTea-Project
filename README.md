@@ -24,6 +24,7 @@ Objective:
 ===========
 
 To alert the user via Twitter, whenever his/her laptop had been accessed by someone.
+And also it can be used to monitor your system
 
 
 Pre-requisites:
@@ -38,7 +39,7 @@ I. HARDWARE :
 II. Software :
 
 - Python - https://www.python.org/ (`sudo apt-get install python`)
-- Twitter Python Package - https://pypi.python.org/pypi/twitter (install via `pip` thusly: `pip install -r requirements.txt`)
+- Angular - https://angular.io/ 
 - A Twitter account - https://twitter.com
 - Mobile phones a previously-installed Twitter application (Optional)
 
@@ -79,15 +80,12 @@ Procedure Installation :
 11. Checks Alert message on the console and on twitter your inbox.
 `[Core]  [ 2018-08-30 16:50 ]  Warn : (3) : Someone has access your laptop when`
 
+12. If you want to monitor your system from a webapp, 
+ - `cd Monitor`
+ - `npm install`
+ - `ng serve`
 
-Missing Dependency :
-====================
-
-`twitter` package is a dependency, it will be installed automatically installed while installing SecureTea. If not installed Please install it as follows
-
-- Install twitter package from repo:
- - `cd SecureTea/twitter-1.17.1`
- - `sudo python setup.py build install`
+13. Go to `http://localhost:4200` to view your project.
 
 Getting Twitter Tokens:
 =======================

@@ -1,0 +1,24 @@
+<div id="main-wrapper">
+  	<div class="unix-login">
+      	<div class="container-fluid">
+          	<div class="row justify-content-center">
+              	<div class="col-lg-4">
+                  	<div class="login-content card">
+                      	<div class="login-form">
+							<h1 class="ml-4">Configuration</h1>
+							<br/>
+                          	<form [formGroup]="myform" (ngSubmit)="Submit()">
+								<div class="form-group">
+									<label>End-point</label>
+									<input formControlName="endpoint" class="form-control" placeholder="http://192.168.1.123:5000" required>
+								</div>
+								<h5 class="text-danger">{{error}}</h5>
+                              	<button type="submit" class="btn btn-primary btn-flat m-b-30">Sign in</button>
+							</form>  
+                      	</div>
+                  	</div>
+              	</div>
+          	</div>
+      	</div>
+  	</div>
+</div>
