@@ -56,6 +56,9 @@ Procedure Installation :
  - `cd SecureTea-Project`
  - `python setup.py install`
 
+4. Install python dependencies/ requirements
+-  ' pip install -r requirements.txt
+
 5. Open the "securetea.conf" in your home directory (~/.securetea/securetea.conf) with a text editor and edit the following variables :
 
  Copy/Paste API KEY and TOKEN from Twitter apps
@@ -84,8 +87,11 @@ Procedure Installation :
  - `cd gui`
  - `npm install`
  - `ng serve`
-
+13. Click new tab terminal and type -> 'sudo python monitor.py' 
 13. Go to `http://localhost:4200` to view your project.
+    type END-POINT 'http://localhost:5000' and click SIGN IN.
+    
+
 
 Getting Twitter Tokens:
 =======================
