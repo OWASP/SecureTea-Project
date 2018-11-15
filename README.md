@@ -89,7 +89,7 @@ Procedure Installation :
  - `ng serve`
 13. Click new tab terminal and type -> 'sudo python monitor.py' 
 13. Go to `http://localhost:4200` to view your project.
-    type END-POINT 'http://localhost:5000' and click SIGN IN.
+    END-POINT type 'http://localhost:5000' and click SIGN IN.
     
 
 
@@ -122,6 +122,7 @@ Roadmap:
 ==================
 
 1. Notify by Twitter (done)
+2. Securetea Dashboard / Gui (done)
 2. Notify by Whatsapp
 3. Notify by SMS Alerts
 4. Notify by Line
