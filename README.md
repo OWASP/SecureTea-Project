@@ -57,7 +57,7 @@ Procedure Installation :
  - `python setup.py install`
 
 4. Install python dependencies/ requirements
--  ' pip install -r requirements.txt
+-  `pip install -r requirements.txt`
 
 5. Open the "securetea.conf" in your home directory (~/.securetea/securetea.conf) with a text editor and edit the following variables :
 
@@ -87,9 +87,11 @@ Procedure Installation :
  - `cd gui`
  - `npm install`
  - `ng serve`
-13. Click new tab terminal and type -> 'sudo python monitor.py' 
+13. Click new tab terminal and type -> `sudo python monitor.py` 
 13. Go to `http://localhost:4200` to view your project.
-    END-POINT type 'http://localhost:5000' and click SIGN IN.
+    END-POINT type `http://localhost:5000` and click SIGN IN.
+	
+	
     
 
 
