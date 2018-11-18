@@ -73,7 +73,7 @@ Procedure Installation :
 
 7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / macOS / Raspberry Pi machine).
 
-8. Okay, Run program -> `sudo SecureTea.py`
+8. Okay, Run program -> `sudo SecureTea.py` or more -> `Securetea.py -h`
 
 9. Notice a `WELCOME_MSG` Like this:
 `[Core]  [ 2018-08-30 16:50 ]  Info : Welcome to SecureTea..!! Initializing System`
