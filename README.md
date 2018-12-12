@@ -91,7 +91,9 @@ Procedure Installation :
 13. Go to `http://localhost:4200` to view your project.
     END-POINT type `http://localhost:5000` and click SIGN IN.
 	
+----
 	
+	![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20gui.PNG "Secure Tea Dashboard")
     
 
 
