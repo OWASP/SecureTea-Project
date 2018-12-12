@@ -1,4 +1,5 @@
-OWASP SECURETEA TOOL PROJECT:
+# [![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png) OWASP SECURETEA TOOL PROJECT](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
+
 ============================
 
 Small IoT (Internet of Things) to notify users via Twitter, whenever someone accesses their laptop. This application uses the touchpad/mouse/wireless mouse
@@ -94,7 +95,12 @@ Procedure Installation :
 ----
 
 ![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20gui.PNG "Secure Tea Dashboard")
-    
+
+----
+
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20security%20gui.PNG "Secure Tea Security Dashboard")
+
+----    
 
 
 Getting Twitter Tokens:
