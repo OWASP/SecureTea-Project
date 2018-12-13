@@ -131,8 +131,10 @@ Roadmap:
 
 1. Notify by Twitter (done)
 2. Securetea Dashboard / Gui (done)
-2. Notify by Whatsapp
-3. Notify by SMS Alerts
-4. Notify by Line
-5. Notify by Telegram
+3. Securetea Protection /firewall
+4. Securetea Antivirus
+5. Notify by Whatsapp
+6. Notify by SMS Alerts
+7. Notify by Line
+8. Notify by Telegram
 
