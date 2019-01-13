@@ -1,4 +1,5 @@
 # [![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png) OWASP SECURETEA TOOL PROJECT](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
 
 Small IoT (Internet of Things) to notify users via Twitter, whenever someone accesses their laptop. This application uses the touchpad/mouse/wireless mouse
 to determine activity and is developed in Python and tested on Linux.
@@ -6,13 +7,23 @@ to determine activity and is developed in Python and tested on Linux.
 The purpose of this application is to warn the user (via various communication mechanisms) whenever their laptop accessed.
 This small application was developed and tested in python in Linux machine is likely to work well on the Raspberry Pi as well.
 
+# Table Of Contents
+- [Target User](#target-user)
+- [Objective](#objective)
+- [Pre-requisites](#pre-requisites)
+- [Procedure Installation](#procedure-installation)
+- [Getting Twitter Tokens](#getting-twitter-tokens)
+- [Tested on](#tested-on)
+- [Suggestions and contributing](#suggestions-and-contributing)
+- [Roadmap](#roadmap)
+
 
 Target User:
 =============
 
-It was written to be used by anyone who is interested in Security IOT (Internet of Things) and still needs further development.
+It was written to be used by anyone who is interested in Security IoT (Internet of Things) and still needs further development.
 
-How it functions:
+#### How it functions:
 
 - Keep track of the movement of the mouse/touchpad
 - Detect who access the laptop with mouse/touchpad is installed
@@ -23,27 +34,27 @@ Objective:
 ===========
 
 To alert the user via Twitter, whenever his/her laptop had been accessed by someone.
-And also it can be used to monitor your system
+And also it can be used to monitor your system.
 
 
 Pre-requisites:
 ================
 
-I. HARDWARE :
+#### I. Hardware :
 
 - Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
 - Mouse / Wireless Mouse / Touchpad congenital laptop
-- The Twitter application is already installed on the Mobile phones  (Optional)
+- The Twitter application is already installed on the mobile phone  (Optional)
 
-II. Software :
+#### II. Software :
 
 - Python - https://www.python.org/ (`sudo apt-get install python`)
 - Angular - https://angular.io/ 
 - A Twitter account - https://twitter.com
-- Mobile phones a previously-installed Twitter application (Optional)
+- Mobile phone, a previously-installed Twitter application (Optional)
 
 
-Procedure Installation :
+Procedure Installation:
 ========================
 
 1. Python and python-setuptools must be installed. (If not already installed: `sudo apt-get install python python-setuptools`)
@@ -68,16 +79,16 @@ Procedure Installation :
 "access_token_secret": "XXXX",
 "username": "XXXX"
 ```
-6. Optionally in "securetea.conf" You can set debug = `true` to enable the console log (default: enabled). or `set debug = false` to disable logging to console.
+6. Optionally in "securetea.conf" You can set `"debug" : true` to enable the console log (default: enabled), or set `"debug" : false` to disable logging to console.
 
 7. Install Mouse / Wireless Mouse Touchpad if not functioning properly (Linux / macOS / Raspberry Pi machine).
 
-8. Okay, Run program -> `sudo SecureTea.py` or more -> `Securetea.py -h`
+8. Okay, Run program -> `sudo SecureTea.py` or more -> `SecureTea.py -h`
 
 9. Notice a `WELCOME_MSG` Like this:
 `[Core]  [ 2018-08-30 16:50 ]  Info : Welcome to SecureTea..!! Initializing System`
 
-10. laptop access by moving the mouse/touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
+10. Laptop access by moving the mouse/touchpad to see the cumulative X and Y coordinates on the console. If you have a twitter app installed on your phone, you can get updates on the "message" from your twitter account.
 
 11. Checks Alert message on the console and on twitter your inbox.
 `[Core]  [ 2018-08-30 16:50 ]  Warn : (3) : Someone has access your laptop when`
@@ -114,7 +125,7 @@ Tested on:
 - [macOS](https://www.apple.com/in/macos/high-sierra/) - Worked
 - [Ubuntu](https://www.ubuntu.com/) - Worked
 
-For Suggestions and Contributing :
+Suggestions and Contributing:
 ==================================
 
 - For contributors Please add your name below
@@ -130,11 +141,10 @@ Roadmap:
 ==================
 
 1. Notify by Twitter (done)
-2. Securetea Dashboard / Gui (done)
+2. Securetea Dashboard / GUI (done)
 3. Securetea Protection /firewall
 4. Securetea Antivirus
 5. Notify by Whatsapp
 6. Notify by SMS Alerts
 7. Notify by Line
 8. Notify by Telegram
-
