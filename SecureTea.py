@@ -14,7 +14,12 @@ if __name__ == '__main__':
         time.sleep(5)
         platfom = platform.system()
         if platfom == 'Linux':
-            os.system('sudo pm-suspend')
+            command = 'sudo pm-suspend'
+            os_name = platform.dist()[0]
+            os_major_version = platform.dist()[1].split('.')[0]
+            if os_name == 'Ubuntu' and int(os_major_version) >= 16:
+                command = 'systemctl suspend'
+            os.system(command)
         if platfom == 'Darwin':
             os.system('pmset sleepnow')
         if platfom == 'Windows':
