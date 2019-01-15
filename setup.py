@@ -106,7 +106,7 @@ def file_write(path, data):
 file_rename()
 
 if os_name == 'Ubuntu':
-    if os_major_version >= 16:
+    if int(os_major_version) >= 16:
         files_definition.append((
             '/usr/lib/systemd/system',
             ['bin/systemd/securetea.service']
@@ -116,7 +116,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
         '/etc/init.d',
         ['bin/init.d/securetea']
     ))
-    if os_major_version >= 7 and not os_name == 'debian':
+    if not os_name == 'debian' and int(os_major_version) >= 7:
         files_definition.append((
             '/usr/lib/systemd/system',
             ['bin/systemd/securetea.service']
@@ -138,4 +138,5 @@ setup(
         "twitter",
         "pynput"
     ],
+    zip_safe=False
 )
