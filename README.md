@@ -136,6 +136,10 @@ Suggestions and Contributing:
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
 
+Chat Group
+==========
+
+[Telegram](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
 Roadmap:
 ==================
@@ -144,7 +148,9 @@ Roadmap:
 2. Securetea Dashboard / GUI (done)
 3. Securetea Protection /firewall
 4. Securetea Antivirus
-5. Notify by Whatsapp
-6. Notify by SMS Alerts
-7. Notify by Line
-8. Notify by Telegram
+5. Intelligent Log Monitoring
+6. Login History 
+7. Notify by Whatsapp
+8. Notify by SMS Alerts
+9. Notify by Line
+10. Notify by Telegram
