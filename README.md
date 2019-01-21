@@ -139,7 +139,8 @@ Suggestions and Contributing:
 Chat Group
 ==========
 
-[Telegram](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
+[
+![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
 Roadmap:
 ==================
