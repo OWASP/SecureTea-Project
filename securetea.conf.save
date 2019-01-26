@@ -1,13 +1,10 @@
 {
 	"twitter": {
-		"api_key": "XXXX",
+		"api_key": "",
 		"api_secret_key": "XXXX",
 		"access_token": "XXXX",
 		"access_token_secret": "XXXX"
 	},
-	"telegram": {
-		"token": "XXXX",
-		"user_id": "XXXX"
-	},
-	"debug": true
+	"debug": false
 }
+1Eq6KshSBWef7ZimwMydffOtx
