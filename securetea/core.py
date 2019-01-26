@@ -40,7 +40,7 @@ class SecureTea(object):
         args = get_args()
         credentials = configurations.SecureTeaConf()
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
-                args.twitter_access_token_secret and args.telegram_token and args.telegram_user_id):
+                args.twitter_access_token_secret):
             twitter = {}
             telegram = {}
             twitter['api_key'] = args.twitter_api_key
@@ -49,9 +49,19 @@ class SecureTea(object):
             twitter['access_token_secret'] = args.twitter_access_token_secret
             cred['twitter'] = twitter
 
-            telegram['token'] = telegram_token
-            telegram['user_id'] = telegram_user_id
-            cred['telegram'] = telegram
+            telegram_args_configured = False
+            try:
+                args.telegram_token
+                args.telegram_user_id
+                telegram_args_configured = True
+            except:
+                print("Telegram configuration parameters not provided. The application will continue to run.")
+            
+            if telegram_args_configured:
+                telegram['token'] = telegram_token
+                telegram['user_id'] = telegram_user_id
+                cred['telegram'] = telegram
+            
             cred['debug'] = args.debug
             credentials.save_creds(cred)
         else:
@@ -70,26 +80,40 @@ class SecureTea(object):
             cred['twitter'],
             cred['debug']
         )
-        self.telegram = SecureTeaTelegram(
-            cred['telegram'],
-            cred['debug']
-        )
+
         if not self.twitter.enabled:
             self.logger.log(
                 "Twitter not configured properly. Exiting...",
                 logtype="error"
             )
             sys.exit(0)
-        if not self.telegram.enabled:
-            self.logger.log(
-                "Telegram not configured properly. Exiting...",
-                logtype="error"
-            )
-            sys.exit(0)
         else:
             self.logger.log("Welcome to SecureTea..!! Initializing System")
             self.twitter.notify("Welcome to SecureTea..!! Initializing System")
-            self.telegram.notify("Welcome to SecureTea..!! Initializing System")
+
+        telegram_configured = False
+        try:
+            cred['telegram']
+            telegram_configured = True
+        except:
+            self.logger.log(
+                "Telegram credentials not configured. The application will continue to run",
+                logtype="warning"
+            )
+
+        if telegram_configured:
+            self.telegram = SecureTeaTelegram(
+                cred['telegram'],
+                cred['debug']
+            )
+        
+            if not self.telegram.enabled:
+                self.logger.log(
+                    "Telegram not enabled. The application will continue to run",
+                    logtype="error"
+                )
+            else:
+                self.telegram.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
         """Docstring.

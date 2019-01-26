@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""Logger module for SecureTea.
+u"""Telegram Notifier module for SecureTea.
 
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
@@ -49,10 +49,10 @@ class SecureTeaTelegram():
         self.user_id = cred['user_id']
 
     def getdatetime(self):
-        """Summary.
+        """Date and time
 
         Returns:
-            TYPE: Description
+            TYPE: String with the current date and time
         """
         return str(time.strftime("%Y-%m-%d %H:%M:%S"))
 
