@@ -4,3 +4,7 @@ API
 .idea
 *.pyc
 *.swp
+build/
+dist/
+bin/init.d/securetea
+bin/systemd/securetea.service
