@@ -134,7 +134,13 @@ class SecureTea(object):
         self.twitter.notify(msg)
 
         # Send a warning message via telegram bot
-        self.telegram.notify(msg)
+        try:
+            self.telegram.notify(msg)
+        except:
+            self.logger.log(
+                "Telegram credentials not configured. The application will continue to run", 
+                logtype="warning"
+            )
         
         # Update counter for the next move
         self.alert_count += 1
