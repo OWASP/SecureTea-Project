@@ -41,7 +41,7 @@ class SecureTea(object):
         credentials = configurations.SecureTeaConf()
 
         cred_provided = False
-        twilio_provided = False
+        self.twilio_provided = False
 
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
                 args.twitter_access_token_secret):
@@ -61,7 +61,7 @@ class SecureTea(object):
             twilio['twilio_to'] = args.twilio_to
             cred['twilio'] = twilio
             cred_provided = True
-            twilio_provided = True
+            self.twilio_provided = True
 
         if cred_provided is True:
             cred['debug'] = args.debug
@@ -69,7 +69,7 @@ class SecureTea(object):
         else:
             cred = credentials.get_creds(args)
             if cred['twilio']:
-                twilio_provided = True
+                self.twilio_provided = True
 
         if not cred:
             print('Config not found')
@@ -85,7 +85,7 @@ class SecureTea(object):
             cred['debug']
         )
 
-        if twilio_provided:
+        if self.twilio_provided:
             self.twilio = secureTeaTwilio.SecureTeaTwilio(
                 cred['twilio'],
                 cred['debug']
@@ -101,7 +101,7 @@ class SecureTea(object):
             self.logger.log("Welcome to SecureTea..!! Initializing System")
             self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
-        if twilio_provided:
+        if self.twilio_provided:
             if not self.twilio.enabled:
                 self.logger.log(
                     "Twilio not configured properly. Exiting...",
@@ -130,7 +130,7 @@ class SecureTea(object):
         self.twitter.notify(msg)
 
         # Send a warning message via twilio account
-        if twilio_provided:
+        if self.twilio_provided:
             self.twilio.notify(msg)
 
         # Update counter for the next move
