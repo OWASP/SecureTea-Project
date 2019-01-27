@@ -40,7 +40,8 @@ class SecureTea(object):
         args = get_args()
         credentials = configurations.SecureTeaConf()
         cred_provided = False
-        telegram_provided = False
+        self.telegram_provided = False
+        self.twitter_provided = False
 
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
                 args.twitter_access_token_secret):
@@ -50,6 +51,7 @@ class SecureTea(object):
             twitter['access_token'] = args.twitter_access_token
             twitter['access_token_secret'] = args.twitter_access_token_secret
             cred['twitter'] = twitter
+            self.twitter_provided = True
             cred_provided = True
 
         if(args.telegram_bot_token and args.telegram_user_id):
@@ -57,18 +59,27 @@ class SecureTea(object):
             telegram['token'] = args.telegram_bot_token
             telegram['user_id'] = args.telegram_user_id
             cred['telegram'] = telegram
-            telegram_provided = True
+            self.telegram_provided = True
+            cred_provided = True
 
         if cred_provided is True:
             cred['debug'] = args.debug
             credentials.save_creds(cred)
         else:
             cred = credentials.get_creds(args)
+            try:
+                cred['twitter']
+                self.twitter_provided = True
+                cred_provided = True
+            except:
+                print('Twitter configuration parameters not set')
+                
             try: 
                 cred['telegram']
-                telegram_provided = True
+                self.telegram_provided = True
+                cred_provided = True
             except:
-                print('Telegram configuration parameters not set, The application will continue to run')    
+                print('Telegram configuration parameters not set')    
 
         if not cred:
             print('Config not found')
@@ -79,33 +90,35 @@ class SecureTea(object):
             cred['debug']
         )
 
-        self.twitter = secureTeaTwitter.SecureTeaTwitter(
-            cred['twitter'],
-            cred['debug']
-        )
-
-        if not self.twitter.enabled:
+        if cred_provided is False:
             self.logger.log(
-                "Twitter not configured properly. Exiting...",
+                "None of the parameters configured. Exiting...",
                 logtype="error"
             )
             sys.exit(0)
-        else:
-            self.logger.log("Welcome to SecureTea..!! Initializing System")
-            self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
-        if telegram_provided:
+        self.logger.log("Welcome to SecureTea..!! Initializing System")
+
+        if self.twitter_provided:
+            self.twitter = secureTeaTwitter.SecureTeaTwitter(
+                cred['twitter'],
+                cred['debug']
+            )
+
+            if not self.twitter.enabled:
+                self.logger.log(
+                    "Twitter not configured properly. Exiting...",
+                    logtype="error"
+                )
+            else:
+                self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+
+        if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
                 cred['telegram'],
                 cred['debug']
             )
-        else:
-            self.logger.log(
-                "Telegram credentials not configured. The application will continue to run",
-                logtype="warning"
-            )
 
-        if telegram_provided:
             if not self.telegram.enabled:
                 self.logger.log(
                     "Telegram not enabled. The application will continue to run",
@@ -130,16 +143,12 @@ class SecureTea(object):
         self.logger.log(msg, logtype="warning")
 
         # Send a warning message via twitter account
-        self.twitter.notify(msg)
+        if self.twitter_provided:
+            self.twitter.notify(msg)
 
         # Send a warning message via telegram bot
-        try:
+        if self.telegram_provided:
             self.telegram.notify(msg)
-        except:
-            self.logger.log(
-                "Telegram credentials not configured. The application will continue to run", 
-                logtype="warning"
-            )
         
         # Update counter for the next move
         self.alert_count += 1
