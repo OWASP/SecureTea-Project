@@ -18,6 +18,7 @@ from securetea import configurations
 from securetea import logger
 from securetea import secureTeaTwitter
 from securetea.secureTeaTelegram import SecureTeaTelegram
+from securetea import secureTeaTwilio
 from securetea.arguments import get_args
 
 pynput_status = True
@@ -42,6 +43,7 @@ class SecureTea(object):
         cred_provided = False
         self.telegram_provided = False
         self.twitter_provided = False
+        self.twilio_provided = False
 
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
                 args.twitter_access_token_secret):
@@ -62,6 +64,16 @@ class SecureTea(object):
             self.telegram_provided = True
             cred_provided = True
 
+        if(args.twilio_sid and args.twilio_token and args.twilio_from and args.twilio_to):
+            twilio = {}
+            twilio['twilio_sid'] = args.twilio_sid
+            twilio['twilio_token'] = args.twilio_token
+            twilio['twilio_from'] = args.twilio_from
+            twilio['twilio_to'] = args.twilio_to
+            cred['twilio'] = twilio
+            cred_provided = True
+            self.twilio_provided = True
+
         if cred_provided is True:
             cred['debug'] = args.debug
             credentials.save_creds(cred)
@@ -80,6 +92,10 @@ class SecureTea(object):
                 cred_provided = True
             except:
                 print('Telegram configuration parameters not set')    
+                
+            if cred['twilio']:
+                self.twilio_provided = True
+
 
         if not cred:
             print('Config not found')
@@ -96,6 +112,18 @@ class SecureTea(object):
                 logtype="error"
             )
             sys.exit(0)
+            
+        if not self.twitter.enabled:
+            self.twitter = secureTeaTwitter.SecureTeaTwitter(
+                cred['twitter'],
+                cred['debug']
+            )
+
+        if self.twilio_provided:
+            self.twilio = secureTeaTwilio.SecureTeaTwilio(
+                cred['twilio'],
+                cred['debug']
+            )
 
         self.logger.log("Welcome to SecureTea..!! Initializing System")
 
@@ -127,6 +155,17 @@ class SecureTea(object):
             else:
                 self.telegram.notify("Welcome to SecureTea..!! Initializing System")
 
+
+        if self.twilio_provided:
+            if not self.twilio.enabled:
+                self.logger.log(
+                    "Twilio not configured properly. Exiting...",
+                    logtype="error"
+                )
+            else:
+                self.logger.log("Welcome to SecureTea..!! Initializing System")
+                self.twilio.notify("Welcome to SecureTea..!! Initializing System")
+
     def on_move(self, x, y):
         """Docstring.
 
@@ -149,7 +188,11 @@ class SecureTea(object):
         # Send a warning message via telegram bot
         if self.telegram_provided:
             self.telegram.notify(msg)
-        
+
+        # Send a warning message via twilio account
+        if self.twilio_provided:
+            self.twilio.notify(msg)
+
         # Update counter for the next move
         self.alert_count += 1
 

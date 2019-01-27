@@ -13,6 +13,7 @@ This small application was developed and tested in python in Linux machine is li
 - [Pre-requisites](#pre-requisites)
 - [Procedure Installation](#procedure-installation)
 - [Getting Twitter Tokens](#getting-twitter-tokens)
+- [Getting Twilio Tokens](#getting-twilio-tokens)
 - [Tested on](#tested-on)
 - [Suggestions and contributing](#suggestions-and-contributing)
 - [Roadmap](#roadmap)
@@ -51,6 +52,7 @@ Pre-requisites:
 - Python - https://www.python.org/ (`sudo apt-get install python`)
 - Angular - https://angular.io/ 
 - A Twitter account - https://twitter.com
+- A Twilio account(optional, if SMS service not required)
 - Mobile phone, a previously-installed Twitter application (Optional)
 
 
@@ -111,10 +113,13 @@ Procedure Installation:
 
 ----    
 
-
 Getting Twitter Tokens:
 =======================
 - Visit https://apps.twitter.com and "Create new app" to obtain authentication and token codes.
+
+Getting Twilio Tokens:
+=======================
+- Visit https://www.twilio.com and click on "Get a free API key".
 
 Tested on:
 ==========

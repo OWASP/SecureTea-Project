@@ -38,7 +38,8 @@ class SecureTeaConf():
         )
         self.integrations = [
             'twitter',
-            'telegram'
+            'telegram',
+            'twilio'
         ]
 
     def get_creds(self, args):
