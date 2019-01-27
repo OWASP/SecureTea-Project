@@ -113,17 +113,6 @@ class SecureTea(object):
             )
             sys.exit(0)
             
-        if not self.twitter.enabled:
-            self.twitter = secureTeaTwitter.SecureTeaTwitter(
-                cred['twitter'],
-                cred['debug']
-            )
-
-        if self.twilio_provided:
-            self.twilio = secureTeaTwilio.SecureTeaTwilio(
-                cred['twilio'],
-                cred['debug']
-            )
 
         self.logger.log("Welcome to SecureTea..!! Initializing System")
 
@@ -139,7 +128,7 @@ class SecureTea(object):
                     logtype="error"
                 )
             else:
-                self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+                self.twitter.notify("Welcome to SecureTea..!! Initializing System")            
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
@@ -157,13 +146,17 @@ class SecureTea(object):
 
 
         if self.twilio_provided:
+            self.twilio = secureTeaTwilio.SecureTeaTwilio(
+                cred['twilio'],
+                cred['debug']
+            )
+
             if not self.twilio.enabled:
                 self.logger.log(
                     "Twilio not configured properly.",
                     logtype="error"
                 )
             else:
-                self.logger.log("Welcome to SecureTea..!! Initializing System")
                 self.twilio.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
