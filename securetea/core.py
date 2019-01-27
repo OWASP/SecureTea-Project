@@ -108,7 +108,7 @@ class SecureTea(object):
 
         if cred_provided is False:
             self.logger.log(
-                "None of the parameters configured. Exiting...",
+                "None of the notifications configured. Exiting...",
                 logtype="error"
             )
             sys.exit(0)
@@ -135,7 +135,7 @@ class SecureTea(object):
 
             if not self.twitter.enabled:
                 self.logger.log(
-                    "Twitter not configured properly. Exiting...",
+                    "Twitter notification not configured properly.",
                     logtype="error"
                 )
             else:
@@ -149,7 +149,7 @@ class SecureTea(object):
 
             if not self.telegram.enabled:
                 self.logger.log(
-                    "Telegram not enabled. The application will continue to run",
+                    "Telegram notification not configured properly.",
                     logtype="error"
                 )
             else:
@@ -159,7 +159,7 @@ class SecureTea(object):
         if self.twilio_provided:
             if not self.twilio.enabled:
                 self.logger.log(
-                    "Twilio not configured properly. Exiting...",
+                    "Twilio not configured properly.",
                     logtype="error"
                 )
             else:
