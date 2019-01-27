@@ -17,6 +17,7 @@ import time
 from securetea import configurations
 from securetea import logger
 from securetea import secureTeaTwitter
+from securetea.secureTeaTelegram import SecureTeaTelegram
 from securetea import secureTeaTwilio
 from securetea.arguments import get_args
 
@@ -39,8 +40,9 @@ class SecureTea(object):
         cred = {}
         args = get_args()
         credentials = configurations.SecureTeaConf()
-
         cred_provided = False
+        self.telegram_provided = False
+        self.twitter_provided = False
         self.twilio_provided = False
 
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
@@ -51,6 +53,15 @@ class SecureTea(object):
             twitter['access_token'] = args.twitter_access_token
             twitter['access_token_secret'] = args.twitter_access_token_secret
             cred['twitter'] = twitter
+            self.twitter_provided = True
+            cred_provided = True
+
+        if(args.telegram_bot_token and args.telegram_user_id):
+            telegram = {}
+            telegram['token'] = args.telegram_bot_token
+            telegram['user_id'] = args.telegram_user_id
+            cred['telegram'] = telegram
+            self.telegram_provided = True
             cred_provided = True
 
         if(args.twilio_sid and args.twilio_token and args.twilio_from and args.twilio_to):
@@ -68,8 +79,23 @@ class SecureTea(object):
             credentials.save_creds(cred)
         else:
             cred = credentials.get_creds(args)
+            try:
+                cred['twitter']
+                self.twitter_provided = True
+                cred_provided = True
+            except:
+                print('Twitter configuration parameters not set')
+                
+            try: 
+                cred['telegram']
+                self.telegram_provided = True
+                cred_provided = True
+            except:
+                print('Telegram configuration parameters not set')    
+                
             if cred['twilio']:
                 self.twilio_provided = True
+
 
         if not cred:
             print('Config not found')
@@ -80,10 +106,44 @@ class SecureTea(object):
             cred['debug']
         )
 
-        self.twitter = secureTeaTwitter.SecureTeaTwitter(
-            cred['twitter'],
-            cred['debug']
-        )
+        if cred_provided is False:
+            self.logger.log(
+                "None of the notifications configured. Exiting...",
+                logtype="error"
+            )
+            sys.exit(0)
+            
+
+        self.logger.log("Welcome to SecureTea..!! Initializing System")
+
+        if self.twitter_provided:
+            self.twitter = secureTeaTwitter.SecureTeaTwitter(
+                cred['twitter'],
+                cred['debug']
+            )
+
+            if not self.twitter.enabled:
+                self.logger.log(
+                    "Twitter notification not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.twitter.notify("Welcome to SecureTea..!! Initializing System")            
+
+        if self.telegram_provided:
+            self.telegram = SecureTeaTelegram(
+                cred['telegram'],
+                cred['debug']
+            )
+
+            if not self.telegram.enabled:
+                self.logger.log(
+                    "Telegram notification not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.telegram.notify("Welcome to SecureTea..!! Initializing System")
+
 
         if self.twilio_provided:
             self.twilio = secureTeaTwilio.SecureTeaTwilio(
@@ -91,24 +151,12 @@ class SecureTea(object):
                 cred['debug']
             )
 
-        if not self.twitter.enabled:
-            self.logger.log(
-                "Twitter not configured properly. Exiting...",
-                logtype="error"
-            )
-            sys.exit(0)
-        else:
-            self.logger.log("Welcome to SecureTea..!! Initializing System")
-            self.twitter.notify("Welcome to SecureTea..!! Initializing System")
-
-        if self.twilio_provided:
             if not self.twilio.enabled:
                 self.logger.log(
-                    "Twilio not configured properly. Exiting...",
+                    "Twilio not configured properly.",
                     logtype="error"
                 )
             else:
-                self.logger.log("Welcome to SecureTea..!! Initializing System")
                 self.twilio.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
@@ -127,7 +175,12 @@ class SecureTea(object):
         self.logger.log(msg, logtype="warning")
 
         # Send a warning message via twitter account
-        self.twitter.notify(msg)
+        if self.twitter_provided:
+            self.twitter.notify(msg)
+
+        # Send a warning message via telegram bot
+        if self.telegram_provided:
+            self.telegram.notify(msg)
 
         # Send a warning message via twilio account
         if self.twilio_provided:

@@ -38,6 +38,7 @@ class SecureTeaConf():
         )
         self.integrations = [
             'twitter',
+            'telegram',
             'twilio'
         ]
 

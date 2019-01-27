@@ -69,6 +69,22 @@ def get_args():
     )
 
     parser.add_argument(
+        '--telegram_bot_token',
+        '-tbt',
+        type=str,
+        required=False,
+        help='Telegram Bot Token'
+    )
+
+    parser.add_argument(
+        '--telegram_user_id',
+        '-tui',
+        type=str,
+        required=False,
+        help='Telegram user id'
+    )
+    
+    parser.add_argument(
         '--twilio_sid',
         '-tws',
         type=str,

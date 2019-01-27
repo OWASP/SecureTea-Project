@@ -5,4 +5,5 @@ psutil
 flask
 flask_cors
 pynput
+python-telegram-bot
 twilio
