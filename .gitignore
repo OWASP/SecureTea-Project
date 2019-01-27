@@ -200,9 +200,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -312,5 +310,5 @@ dmypy.json
 API
 *.pyc
 *.swp
-build/
-dist/
+/build/
+/dist/
