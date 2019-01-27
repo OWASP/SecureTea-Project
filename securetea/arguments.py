@@ -68,5 +68,37 @@ def get_args():
         help='Twitter access token secret'
     )
 
+    parser.add_argument(
+        '--twilio_sid',
+        '-tws',
+        type=str,
+        required=False,
+        help='Twilio SID'
+    )
+
+    parser.add_argument(
+        '--twilio_token',
+        '-twt',
+        type=str,
+        required=False,
+        help='Twilio authorization token'
+    )
+
+    parser.add_argument(
+        '--twilio_from',
+        '-twf',
+        type=str,
+        required=False,
+        help='Twilio (From) phone number'
+    )
+
+    parser.add_argument(
+        '--twilio_to',
+        '-twto',
+        type=str,
+        required=False,
+        help='Twilio (To) phone number'
+    )
+
     args = parser.parse_args()
     return args
