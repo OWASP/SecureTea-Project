@@ -93,9 +93,12 @@ class SecureTea(object):
             except:
                 print('Telegram configuration parameters not set')    
                 
-            if cred['twilio']:
+            try:
+                cred['twilio']
                 self.twilio_provided = True
-
+                cred_provided = True
+            except:
+                print('Twilio configuration parameters not set')
 
         if not cred:
             print('Config not found')

@@ -26,7 +26,7 @@ class SecureTeaTelegram():
     enabled = True
 
     def __init__(self, cred, debug):
-    	"""Init logger params.
+        """Init logger params.
 
         Args:
             modulename (str): Script module name
