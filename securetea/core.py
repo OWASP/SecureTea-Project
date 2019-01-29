@@ -102,21 +102,20 @@ class SecureTea(object):
                 cred_provided = True
             except:
                 print('Telegram configuration parameters not set')    
-
+    
+            try:
+                cred['twilio']
+                self.twilio_provided = True
+                cred_provided = True
+            except:
+                print('Twilio configuration parameters not set')
+            
             try: 
                 cred['slack']
                 self.slack_provided = True
                 cred_provided = True
             except:
                 print('Slack configuration parameters not set')
-                
-            try: 
-                cred['twilio']
-                self.twilio_provided = True
-                cred_provided = True
-            except:
-                print('Twilio configuration parameters not set')
-
 
         if not cred:
             print('Config not found')
