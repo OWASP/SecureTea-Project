@@ -116,5 +116,21 @@ def get_args():
         help='Twilio (To) phone number'
     )
 
+    parser.add_argument(
+        '--slack_token',
+        '-st',
+        type=str,
+        required=False,
+        help='Slack token'
+    )
+
+    parser.add_argument(
+        '--slack_user_id',
+        '-suid',
+        type=str,
+        required=False,
+        help='Slack user id'
+    )
+
     args = parser.parse_args()
     return args
