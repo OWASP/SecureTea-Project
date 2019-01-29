@@ -37,6 +37,27 @@ def get_args():
     )
 
     parser.add_argument(
+        '--twitter',
+        required=False,
+        action='store_true',
+        help='Setup twitter credentials'
+    )
+
+    parser.add_argument(
+        '--twilio_sms',
+        required=False,
+        action='store_true',
+        help='Setup twilio SMS credentials'
+    )
+
+    parser.add_argument(
+        '--telegram',
+        required=False,
+        action='store_true',
+        help='Setup telegram SMS credentials'
+    )
+
+    parser.add_argument(
         '--twitter_api_key',
         '-tak',
         type=str,
