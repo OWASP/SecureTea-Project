@@ -121,6 +121,14 @@ Getting Twilio Tokens:
 =======================
 - Visit https://www.twilio.com and click on "Get a free API key".
 
+Getting Slack Tokens:
+=======================
+- Visit https://api.slack.com/apps/new and create a new bot app.
+- In the bot app settings, setup event subscriptions by Enabling Events
+- Install the bot app in the workspace required
+- Get the "Bot User OAuth Access Token", it starts with `xoxb-`
+- Get your user id for the particular workspace.
+
 Tested on:
 ==========
 
