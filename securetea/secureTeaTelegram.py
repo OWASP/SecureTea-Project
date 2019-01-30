@@ -11,9 +11,9 @@ Project:
     Module: SecureTea
 
 """
-import time
 import telegram
 
+from securetea import common
 from securetea import logger
 
 
@@ -46,21 +46,13 @@ class SecureTeaTelegram():
         self.token = cred['token']
         self.user_id = cred['user_id']
 
-    def getdatetime(self):
-        """Date and time.
-
-        Returns:
-            TYPE: String with the current date and time
-        """
-        return str(time.strftime("%Y-%m-%d %H:%M:%S"))
-
     def notify(self, msg):
         """Docstring.
 
         Args:
             msg (TYPE): Description
         """
-        message = str(msg) + " at " + self.getdatetime()
+        message = str(msg) + " at " + common.getdatetime()
         bot = telegram.Bot(token=self.token)
         bot.send_message(chat_id=self.user_id, text=message)
         self.logger.log(

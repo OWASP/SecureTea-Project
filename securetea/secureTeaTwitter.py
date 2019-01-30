@@ -14,10 +14,10 @@ Project:
 
 import json
 import requests
-import time
 
 from requests_oauthlib import OAuth1
 from securetea import logger
+from securetea import common
 
 
 class SecureTeaTwitter():
@@ -59,15 +59,6 @@ class SecureTeaTwitter():
         response = response.json()
         return response['id']
 
-    @staticmethod
-    def getdatetime(self):
-        """Summary.
-
-        Returns:
-            TYPE: Description
-        """
-        return str(time.strftime("%Y-%m-%d %H:%M:%S"))
-
     def notify(self, msg):
         """Docstring.
 
@@ -75,7 +66,7 @@ class SecureTeaTwitter():
             msg (TYPE): Description
         """
         try:
-            message = str(msg) + " at " + self.getdatetime()
+            message = str(msg) + " at " + common.getdatetime()
             data = {
                 "event": {
                     "type": "message_create",
