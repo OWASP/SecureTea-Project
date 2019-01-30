@@ -12,10 +12,9 @@ Project:
 
 """
 
-import time
-
 from twilio.rest import Client
 from securetea import logger
+from securetea import common
 
 
 class SecureTeaTwilio():
@@ -52,21 +51,6 @@ class SecureTeaTwilio():
 
         self.client = Client(self.account_sid, self.account_token)
 
-    @staticmethod
-    def getdatetime():
-        """
-        Get current CPU time.
-
-        Args:
-        -----
-        None
-
-        Returns:
-        --------
-        str: CPU time
-        """
-        return str(time.strftime("%Y-%m-%d %H:%M:%S"))
-
     def generatemessage(self, msg):
         """
         Generate message by attaching the current CPU time.
@@ -80,7 +64,7 @@ class SecureTeaTwilio():
         --------
         str: Message appended with CPU time
         """
-        message = str(msg) + " at " + self.getdatetime()
+        message = str(msg) + " at " + common.getdatetime()
 
         return message
 
