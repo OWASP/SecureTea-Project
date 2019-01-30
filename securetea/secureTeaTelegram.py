@@ -11,13 +11,11 @@ Project:
     Module: SecureTea
 
 """
-import json
-import requests
 import time
 import telegram
 
-from requests_oauthlib import OAuth1
 from securetea import logger
+
 
 class SecureTeaTelegram():
     """Initilize the telegram."""
@@ -40,7 +38,7 @@ class SecureTeaTelegram():
             if cred[key] == "XXXX":
                 self.enabled = False
                 self.logger.log(
-                    "Credentials not set, please set telegram configurations at ~/.securetea/securetea.conf ",
+                    "Credentials not present, Set config at ~/.securetea/securetea.conf ",
                     logtype="error"
                 )
                 break
@@ -49,7 +47,7 @@ class SecureTeaTelegram():
         self.user_id = cred['user_id']
 
     def getdatetime(self):
-        """Date and time
+        """Date and time.
 
         Returns:
             TYPE: String with the current date and time
