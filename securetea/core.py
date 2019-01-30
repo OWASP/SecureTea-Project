@@ -90,30 +90,30 @@ class SecureTea(object):
         else:
             cred = credentials.get_creds(args)
             try:
-                cred['twitter']
-                self.twitter_provided = True
-                cred_provided = True
+                if cred['twitter']:
+                    self.twitter_provided = True
+                    cred_provided = True
             except:
                 print('Twitter configuration parameters not set')
-                
-            try: 
-                cred['telegram']
-                self.telegram_provided = True
-                cred_provided = True
-            except:
-                print('Telegram configuration parameters not set')    
-    
+
             try:
-                cred['twilio']
-                self.twilio_provided = True
-                cred_provided = True
+                if cred['telegram']:
+                    self.telegram_provided = True
+                    cred_provided = True
+            except:
+                print('Telegram configuration parameters not set')
+
+            try:
+                if cred['twilio']:
+                    self.twilio_provided = True
+                    cred_provided = True
             except:
                 print('Twilio configuration parameters not set')
-            
-            try: 
-                cred['slack']
-                self.slack_provided = True
-                cred_provided = True
+
+            try:
+                if cred['slack']:
+                    self.slack_provided = True
+                    cred_provided = True
             except:
                 print('Slack configuration parameters not set')
 
@@ -132,7 +132,6 @@ class SecureTea(object):
                 logtype="error"
             )
             sys.exit(0)
-            
 
         self.logger.log("Welcome to SecureTea..!! Initializing System")
 
@@ -148,7 +147,7 @@ class SecureTea(object):
                     logtype="error"
                 )
             else:
-                self.twitter.notify("Welcome to SecureTea..!! Initializing System")            
+                self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
@@ -163,7 +162,6 @@ class SecureTea(object):
                 )
             else:
                 self.telegram.notify("Welcome to SecureTea..!! Initializing System")
-
 
         if self.twilio_provided:
             self.twilio = secureTeaTwilio.SecureTeaTwilio(
