@@ -1,4 +1,5 @@
 # [![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png) OWASP SECURETEA TOOL PROJECT](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7e1de11511084c06bbe25ed4d629e7fd)](https://app.codacy.com/app/rejahrehim/SecureTea-Project?utm_source=github.com&utm_medium=referral&utm_content=OWASP/SecureTea-Project&utm_campaign=Badge_Grade_Settings)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
 
 Small IoT (Internet of Things) to notify users via Twitter, whenever someone accesses their laptop. This application uses the touchpad/mouse/wireless mouse
@@ -138,7 +139,7 @@ Tested on:
 - [macOS](https://www.apple.com/in/macos/high-sierra/) - Worked
 - [Ubuntu](https://www.ubuntu.com/) - Worked
 
-Suggestions and Contributing:
+[Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
 ==================================
 
 - For contributors Please add your name below
@@ -148,6 +149,8 @@ Suggestions and Contributing:
 - [Lojislav Bezimenov](https://github.com/lojikil/)
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
+
+[Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 
 Chat Group
 ==========
