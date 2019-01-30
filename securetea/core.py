@@ -220,6 +220,10 @@ class SecureTea(object):
         if self.twilio_provided:
             self.twilio.notify(msg)
 
+        # Send a warning message via slack bot app
+        if self.slack_provided:
+            self.slack.notify(msg)
+
         # Update counter for the next move
         self.alert_count += 1
 

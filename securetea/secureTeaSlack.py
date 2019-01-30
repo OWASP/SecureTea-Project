@@ -11,16 +11,14 @@ Project:
     Module: SecureTea
 
 """
-import json
 import requests
 import time
-import os
 
-from requests_oauthlib import OAuth1
 from securetea import logger
 
+
 class SecureTeaSlack():
-    """Initilize the telegram."""
+    """Initilize the slack."""
 
     modulename = "Slack"
     enabled = True
@@ -40,7 +38,7 @@ class SecureTeaSlack():
             if cred[key] == "XXXX":
                 self.enabled = False
                 self.logger.log(
-                    "Credentials not set, please set slack configurations at ~/.securetea/securetea.conf ",
+                    "Credentials not set, please set slack configurations at ~/.securetea/securetea.conf",
                     logtype="error"
                 )
                 break
@@ -51,7 +49,8 @@ class SecureTeaSlack():
         self.slack_post_message_url = 'https://slack.com/api/chat.postMessage'
         self.auth_header = 'Bearer ' + self.slack_token
 
-    def getdatetime(self):
+    @staticmethod
+    def getdatetime():
         """Date and time
 
         Returns:
@@ -61,22 +60,24 @@ class SecureTeaSlack():
 
     def notify(self, msg):
         """Docstring.
+           Init: "Welcome to SecureTea..!! Initializing System"
+           Intrusion detector: "(Count) Someone has access your laptop"
 
         Args:
             msg (TYPE): Description
         """
         message = str(msg) + " at " + self.getdatetime()
-        channel_info = requests.post(self.slack_channel_open_url, 
-                                    headers={"Authorization": self.auth_header}, 
-                                    data = {"user": self.user_id}
+        channel_info = requests.post(self.slack_channel_open_url,
+                                    headers={"Authorization": self.auth_header},
+                                    data={"user": self.user_id}
                                 ).json()
         channel_id = channel_info['channel']['id']
 
         post_message = requests.post(self.slack_post_message_url,
                                     headers={"Authorization": self.auth_header},
-                                    data = {"channel": channel_id, "text": message}
+                                    data={"channel": channel_id, "text": message}
                                 ).json()
-        
+
         if post_message['ok'] is True:
             self.logger.log(
                 "Notification sent"
