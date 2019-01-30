@@ -142,6 +142,8 @@ Tested on:
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
 
+[Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
+
 Chat Group
 ==========
 
