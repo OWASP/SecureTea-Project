@@ -131,7 +131,7 @@ Tested on:
 - [macOS](https://www.apple.com/in/macos/high-sierra/) - Worked
 - [Ubuntu](https://www.ubuntu.com/) - Worked
 
-[Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
+[Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
 ==================================
 
 - For contributors Please add your name below
