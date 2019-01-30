@@ -18,6 +18,7 @@ from securetea import configurations
 from securetea import logger
 from securetea import secureTeaTwitter
 from securetea.secureTeaTelegram import SecureTeaTelegram
+from securetea import secureTeaSlack
 from securetea import secureTeaTwilio
 from securetea.arguments import get_args
 
@@ -44,6 +45,7 @@ class SecureTea(object):
         self.telegram_provided = False
         self.twitter_provided = False
         self.twilio_provided = False
+        self.slack_provided = False
 
         if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
                 args.twitter_access_token_secret):
@@ -74,31 +76,46 @@ class SecureTea(object):
             cred_provided = True
             self.twilio_provided = True
 
+        if(args.slack_user_id and args.slack_token):
+            slack = {}
+            slack['token'] = args.slack_token
+            slack['user_id'] = args.slack_user_id
+            cred['slack'] = slack
+            cred_provided = True
+            self.slack_provided = True
+
         if cred_provided is True:
             cred['debug'] = args.debug
             credentials.save_creds(cred)
         else:
             cred = credentials.get_creds(args)
             try:
-                cred['twitter']
-                self.twitter_provided = True
-                cred_provided = True
+                if cred['twitter']:
+                    self.twitter_provided = True
+                    cred_provided = True
             except:
                 print('Twitter configuration parameters not set')
-                
-            try: 
-                cred['telegram']
-                self.telegram_provided = True
-                cred_provided = True
-            except:
-                print('Telegram configuration parameters not set')    
-                
+
             try:
-                cred['twilio']
-                self.twilio_provided = True
-                cred_provided = True
+                if cred['telegram']:
+                    self.telegram_provided = True
+                    cred_provided = True
+            except:
+                print('Telegram configuration parameters not set')
+
+            try:
+                if cred['twilio']:
+                    self.twilio_provided = True
+                    cred_provided = True
             except:
                 print('Twilio configuration parameters not set')
+
+            try:
+                if cred['slack']:
+                    self.slack_provided = True
+                    cred_provided = True
+            except:
+                print('Slack configuration parameters not set')
 
         if not cred:
             print('Config not found')
@@ -115,7 +132,6 @@ class SecureTea(object):
                 logtype="error"
             )
             sys.exit(0)
-            
 
         self.logger.log("Welcome to SecureTea..!! Initializing System")
 
@@ -131,7 +147,7 @@ class SecureTea(object):
                     logtype="error"
                 )
             else:
-                self.twitter.notify("Welcome to SecureTea..!! Initializing System")            
+                self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
@@ -147,7 +163,6 @@ class SecureTea(object):
             else:
                 self.telegram.notify("Welcome to SecureTea..!! Initializing System")
 
-
         if self.twilio_provided:
             self.twilio = secureTeaTwilio.SecureTeaTwilio(
                 cred['twilio'],
@@ -161,6 +176,20 @@ class SecureTea(object):
                 )
             else:
                 self.twilio.notify("Welcome to SecureTea..!! Initializing System")
+
+        if self.slack_provided:
+            self.slack = secureTeaSlack.SecureTeaSlack(
+                cred['slack'],
+                cred['debug']
+            )
+
+            if not self.slack.enabled:
+                self.logger.log(
+                    "Slack not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.slack.notify("Welcome to SecureTea..!! Initializing System")
 
     def on_move(self, x, y):
         """Docstring.
@@ -188,6 +217,10 @@ class SecureTea(object):
         # Send a warning message via twilio account
         if self.twilio_provided:
             self.twilio.notify(msg)
+
+        # Send a warning message via slack bot app
+        if self.slack_provided:
+            self.slack.notify(msg)
 
         # Update counter for the next move
         self.alert_count += 1
