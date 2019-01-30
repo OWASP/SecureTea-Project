@@ -42,7 +42,7 @@ class SecureTeaTwitter():
             if cred[key] == "XXXX":
                 self.enabled = False
                 self.logger.log(
-                    "Credentials not set, please set twitter configurations at ~/.securetea/securetea.conf ",
+                    "Credentials not set, please set twitter config at ~/.securetea/securetea.conf ",
                     logtype="error"
                 )
                 break
@@ -59,6 +59,7 @@ class SecureTeaTwitter():
         response = response.json()
         return response['id']
 
+    @staticmethod
     def getdatetime(self):
         """Summary.
 
@@ -90,7 +91,11 @@ class SecureTeaTwitter():
             }
 
             endpoint = "/direct_messages/events/new.json"
-            response = requests.post(self.baseUrl + endpoint, auth=self.auth, data=json.dumps(data))
+            response = requests.post(
+                self.baseUrl + endpoint,
+                auth=self.auth,
+                data=json.dumps(data)
+            )
             if response.status_code == 200:
                 self.logger.log(
                     "Notification sent"

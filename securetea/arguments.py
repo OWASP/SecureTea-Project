@@ -26,7 +26,7 @@ def get_args():
         '--conf',
         type=str,
         required=False,
-        help='Path of configuration file. default:- "~/.securetea/securetea.conf" '
+        help='Path of config file. default:- "~/.securetea/securetea.conf" '
     )
 
     parser.add_argument(
@@ -83,7 +83,7 @@ def get_args():
         required=False,
         help='Telegram user id'
     )
-    
+
     parser.add_argument(
         '--twilio_sid',
         '-tws',

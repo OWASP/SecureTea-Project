@@ -18,9 +18,7 @@ from setuptools import find_packages
 from setuptools import setup
 from setuptools import Distribution
 from setuptools.command.install import install
-import os
 import platform
-import sys
 
 os_name = platform.dist()[0]
 os_major_version = platform.dist()[1].split('.')[0]

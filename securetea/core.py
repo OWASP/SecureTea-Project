@@ -235,6 +235,7 @@ class SecureTea(object):
         # Stop the listener
         return False
 
+    @staticmethod
     def get_mouse_event(self):
         """Docstring."""
         with open("/dev/input/mice", "rb") as fh:

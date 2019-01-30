@@ -40,7 +40,7 @@ class SecureTeaTwilio():
             if cred[key] == "XXXX":
                 self.enabled = False
                 self.logger.log(
-                    "Credentials not set, please set Twilio configurations at ~/.securetea/securetea.conf ",
+                    "Credentials not present, please set Twilio config at ~/.securetea/securetea.conf ",
                     logtype="error"
                 )
                 break
@@ -55,7 +55,7 @@ class SecureTeaTwilio():
     @staticmethod
     def getdatetime():
         """
-        This function returns current CPU time.
+        Get current CPU time.
 
         Args:
         -----
@@ -67,9 +67,9 @@ class SecureTeaTwilio():
         """
         return str(time.strftime("%Y-%m-%d %H:%M:%S"))
 
-    def generateMessage(self, msg):
+    def generatemessage(self, msg):
         """
-        This function generates message by attaching the current CPU time.
+        Generate message by attaching the current CPU time.
 
         Args:
         -----
@@ -86,7 +86,7 @@ class SecureTeaTwilio():
 
     def notify(self, msg):
         """
-        This function sends the generated message.
+        Send the generated message.
 
         Args:
         -----
@@ -98,12 +98,12 @@ class SecureTeaTwilio():
         None
         """
         try:
-            sendMessage = self.client.messages \
+            self.client.messages \
                 .create(
-                     body=self.generateMessage(msg),
-                     from_=self.twilio_from,
-                     to=self.twilio_to
-                 )
+                    body=self.generatemessage(msg),
+                    from_=self.twilio_from,
+                    to=self.twilio_to
+                )
 
         except Exception as e:
             self.logger.log(
