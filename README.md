@@ -162,8 +162,8 @@ Chat Group
 Roadmap:
 ==================
 
-1. Notify by Twitter (done)
-2. Securetea Dashboard / GUI (done)
+1. Notify by Twitter 
+2. Securetea Dashboard / GUI 
 3. Securetea Protection /firewall
 4. Securetea Antivirus
 5. Intelligent Log Monitoring
