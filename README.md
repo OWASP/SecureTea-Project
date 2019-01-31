@@ -15,6 +15,7 @@ This small application was developed and tested in python in Linux machine is li
 - [Procedure Installation](#procedure-installation)
 - [Getting Twitter Tokens](#getting-twitter-tokens)
 - [Getting Twilio Tokens](#getting-twilio-tokens)
+- [Getting Slack Tokens](#getting-slack-tokens)
 - [Tested on](#tested-on)
 - [Suggestions and contributing](#suggestions-and-contributing)
 - [Roadmap](#roadmap)
@@ -170,4 +171,5 @@ Roadmap:
 7. Notify by Whatsapp
 8. Notify by SMS Alerts
 9. Notify by Line
-10. Notify by Telegram
+10.Notify by Telegram
+11.Notify by Slack 
