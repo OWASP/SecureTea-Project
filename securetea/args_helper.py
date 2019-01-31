@@ -36,6 +36,7 @@ class ArgsHelper(object):
         self.twitter_provided = False
         self.telegram_provided = False
         self.twilio_provided = False
+        self.slack_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -82,14 +83,16 @@ class ArgsHelper(object):
             for key, item in config_dict.items():
                 if not skip:
                     if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                        config_dict[key] = raw_input('>> Enter {}: '.format(item)).strip()
-                        if config_dict[key] == 's' or config_dict[key] == 'S':
-                            print('[!] Skipping...\n')
+                        config_dict[key] = raw_input('>> Enter {}: '
+                                                     .format(item)).strip()
+                        if (config_dict[key] == 's' or
+                            config_dict[key] == 'S'):
                             skip = True
                     else:
-                        config_dict[key] = str(input('>> Enter {}: '.format(item))).strip()
-                        if config_dict[key] == 's' or config_dict[key] == 'S':
-                            print('[!] Skipping...\n')
+                        config_dict[key] = str(input('>> Enter {}: '
+                                                     .format(item))).strip()
+                        if (config_dict[key] == 's' or
+                            config_dict[key] == 'S'):
                             skip = True
             if not skip:
                 return config_dict
@@ -134,6 +137,17 @@ class ArgsHelper(object):
             'twilio_to': 'twilio (to) phone number'
         }
 
+    @takeInput
+    def configureSlack(self):
+        """
+        Returns the format to configure Slack
+        """
+        self.logger.log('Slack confiuraton setup')
+        return {
+            'token': 'slack token',
+            'user_id': 'slack user id'
+        }
+
     def check_args(self):
         """
         This function parses the args, checks the configuration
@@ -171,6 +185,12 @@ class ArgsHelper(object):
                 self.cred['twilio'] = twilioSMS
                 self.twilio_provided = True
 
+            # Start the slack configuration setup
+            slack = self.configureSlack()
+            if slack:
+                self.cred['slack'] = slack
+                self.slack_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -189,9 +209,15 @@ class ArgsHelper(object):
                 self.cred['twilio'] = twilio_sms
                 self.twilio_provided = True
 
+        if self.args.slack and not self.slack_provided:
+            slack = self.configureSlack()
+            if slack:
+                self.cred['slack'] = slack
+                self.slack_provided = True
+
         if not self.twitter_provided:
-            if(self.args.twitter_api_key and self.args.twitter_api_secret_key and
-               self.args.twitter_access_token and self.args.twitter_access_token_secret):
+            if (self.args.twitter_api_key and self.args.twitter_api_secret_key and
+                self.args.twitter_access_token and self.args.twitter_access_token_secret):
                 twitter = {}
                 twitter['api_key'] = self.args.twitter_api_key
                 twitter['api_secret_key'] = self.args.twitter_api_secret_key
@@ -201,7 +227,7 @@ class ArgsHelper(object):
                 self.twitter_provided = True
 
         if not self.telegram_provided:
-            if(self.args.telegram_bot_token and self.args.telegram_user_id):
+            if (self.args.telegram_bot_token and self.args.telegram_user_id):
                 telegram = {}
                 telegram['token'] = self.args.telegram_bot_token
                 telegram['user_id'] = self.args.telegram_user_id
@@ -209,8 +235,8 @@ class ArgsHelper(object):
                 self.telegram_provided = True
 
         if not self.twilio_provided:
-            if(self.args.twilio_sid and self.args.twilio_token and
-               self.args.twilio_from and self.args.twilio_to):
+            if (self.args.twilio_sid and self.args.twilio_token and
+                self.args.twilio_from and self.args.twilio_to):
                 twilio = {}
                 twilio['twilio_sid'] = self.args.twilio_sid
                 twilio['twilio_token'] = self.args.twilio_token
@@ -219,7 +245,16 @@ class ArgsHelper(object):
                 self.cred['twilio'] = twilio
                 self.twilio_provided = True
 
-        if self.twitter_provided or self.telegram_provided or self.twilio_provided:
+        if not self.slack_provided:
+            if (self.args.slack_user_id and self.args.slack_token):
+                slack = {}
+                slack['token'] = self.args.slack_token
+                slack['user_id'] = self.args.slack_user_id
+                self.cred['slack'] = slack
+                self.slack_provided = True
+
+        if (self.twitter_provided or self.telegram_provided or
+            self.twilio_provided or self.slack_provided):
             self.cred_provided = True
 
         return {
@@ -227,5 +262,6 @@ class ArgsHelper(object):
             'cred_provided': self.cred_provided,
             'twitter_provided': self.twitter_provided,
             'telegram_provided': self.telegram_provided,
-            'twilio_provided': self.twilio_provided
+            'twilio_provided': self.twilio_provided,
+            'slack_provided': self.slack_provided
         }

@@ -69,6 +69,12 @@ class SecureTea(object):
         self.twitter_provided = args_dict['twitter_provided']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
+        self.slack_provided = args_dict['slack_provided']
+
+        self.logger = logger.SecureTeaLogger(
+            modulename,
+            self.cred['debug']
+        )
 
         if self.cred_provided:
             credentials.save_creds(self.cred)
@@ -80,30 +86,47 @@ class SecureTea(object):
                     self.twitter_provided = True
                     self.cred_provided = True
             except KeyError:
-                print('Twitter configuration parameters not set')
+                self.logger.log(
+                    "Twitter configuration parameter not set.",
+                    logtype="error"
+                )
 
             try:
                 if self.cred['telegram']:
                     self.telegram_provided = True
                     self.cred_provided = True
             except KeyError:
-                print('Telegram configuration parameters not set')
+                self.logger.log(
+                    "Telegram configuration parameter not set.",
+                    logtype="error"
+                )
 
             try:
                 if self.cred['twilio']:
                     self.twilio_provided = True
                     self.cred_provided = True
             except KeyError:
-                print('Twilio configuration parameters not set')
+                self.logger.log(
+                    "Twilio configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['slack']:
+                    self.slack_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Slack configuration parameter not set.",
+                    logtype="error"
+                )
 
         if not self.cred:
-            print('Config not found')
+            self.logger.log(
+                "Configuration not found.",
+                logtype="error"
+            )
             sys.exit(0)
-
-        self.logger = logger.SecureTeaLogger(
-            modulename,
-            self.cred['debug']
-        )
 
         if not self.cred_provided:
             self.logger.log(
@@ -158,8 +181,8 @@ class SecureTea(object):
 
         if self.slack_provided:
             self.slack = secureTeaSlack.SecureTeaSlack(
-                cred['slack'],
-                cred['debug']
+                self.cred['slack'],
+                self.cred['debug']
             )
 
             if not self.slack.enabled:

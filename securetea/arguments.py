@@ -58,6 +58,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--slack',
+        required=False,
+        action='store_true',
+        help='Setup Slack credentials'
+    )
+
+    parser.add_argument(
         '--twitter_api_key',
         '-tak',
         type=str,
