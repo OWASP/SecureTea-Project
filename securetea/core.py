@@ -21,6 +21,7 @@ from securetea.secureTeaTelegram import SecureTeaTelegram
 from securetea import secureTeaSlack
 from securetea import secureTeaTwilio
 from securetea.arguments import get_args
+from securetea.args_helper import ArgsHelper
 
 pynput_status = True
 
@@ -31,102 +32,103 @@ except Exception as e:
 
 
 class SecureTea(object):
-    """docstring for Twitter."""
+    """This is the class for SecureTea."""
 
     alert_count = 1
 
     def __init__(self):
-        """Docstring."""
+        """Initialize SecureTea.
+
+        Parameters:
+        ----------
+        None
+
+        Returns:
+        --------
+        None
+
+        Working:
+        --------
+        Collects the arguments passed and calls the respected module accordingly
+        for parsing the arguments. Further, creates object for the demanded
+        notification medium and starts SecureTea.
+
+        Raises:
+        -------
+        None
+        """
         modulename = 'Core'
-        cred = {}
+        self.cred = {}
         args = get_args()
+        argsHelper = ArgsHelper(args)
+        args_dict = argsHelper.check_args()
         credentials = configurations.SecureTeaConf()
-        cred_provided = False
-        self.telegram_provided = False
-        self.twitter_provided = False
-        self.twilio_provided = False
-        self.slack_provided = False
 
-        if(args.twitter_api_key and args.twitter_api_secret_key and args.twitter_access_token and
-                args.twitter_access_token_secret):
-            twitter = {}
-            twitter['api_key'] = args.twitter_api_key
-            twitter['api_secret_key'] = args.twitter_api_secret_key
-            twitter['access_token'] = args.twitter_access_token
-            twitter['access_token_secret'] = args.twitter_access_token_secret
-            cred['twitter'] = twitter
-            self.twitter_provided = True
-            cred_provided = True
-
-        if(args.telegram_bot_token and args.telegram_user_id):
-            telegram = {}
-            telegram['token'] = args.telegram_bot_token
-            telegram['user_id'] = args.telegram_user_id
-            cred['telegram'] = telegram
-            self.telegram_provided = True
-            cred_provided = True
-
-        if(args.twilio_sid and args.twilio_token and args.twilio_from and args.twilio_to):
-            twilio = {}
-            twilio['twilio_sid'] = args.twilio_sid
-            twilio['twilio_token'] = args.twilio_token
-            twilio['twilio_from'] = args.twilio_from
-            twilio['twilio_to'] = args.twilio_to
-            cred['twilio'] = twilio
-            cred_provided = True
-            self.twilio_provided = True
-
-        if(args.slack_user_id and args.slack_token):
-            slack = {}
-            slack['token'] = args.slack_token
-            slack['user_id'] = args.slack_user_id
-            cred['slack'] = slack
-            cred_provided = True
-            self.slack_provided = True
-
-        if cred_provided is True:
-            cred['debug'] = args.debug
-            credentials.save_creds(cred)
-        else:
-            cred = credentials.get_creds(args)
-            try:
-                if cred['twitter']:
-                    self.twitter_provided = True
-                    cred_provided = True
-            except:
-                print('Twitter configuration parameters not set')
-
-            try:
-                if cred['telegram']:
-                    self.telegram_provided = True
-                    cred_provided = True
-            except:
-                print('Telegram configuration parameters not set')
-
-            try:
-                if cred['twilio']:
-                    self.twilio_provided = True
-                    cred_provided = True
-            except:
-                print('Twilio configuration parameters not set')
-
-            try:
-                if cred['slack']:
-                    self.slack_provided = True
-                    cred_provided = True
-            except:
-                print('Slack configuration parameters not set')
-
-        if not cred:
-            print('Config not found')
-            sys.exit(0)
+        self.cred = args_dict['cred']
+        self.cred_provided = args_dict['cred_provided']
+        self.twitter_provided = args_dict['twitter_provided']
+        self.telegram_provided = args_dict['telegram_provided']
+        self.twilio_provided = args_dict['twilio_provided']
+        self.slack_provided = args_dict['slack_provided']
 
         self.logger = logger.SecureTeaLogger(
             modulename,
-            cred['debug']
+            self.cred['debug']
         )
 
-        if cred_provided is False:
+        if self.cred_provided:
+            credentials.save_creds(self.cred)
+        else:
+            self.cred = credentials.get_creds(args)
+
+            try:
+                if self.cred['twitter']:
+                    self.twitter_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Twitter configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['telegram']:
+                    self.telegram_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Telegram configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['twilio']:
+                    self.twilio_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Twilio configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['slack']:
+                    self.slack_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Slack configuration parameter not set.",
+                    logtype="error"
+                )
+
+        if not self.cred:
+            self.logger.log(
+                "Configuration not found.",
+                logtype="error"
+            )
+            sys.exit(0)
+
+        if not self.cred_provided:
             self.logger.log(
                 "None of the notifications configured. Exiting...",
                 logtype="error"
@@ -137,8 +139,8 @@ class SecureTea(object):
 
         if self.twitter_provided:
             self.twitter = secureTeaTwitter.SecureTeaTwitter(
-                cred['twitter'],
-                cred['debug']
+                self.cred['twitter'],
+                self.cred['debug']
             )
 
             if not self.twitter.enabled:
@@ -151,8 +153,8 @@ class SecureTea(object):
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
-                cred['telegram'],
-                cred['debug']
+                self.cred['telegram'],
+                self.cred['debug']
             )
 
             if not self.telegram.enabled:
@@ -165,8 +167,8 @@ class SecureTea(object):
 
         if self.twilio_provided:
             self.twilio = secureTeaTwilio.SecureTeaTwilio(
-                cred['twilio'],
-                cred['debug']
+                self.cred['twilio'],
+                self.cred['debug']
             )
 
             if not self.twilio.enabled:
@@ -179,8 +181,8 @@ class SecureTea(object):
 
         if self.slack_provided:
             self.slack = secureTeaSlack.SecureTeaSlack(
-                cred['slack'],
-                cred['debug']
+                self.cred['slack'],
+                self.cred['debug']
             )
 
             if not self.slack.enabled:
