@@ -171,5 +171,14 @@ Roadmap:
 7. Notify by Whatsapp
 8. Notify by SMS Alerts
 9. Notify by Line
-10.Notify by Telegram
-11.Notify by Slack 
+10. Notify by Telegram<br>
+11. Notify by Slack<br>
+
+
+| Securetea Tool Features  |  Progress 
+------------ | -------------
+Notify by Twitter | Yes
+Securetea Dashboard | Yes
+Notify by Telegram | Yes
+Notify by Slack  | Yes
+Notify by SMS Alerts | Yes
