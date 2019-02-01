@@ -142,7 +142,7 @@ class ArgsHelper(object):
         """
         Returns the format to configure Slack
         """
-        self.logger.log('Slack confiuraton setup')
+        self.logger.log('Slack configuraton setup')
         return {
             'token': 'slack token',
             'user_id': 'slack user id'

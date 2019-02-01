@@ -35,14 +35,12 @@ class SecureTeaTwilio():
             self.modulename,
             debug
         )
-        for key in cred:
-            if cred[key] == "XXXX":
-                self.enabled = False
-                self.logger.log(
-                    "Credentials not present, please set Twilio config at ~/.securetea/securetea.conf ",
-                    logtype="error"
-                )
-                break
+        self.enabled = common.check_config(cred)
+        if not self.enabled:
+            self.logger.log(
+                "Credentials not present, please set Twilio config at ~/.securetea/securetea.conf ",
+                logtype="error"
+            )
 
         self.account_sid = cred['twilio_sid']
         self.account_token = cred['twilio_token']
@@ -51,7 +49,8 @@ class SecureTeaTwilio():
 
         self.client = Client(self.account_sid, self.account_token)
 
-    def generatemessage(self, msg):
+    @staticmethod
+    def generatemessage(msg):
         """
         Generate message by attaching the current CPU time.
 

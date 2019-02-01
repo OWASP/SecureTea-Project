@@ -38,14 +38,12 @@ class SecureTeaTwitter():
             self.modulename,
             debug
         )
-        for key in cred:
-            if cred[key] == "XXXX":
-                self.enabled = False
-                self.logger.log(
-                    "Credentials not set, please set twitter config at ~/.securetea/securetea.conf ",
-                    logtype="error"
-                )
-                break
+        self.enabled = common.check_config(cred)
+        if not self.enabled:
+            self.logger.log(
+                "Credentials not set, please set Twitter config at ~/.securetea/securetea.conf ",
+                logtype="error"
+            )
 
         self.baseUrl = "https://api.twitter.com/1.1"
         self.auth = OAuth1(cred['api_key'], cred['api_secret_key'], cred[

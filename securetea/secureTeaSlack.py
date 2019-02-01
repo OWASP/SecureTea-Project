@@ -34,14 +34,12 @@ class SecureTeaSlack():
             self.modulename,
             debug
         )
-        for key in cred:
-            if cred[key] == "XXXX":
-                self.enabled = False
-                self.logger.log(
-                    "Credentials not present, Set slack config at ~/.securetea/securetea.conf",
-                    logtype="error"
-                )
-                break
+        self.enabled = common.check_config(cred)
+        if not self.enabled:
+            self.logger.log(
+                "Credentials not present, please set Slack config at ~/.securetea/securetea.conf ",
+                logtype="error"
+            )
 
         self.slack_token = cred['token']
         self.user_id = cred['user_id']
