@@ -21,3 +21,27 @@ def getdatetime():
         TYPE: String with the current date and time
     """
     return str(time.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+def check_config(cred):
+    """
+    Check whether the credentials are valid or not.
+
+    Args:
+    -----
+    :cred : dict
+        Credentials dictionary
+
+    Raises:
+    -------
+    None
+
+    Returns:
+    --------
+    TYPE: Bool
+        True if valid else False
+    """
+    for key in cred:
+        if cred[key] == "XXXX":
+            return False
+    return True
