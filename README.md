@@ -1,6 +1,8 @@
 # [![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png) OWASP SECURETEA TOOL PROJECT](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7e1de11511084c06bbe25ed4d629e7fd)](https://app.codacy.com/app/rejahrehim/SecureTea-Project?utm_source=github.com&utm_medium=referral&utm_content=OWASP/SecureTea-Project&utm_campaign=Badge_Grade_Settings)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.owasp.org/index.php/OWASP_SecureTea_Project)
+[![Telegram](https://img.shields.io/badge/chat%20on-telegram-blue.svg)](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
+![Version](https://img.shields.io/badge/version-1.1-orange.svg)
 
 Small IoT (Internet of Things) to notify users via Twitter, whenever someone accesses their laptop. This application uses the touchpad/mouse/wireless mouse
 to determine activity and is developed in Python and tested on Linux.
@@ -18,6 +20,8 @@ This small application was developed and tested in python in Linux machine is li
 - [Getting Slack Tokens](#getting-slack-tokens)
 - [Tested on](#tested-on)
 - [Suggestions and contributing](#suggestions-and-contributing)
+- [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
+- [Chat Group](#chat-group)
 - [Roadmap](#roadmap)
 
 
@@ -30,13 +34,13 @@ It was written to be used by anyone who is interested in Security IoT (Internet 
 
 - Keep track of the movement of the mouse/touchpad
 - Detect who access the laptop with mouse/touchpad is installed
-- Send warning messages on Twitter
+- Send warning messages on Twitter/SMS/Slack/Telegram
 
 
 Objective:
 ===========
 
-To alert the user via Twitter, whenever his/her laptop had been accessed by someone.
+To alert the user via variuos communication mechanism, whenever his/her laptop had been accessed by someone.
 And also it can be used to monitor your system.
 
 
@@ -126,8 +130,8 @@ Getting Twilio Tokens:
 Getting Slack Tokens:
 =======================
 - Visit https://api.slack.com/apps/new and create a new bot app.
-- In the bot app settings, setup event subscriptions by Enabling Events
-- Install the bot app in the workspace required
+- In the bot app settings, setup event subscriptions by Enabling Events.
+- Install the bot app in the workspace required.
 - Get the "Bot User OAuth Access Token", it starts with `xoxb-`
 - Get your user id for the particular workspace.
 
@@ -143,7 +147,7 @@ Tested on:
 [Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
 ==================================
 
-- For contributors Please add your name below
+- For contributors, please add your name below:
 - [Ade Yoseman](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
 - [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
 - [Felex kemboi](https://github.com/felexkemboi/)
@@ -151,9 +155,7 @@ Tested on:
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
 
-[Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
-
-Chat Group
+Chat Group:
 ==========
 
 [
@@ -175,7 +177,7 @@ Roadmap:
 11. Notify by Slack<br>
 
 
-| Securetea Tool Features  |  Progress 
+| SecureTea Tool Features  |  Progress 
 ------------ | -------------
 Notify by Twitter | Yes
 Securetea Dashboard | Yes
