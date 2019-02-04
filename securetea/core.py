@@ -16,12 +16,12 @@ import time
 
 from securetea import configurations
 from securetea import logger
-from securetea import secureTeaTwitter
-from securetea.secureTeaTelegram import SecureTeaTelegram
-from securetea import secureTeaSlack
-from securetea import secureTeaTwilio
-from securetea.arguments import get_args
-from securetea.args_helper import ArgsHelper
+from securetea.lib.notifs import secureTeaTwitter
+from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
+from securetea.lib.notifs import secureTeaSlack
+from securetea.lib.notifs import secureTeaTwilio
+from securetea.args.arguments import get_args
+from securetea.args.args_helper import ArgsHelper
 
 pynput_status = True
 
