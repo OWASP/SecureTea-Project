@@ -19,6 +19,7 @@ from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
+from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
@@ -192,6 +193,19 @@ class SecureTea(object):
                 )
             else:
                 self.slack.notify("Welcome to SecureTea..!! Initializing System")
+
+        if args.firewall:
+            cred = credentials.get_creds(args)
+            try:
+                if cred['firewall']:
+                    firewallObj = secureTeaFirewall.SecureTeaFirewall(cred=cred,
+                                                                      debug=cred['debug'])
+                    firewallObj.start_firewall()
+            except KeyError:
+                self.logger.log(
+                    "Firewall configuration parameter not configured.",
+                    logtype="error"
+                )
 
     def on_move(self, x, y):
         """Docstring.

@@ -39,16 +39,16 @@ class SecureTeaTwitter():
             debug
         )
         self.enabled = common.check_config(cred)
+        self.baseUrl = "https://api.twitter.com/1.1"
+        self.auth = OAuth1(cred['api_key'], cred['api_secret_key'], cred[
+                           'access_token'], cred['access_token_secret'])
         if not self.enabled:
             self.logger.log(
                 "Credentials not set, please set Twitter config at ~/.securetea/securetea.conf ",
                 logtype="error"
             )
-
-        self.baseUrl = "https://api.twitter.com/1.1"
-        self.auth = OAuth1(cred['api_key'], cred['api_secret_key'], cred[
-                           'access_token'], cred['access_token_secret'])
-        self.id = self.getuserid()
+        else:
+            self.id = self.getuserid()
 
     def getuserid(self):
         """Docstring."""
