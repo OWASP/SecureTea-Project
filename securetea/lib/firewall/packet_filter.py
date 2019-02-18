@@ -22,13 +22,13 @@ class PacketFilter(object):
     def __init__(self,
                  interface=None,
                  debug=False,
-                 ip_inbound=[],
-                 ip_outbound=[],
-                 protocols=[],
-                 dns=[],
-                 dports=[],
-                 sports=[],
-                 extensions=[],
+                 ip_inbound=None,
+                 ip_outbound=None,
+                 protocols=None,
+                 dns=None,
+                 dports=None,
+                 sports=None,
+                 extensions=None,
                  action_inbound_IPRule=0,
                  action_outbound_IPRule=0,
                  action_DNSRule=0,
@@ -45,6 +45,22 @@ class PacketFilter(object):
             __name__,
             debug
         )
+
+        # Initialize with empty list
+        if ip_inbound is None:
+            ip_inbound = []
+        if ip_outbound is None:
+            ip_outbound = []
+        if protocols is None:
+            protocols = []
+        if dns is None:
+            dns = []
+        if sports is None:
+            sports = []
+        if dports is None:
+            dports = []
+        if extensions is None:
+            extensions = []
 
         self._action_inbound_IPRule = action_inbound_IPRule
         self._action_outbound_IPRule = action_outbound_IPRule

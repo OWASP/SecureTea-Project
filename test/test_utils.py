@@ -7,29 +7,33 @@ import os
 class TestUtils(unittest.TestCase):
     """Test class for utils module."""
 
+    @staticmethod
     @utils.xnor
-    def func1(self):
+    def func1():
         return {
             'action': 1,
             'result': 0
         }
 
+    @staticmethod
     @utils.xnor
-    def func2(self):
+    def func2():
         return {
             'action': 1,
             'result': 1
         }
 
+    @staticmethod
     @utils.xnor
-    def func3(self):
+    def func3():
         return {
             'action': 0,
             'result': 0
         }
 
+    @staticmethod
     @utils.xnor
-    def func4(self):
+    def func4():
         return {
             'action': 0,
             'result': 1

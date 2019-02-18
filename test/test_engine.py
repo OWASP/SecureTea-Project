@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
 from securetea.lib.firewall import engine
-from securetea.lib.firewall import utils
 
 
 class TestEngine(unittest.TestCase):

@@ -1,10 +1,10 @@
 # SecureTea-Firewall Wiki
 
-### Working
+## Working
 Currently, SecureTea-Firewall uses stateless packet filtering to accept or drop packets.
 Rules are applied to both the incoming and outgoing packets.
 
-### Writing rules
+## Writing rules
 Edit the `securetea.conf` file in `etc/securetea/securetea.conf`, with the following JSON data.
 ```{
 	"twitter": {
@@ -73,7 +73,7 @@ Edit the `securetea.conf` file in `etc/securetea/securetea.conf`, with the follo
 ```
 Edit the variables accordingly.
 
-#### Notations used:
+### Notations used
 `0` - Block packet<br />
 `1` - Accept packet<br />
 `interface` - Name of your interface, leave blank if you want to setup interactively<br />
@@ -88,12 +88,12 @@ Edit the variables accordingly.
 `DNSRule` - DNS filter rule for incoming/ outgoing packets<br />
 `time` - Time-frame (lower-bound & upper-bound) within which packet transfer is allowed<br />
 
-#### The above example rule does the following:
-1. Blocks ICMP requests
-2. Limits network usage from 00:00 to 23:59.
-3. Scans for '.exe' downloads in HTTP websites, and blocks them
+### The above example rule does the following
+ 1. Blocks ICMP requests
+ 2. Limits network usage from 00:00 to 23:59.
+ 3. Scans for '.exe' downloads in HTTP websites, and blocks them
 
-#### Writing inbound_IPRule, outbound_IPRule:
+### Writing inbound_IPRule, outbound_IPRule
 Example:
 ```
   	 "inbound_IPRule": {
@@ -108,7 +108,7 @@ Example:
 The above rule will block incoming packets from 127.0.0.1, 192.168.0.1, 192.168.0.2, 192.168.0.3, also outgoing packets
 having destination 10.0.0.3, 10.0.0.4, 10.0.0.5 will only be allowed.
 
-#### Writing protcolRule:
+### Writing protcolRule
 Example:
 ```
 		"protocolRule": {
@@ -118,7 +118,7 @@ Example:
 ```
 The above rule will block ICMP & TCP packets.
 
-#### Writing source_portRule, dest_portRule:
+### Writing source_portRule, dest_portRule
 Example:
 ```		"source_portRule": {
 			"action": "0",
@@ -131,7 +131,7 @@ Example:
 ```
 The above rule will block packets from source port 90, 91 and allow packets having destination port 80.
 
-#### Writing DNSRule:
+### Writing DNSRule
 Example:
 ```
 		"DNSRule": {
@@ -141,7 +141,7 @@ Example:
 ```
 The above rule will block packets having DNS such as `api.google.com`, `mail.google.com`.
 
-#### Writing scanLoad:
+### Writing scanLoad
 Example:
 ```
 		"scanLoad": {
@@ -151,12 +151,12 @@ Example:
 ```
 The above rule will block HTTP requests having the following load, '.exe', '.mp3', '.png'
 
-#### Adding new rules (for developers)
+## Adding new rules (for developers)
 Easy peasy! You need to worry about the various logics whether to allow or drop packets.<br />
 Just write your rule by following the current structure, and use the `@utils.xnor` decorator.
 `@utils.xnor` decorator will decide whether to allow or drop the packet using the following XNOR table:
 ```
-        XNOR Table:
+        XNOR Table
         ---------------------
         |action|result|final|
         ---------------------
@@ -171,8 +171,10 @@ Just write your rule by following the current structure, and use the `@utils.xno
 
         Where, 1 : Allow
                0 : Block
+
+				Usage: @utils.xnor
 ```
 
-### Running tests
+## Running tests
 
 To run all the tests at once, run the following command, `python -m unittest` in the `SecureTea` parent directory.

@@ -11,7 +11,6 @@ Project:
 
 """
 
-import subprocess
 import re
 import socket
 import psutil

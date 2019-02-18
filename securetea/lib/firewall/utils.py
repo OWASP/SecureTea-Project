@@ -269,16 +269,9 @@ def get_interface():
     """
     print('[!] Collecting all the interfaces\n')
 
-    p = subprocess.Popen(['ifconfig'], shell=False,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.PIPE)
-    output, error = p.communicate()
+    resp = excecute_command('ifconfig')
 
-    if error:
-        print(error.decode('utf-8'))
-        sys.exit(1)
-
-    output = output.decode('utf-8')
+    output = resp[0]
     interfaces = re.findall('(.*): ', output)
 
     total_index = 0
