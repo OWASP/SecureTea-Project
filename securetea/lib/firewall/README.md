@@ -153,8 +153,8 @@ The above rule will block HTTP requests having the following load, '.exe', '.mp3
 
 ## Adding new rules (for developers)
 Easy peasy! You need to worry about the various logics whether to allow or drop packets.<br />
-Just write your rule by following the current structure, and use the `@utils.xnor` decorator.
-`@utils.xnor` decorator will decide whether to allow or drop the packet using the following XNOR table:
+Just write your rule by following the current structure, and use the `@utils.xnor` decorator, it will decide
+whether to allow or drop the packet using the following XNOR table.
 ```
         XNOR Table
         ---------------------
