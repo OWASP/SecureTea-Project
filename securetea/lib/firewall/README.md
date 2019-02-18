@@ -93,8 +93,7 @@ in HTTP websites, and blocks them.
 
 ### Writing inbound_IPRule, outbound_IPRule
 Example:
-```
-  	 "inbound_IPRule": {
+```"inbound_IPRule": {
 			"action": "0",
 			"ip_inbound": "127.0.0.1, 192.168.0.1-192.168.0.3"
 		},
@@ -108,8 +107,7 @@ having destination 10.0.0.3, 10.0.0.4, 10.0.0.5 will only be allowed.
 
 ### Writing protcolRule
 Example:
-```
-		"protocolRule": {
+```"protocolRule": {
 			"action": "0",
 			"protocols": "ICMP, TCP"
 		}
@@ -118,7 +116,7 @@ The above rule will block ICMP & TCP packets.
 
 ### Writing source_portRule, dest_portRule
 Example:
-```		"source_portRule": {
+```"source_portRule": {
 			"action": "0",
 			"sports": "90, 91"
 		},
@@ -131,8 +129,7 @@ The above rule will block packets from source port 90, 91 and allow packets havi
 
 ### Writing DNSRule
 Example:
-```
-		"DNSRule": {
+```"DNSRule": {
 			"action": "0",
 			"dns": "google"
 		}
@@ -141,8 +138,7 @@ The above rule will block packets having DNS such as `api.google.com`, `mail.goo
 
 ### Writing scanLoad
 Example:
-```
-		"scanLoad": {
+```"scanLoad": {
 			"action": "0",
 			"extensions": ".exe, .mp3, .png"
 		}
