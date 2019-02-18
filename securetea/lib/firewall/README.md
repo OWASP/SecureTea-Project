@@ -88,10 +88,8 @@ Edit the variables accordingly.
 `DNSRule` - DNS filter rule for incoming/ outgoing packets<br />
 `time` - Time-frame (lower-bound & upper-bound) within which packet transfer is allowed<br />
 
-### The above example rule does the following
- - Blocks ICMP requests
- - Limits network usage from 00:00 to 23:59.
- - Scans for '.exe' downloads in HTTP websites, and blocks them
+The above example rule, blocks ICMP requests, limits network usage from 00:00 to 23:59, scans for '.exe' downloads
+in HTTP websites, and blocks them.
 
 ### Writing inbound_IPRule, outbound_IPRule
 Example:
@@ -155,8 +153,7 @@ The above rule will block HTTP requests having the following load, '.exe', '.mp3
 Easy peasy! You need to worry about the various logics whether to allow or drop packets.<br />
 Just write your rule by following the current structure, and use the `@utils.xnor` decorator, it will decide
 whether to allow or drop the packet using the following XNOR table.
-```
-        XNOR Table
+```XNOR Table
         ---------------------
         |action|result|final|
         ---------------------
