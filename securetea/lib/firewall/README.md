@@ -89,9 +89,9 @@ Edit the variables accordingly.
 `time` - Time-frame (lower-bound & upper-bound) within which packet transfer is allowed<br />
 
 ### The above example rule does the following
- 1. Blocks ICMP requests
- 2. Limits network usage from 00:00 to 23:59.
- 3. Scans for '.exe' downloads in HTTP websites, and blocks them
+ - Blocks ICMP requests
+ - Limits network usage from 00:00 to 23:59.
+ - Scans for '.exe' downloads in HTTP websites, and blocks them
 
 ### Writing inbound_IPRule, outbound_IPRule
 Example:

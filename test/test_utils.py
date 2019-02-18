@@ -49,7 +49,8 @@ class TestUtils(unittest.TestCase):
         result = utils.map_protocol("XXXX")
         self.assertIsNone(result)
 
-    def test_check_root(self):
+    @staticmethod
+    def test_check_root():
         """
         Test check_root.
         """

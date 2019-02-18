@@ -12,7 +12,6 @@ Project:
 """
 
 from securetea.lib.firewall.mapping import *
-import sys
 import subprocess
 import re
 import os
@@ -221,7 +220,7 @@ def excecute_command(command):
     """
     command = command.split(' ')
     process_respose = subprocess.Popen(command, stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE, shell=False)
+                                       stderr=subprocess.PIPE)
     output, error = process_respose.communicate()
 
     if output:
