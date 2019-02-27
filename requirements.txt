@@ -7,3 +7,5 @@ flask_cors
 pynput
 python-telegram-bot
 twilio
+scapy
+NetfilterQueue

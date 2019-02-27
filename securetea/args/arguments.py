@@ -160,5 +160,13 @@ def get_args():
         help='Slack user id'
     )
 
+    parser.add_argument(
+        '--firewall',
+        '-f',
+        required=False,
+        action='store_true',
+        help='Start firewall'
+    )
+
     args = parser.parse_args()
     return args
