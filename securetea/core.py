@@ -71,6 +71,7 @@ class SecureTea(object):
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
         self.slack_provided = args_dict['slack_provided']
+        self.firewall_provided = args_dict['firewall_provided']
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -122,6 +123,16 @@ class SecureTea(object):
                     logtype="error"
                 )
 
+            try:
+                if self.cred['firewall']:
+                    self.firewall_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Firewall configuraton paramter not set.",
+                    logtype="error"
+                )
+
         if not self.cred:
             self.logger.log(
                 "Configuration not found.",
@@ -136,7 +147,10 @@ class SecureTea(object):
             )
             sys.exit(0)
 
-        self.logger.log("Welcome to SecureTea..!! Initializing System")
+        self.logger.log(
+            "Welcome to SecureTea..!! Initializing System",
+            logtype="info"
+        )
 
         if self.twitter_provided:
             self.twitter = secureTeaTwitter.SecureTeaTwitter(
@@ -194,12 +208,11 @@ class SecureTea(object):
             else:
                 self.slack.notify("Welcome to SecureTea..!! Initializing System")
 
-        if args.firewall:
-            cred = credentials.get_creds(args)
+        if self.firewall_provided:
             try:
-                if cred['firewall']:
-                    firewallObj = secureTeaFirewall.SecureTeaFirewall(cred=cred,
-                                                                      debug=cred['debug'])
+                if self.cred['firewall']:
+                    firewallObj = secureTeaFirewall.SecureTeaFirewall(cred=self.cred,
+                                                                      debug=self.cred['debug'])
                     firewallObj.start_firewall()
             except KeyError:
                 self.logger.log(
