@@ -37,7 +37,7 @@ def iterate_dict(config_dict, default):
     skip = False
     for key, item in config_dict.items():
         if not skip:
-            if type(item) is not dict:
+            if not isinstance(item, dict):
                 if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
                     val = raw_input('>> Enter {}: '
                                     .format(item)).strip()
