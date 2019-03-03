@@ -83,6 +83,51 @@ def load_default(key):
         return creds[key]
 
 
+def takeInput(func):
+    r"""
+    Decorator function to make taking inputs easier
+    in different versions of Python. It also adds
+    functionality to skip taking inputs, iterate over
+    nested dictionary, have a default fall back configuraton
+    if user provides a NULL value.
+
+    Usage:
+    ------
+    Put @takeInput over which ever function you want to decorate.
+
+    >> @takeInput
+       def configureApp():
+           return {
+                'token_name': 'token description'  # this is what gets printed on the screen
+           }
+
+    Output:
+    -------
+    >> Enter token description: <user enters value>
+
+    Working:
+    --------
+    User entered value is stored as: {token_name : 'user_entered_value'}
+
+    Raises:
+    -------
+    None
+
+    Returns:
+    --------
+    dict: User entered values
+    """
+    def inner_wrapper(*args):
+        print('\n[!] Enter (S/s) to skip...')
+        dict_value = func(*args)
+        config_dict = dict_value['input']
+        default = dict_value['default']
+        config_dict = iterate_dict(config_dict,
+                                   default)
+        return config_dict
+    return inner_wrapper
+
+
 class ArgsHelper(object):
 
     def __init__(self, args):
@@ -110,50 +155,6 @@ class ArgsHelper(object):
             self.modulename,
             self.cred['debug']
         )
-
-    def takeInput(func):
-        r"""
-        Decorator function to make taking inputs easier
-        in different versions of Python. It also adds
-        functionality to skip taking inputs, iterate over
-        nested dictionary, have a default fall back configuraton
-        if user provides a NULL value.
-
-        Usage:
-        ------
-        Put @takeInput over which ever function you want to decorate.
-
-        >> @takeInput
-           def configureApp():
-               return {
-                    'token_name': 'token description'  # this is what gets printed on the screen
-               }
-
-        Output:
-        -------
-        >> Enter token description: <user enters value>
-
-        Working:
-        --------
-        User entered value is stored as: {token_name : 'user_entered_value'}
-
-        Raises:
-        -------
-        None
-
-        Returns:
-        --------
-        dict: User entered values
-        """
-        def inner_wrapper(*args):
-            print('\n[!] Enter (S/s) to skip...')
-            dict_value = func(*args)
-            config_dict = dict_value['input']
-            default = dict_value['default']
-            config_dict = iterate_dict(config_dict,
-                                       default)
-            return config_dict
-        return inner_wrapper
 
     @takeInput
     def configureTwitter(self):
