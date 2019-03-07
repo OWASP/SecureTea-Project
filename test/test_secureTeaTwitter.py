@@ -44,7 +44,6 @@ class TestSecureTeaTwitter(unittest.TestCase):
         mock_requests.get.return_value = self.response
         self.twitter_obj = SecureTeaTwitter(debug=self.debug,
                                             cred=self.cred)
-                                            
         # If a success request
         mock_requests.get.return_value = self.response
         userid = self.twitter_obj.getuserid()

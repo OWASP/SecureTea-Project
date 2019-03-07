@@ -29,6 +29,9 @@ class TestSecureTeaTwilio(unittest.TestCase):
 
     @patch('securetea.lib.notifs.secureTeaTwilio.common')
     def test_generatemessage(self, mock_time):
+        """
+        Test generatemessage.
+        """
         time = "10:00 AM"
         mock_time.getdatetime.return_value = time
         message = self.twilio_obj.generatemessage("Random")
