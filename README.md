@@ -184,3 +184,7 @@ Securetea Dashboard | Yes
 Notify by Telegram | Yes
 Notify by Slack  | Yes
 Notify by SMS Alerts | Yes
+Securetea Firewall | Yes
+<br>
+
+<img src="https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg" width="200"></img>
