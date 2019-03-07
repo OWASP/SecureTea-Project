@@ -10,8 +10,7 @@ class TestSecureTeaTwitter(unittest.TestCase):
     Test class for SecureTeaTwitter.
     """
 
-    @patch('securetea.lib.notifs.secureTeaTwitter.requests')
-    def setUp(self, mock_requests):
+    def setUp(self):
         """
         Setup test class for SecureTeaTwitter.
         """
@@ -35,17 +34,17 @@ class TestSecureTeaTwitter(unittest.TestCase):
         		"access_token_secret": "123"
             }
         self.debug = False
-        mock_requests.get.return_value = self.response
-
-        # Setup twitter object
-        self.twitter_obj = SecureTeaTwitter(debug=self.debug,
-                                            cred=self.cred)
 
     @patch('securetea.lib.notifs.secureTeaTwitter.requests')
     def test_getuserid(self, mock_requests):
         """
         Test getuserid.
         """
+        # Setup twitter object
+        mock_requests.get.return_value = self.response
+        self.twitter_obj = SecureTeaTwitter(debug=self.debug,
+                                            cred=self.cred)
+                                            
         # If a success request
         mock_requests.get.return_value = self.response
         userid = self.twitter_obj.getuserid()
@@ -62,6 +61,11 @@ class TestSecureTeaTwitter(unittest.TestCase):
         """
         Test notify.
         """
+        # Setup twitter object
+        mock_requests.get.return_value = self.response
+        self.twitter_obj = SecureTeaTwitter(debug=self.debug,
+                                            cred=self.cred)
+
         mock_requests.post.return_value = self.response
         self.twitter_obj.notify("Random message")
         self.assertTrue(mock_log.log.called_with("Notification sent"))

@@ -11,7 +11,6 @@ class TestCommon(unittest.TestCase):
         """
         Setup test class for common.
         """
-        
         self.cred1 = {
             'Test1': 'XXXX',
             'Test2': 'XXXX'
