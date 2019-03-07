@@ -102,7 +102,7 @@ class FirewallMonitor(object):
             )
 
         if result:
-            open_ports = re.findall(r'(LISTENING|CONNECTED)\s+(\d+)\s+-\s+/.*',
+            open_ports = re.findall(r'(LISTENING|CONNECTED)\s+(\d+)(\s.*)',
                                     result)
 
             for port in open_ports:
