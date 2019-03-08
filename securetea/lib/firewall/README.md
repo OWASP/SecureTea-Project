@@ -170,4 +170,4 @@ whether to allow or drop the packet using the following XNOR table.
 
 ## Running tests
 
-To run all the tests at once, run the following command, `python -m unittest` in the `SecureTea` parent directory.
+To run all the tests at once, run the following command, `sudo python3 -m unittest` in the `SecureTea` parent directory.
