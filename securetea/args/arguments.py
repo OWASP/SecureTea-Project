@@ -168,5 +168,137 @@ def get_args():
         help='Start firewall'
     )
 
+    parser.add_argument(
+        '--interface',
+        required=False,
+        help='Name of the interface'
+    )
+
+    parser.add_argument(
+        '--inbound_IP_action',
+        type=str,
+        required=False,
+        help='Inbound IP rule action'
+    )
+
+    parser.add_argument(
+        '--inbound_IP_list',
+        type=str,
+        required=False,
+        help='List of inbound IPs to look for'
+    )
+
+    parser.add_argument(
+        '--outbound_IP_action',
+        type=str,
+        required=False,
+        help='Outbound IP rule action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--outbound_IP_list',
+        type=str,
+        required=False,
+        help='List of outbound IPs to look for'
+    )
+
+    parser.add_argument(
+        '--protocol_action',
+        type=str,
+        required=False,
+        help='Protocol action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--protocol_list',
+        type=str,
+        required=False,
+        help='List of protocols to look for'
+    )
+
+    parser.add_argument(
+        '--scan_action',
+        type=str,
+        required=False,
+        help='Scan load action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--scan_list',
+        type=str,
+        required=False,
+        help='List of extensions to scan for'
+    )
+
+    parser.add_argument(
+        '--dest_port_action',
+        type=str,
+        required=False,
+        help='Destination port action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--dest_port_list',
+        type=str,
+        required=False,
+        help='List of destination ports to look for'
+    )
+
+    parser.add_argument(
+        '--source_port_action',
+        type=str,
+        required=False,
+        help='Source port action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--source_port_list',
+        type=str,
+        required=False,
+        help='List of source ports to look for'
+    )
+
+    parser.add_argument(
+        '--HTTP_request_action',
+        type=str,
+        required=False,
+        help='HTTP request action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--HTTP_response_action',
+        type=str,
+        required=False,
+        help='HTTP response action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--dns_action',
+        type=str,
+        required=False,
+        help='DNS action (0: BLOCK, 1: ALLOW)'
+    )
+
+    parser.add_argument(
+        '--dns_list',
+        type=str,
+        required=False,
+        help='List of DNS to look for'
+    )
+
+    parser.add_argument(
+        '--time_lb',
+        type=str,
+        required=False,
+        help='Time lower bound'
+    )
+
+    parser.add_argument(
+        '--time_ub',
+        type=str,
+        required=False,
+        help='Time upper bound'
+    )
+
     args = parser.parse_args()
     return args
