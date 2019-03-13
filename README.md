@@ -171,14 +171,14 @@ SecureTea Tool Project Features : <br>
 2. Securetea Dashboard / GUI 
 3. Securetea Protection /firewall
 4. Securetea Antivirus
-5. Intelligent Log Monitoring
+5. Intelligent Log Monitoring including Web Defacement and Intrusion Monitoring Tool
 6. Login History 
 7. Notify by Whatsapp
 8. Notify by SMS Alerts
 9. Notify by Line
 10. Notify by Telegram<br>
 11. Notify by Slack<br>
-12. SecureTea Web Defacement and Intrusion Monitoring Tool<br>
+
 
 | SecureTea Tool Features  |  Progress 
 ------------ | -------------
