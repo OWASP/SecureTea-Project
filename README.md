@@ -154,6 +154,8 @@ Tested on:
 - [Lojislav Bezimenov](https://github.com/lojikil/)
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
+- [Abhishek Sharma](https://github.com/abhisharma404)
+- [Mishal Shah](https://github.com/mishal23)
 
 Chat Group:
 ==========
