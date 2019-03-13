@@ -178,6 +178,7 @@ SecureTea Tool Project Features : <br>
 9. Notify by Line
 10. Notify by Telegram<br>
 11. Notify by Slack<br>
+12. Detection of malicious devices <br>
 
 
 | SecureTea Tool Features  |  Progress 
