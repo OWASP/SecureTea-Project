@@ -164,7 +164,7 @@ Chat Group:
 Roadmap:
 ==================
 
-SecureTea Tool Project has Modul : <br>
+SecureTea Tool Project Features : <br>
 1. Notify by Twitter 
 2. Securetea Dashboard / GUI 
 3. Securetea Protection /firewall
