@@ -4,11 +4,10 @@
 [![Telegram](https://img.shields.io/badge/chat%20on-telegram-blue.svg)](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 ![Version](https://img.shields.io/badge/version-1.1-orange.svg)
 
-Small IoT (Internet of Things) to notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse
-to determine activity and is developed in Python and tested on Linux.
+The OWASP SecureTea Project is a application designed to help Secure a person's laptop or computer / server with IoT (Internet Of Things) for notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows). 
 
 The purpose of this application is to warn the user (via various communication mechanisms) whenever their computer / server accessed.
-This small application was developed and tested in python in Linux machine is likely to work well on the Raspberry Pi as well.
+This small application was developed and tested in python in Linux machine, macOS & Windows.
 
 # Table Of Contents
 - [Target User](#target-user)
