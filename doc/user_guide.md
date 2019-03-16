@@ -47,44 +47,44 @@
 
 -  [Developers](#developers)
 
-  - [Contributing guidelines](#contributing-guidelines)
+   - [Contributing guidelines](#contributing-guidelines)
   
-  - [Code of Conduct](#code-of-conduct)
+   - [Code of Conduct](#code-of-conduct)
   
-    - [Our Pledge](#our-pledge)
-	  - [Our standards](#our-standards)
-	  - [Scope](#scope)
-	  - [Enforcement](#enforcement)
-	  - [Attribution](#attribution)
+     - [Our Pledge](#our-pledge)
+	   - [Our standards](#our-standards)
+	   - [Scope](#scope)
+	   - [Enforcement](#enforcement)
+	   - [Attribution](#attribution)
     
-  - [Pull request template](#pull-request-template)
+   - [Pull request template](#pull-request-template)
   
-  - [Roadmap](#roadmap)
+   - [Roadmap](#roadmap)
   
-  - [Contributing](#contributing)
+   - [Contributing](#contributing)
   
-    - [Setting up development environment](#setting-up-development-environment)
+     - [Setting up development environment](#setting-up-development-environment)
     
-    - [Arguments](#arguments)
+     - [Arguments](#arguments)
   
-        - [Setting up an interactive setup with takeInput](#setting-up-an-interactive-setup-with-takeinput)
+         - [Setting up an interactive setup with takeInput](#setting-up-an-interactive-setup-with-takeinput)
     
-    - [Logger](#logger)
+     - [Logger](#logger)
     
-	    - [Adding logger to your module](#adding-logger-to-your-module)
-	    - [Log levels](#log-levels)
+	     - [Adding logger to your module](#adding-logger-to-your-module)
+	     - [Log levels](#log-levels)
       
-    - [Firewall](#firewall)
+     - [Firewall](#firewall)
     
-        - [Writing new rules](#writing-new-rules)
+         - [Writing new rules](#writing-new-rules)
       
-	      - [Function format for rules](#function-format-for-rules)
-	      - [Using xnor decorator](#using-xnor-decorator)
+	       - [Function format for rules](#function-format-for-rules)
+	       - [Using xnor decorator](#using-xnor-decorator)
         
-    - [Running tests](#running-tests)
+     - [Running tests](#running-tests)
   
-	    - [Using unittest](#running-using-unittest)
-	    - [Using pytest](#running-using-pytest)
+	     - [Using unittest](#running-using-unittest)
+	     - [Using pytest](#running-using-pytest)
  
  - [Database](#database)
  
