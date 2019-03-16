@@ -14,6 +14,7 @@ Project:
 from securetea.lib.firewall.engine import FirewallEngine
 from securetea.lib.firewall.utils import check_root
 from securetea import logger
+import sys
 
 
 class SecureTeaFirewall(object):
@@ -46,3 +47,4 @@ class SecureTeaFirewall(object):
                 "Run as root",
                 logtype="error"
             )
+            sys.exit(1)
