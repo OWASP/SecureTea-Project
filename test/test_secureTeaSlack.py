@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from securetea.lib.notifs.secureTeaSlack import SecureTeaSlack
 import unittest
-from unittest.mock import patch
 from requests.models import Response
+
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
 
 
 class TestSecureTeaSlack(unittest.TestCase):
