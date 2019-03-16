@@ -1,4 +1,4 @@
-# OWASP SecureTea Tool Project
+# ![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png)OWASP SecureTea Tool Project
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -94,7 +94,6 @@
 The OWASP SecureTea Project is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows).<br>
 The software is still under development, and will eventually have it's own IDS(Intrusion Detection System) / IPS(Instrusion Prevention System), firewall, anti-virus, intelligent log monitoring capabilities with web defacement detection, and support for much more communication medium.
 <br>
-**<! image of running project >**
 
 ## Installation
 **Contents:**
@@ -254,7 +253,7 @@ Default configuration:
 1.  Start SecureTea without any parameters:<br>
 `sudo SecureTea.py`<br>
 This will start an interactive setup mode, to skip a particular setup, enter s or S.<br>
-**<!IMG GIF>**
+
 
 ##### Setup a particular feature
 Arguments list
@@ -268,14 +267,17 @@ Arguments list
 
 Examples:<br>
 -  Starting SecureTea-Firewall interactive setup: `sudo SecureTea.py --firewall`<br>
-**<! example runnning image>**
+![Firewall](https://github.com/OWASP/SecureTea-Project/blob/master/img/setup_firewall.GIF "Secure Tea Firewall")<br>
 -  Starting Telegram & Twitter interactive setup: `sudo SecureTea.py --telegram --twitter`<br>
-**<! exampe running image>**
+![TelegramTwitter](https://github.com/OWASP/SecureTea-Project/blob/master/img/tele_twi.GIF "Secure Tea Slack & Twitter")<br>
 
 ##### Configuring using Web UI
 
 This is still under development.
-**<! IMG>**
+
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20gui.PNG "Secure Tea Dashboard")
+<br><br>
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20security%20gui.PNG "Secure Tea Security Dashboard")
 
 ##### Configuring using CLI arguments
 
@@ -311,7 +313,7 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
 
 Example usage:
 -  Configuring Slack: `sudo SecureTea.py --slack_user_id <your data> --slack_token <your data>`<br>
-**<! running image>**
+![slack-gui](https://github.com/OWASP/SecureTea-Project/blob/master/img/slack_cli.gif "Secure Tea Slack")
 
 #### Setting up Web UI
 Follow the following steps to setup Web UI
