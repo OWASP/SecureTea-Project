@@ -23,6 +23,8 @@ from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
+from securetea.lib.firewall.utils import setup_logger
+
 
 pynput_status = True
 
@@ -77,6 +79,9 @@ class SecureTea(object):
             modulename,
             self.cred['debug']
         )
+
+        # Setup logger for utils
+        setup_logger(debug=self.cred['debug'])
 
         if self.cred_provided:
             credentials.save_creds(self.cred)

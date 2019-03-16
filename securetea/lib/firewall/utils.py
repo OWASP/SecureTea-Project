@@ -15,6 +15,33 @@ from securetea.lib.firewall.mapping import *
 import subprocess
 import re
 import os
+from securetea import logger
+
+
+# Initialize logger with debug=False
+utils_logger = logger.SecureTeaLogger(
+            __name__,
+            debug=False
+        )
+
+def setup_logger(debug):
+    """
+    Setup logger.
+
+    Args:
+        debug (bool): Debug mode or not
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    global utils_logger
+    utils_logger = logger.SecureTeaLogger(
+                __name__,
+                debug
+            )
 
 
 def complement(value):
@@ -83,7 +110,10 @@ def xnor(func):
                     (complement(val_dict['action']) *
                      complement(val_dict['result'])))
         except Exception as e:
-            print(e)
+            utils_logger.log(
+                "Error: " + str(e),
+                logtype="error"
+            )
             # Return allow
             return 1
     return inner_wrapper
@@ -289,5 +319,9 @@ def get_interface():
         intf = int(input('\n>> Enter the index of the interface: ')
                    .strip())
 
-    print('[!] Selected interface is : {}'.format(interfaces[intf]))
+    utils_logger.log(
+        "Selected interface is : {}".format(interfaces[intf]),
+        logtype="info"
+    )
+
     return interfaces[intf]

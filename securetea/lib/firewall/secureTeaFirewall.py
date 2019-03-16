@@ -12,6 +12,8 @@ Project:
 """
 
 from securetea.lib.firewall.engine import FirewallEngine
+from securetea.lib.firewall.utils import check_root
+from securetea import logger
 
 
 class SecureTeaFirewall(object):
@@ -22,11 +24,25 @@ class SecureTeaFirewall(object):
 
         self.cred = cred['firewall']
         self.debug = cred['debug']
+        self.logger = logger.SecureTeaLogger(
+                __name__,
+                debug=self.debug
+            )
 
     def start_firewall(self):
         """
         Start firewall engine.
         """
-        engineObj = FirewallEngine(cred=self.cred,
-                                   debug=self.debug)
-        engineObj.startEngine()
+        if check_root():
+            engineObj = FirewallEngine(cred=self.cred,
+                                       debug=self.debug)
+            engineObj.startEngine()
+            self.logger.log(
+                "Firewall started",
+                logtype="info"
+            )
+        else:
+            self.logger.log(
+                "Run as root",
+                logtype="error"
+            )
