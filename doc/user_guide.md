@@ -74,7 +74,7 @@
 	    - [Adding logger to your module](#adding-logger-to-your-module)
 	    - [Log levels](#log-levels)
       
-    - [Firewall](#firewalls)
+    - [Firewall](#firewall)
     
         - [Writing new rules](#writing-new-rules)
       
@@ -253,7 +253,7 @@ Default configuration:
 1.  Start SecureTea without any parameters:<br>
 `sudo SecureTea.py`<br>
 This will start an interactive setup mode, to skip a particular setup, enter s or S.<br>
-
+![](/img/setup_all.gif)<br>
 
 ##### Setup a particular feature
 Arguments list
@@ -267,9 +267,9 @@ Arguments list
 
 Examples:<br>
 -  Starting SecureTea-Firewall interactive setup: `sudo SecureTea.py --firewall`<br>
-![Firewall](https://github.com/OWASP/SecureTea-Project/blob/master/img/setup_firewall.GIF "Secure Tea Firewall")<br>
+![Firewall](/img/setup_firewall.gif)<br>
 -  Starting Telegram & Twitter interactive setup: `sudo SecureTea.py --telegram --twitter`<br>
-![TelegramTwitter](https://github.com/OWASP/SecureTea-Project/blob/master/img/tele_twi.GIF "Secure Tea Slack & Twitter")<br>
+![TelegramTwitter](/img/tele_twi.gif)<br>
 
 ##### Configuring using Web UI
 
@@ -313,7 +313,7 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
 
 Example usage:
 -  Configuring Slack: `sudo SecureTea.py --slack_user_id <your data> --slack_token <your data>`<br>
-![slack-gui](https://github.com/OWASP/SecureTea-Project/blob/master/img/slack_cli.gif "Secure Tea Slack")
+![Slack](/img/slack_cli.gif)<br>
 
 #### Setting up Web UI
 Follow the following steps to setup Web UI
