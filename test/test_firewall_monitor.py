@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import unittest
-from unittest.mock import patch
 from securetea.lib.firewall.firewall_monitor import FirewallMonitor
+
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
 
 
 class TestFirewallMonitor(unittest.TestCase):

@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 import unittest
 from securetea import configurations
-from unittest.mock import patch
 import argparse
 import json
+
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
 
 
 class TestConfigurations(unittest.TestCase):
@@ -48,12 +53,10 @@ class TestConfigurations(unittest.TestCase):
         creds = self.conf_obj.get_creds(args)
         self.assertEqual(self.dummy_dict, creds)
 
-    @patch('securetea.configurations.json')
     @patch('securetea.configurations.os')
-    def test_save_creds(self, mock_os, mock_json):
+    def test_save_creds(self, mock_os):
         """
         Test save_creds.
         """
         self.conf_obj.save_creds(data=self.dummy_dict)
         self.assertTrue(mock_os.makedirs.called)
-        self.assertTrue(mock_json.dump.called)
