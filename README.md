@@ -22,7 +22,8 @@ This small application was developed and tested in python in Linux machine, macO
 - [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 - [Chat Group](#chat-group)
 - [Roadmap](#roadmap)
-
+- [User guide](/doc/user_guide.md)
+- [Developer guide](/doc/dev_guide.md)
 
 Target User:
 =============
