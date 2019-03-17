@@ -13,6 +13,7 @@ Project:
 import struct
 import sys
 import time
+import pyudev
 
 from securetea import configurations
 from securetea import logger
@@ -294,13 +295,16 @@ class SecureTea(object):
         """Docstring."""
         time.sleep(10)
         try:
+            self.detect()
             if not pynput_status:
                 self.get_by_mice()
+                
             else:
                 while 1:
                     # Starting mouse event listner
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
+                    
         except Exception as e:
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
@@ -309,3 +313,53 @@ class SecureTea(object):
         except KeyboardInterrupt as e:
             self.logger.log(
                 "You pressed Ctrl+C!, Bye")
+    
+    def detect(self):
+   
+        self.context = pyudev.Context()
+        self.monitor = pyudev.Monitor.from_netlink(self.context)
+        self.monitor.filter_by(subsystem='usb')
+        self.monitor.start()
+        for device in iter(self.monitor.poll, None):
+            if (device.action == 'add'):
+                #print('{} connected'.format(device))
+                msg = 'Someone connected pendrive in your laptop'
+                # Send a warning message via twitter account
+                if self.twitter_provided:
+                    self.twitter.notify(msg)
+
+                # Send a warning message via telegram bot
+                if self.telegram_provided:
+                    self.telegram.notify(msg)
+
+                # Send a warning message via twilio account
+                if self.twilio_provided:
+                    self.twilio.notify(msg)
+
+                # Send a warning message via slack bot app
+                if self.slack_provided:
+                    self.slack.notify(msg)
+                
+            elif (device.action == 'remove'):
+                #print('{} disconnected'.format(device))
+                msg = 'Someone disconnected pendrive in your laptop'
+               # Send a warning message via twitter account
+                if self.twitter_provided:
+                    self.twitter.notify(msg)
+
+                # Send a warning message via telegram bot
+                if self.telegram_provided:
+                    self.telegram.notify(msg)
+
+                # Send a warning message via twilio account
+                if self.twilio_provided:
+                    self.twilio.notify(msg)
+
+                # Send a warning message via slack bot app
+                if self.slack_provided:
+                    self.slack.notify(msg)
+                
+
+
+  
+       
