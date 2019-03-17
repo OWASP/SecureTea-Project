@@ -295,7 +295,7 @@ class SecureTea(object):
         """Docstring."""
         time.sleep(10)
         try:
-            self.detect()
+            
             if not pynput_status:
                 self.get_by_mice()
                 
@@ -304,6 +304,7 @@ class SecureTea(object):
                     # Starting mouse event listner
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
+            self._work()
                     
         except Exception as e:
             self.logger.log(
@@ -314,16 +315,17 @@ class SecureTea(object):
             self.logger.log(
                 "You pressed Ctrl+C!, Bye")
     
-    def detect(self):
-   
+    def _work(self):
         self.context = pyudev.Context()
         self.monitor = pyudev.Monitor.from_netlink(self.context)
         self.monitor.filter_by(subsystem='usb')
-        self.monitor.start()
+
         for device in iter(self.monitor.poll, None):
             if (device.action == 'add'):
                 #print('{} connected'.format(device))
                 msg = 'Someone connected pendrive in your laptop'
+
+                self.logger.log(msg, logtype="warning")
                 # Send a warning message via twitter account
                 if self.twitter_provided:
                     self.twitter.notify(msg)
@@ -343,6 +345,8 @@ class SecureTea(object):
             elif (device.action == 'remove'):
                 #print('{} disconnected'.format(device))
                 msg = 'Someone disconnected pendrive in your laptop'
+
+                self.logger.log(msg, logtype="warning")
                # Send a warning message via twitter account
                 if self.twitter_provided:
                     self.twitter.notify(msg)
@@ -359,7 +363,3 @@ class SecureTea(object):
                 if self.slack_provided:
                     self.slack.notify(msg)
                 
-
-
-  
-       
