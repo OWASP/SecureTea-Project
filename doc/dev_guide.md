@@ -166,7 +166,7 @@ Before continuing go through the **Before installation**.
 6.  Navigate to the project folder using<br>
 `cd SecureTea-Project`
 7.  Install the dependencies using<br>
-`pip -r install requirements.txt`
+`pip install -r requirements.txt`
 	
 #### Arguments
 -  [Setting up an interactive setup with takeInput](#setting-up-an-interactive-setup-with-takeinput)
