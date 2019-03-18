@@ -9,7 +9,6 @@ The OWASP SecureTea Project is an application designed to help secure a person's
 The software is still under development, and will eventually have it's own IDS(Intrusion Detection System) / IPS(Instrusion Prevention System), firewall, anti-virus, intelligent log monitoring capabilities with web defacement detection, and support for much more communication medium.
 The purpose of this application is to warn the user (via various communication mechanisms) whenever their computer / server accessed.
 
-<br>
 ---
 
 ![](/img/setup_all.gif)<br>
@@ -21,14 +20,10 @@ The purpose of this application is to warn the user (via various communication m
 - [Objective](#objective)
 - [Pre-requisites](#pre-requisites)
 - [Procedure Installation](#procedure-installation)
-- [Getting Twitter Tokens](#getting-twitter-tokens)
-- [Getting Twilio Tokens](#getting-twilio-tokens)
-- [Getting Slack Tokens](#getting-slack-tokens)
-- [Tested on](#tested-on)
+- [Installation](#installation)
 - [Suggestions and contributing](#suggestions-and-contributing)
 - [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 - [Chat Group](#chat-group)
-- [Roadmap](#roadmap)
 - [User guide](/doc/user_guide.md)
 - [Developer guide](/doc/dev_guide.md)
 
@@ -51,28 +46,10 @@ To alert the user via variuos communication mechanism, whenever his/her laptop h
 And also it can be used to monitor your system.
 
 
-Pre-requisites:
-================
-
-#### I. Hardware :
-
-- Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
-- Mouse / Wireless Mouse / Touchpad congenital laptop
-- The Twitter application is already installed on the mobile phone  (Optional)
-
-#### II. Software :
-
-- Python - https://www.python.org/ (`sudo apt-get install python`)
-- Angular - https://angular.io/ 
-- A Twitter account - https://twitter.com
-- A Twilio account(optional, if SMS service not required)
-- Mobile phone, a previously-installed Twitter application (Optional)
-
-
 Installation:
 ========================
-User Gude:
-=======
+User Guide:
+====
 See more at [User Guide] (https://github.com/OWASP/SecureTea-Project/blob/master/doc/user_guide.md)
 
 Developer Guide:
@@ -99,6 +76,4 @@ Chat Group:
 [
 ![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
-Google Summer of Code (Gsoc) 2019
-===========
-<img src="https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg" width="200"></img>(https://www.owasp.org/index.php/GSoC2019_Ideas)
+<img src="https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg" width="200"></img>
