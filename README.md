@@ -40,8 +40,8 @@ It was written to be used by anyone who is interested in IoT Security (Internet 
 Objective:
 ===========
 
-To alert the user via variuos communication mechanism, whenever his/her laptop had been accessed by someone.
-And also it can be used to monitor your system.
+To alert the user via variuos communication mechanism, whenever The Computer / Server had been accessed by someone / attacker.
+And also it can be used to monitor your system & SecureTea firewall.
 
 
 Procedure Installation:
