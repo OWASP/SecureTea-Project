@@ -417,7 +417,7 @@ Currently, SecureTea-Project uses **sqlite3** database.
 ## License
 **MIT License**
 
-Copyright (c) 2017 Bambang Rahmadi Kurniawan Payu - http://owasp.or.id
+Copyright (c) 2017 OWASP SecureTea-Project Team - http://owasp.or.id
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
