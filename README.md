@@ -28,7 +28,7 @@ The software is still under development, and will eventually have it's own IDS(I
 Target User:
 =============
 
-It was written to be used by anyone who is interested in Security IoT (Internet of Things) and still needs further development.
+It was written to be used by anyone who is interested in IoT Security (Internet of Things) and still needs further development.
 
 #### How it functions:
 
