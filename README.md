@@ -18,8 +18,7 @@ The software is still under development, and will eventually have it's own IDS(I
 - [Target User](#target-user)
 - [Objective](#objective)
 - [Pre-requisites](#pre-requisites)
-- [Procedure Installation](#procedure-installation)
-- [Installation](#installation)
+- [Procedure Installation](#installation)
 - [Suggestions and contributing](#suggestions-and-contributing)
 - [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 - [Chat Group](#chat-group)
@@ -45,7 +44,7 @@ To alert the user via variuos communication mechanism, whenever his/her laptop h
 And also it can be used to monitor your system.
 
 
-Installation:
+Procedure Installation:
 ========================
 User Guide:
 ====
