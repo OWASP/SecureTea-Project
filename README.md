@@ -50,11 +50,11 @@ Installation:
 ========================
 User Guide:
 ====
-See more at [User Guide] (https://github.com/OWASP/SecureTea-Project/blob/master/doc/user_guide.md)
+See more at [User Guide](/doc/user_guide.md)
 
 Developer Guide:
 ===========
-See more at [Developer Guide][https://github.com/OWASP/SecureTea-Project/blob/master/doc/dev_guide.md]
+See more at [Developer guide](/doc/dev_guide.md)
 
 
 [Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
@@ -76,4 +76,6 @@ Chat Group:
 [
 ![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
+Google Summer of Code:
+======
 <img src="https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg" width="200"></img>
