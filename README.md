@@ -41,7 +41,7 @@ Objective:
 ===========
 
 To alert the user via variuos communication mechanism, whenever The Computer / Server had been accessed by someone / attacker.
-And also it can be used to monitor your system & SecureTea firewall.
+And also it can be used to monitor your system & SecureTea firewall as Defense.
 
 
 Procedure Installation:
