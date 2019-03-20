@@ -6,53 +6,53 @@
 
 ----
 
-OWASP SecureTea Project‚Íƒm[ƒgPC‚È‚Ç‚ÌƒRƒ“ƒsƒ…[ƒ^AƒT[ƒo[“™‚ÌƒfƒoƒCƒX‚ðIoT‚ðŽg—p‚µ‚ÄƒZƒLƒ…ƒŠƒeƒB‚ð‚‚ßA‚»‚ÌƒfƒoƒCƒX‚ªˆÓ}‚µ‚È‚¢‘¼‚Ìƒ†[ƒU[‚É‚æ‚Á‚Ä‘€ì‚³‚ê‚½ê‡ƒ†[ƒU[‚É’Ê’m‚ðs‚¢‚Ü‚·Bƒ^ƒbƒ`ƒpƒbƒhAƒ}ƒEƒXAƒƒCƒ„ƒŒƒXƒ}ƒEƒX“™‚ÌƒAƒNƒeƒBƒrƒeƒB‚ðŽg—p‚µ‚ÄŒŸ’m‚µ‚Ü‚·B‚±‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÍPython‚Å‘‚©‚ê‚Ä‚¨‚èƒ}ƒ‹ƒ`ƒvƒ‰ƒbƒgƒtƒH[ƒ€iLinuxAMacAWindowsj‚É‘Î‰ž‚µ‚Ä‚¢‚Ü‚·B<br>
-Œ»Ý‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ÍŠJ”­“r’†‚Å‚·‚ªA‚±‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“ã‚ÉIDS/IPSAƒtƒ@ƒCƒA[ƒEƒH[ƒ‹AƒAƒ“ƒ`ƒEƒCƒ‹ƒXAWEB‚Ì‰ü‚´‚ñŒŸ’m“™‚ÌƒCƒ“ƒeƒŠƒWƒFƒ“ƒgƒƒOƒ‚ƒjƒ^ƒŠƒ“ƒO“™‚ðŽÀ‘•‚µA‘½”‚Ì’ÊM”}‘Ì‚É‘Î‰ž‚·‚é‚±‚Æ‚ð–ÚŽw‚µ‚Ä‚¨‚è‚Ü‚·B
+OWASP SecureTea Projectã¯ãƒŽãƒ¼ãƒˆPCãªã©ã®ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã€ã‚µãƒ¼ãƒãƒ¼ç­‰ã®ãƒ‡ãƒã‚¤ã‚¹ã‚’IoTã‚’ä½¿ç”¨ã—ã¦ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ã‚’é«˜ã‚ã€ãã®ãƒ‡ãƒã‚¤ã‚¹ãŒæ„å›³ã—ãªã„ä»–ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã«ã‚ˆã£ã¦æ“ä½œã•ã‚ŒãŸå ´åˆãƒ¦ãƒ¼ã‚¶ãƒ¼ã«é€šçŸ¥ã‚’è¡Œã„ã¾ã™ã€‚ã‚¿ãƒƒãƒãƒ‘ãƒƒãƒ‰ã€ãƒžã‚¦ã‚¹ã€ãƒ¯ã‚¤ãƒ¤ãƒ¬ã‚¹ãƒžã‚¦ã‚¹ç­‰ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ“ãƒ†ã‚£ã‚’ä½¿ç”¨ã—ã¦æ¤œçŸ¥ã—ã¾ã™ã€‚ã“ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã¯Pythonã§æ›¸ã‹ã‚Œã¦ãŠã‚Šãƒžãƒ«ãƒãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ï¼ˆLinuxã€Macã€Windowsï¼‰ã«å¯¾å¿œã—ã¦ã„ã¾ã™ã€‚<br>
+ç¾åœ¨ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯é–‹ç™ºé€”ä¸­ã§ã™ãŒã€ã“ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ä¸Šã«IDS/IPSã€ãƒ•ã‚¡ã‚¤ã‚¢ãƒ¼ã‚¦ã‚©ãƒ¼ãƒ«ã€ã‚¢ãƒ³ãƒã‚¦ã‚¤ãƒ«ã‚¹ã€WEBã®æ”¹ã–ã‚“æ¤œçŸ¥ç­‰ã®ã‚¤ãƒ³ãƒ†ãƒªã‚¸ã‚§ãƒ³ãƒˆãƒ­ã‚°ãƒ¢ãƒ‹ã‚¿ãƒªãƒ³ã‚°ç­‰ã‚’å®Ÿè£…ã—ã€å¤šæ•°ã®é€šä¿¡åª’ä½“ã«å¯¾å¿œã™ã‚‹ã“ã¨ã‚’ç›®æŒ‡ã—ã¦ãŠã‚Šã¾ã™ã€‚
 ---
 
 ![](/img/setup_all.gif)<br>
 
 ----
 
-# –ÚŽŸ
-- [ƒ^[ƒQƒbƒgƒ†[ƒU[](#target-user)
-- [–Ú“I](#objective)
-- [•K—v—vŒ](#pre-requisites)
-- [ƒCƒ“ƒXƒg[ƒ‹Žè‡](#procedure-installation)
-- [‚±‚ÌƒvƒƒWƒFƒNƒg‚Ö‚Ì•Œ¾‚âvŒ£](#suggestions-and-contributing)
-- [—Ï——vj](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
-- [ƒ`ƒƒƒbƒgƒOƒ‹[ƒv](#chat-group)
-- [ƒ†[ƒU[ƒKƒCƒh](/doc/user_guide.md)
-- [ŠJ”­ŽÒ—pƒKƒCƒh](/doc/dev_guide.md)
+# ç›®æ¬¡
+- [ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¦ãƒ¼ã‚¶ãƒ¼](#target-user)
+- [ç›®çš„](#objective)
+- [å¿…è¦è¦ä»¶](#pre-requisites)
+- [ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †](#procedure-installation)
+- [ã“ã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã¸ã®åŠ©è¨€ã‚„è²¢çŒ®](#suggestions-and-contributing)
+- [å€«ç†è¦ç¶±](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
+- [ãƒãƒ£ãƒƒãƒˆã‚°ãƒ«ãƒ¼ãƒ—](#chat-group)
+- [ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¬ã‚¤ãƒ‰](/doc/user_guide.md)
+- [é–‹ç™ºè€…ç”¨ã‚¬ã‚¤ãƒ‰](/doc/dev_guide.md)
 
-‘ÎÛƒ†[ƒU[:
+å¯¾è±¡ãƒ¦ãƒ¼ã‚¶ãƒ¼:
 =============
 
-IoTƒZƒLƒ…ƒŠƒeƒB‚ÉŠÖS‚Ì‚ ‚é•û‚È‚ç’N‚Å‚à‚²—˜—p‚Å‚«‚é‚æ‚¤ŠJ”­‚³‚ê‚Ä‚¨‚è‚Ü‚·‚ªŠJ”­“rã‚Å‚·B
+IoTã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ã«é–¢å¿ƒã®ã‚ã‚‹æ–¹ãªã‚‰èª°ã§ã‚‚ã”åˆ©ç”¨ã§ãã‚‹ã‚ˆã†é–‹ç™ºã•ã‚Œã¦ãŠã‚Šã¾ã™ãŒé–‹ç™ºé€”ä¸Šã§ã™ã€‚
 
-#### “®ì‚É‚Â‚¢‚Ä:
+#### å‹•ä½œã«ã¤ã„ã¦:
 
-- ƒ}ƒEƒX‚âƒ^ƒbƒ`ƒpƒbƒh‚Ì“®‚«‚ð’ÇÕ‚µ‚Ü‚·
-- ƒ}ƒEƒX‚âƒ^ƒbƒ`ƒpƒbƒh‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒm[ƒgPC‚ð’N‚ªŽg—p‚µ‚Ä‚¢‚é‚Ì‚©‚ðŒŸ’m‚µ‚Ü‚·
-- Twitter/SMS/Slack/Telegram“™‚ÅŒxƒƒbƒZ[ƒW‚ð‘—M‚µ‚Ü‚·
+- ãƒžã‚¦ã‚¹ã‚„ã‚¿ãƒƒãƒãƒ‘ãƒƒãƒ‰ã®å‹•ãã‚’è¿½è·¡ã—ã¾ã™
+- ãƒžã‚¦ã‚¹ã‚„ã‚¿ãƒƒãƒãƒ‘ãƒƒãƒ‰ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒŽãƒ¼ãƒˆPCã‚’èª°ãŒä½¿ç”¨ã—ã¦ã„ã‚‹ã®ã‹ã‚’æ¤œçŸ¥ã—ã¾ã™
+- Twitter/SMS/Slack/Telegramç­‰ã§è­¦å‘Šãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¾ã™
 
 
-–Ú“I:
+ç›®çš„:
 ===========
 
-ƒRƒ“ƒsƒ…[ƒ^‚âƒT[ƒo[‚ªUŒ‚ŽÒ‚â‘z’èŠO‚Ìƒ†[ƒU[‚©‚ç‚ÌƒAƒNƒZƒX‚ðŽó‚¯‚Ä‚¢‚éÛ‚É—lX‚ÈƒRƒ~ƒ…ƒjƒP[ƒVƒ‡ƒ“•û–@‚ÅŒx‚µ‚Ü‚·B
-‚Ü‚½A–hŒä‚Ì‚½‚ß‚ÉƒVƒXƒeƒ€‚âSecureTeaƒtƒ@ƒCƒA[ƒEƒH[ƒ‹‚ÌŠÄŽ‹‚ðs‚¢‚Ü‚·B
+ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã‚„ã‚µãƒ¼ãƒãƒ¼ãŒæ”»æ’ƒè€…ã‚„æƒ³å®šå¤–ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‹ã‚‰ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’å—ã‘ã¦ã„ã‚‹éš›ã«æ§˜ã€…ãªã‚³ãƒŸãƒ¥ãƒ‹ã‚±ãƒ¼ã‚·ãƒ§ãƒ³æ–¹æ³•ã§è­¦å‘Šã—ã¾ã™ã€‚
+ã¾ãŸã€é˜²å¾¡ã®ãŸã‚ã«ã‚·ã‚¹ãƒ†ãƒ ã‚„SecureTeaãƒ•ã‚¡ã‚¤ã‚¢ãƒ¼ã‚¦ã‚©ãƒ¼ãƒ«ã®ç›£è¦–ã‚’è¡Œã„ã¾ã™ã€‚
 
 
-ƒCƒ“ƒXƒg[ƒ‹Žè‡:
+ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †:
 ========================
-ƒ†[ƒU[ƒKƒCƒh:
+ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¬ã‚¤ãƒ‰:
 ====
-ƒ†[ƒU[ƒKƒCƒh‚ð‚²ŽQÆ‚­‚¾‚³‚¢ [User Guide](/doc/user_guide.md)
+ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¬ã‚¤ãƒ‰ã‚’ã”å‚ç…§ãã ã•ã„ [User Guide](/doc/user_guide.md)
 
-ŠJ”­ŽÒ—pƒKƒCƒh:
+é–‹ç™ºè€…ç”¨ã‚¬ã‚¤ãƒ‰:
 ===========
-ŠJ”­ŽÒ—pƒKƒCƒh‚ð‚²ŽQÆ‚­‚¾‚³‚¢ [Developer guide](/doc/dev_guide.md)
+é–‹ç™ºè€…ç”¨ã‚¬ã‚¤ãƒ‰ã‚’ã”å‚ç…§ãã ã•ã„ [Developer guide](/doc/dev_guide.md)
 
 
 [Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
@@ -65,10 +65,9 @@ IoTƒZƒLƒ…ƒŠƒeƒB‚ÉŠÖS‚Ì‚ ‚é•û‚È‚ç’N‚Å‚à‚²—˜—p‚Å‚«‚é‚æ‚¤ŠJ”­‚³‚ê‚Ä‚¨‚è‚Ü‚·‚ªŠJ”­“
 - [Lojislav Bezimenov](https://github.com/lojikil/)
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
-- [Abhishek Sharma](https://github.com/abhisharma404)
-- [Mishal Shah](https://github.com/mishal23)
 
-ƒ`ƒƒƒbƒgƒOƒ‹[ƒv:
+
+ãƒãƒ£ãƒƒãƒˆã‚°ãƒ«ãƒ¼ãƒ—:
 ==========
 
 [
