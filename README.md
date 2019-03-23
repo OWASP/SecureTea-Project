@@ -18,8 +18,8 @@ The software is still under development, and will eventually have it's own IDS(I
 - [Target User](#target-user)
 - [Objective](#objective)
 - [Pre-requisites](#pre-requisites)
-- [Procedure Installation](#procedure-installation)
-- [Suggestions and contributing](#suggestions-and-contributing)
+- [Installation Procedure](#procedure-installation)
+- [Suggestions and Contribution](#suggestions-and-contributing)
 - [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 - [Chat Group](#chat-group)
 - [User guide](/doc/user_guide.md)
@@ -45,7 +45,7 @@ To alert the user via variuos communication mechanism, whenever The Computer / S
 And also it can be used to monitor your system & SecureTea firewall as Defense.
 
 
-Procedure Installation:
+Installation Procedure:
 ========================
 User Guide:
 ====
