@@ -21,9 +21,9 @@ The software is still under development, and will eventually have it's own IDS(I
 - [Suggestions and Contribution](#suggestions-and-contributing)
 - [Code Of Conduct](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
 - [Chat Group](#chat-group)
-- [User guide](/doc/user_guide.md)
-- [Developer guide](/doc/dev_guide.md)
-- [Translation-Japanese](/README_jp.md)
+- [User guide](/doc/en-US/user_guide.md)
+- [Developer guide](/doc/en-US/dev_guide.md)
+- [Translation-Japanese](/doc/ja-JP/README_jp.md)
 
 Target User:
 =============
@@ -48,11 +48,11 @@ Installation Procedure:
 ========================
 User Guide:
 ====
-See more at [User Guide](/doc/user_guide.md)
+See more at [User Guide](/doc/en-US/user_guide.md)
 
 Developer Guide:
 ===========
-See more at [Developer guide](/doc/dev_guide.md)
+See more at [Developer guide](/doc/en-US/dev_guide.md)
 
 
 [Suggestions and Contributing:](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
