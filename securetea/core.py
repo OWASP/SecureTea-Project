@@ -24,7 +24,7 @@ from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
-
+from securetea.lib.web_deface import secureTeaWebDeface
 
 pynput_status = True
 
@@ -74,6 +74,13 @@ class SecureTea(object):
         self.twilio_provided = args_dict['twilio_provided']
         self.slack_provided = args_dict['slack_provided']
         self.firewall_provided = args_dict['firewall_provided']
+        self.web_deface_provided = args_dict['web_deface_provided']
+
+        # Intialize None object
+        self.twitter = None
+        self.twilio = None
+        self.telegram = None
+        self.slack = None
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -135,6 +142,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Firewall configuraton paramter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['web_deface']:
+                    self.web_deface_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Web deface configuraton parameter not set.",
                     logtype="error"
                 )
 
@@ -222,6 +239,27 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Firewall configuration parameter not configured.",
+                    logtype="error"
+                )
+
+        if self.web_deface_provided:
+            try:
+                if self.cred['web_deface']:
+                    web_deface_obj = secureTeaWebDeface.SecureTeaWebDeface(cred=self.cred,
+                                                                           debug=self.cred['debug'],
+                                                                           twitter_obj=self.twitter,
+                                                                           twilio_sms_obj=self.twilio,
+                                                                           slack_obj=self.slack,
+                                                                           telegram_obj=self.telegram)
+                    web_deface_obj.start()
+            except KeyError:
+                self.logger.log(
+                    "Web deface configuraton parameter not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
                     logtype="error"
                 )
 

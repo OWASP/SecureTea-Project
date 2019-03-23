@@ -12,3 +12,9 @@ from .lib.firewall import mapping
 from .lib.firewall import secureTeaFirewall
 from .lib.firewall import utils
 from .lib.firewall import firewall_monitor
+from .lib.web_deface import cache
+from .lib.web_deface import crawler
+from .lib.web_deface import hash_gen
+from .lib.web_deface import monitor
+from .lib.web_deface import secureTeaWebDeface
+from .lib.web_deface import utils

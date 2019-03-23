@@ -149,6 +149,7 @@ class ArgsHelper(object):
         self.twilio_provided = False
         self.slack_provided = False
         self.firewall_provided = False
+        self.web_deface_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -272,6 +273,39 @@ class ArgsHelper(object):
             'default': default
         }
 
+    @takeInput
+    def configureDeface_URL(self):
+        """
+        Returns the format to configure
+        SecureTea Web Deface Detection using URL.
+        """
+        self.logger.log("Web Deface Detection setup using URL")
+        default = load_default('web_deface')
+        return {
+            'input': {
+                'url': 'URL of the website to monitor deface detection',
+                'thread': 'number of threads'
+                },
+            'default': default
+        }
+
+    @takeInput
+    def configureDeface_path(self):
+        """
+        Returns the format to configure
+        SecureTea Web Deface Detection using
+        URL file list.
+        """
+        self.logger.log("Web Deface Detection setup using URL file")
+        default = load_default('web_deface')
+        return {
+            'input':{
+                'url_file_path': 'path of the file containing the list of URLs',
+                'thread': 'number of threads'
+            },
+            'default': default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -322,6 +356,28 @@ class ArgsHelper(object):
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
 
+            # Start the web deface detection setup
+            print("\n[!] Select mode of setting up Web Deface")
+            print(">> 1. Using URL of the website")
+            print(">> 2. Using path of the file containing URL list")
+            web_deface = None
+            choice = 0
+            while (choice == 0):
+                choice = int(input(">> Enter your choice (1 or 2): "))
+                if choice == 1:
+                    web_deface = self.configureDeface_URL()
+                elif choice == 2:
+                    web_deface = self.configureDeface_path()
+                else:
+                    self.logger.log(
+                        "Wrong choice entered for Web Deface mode setup.",
+                        logtype="error"
+                    )
+
+            if web_deface:
+                self.cred['web_deface'] = web_deface
+                self.web_deface_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -351,6 +407,16 @@ class ArgsHelper(object):
             if firewall:
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
+
+        if (self.args.web_deface and
+            not self.web_deface_provided and
+            not self.args.url and
+            not self.args.url_file_path and
+            not self.args.thread):
+            web_deface = self.configureDeface_URL()
+            if web_deface:
+                self.cred['web_deface'] = web_deface
+                self.web_deface_provided = True
 
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
@@ -464,11 +530,25 @@ class ArgsHelper(object):
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
 
+        if not self.web_deface_provided:
+            if (self.args.web_deface and
+                (self.args.url or self.args.url_file_path)):
+                web_deface = {}
+                web_deface['url'] = self.args.url
+                web_deface['url_file_path'] = self.args.url_file_path
+                if self.args.thread:
+                    web_deface['thread'] = self.args.thread
+                else:
+                    web_deface['thread'] = 1
+                self.cred['web_deface'] = web_deface
+                self.web_deface_provided = True
+
         if (self.twitter_provided or
             self.telegram_provided or
             self.twilio_provided or
             self.slack_provided or
-            self.firewall_provided):
+            self.firewall_provided or
+            self.web_deface_provided):
             self.cred_provided = True
 
         return {
@@ -478,5 +558,6 @@ class ArgsHelper(object):
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
             'slack_provided': self.slack_provided,
-            'firewall_provided': self.firewall_provided
+            'firewall_provided': self.firewall_provided,
+            'web_deface_provided': self.web_deface_provided
         }

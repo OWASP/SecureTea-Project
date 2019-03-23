@@ -9,3 +9,5 @@ python-telegram-bot
 twilio
 scapy
 NetfilterQueue
+tqdm
+beautifulsoup4

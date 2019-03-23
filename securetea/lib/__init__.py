@@ -9,3 +9,9 @@ from .firewall import secureTeaFirewall
 from .firewall import utils
 from .firewall import mapping
 from .firewall import firewall_monitor
+from .web_deface import cache
+from .web_deface import crawler
+from .web_deface import hash_gen
+from .web_deface import monitor
+from .web_deface import secureTeaWebDeface
+from .web_deface import utils

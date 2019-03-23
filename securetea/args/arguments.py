@@ -300,5 +300,37 @@ def get_args():
         help='Time upper bound'
     )
 
+    parser.add_argument(
+        '--web_deface',
+        required=False,
+        action='store_true',
+        help='Start SecureTea web deface detection'
+    )
+
+    parser.add_argument(
+        '--thread',
+        '-t',
+        required=False,
+        type=int,
+        help='Number of threads to use'
+    )
+
+    url_group = parser.add_mutually_exclusive_group()
+    url_group.add_argument(
+        '--url',
+        '-u',
+        type=str,
+        required=False,
+        help='URL of website to monitor'
+    )
+
+    url_group.add_argument(
+        '--url_file_path',
+        '-ufp',
+        type=str,
+        required=False,
+        help='Path of URL list file'
+    )
+
     args = parser.parse_args()
     return args
