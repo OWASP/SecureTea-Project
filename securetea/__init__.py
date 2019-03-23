@@ -17,4 +17,4 @@ from .lib.web_deface import crawler
 from .lib.web_deface import hash_gen
 from .lib.web_deface import monitor
 from .lib.web_deface import secureTeaWebDeface
-from .lib.web_deface import utils
+from .lib.web_deface import deface_utils

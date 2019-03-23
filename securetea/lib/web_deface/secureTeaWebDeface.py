@@ -12,7 +12,7 @@ Project:
 from securetea import logger
 from securetea.lib.web_deface.monitor import Monitor
 from securetea.lib.web_deface.cache import Cache
-from securetea.lib.web_deface import utils
+from securetea.lib.web_deface import deface_utils
 from securetea.lib.web_deface.crawler import Crawler
 from securetea.lib.firewall.utils import check_root
 import sys
@@ -65,7 +65,7 @@ class SecureTeaWebDeface(object):
             )
 
         if (self.url is not None and
-            utils.verify_url(self.url)):
+            deface_utils.verify_url(self.url)):
             # Create crawler object
             self.crawler_obj = Crawler(url=self.url,
                                        debug=debug,

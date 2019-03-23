@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from securetea.lib.web_deface import utils
+from securetea.lib.web_deface import deface_utils
 
 try:
     # if python 3.x.x
@@ -21,16 +21,16 @@ class TestDefaceUtils(unittest.TestCase):
         u3 = "http://www.random.com"
         u4 = "https://www.random.com"
 
-        self.assertFalse(utils.verify_url(u1))
-        self.assertFalse(utils.verify_url(u2))
-        self.assertTrue(utils.verify_url(u3))
-        self.assertTrue(utils.verify_url(u4))
+        self.assertFalse(deface_utils.verify_url(u1))
+        self.assertFalse(deface_utils.verify_url(u2))
+        self.assertTrue(deface_utils.verify_url(u3))
+        self.assertTrue(deface_utils.verify_url(u4))
 
-    @patch('securetea.lib.web_deface.utils.requests')
+    @patch('securetea.lib.web_deface.deface_utils.requests')
     def test_call_url(self, mock_requests):
         """
         Test call_url.
         """
         mock_requests.get.return_value.text = "random"
         self.assertEqual("random",
-                         utils.call_url("random"))
+                         deface_utils.call_url("random"))

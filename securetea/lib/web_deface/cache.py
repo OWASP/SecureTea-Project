@@ -12,7 +12,7 @@ Project:
 """
 
 from securetea.lib.web_deface.hash_gen import Hash
-from securetea.lib.web_deface import utils
+from securetea.lib.web_deface import deface_utils
 from securetea import logger
 from tqdm import tqdm
 import json
@@ -87,7 +87,7 @@ class Cache(object):
         try:
             with tqdm(total=len(self.url)) as progress_bar:
                 for url in self.url:
-                    data = utils.call_url(url)
+                    data = deface_utils.call_url(url)
                     self.temp_dict[url] = self.hash_obj.hash_value(data)
                     # Increment progress bar
                     progress_bar.update(1)

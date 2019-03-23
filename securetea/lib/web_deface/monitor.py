@@ -12,7 +12,7 @@ Project:
 import json
 from securetea import logger
 from securetea.lib.web_deface.hash_gen import Hash
-from securetea.lib.web_deface import utils
+from securetea.lib.web_deface import deface_utils
 import sys
 
 
@@ -109,7 +109,7 @@ class Monitor(object):
             None
         """
         for url, sha256_hash in self.hash_dict.items():
-            resp_text = utils.call_url(url)
+            resp_text = deface_utils.call_url(url)
             hash_value = self.calc_hash(resp_text)
             if (sha256_hash != hash_value):
                 # Increase change count

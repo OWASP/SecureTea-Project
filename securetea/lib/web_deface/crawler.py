@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 import threading
 import multiprocessing
 from tqdm import tqdm
-from securetea.lib.web_deface import utils
+from securetea.lib.web_deface import deface_utils
 import sys
 from securetea import logger
 
@@ -49,7 +49,7 @@ class Crawler(object):
                 debug=debug
         )
 
-        if (url is not None and utils.verify_url(url)):
+        if (url is not None and deface_utils.verify_url(url)):
             self.url = url
         else:
             self.logger.log(
@@ -225,7 +225,7 @@ class Crawler(object):
         Raises:
             None
         """
-        response = utils.call_url(url)
+        response = deface_utils.call_url(url)
 
         # Create a BeautifulSoup object
         bs4_obj = BeautifulSoup(response, 'lxml')
