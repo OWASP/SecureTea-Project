@@ -19,10 +19,10 @@ class TestCache(unittest.TestCase):
         Test extractBytes.
         """
         data = "random"
-        bytes = b'random'
+        bytes_val = b'random'
 
         self.assertEqual(self.hash_obj.extractBytes(data),
-                        bytes)
+                        bytes_val)
 
     def test_hash_value(self):
         """
