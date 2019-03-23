@@ -23,7 +23,7 @@ The software is still under development, and will eventually have it's own IDS(I
 - [Chat Group](#chat-group)
 - [User guide](/doc/en-US/user_guide.md)
 - [Developer guide](/doc/en-US/dev_guide.md)
-- [Translation-Japanese](/doc/ja-JP/README_jp.md)
+- [Translation-Japanese](/doc/ja-JP/README.md)
 
 Target User:
 =============
