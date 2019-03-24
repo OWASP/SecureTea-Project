@@ -58,9 +58,9 @@ class SecureTeaAwsSES():
             msg (TYPE): Description
         """
         message = str(msg) + " at " + common.getdatetime()
-        html_str="<html><head></head><body><h1>Security Alert</h1><p>"+message+"</p></body></html>"
+        html_str = "<html><head></head><body><h1>Security Alert</h1><p>"+message+"</p></body></html>"
         self.email_obj.html(html_str)
-        typ,typ_desc = self.email_obj.send()
+        typ, typ_desc = self.email_obj.send()
         if typ == "Ok":
             self.logger.log(
                 "Notification sent, Message Id: "+
