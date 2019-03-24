@@ -317,7 +317,7 @@ class SecureTea(object):
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
         msg = '(' + str(self.alert_count) + \
-            ') : Someone has access your laptop' + get_ip_info() + get_platform()
+            ') : Someone has access your laptop' + "\n" + get_ip_info() + "\n" + get_platform()
 
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
@@ -340,7 +340,6 @@ class SecureTea(object):
 
         # Send a warning message via aws ses bot3 app
         if self.aws_ses_provided:
-            print(msg)
             self.aws_ses.notify(msg)
 
         # Update counter for the next move
