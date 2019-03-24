@@ -64,7 +64,8 @@ class SecureTeaTwitter():
             msg (TYPE): Description
         """
         try:
-            message = str(msg) + " at " + common.getdatetime()
+            message = (str(msg) + " at " + common.getdatetime() +
+                       " " + common.get_current_location())
             data = {
                 "event": {
                     "type": "message_create",

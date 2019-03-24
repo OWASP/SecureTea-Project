@@ -3,6 +3,12 @@ import unittest
 from securetea import common
 import time
 
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
+
 
 class TestCommon(unittest.TestCase):
     """Test class for common module."""
@@ -41,3 +47,16 @@ class TestCommon(unittest.TestCase):
         pc_time = str(time.strftime("%Y-%m-%d %H:%M:%S"))
         self.assertEqual(pc_time,
                          common.getdatetime())
+
+    @patch('securetea.common.geocoder')
+    def test_get_current_location(self, mock_geo):
+        """
+        Test get_current_location.
+        """
+        mock_geo.ip.return_value.json = {
+                "address": "random",
+                "ip": "10.10.10.10"
+            }
+        test_msg = "Location: random (IP: 10.10.10.10 )"
+        msg_gen = common.get_current_location()
+        self.assertEqual(test_msg, msg_gen)

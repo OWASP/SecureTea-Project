@@ -50,7 +50,8 @@ class SecureTeaTelegram():
         Args:
             msg (TYPE): Description
         """
-        message = str(msg) + " at " + common.getdatetime()
+        message = (str(msg) + " at " + common.getdatetime() +
+                   " " + common.get_current_location())
         bot = telegram.Bot(token=self.token)
         bot.send_message(chat_id=self.user_id, text=message)
         self.logger.log(
