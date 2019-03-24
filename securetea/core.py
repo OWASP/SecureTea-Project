@@ -31,24 +31,24 @@ from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
 
 def get_ip_info():
-        """GET IP INFORMATION.
+    """GET IP INFORMATION.
 
-        Parameters:
-        ----------
-        None
+    Parameters:
+    ----------
+    None
 
-        Returns:
-        --------
-        None
+    Returns:
+    --------
+    None
 
-        Working:
-        --------
-        Provides IP Address information for notifications.
+    Working:
+    --------
+    Provides IP Address information for notifications.
 
-        Raises:
-        -------
-        None
-        """
+    Raises:
+    -------
+    None
+    """
     url = 'http://ipinfo.io/json'
     response = urlopen(url)
     data = json.load(response)
@@ -62,24 +62,24 @@ def get_ip_info():
     return 'IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}'.format(org, region, country, city, IP)
 
 def get_platform():
-        """Get Platform python is being run on.
+    """Get Platform python is being run on.
 
-        Parameters:
-        ----------
-        None
+    Parameters:
+    ----------
+    None
 
-        Returns:
-        --------
-        None
+    Returns:
+    --------
+    None
 
-        Working:
-        --------
-        Provides Platform information for notifications.
+    Working:
+    --------
+    Provides Platform information for notifications.
 
-        Raises:
-        -------
-        None
-        """
+    Raises:
+    -------
+    None
+    """
     return platform.system() + " " + platform.release()
 
 
