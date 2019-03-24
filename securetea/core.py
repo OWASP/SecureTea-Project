@@ -19,6 +19,7 @@ from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
+from securetea.lib.notifs import secureTeaAwsSES
 from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
@@ -73,6 +74,7 @@ class SecureTea(object):
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
         self.slack_provided = args_dict['slack_provided']
+        self.aws_ses_provided = args_dict['aws_ses_provided']
         self.firewall_provided = args_dict['firewall_provided']
 
         self.logger = logger.SecureTeaLogger(
@@ -125,6 +127,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Slack configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['aws_ses']:
+                    self.aws_ses_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "AWS SES configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -213,6 +225,20 @@ class SecureTea(object):
             else:
                 self.slack.notify("Welcome to SecureTea..!! Initializing System")
 
+        if self.aws_ses_provided:
+            self.aws_ses = secureTeaAwsSES.SecureTeaAwsSES(
+                self.cred['aws_ses'],
+                self.cred['debug']
+            )
+
+            if not self.aws_ses.enabled:
+                self.logger.log(
+                    "AWS SES not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.aws_ses.notify("Welcome to SecureTea..!! Initializing System")
+
         if self.firewall_provided:
             try:
                 if self.cred['firewall']:
@@ -255,6 +281,11 @@ class SecureTea(object):
         # Send a warning message via slack bot app
         if self.slack_provided:
             self.slack.notify(msg)
+
+        # Send a warning message via aws ses bot3 app
+        if self.aws_ses_provided:
+            print(msg)
+            self.aws_ses.notify(msg)
 
         # Update counter for the next move
         self.alert_count += 1
