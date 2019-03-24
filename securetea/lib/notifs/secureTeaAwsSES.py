@@ -46,7 +46,7 @@ class SecureTeaAwsSES():
         self.user_email = cred['aws_email']
         self.access_key = cred['ses_access_key']
         self.secret_key = cred['ses_secret_key']
-        self.email_obj=Email(self.user_email, "secureTea Security Alert!", self.access_key, self.secret_key)
+        self.email_obj = Email(self.user_email, "secureTea Security Alert!", self.access_key, self.secret_key)
 
     def notify(self, msg):
         """Docstring.

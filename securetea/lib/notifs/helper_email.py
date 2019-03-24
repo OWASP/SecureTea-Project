@@ -63,8 +63,8 @@ class Email:
         # Display an error if something goes wrong.
         except ClientError as e:
             # print(e.response['Error']['Message'])
-            return "Error",e.response['Error']['Message']
+            return "Error", e.response['Error']['Message']
         else:
             # print("Email sent! Message ID:"),
             # print(response['MessageId'])
-            return "Ok",response['MessageId']
+            return "Ok", response['MessageId']
