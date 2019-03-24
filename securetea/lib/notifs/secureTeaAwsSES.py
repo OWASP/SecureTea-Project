@@ -46,7 +46,7 @@ class SecureTeaAwsSES():
         self.user_email = cred['aws_email']
         self.access_key = cred['ses_access_key']
         self.secret_key = cred['ses_secret_key']
-        self.email_obj=Email(self.user_email,"secureTea Security Alert!",self.access_key,self.secret_key)
+        self.email_obj=Email(self.user_email, "secureTea Security Alert!", self.access_key, self.secret_key)
 
     def notify(self, msg):
         """Docstring.
@@ -60,8 +60,8 @@ class SecureTeaAwsSES():
         message = str(msg) + " at " + common.getdatetime()
         html_str="<html><head></head><body><h1>Security Alert</h1><p>"+message+"</p></body></html>"
         self.email_obj.html(html_str)
-        typ,typ_desc=self.email_obj.send()
-        if typ=="Ok":
+        typ,typ_desc = self.email_obj.send()
+        if typ == "Ok":
             self.logger.log(
                 "Notification sent, Message Id: "+
                 str(typ_desc)

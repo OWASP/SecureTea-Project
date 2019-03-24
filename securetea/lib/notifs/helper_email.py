@@ -23,8 +23,8 @@ class Email:
         self._html = ""
         self._text = ""
         self._format = 'html'
-        self.access_key=access_key
-        self.secret_key=secret_key
+        self.access_key = access_key
+        self.secret_key = secret_key
         self.region = 'us-west-2'
 
     def html(self, html):
@@ -34,10 +34,7 @@ class Email:
         self._text = text
 
     def send(self):
-        client = boto3.client(service_name = 'ses', 
-                            region_name = self.region, 
-                            aws_access_key_id = self.access_key, 
-                            aws_secret_access_key = self.secret_key)
+        client = boto3.client(service_name='ses', region_name=self.region, aws_access_key_id=self.access_key, aws_secret_access_key=self.secret_key)
         try:
             response = client.send_email(
                 Destination={
@@ -63,7 +60,7 @@ class Email:
                 },
                 Source=self.from_email,
             )
-        # Display an error if something goes wrong.	
+        # Display an error if something goes wrong.
         except ClientError as e:
             # print(e.response['Error']['Message'])
             return "Error",e.response['Error']['Message']
