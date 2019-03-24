@@ -13,6 +13,10 @@ Project:
 import struct
 import sys
 import time
+import re
+import json
+import platform
+from urllib2 import urlopen
 
 from securetea import configurations
 from securetea import logger
@@ -25,6 +29,58 @@ from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
+
+def get_ip_info():
+        """GET IP INFORMATION.
+
+        Parameters:
+        ----------
+        None
+
+        Returns:
+        --------
+        None
+
+        Working:
+        --------
+        Provides IP Address information for notifications.
+
+        Raises:
+        -------
+        None
+        """
+    url = 'http://ipinfo.io/json'
+    response = urlopen(url)
+    data = json.load(response)
+
+    IP = data['ip']
+    org = data['org']
+    city = data['city']
+    country = data['country']
+    region = data['region']
+
+    return 'IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}'.format(org, region, country, city, IP)
+
+def get_platform():
+        """Get Platform python is being run on.
+
+        Parameters:
+        ----------
+        None
+
+        Returns:
+        --------
+        None
+
+        Working:
+        --------
+        Provides Platform information for notifications.
+
+        Raises:
+        -------
+        None
+        """
+    return platform.system() + " " + platform.release()
 
 
 pynput_status = True
@@ -261,7 +317,7 @@ class SecureTea(object):
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
         msg = '(' + str(self.alert_count) + \
-            ') : Someone has access your laptop'
+            ') : Someone has access your laptop' + get_ip_info() + get_platform()
 
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
