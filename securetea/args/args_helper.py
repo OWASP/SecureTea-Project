@@ -148,6 +148,7 @@ class ArgsHelper(object):
         self.telegram_provided = False
         self.twilio_provided = False
         self.slack_provided = False
+        self.aws_ses_provided = False
         self.firewall_provided = False
 
         # Setup logger
@@ -216,6 +217,22 @@ class ArgsHelper(object):
             'input': {
                 'token': 'slack token',
                 'user_id': 'slack user id'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureAwsSES(self):
+        """
+        Returns the format to configure AWS SES
+        """
+        self.logger.log('AWS SES configuraton setup')
+        default = load_default('aws_ses')
+        return {
+            'input': {
+                'aws_email': 'aws verified email',
+                'ses_access_key': 'aws ses access key',
+                'ses_secret_key': 'aws ses secret key'
             },
             'default': default
         }
@@ -316,6 +333,12 @@ class ArgsHelper(object):
                 self.cred['slack'] = slack
                 self.slack_provided = True
 
+            # Start the aws ses configuration setup
+            aws_ses = self.configureAwsSES()
+            if aws_ses:
+                self.cred['aws_ses'] = aws_ses
+                self.aws_ses_provided = True
+
             # Start the firewall configuration setup
             firewall = self.configureFirewall()
             if firewall:
@@ -345,6 +368,12 @@ class ArgsHelper(object):
             if slack:
                 self.cred['slack'] = slack
                 self.slack_provided = True
+
+        if self.args.aws_ses and not self.aws_ses_provided:
+            aws_ses = self.configureAwsSES()
+            if aws_ses:
+                self.cred['aws_ses'] = aws_ses
+                self.aws_ses_provided = True
 
         if self.args.firewall and not self.firewall_provided:
             firewall = self.configureFirewall()
@@ -395,6 +424,16 @@ class ArgsHelper(object):
                 slack['user_id'] = self.args.slack_user_id
                 self.cred['slack'] = slack
                 self.slack_provided = True
+
+        if not self.aws_ses_provided:
+            if (self.args.aws_email and
+                self.args.ses_access_key and self.args.ses_secret_key):
+                slack = {}
+                slack['aws_email'] = self.args.aws_email
+                slack['ses_access_key'] = self.args.ses_access_key
+                slack['ses_secret_key'] = self.args.ses_secret_key
+                self.cred['aws_ses'] = aws_ses
+                self.aws_ses_provided = True
 
         if not self.firewall_provided:
             if (self.args.interface and
@@ -468,6 +507,7 @@ class ArgsHelper(object):
             self.telegram_provided or
             self.twilio_provided or
             self.slack_provided or
+            self.aws_ses_provided or
             self.firewall_provided):
             self.cred_provided = True
 
@@ -478,5 +518,6 @@ class ArgsHelper(object):
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
             'slack_provided': self.slack_provided,
+            'aws_ses_provided': self.aws_ses_provided,
             'firewall_provided': self.firewall_provided
         }

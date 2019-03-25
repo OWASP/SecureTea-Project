@@ -65,6 +65,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--aws_ses',
+        required=False,
+        action='store_true',
+        help='Setup AWS SES credentials'
+    )
+
+    parser.add_argument(
         '--twitter_api_key',
         '-tak',
         type=str,
@@ -158,6 +165,30 @@ def get_args():
         type=str,
         required=False,
         help='Slack user id'
+    )
+
+    parser.add_argument(
+        '--aws_email',
+        '-awse',
+        type=str,
+        required=False,
+        help='AWS email id'
+    )
+
+    parser.add_argument(
+        '--aws_secret_key',
+        '-awss',
+        type=str,
+        required=False,
+        help='AWS secret key'
+    )
+
+    parser.add_argument(
+        '--aws_access_key',
+        '-awsa',
+        type=str,
+        required=False,
+        help='AWS access key'
     )
 
     parser.add_argument(

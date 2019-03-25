@@ -12,6 +12,7 @@ Project:
 
 """
 import time
+import geocoder
 
 
 def getdatetime():
@@ -45,3 +46,29 @@ def check_config(cred):
         if cred[key] == "XXXX":
             return False
     return True
+
+
+def get_current_location():
+    """
+    Returns string containing the current
+    location & IP address.
+
+    Args:
+        None
+
+    Raises:
+        None
+
+    Returns:
+        msg (str): Location & IP address
+    """
+    geocode_data = geocoder.ip('me')
+    dict_data = geocode_data.json
+
+    # Parse the required details
+    address = dict_data['address']
+    ip = dict_data['ip']
+
+    # Generate message
+    msg = "Location: " + address + " (IP: " + ip + " )"
+    return msg

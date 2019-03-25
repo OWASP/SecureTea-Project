@@ -38,7 +38,8 @@ class TestSecureTeaTwilio(unittest.TestCase):
         Test generatemessage.
         """
         time = "10:00 AM"
+        mock_time.get_current_location.return_value = "location"
         mock_time.getdatetime.return_value = time
         message = self.twilio_obj.generatemessage("Random")
-        assert_msg = "Random" + " at " + time
+        assert_msg = "Random" + " at " + time + " location"
         self.assertEqual(message, assert_msg)
