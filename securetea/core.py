@@ -13,7 +13,6 @@ Project:
 import struct
 import sys
 import time
-import re
 import json
 import platform
 from urllib2 import urlopen
