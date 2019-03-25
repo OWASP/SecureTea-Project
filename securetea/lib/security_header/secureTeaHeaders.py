@@ -287,7 +287,6 @@ class SecureTeaHeaders(object):
         try:
             for cookie in cookies:
                 cookie_name = cookie.name
-                cookie_value = cookie.value
                 httponly = False
 
                 if ('HttpOnly' or 'httponly'
