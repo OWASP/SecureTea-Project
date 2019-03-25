@@ -13,17 +13,73 @@ Project:
 import struct
 import sys
 import time
+import json
+import platform
+from urllib2 import urlopen
 
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
+from securetea.lib.notifs import secureTeaAwsSES
 from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
+
+def get_ip_info():
+    """GET IP INFORMATION.
+
+    Parameters:
+    ----------
+    None
+
+    Returns:
+    --------
+    None
+
+    Working:
+    --------
+    Provides IP Address information for notifications.
+
+    Raises:
+    -------
+    None
+    """
+    url = 'http://ipinfo.io/json'
+    response = urlopen(url)
+    data = json.load(response)
+
+    IP = data['ip']
+    org = data['org']
+    city = data['city']
+    country = data['country']
+    region = data['region']
+
+    return 'IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}'.format(org, region, country, city, IP)
+
+def get_platform():
+    """Get Platform python is being run on.
+
+    Parameters:
+    ----------
+    None
+
+    Returns:
+    --------
+    None
+
+    Working:
+    --------
+    Provides Platform information for notifications.
+
+    Raises:
+    -------
+    None
+    """
+    return platform.system() + " " + platform.release()
 
 
 pynput_status = True
@@ -73,6 +129,7 @@ class SecureTea(object):
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
         self.slack_provided = args_dict['slack_provided']
+        self.aws_ses_provided = args_dict['aws_ses_provided']
         self.firewall_provided = args_dict['firewall_provided']
 
         self.logger = logger.SecureTeaLogger(
@@ -125,6 +182,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Slack configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['aws_ses']:
+                    self.aws_ses_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "AWS SES configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -213,6 +280,20 @@ class SecureTea(object):
             else:
                 self.slack.notify("Welcome to SecureTea..!! Initializing System")
 
+        if self.aws_ses_provided:
+            self.aws_ses = secureTeaAwsSES.SecureTeaAwsSES(
+                self.cred['aws_ses'],
+                self.cred['debug']
+            )
+
+            if not self.aws_ses.enabled:
+                self.logger.log(
+                    "AWS SES not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.aws_ses.notify("Welcome to SecureTea..!! Initializing System")
+
         if self.firewall_provided:
             try:
                 if self.cred['firewall']:
@@ -235,7 +316,7 @@ class SecureTea(object):
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
         msg = '(' + str(self.alert_count) + \
-            ') : Someone has access your laptop'
+            ') : Someone has accessed your computer' + "\n" + get_ip_info() + "\n" + get_platform()
 
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
@@ -255,6 +336,10 @@ class SecureTea(object):
         # Send a warning message via slack bot app
         if self.slack_provided:
             self.slack.notify(msg)
+
+        # Send a warning message via aws ses bot3 app
+        if self.aws_ses_provided:
+            self.aws_ses.notify(msg)
 
         # Update counter for the next move
         self.alert_count += 1

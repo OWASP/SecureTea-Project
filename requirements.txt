@@ -9,4 +9,5 @@ python-telegram-bot
 twilio
 scapy
 NetfilterQueue
+boto3
 geocoder
