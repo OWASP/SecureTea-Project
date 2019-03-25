@@ -317,7 +317,7 @@ class SecureTea(object):
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
         msg = '(' + str(self.alert_count) + \
-            ') : Someone has access your laptop' + "\n" + get_ip_info() + "\n" + get_platform()
+            ') : Someone has accessed your computer' + "\n" + get_ip_info() + "\n" + get_platform()
 
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
