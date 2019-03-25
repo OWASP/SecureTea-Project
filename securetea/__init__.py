@@ -12,3 +12,4 @@ from .lib.firewall import mapping
 from .lib.firewall import secureTeaFirewall
 from .lib.firewall import utils
 from .lib.firewall import firewall_monitor
+from .lib.security_header import secureTeaHeaders
