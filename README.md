@@ -61,7 +61,6 @@ See more at [Developer guide](/doc/en-US/dev_guide.md)
 - For contributors, please add your name below:
 - [Ade Yoseman](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
 - [Bambang Kurniawan](https://www.owasp.org/index.php/User:Idbmb)
-- [Felex kemboi](https://github.com/felexkemboi/)
 - [Lojislav Bezimenov](https://github.com/lojikil/)
 - [Rejah Rehim](https://rejahrehim.com)
 - [Ananthu S](https://github.com/sananthu)
