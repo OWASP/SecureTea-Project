@@ -13,6 +13,25 @@ Project:
 """
 import time
 import geocoder
+import platform
+
+
+def get_platform():
+    """Get platform Python is being run on.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+
+    Working:
+        Provides platform information for notifications.
+
+    Raises:
+        None
+    """
+    return platform.system() + " " + platform.release()
 
 
 def getdatetime():

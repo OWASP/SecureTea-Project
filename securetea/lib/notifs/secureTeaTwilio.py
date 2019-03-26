@@ -64,7 +64,7 @@ class SecureTeaTwilio():
         str: Message appended with CPU time
         """
         message = (str(msg) + " at " + common.getdatetime() +
-                   " " + common.get_current_location())
+                   " " + common.get_current_location() + common.get_platform())
 
         return message
 

@@ -12,7 +12,7 @@ Project:
 
 """
 
-from helper_email import Email
+from securetea.lib.notifs.aws.helper_email import Email
 
 
 from securetea import logger
@@ -57,7 +57,9 @@ class SecureTeaAwsSES():
         Args:
             msg (TYPE): Description
         """
-        message = str(msg) + " at " + common.getdatetime()
+        message = (str(msg) + " at " + common.getdatetime() +
+                   " " + common.get_current_location() + common.get_platform())
+
         html_str = "<html><head></head><body><h1>Security Alert</h1><p>"+message+"</p></body></html>"
         self.email_obj.html(html_str)
         typ, typ_desc = self.email_obj.send()
