@@ -301,7 +301,7 @@ class SecureTea(object):
         
         try:
             if not pynput_status:
-                    self.get_by_mice()
+               	self.get_by_mice()
             else:
                 while 1:
                     # Starting mouse event listner
