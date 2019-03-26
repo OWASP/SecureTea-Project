@@ -150,6 +150,7 @@ class ArgsHelper(object):
         self.slack_provided = False
         self.aws_ses_provided = False
         self.firewall_provided = False
+        self.insecure_headers_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -289,6 +290,20 @@ class ArgsHelper(object):
             'default': default
         }
 
+    @takeInput
+    def configureHeaders(self):
+        """
+        Returns the format to configure insecure_headers.
+        """
+        self.logger.log('Insecure headers configuration setup')
+        default = load_default('insecure_headers')
+        return {
+            "input": {
+                "url": "url for which you want to test insecure headers"
+            },
+            "default": default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -345,6 +360,12 @@ class ArgsHelper(object):
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
 
+            # Start the insecure headers configuraton setup
+            insecure_headers = self.configureHeaders()
+            if insecure_headers:
+                self.cred['insecure_headers'] = insecure_headers
+                self.insecure_headers_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -380,6 +401,14 @@ class ArgsHelper(object):
             if firewall:
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
+
+        if (self.args.insecure_headers and
+            not self.insecure_headers_provided and
+            not self.args.url):
+            insecure_headers = self.configureHeaders()
+            if insecure_headers:
+                self.cred['insecure_headers'] = insecure_headers
+                self.insecure_headers_provided = True
 
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
@@ -434,6 +463,14 @@ class ArgsHelper(object):
                 slack['ses_secret_key'] = self.args.ses_secret_key
                 self.cred['aws_ses'] = aws_ses
                 self.aws_ses_provided = True
+
+        if not self.insecure_headers_provided:
+            if (self.args.insecure_headers and
+                self.args.url):
+                insecure_headers = {}
+                insecure_headers['url'] = self.args.url
+                self.cred['insecure_headers'] = insecure_headers
+                self.insecure_headers_provided = True
 
         if not self.firewall_provided:
             if (self.args.interface and
@@ -508,7 +545,8 @@ class ArgsHelper(object):
             self.twilio_provided or
             self.slack_provided or
             self.aws_ses_provided or
-            self.firewall_provided):
+            self.firewall_provided or
+            self.insecure_headers_provided):
             self.cred_provided = True
 
         return {
@@ -519,5 +557,6 @@ class ArgsHelper(object):
             'twilio_provided': self.twilio_provided,
             'slack_provided': self.slack_provided,
             'aws_ses_provided': self.aws_ses_provided,
-            'firewall_provided': self.firewall_provided
+            'firewall_provided': self.firewall_provided,
+            'insecure_headers_provided': self.insecure_headers_provided
         }

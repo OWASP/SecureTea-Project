@@ -28,6 +28,7 @@ from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
+from securetea.lib.security_header import secureTeaHeaders
 
 def get_ip_info():
     """GET IP INFORMATION.
@@ -131,6 +132,7 @@ class SecureTea(object):
         self.slack_provided = args_dict['slack_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
         self.firewall_provided = args_dict['firewall_provided']
+        self.insecure_headers_provided = args_dict['insecure_headers_provided']
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -201,7 +203,17 @@ class SecureTea(object):
                     self.cred_provided = True
             except KeyError:
                 self.logger.log(
-                    "Firewall configuraton paramter not set.",
+                    "Firewall configuraton parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['insecure_headers']:
+                    self.insecure_headers_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Insecure headers parameter not set.",
                     logtype="error"
                 )
 
@@ -303,6 +315,19 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Firewall configuration parameter not configured.",
+                    logtype="error"
+                )
+
+        if self.insecure_headers_provided:
+            try:
+                if self.cred['insecure_headers']:
+                    url = self.cred['insecure_headers']['url']
+                    insecure_headers_obj = secureTeaHeaders.SecureTeaHeaders(url=url,
+                                                                             debug=self.cred['debug'])
+                    insecure_headers_obj.analyze()
+            except KeyError:
+                self.logger.log(
+                    "Insecure headers parameter not configured.",
                     logtype="error"
                 )
 

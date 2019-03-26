@@ -331,5 +331,20 @@ def get_args():
         help='Time upper bound'
     )
 
+    parser.add_argument(
+        '--insecure_headers',
+        '-ih',
+        action="store_true",
+        required=False,
+        help="Test URL for insecure headers"
+    )
+    parser.add_argument(
+        '--url',
+        '-u',
+        type=str,
+        required=False,
+        help="URL on which operations are to be performed"
+    )
+
     args = parser.parse_args()
     return args
