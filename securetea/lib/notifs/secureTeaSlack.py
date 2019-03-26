@@ -57,7 +57,8 @@ class SecureTeaSlack():
             msg (TYPE): Description
         """
         message = (str(msg) + " at " + common.getdatetime() +
-                   " " + common.get_current_location())
+                   " " + common.get_current_location() + common.get_platform())
+
         channel_info = requests.post(
             self.slack_channel_open_url,
             headers={"Authorization": self.auth_header},

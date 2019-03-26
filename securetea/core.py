@@ -13,74 +13,19 @@ Project:
 import struct
 import sys
 import time
-import json
-import platform
-from urllib2 import urlopen
 
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
-from securetea.lib.notifs import secureTeaAwsSES
+from securetea.lib.notifs.aws import secureTeaAwsSES
 from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
-
-def get_ip_info():
-    """GET IP INFORMATION.
-
-    Parameters:
-    ----------
-    None
-
-    Returns:
-    --------
-    None
-
-    Working:
-    --------
-    Provides IP Address information for notifications.
-
-    Raises:
-    -------
-    None
-    """
-    url = 'http://ipinfo.io/json'
-    response = urlopen(url)
-    data = json.load(response)
-
-    IP = data['ip']
-    org = data['org']
-    city = data['city']
-    country = data['country']
-    region = data['region']
-
-    return 'IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}'.format(org, region, country, city, IP)
-
-def get_platform():
-    """Get Platform python is being run on.
-
-    Parameters:
-    ----------
-    None
-
-    Returns:
-    --------
-    None
-
-    Working:
-    --------
-    Provides Platform information for notifications.
-
-    Raises:
-    -------
-    None
-    """
-    return platform.system() + " " + platform.release()
-
+from securetea.lib.security_header import secureTeaHeaders
 
 pynput_status = True
 
@@ -131,6 +76,7 @@ class SecureTea(object):
         self.slack_provided = args_dict['slack_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
         self.firewall_provided = args_dict['firewall_provided']
+        self.insecure_headers_provided = args_dict['insecure_headers_provided']
 
         self.logger = logger.SecureTeaLogger(
             modulename,
@@ -201,7 +147,17 @@ class SecureTea(object):
                     self.cred_provided = True
             except KeyError:
                 self.logger.log(
-                    "Firewall configuraton paramter not set.",
+                    "Firewall configuraton parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['insecure_headers']:
+                    self.insecure_headers_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Insecure headers parameter not set.",
                     logtype="error"
                 )
 
@@ -306,6 +262,19 @@ class SecureTea(object):
                     logtype="error"
                 )
 
+        if self.insecure_headers_provided:
+            try:
+                if self.cred['insecure_headers']:
+                    url = self.cred['insecure_headers']['url']
+                    insecure_headers_obj = secureTeaHeaders.SecureTeaHeaders(url=url,
+                                                                             debug=self.cred['debug'])
+                    insecure_headers_obj.analyze()
+            except KeyError:
+                self.logger.log(
+                    "Insecure headers parameter not configured.",
+                    logtype="error"
+                )
+
     def on_move(self, x, y):
         """Docstring.
 
@@ -316,7 +285,7 @@ class SecureTea(object):
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
         msg = '(' + str(self.alert_count) + \
-            ') : Someone has accessed your computer' + "\n" + get_ip_info() + "\n" + get_platform()
+            ') : Someone has accessed your computer'
 
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
