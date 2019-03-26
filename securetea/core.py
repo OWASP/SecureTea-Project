@@ -14,6 +14,7 @@ import struct
 import sys
 import time
 import pyudev
+import threading
 
 from securetea import configurations
 from securetea import logger
@@ -67,6 +68,9 @@ class SecureTea(object):
         argsHelper = ArgsHelper(args)
         args_dict = argsHelper.check_args()
         credentials = configurations.SecureTeaConf()
+        thread = threading.Thread(target=self.run, args=())
+        thread.daemon = True 
+        thread.start()
 
         self.cred = args_dict['cred']
         self.cred_provided = args_dict['cred_provided']
@@ -291,21 +295,18 @@ class SecureTea(object):
                 posy = 0
                 self.on_move(posx, posy)
 
-    def run(self):
+    def work(self):
         """Docstring."""
         time.sleep(10)
+        
         try:
-            
             if not pynput_status:
-                self.get_by_mice()
-                
+                    self.get_by_mice()
             else:
                 while 1:
                     # Starting mouse event listner
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
-            self._work()
-                    
         except Exception as e:
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
@@ -314,52 +315,74 @@ class SecureTea(object):
         except KeyboardInterrupt as e:
             self.logger.log(
                 "You pressed Ctrl+C!, Bye")
-    
-    def _work(self):
+            
+                    
+        
+
+    def run(self):
         self.context = pyudev.Context()
         self.monitor = pyudev.Monitor.from_netlink(self.context)
         self.monitor.filter_by(subsystem='usb')
+       
 
         for device in iter(self.monitor.poll, None):
-            if (device.action == 'add'):
-                #print('{} connected'.format(device))
-                msg = 'Someone connected pendrive in your laptop'
+            
+            
+		if (device.action == 'add'):
+			if device.device_node is None:
+				
+	    			pass
 
-                self.logger.log(msg, logtype="warning")
-                # Send a warning message via twitter account
-                if self.twitter_provided:
-                    self.twitter.notify(msg)
+    			else:
+				self.logger.log('Pendrive Connected to {0}'.format(device.device_node))
+				msg = ('Someone Connected {1} pendrive at {0} '.format(device.device_node,device.get('ID_MODEL')))
+		    
+		    
 
-                # Send a warning message via telegram bot
-                if self.telegram_provided:
-                    self.telegram.notify(msg)
+				self.logger.log(msg, logtype="warning")
+				# Send a warning message via twitter account
+				if self.twitter_provided:
+				    self.twitter.notify(msg)
 
-                # Send a warning message via twilio account
-                if self.twilio_provided:
-                    self.twilio.notify(msg)
+				# Send a warning message via telegram bot
+				if self.telegram_provided:
+				    self.telegram.notify(msg)
 
-                # Send a warning message via slack bot app
-                if self.slack_provided:
-                    self.slack.notify(msg)
-                
-            elif (device.action == 'remove'):
-                #print('{} disconnected'.format(device))
-                msg = 'Someone disconnected pendrive in your laptop'
+				# Send a warning message via twilio account
+				if self.twilio_provided:
+				    self.twilio.notify(msg)
 
-                self.logger.log(msg, logtype="warning")
-               # Send a warning message via twitter account
-                if self.twitter_provided:
-                    self.twitter.notify(msg)
+				# Send a warning message via slack bot app
+				if self.slack_provided:
+				    self.slack.notify(msg)
+			    
+		    
+		elif (device.action == 'remove'):
+		   
+			if device.device_node is None:
+				
+	    			pass
 
-                # Send a warning message via telegram bot
-                if self.telegram_provided:
-                    self.telegram.notify(msg)
+    			else:
+				self.logger.log('Pendrive Disonnected to {0}'.format(device.device_node))
+				msg = ('Someone Disconnected pendrive at {0} '.format(device.device_node))
+		   
 
-                # Send a warning message via twilio account
-                if self.twilio_provided:
-                    self.twilio.notify(msg)
+				self.logger.log(msg, logtype="warning")
+				# Send a warning message via twitter account
+				if self.twitter_provided:
+				    self.twitter.notify(msg)
 
-                # Send a warning message via slack bot app
-                if self.slack_provided:
-                    self.slack.notify(msg)
-                
+				# Send a warning message via telegram bot
+				if self.telegram_provided:
+				    self.telegram.notify(msg)
+
+				# Send a warning message via twilio account
+				if self.twilio_provided:
+				    self.twilio.notify(msg)
+
+				# Send a warning message via slack bot app
+				if self.slack_provided:
+				    self.slack.notify(msg)
+				    
+		    

@@ -5,6 +5,7 @@ import os
 import platform
 import time
 
+
 from securetea.core import SecureTea
 
 if __name__ == '__main__':
@@ -26,4 +27,6 @@ if __name__ == '__main__':
             os.system('rundll32.exe powerprof.dll, SetSuspendState 0,1,0')
     except Exception as e:
         print(e)
-    secT.run()
+    secT.work()
+  
+
