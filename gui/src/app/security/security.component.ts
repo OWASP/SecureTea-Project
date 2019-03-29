@@ -15,11 +15,22 @@ export class SecurityComponent implements OnInit {
   apiRoot = '';
   error: String;
   status = '';
-  twitterForm = new FormGroup({
-    apikey: new FormControl(''),
-    apiSecret: new FormControl(''),
-    token: new FormControl(''),
-    tokenSecret: new FormControl('')
+  notificationsForm = new FormGroup({
+    twitter_apikey: new FormControl(''),
+    twitter_apiSecret: new FormControl(''),
+    twitter_token: new FormControl(''),
+    twitter_tokenSecret: new FormControl(''),
+    telegram_token: new FormControl(''),
+    telegram_userId: new FormControl(''),
+    twilio_sid: new FormControl(''),
+    twilio_token: new FormControl(''),
+    twilio_from: new FormControl(''),
+    twilio_to: new FormControl(''),
+    slack_token: new FormControl(''),
+    slack_userId: new FormControl(''),
+    aws_email: new FormControl(''),
+    aws_secretKey: new FormControl(''),
+    aws_accessKey: new FormControl('')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -31,15 +42,36 @@ export class SecurityComponent implements OnInit {
     }
     this.checkStatus();
   }
+  isValid()
+  {
+    return (
+              (this.notificationsForm.value.twitter_apikey!="" && this.notificationsForm.value.twitter_apiSecret!=""  && this.notificationsForm.value.twitter_token!="" && this.notificationsForm.value.twitter_tokenSecret!="" ) ||
+              (this.notificationsForm.value.telegram_token!=""  && this.notificationsForm.value.telegram_userId!="" ) ||
+              (this.notificationsForm.value.twilio_sid!=""  && this.notificationsForm.value.twilio_token!=""  && this.notificationsForm.value.twilio_to!=""  && this.notificationsForm.value.twilio_from!="" ) ||
+              (this.notificationsForm.value.slack_token!=""  && this.notificationsForm.value.slack_userId!="" ) ||
+              (this.notificationsForm.value.aws_email!=""  && this.notificationsForm.value.aws_accessKey!=""  && this.notificationsForm.value.aws_secretKey!="" )
+           )
+  }
   Submit() {
     const posturl = `${this.apiRoot}sleep`;
-    if (this.twitterForm.valid) {
+    if (this.notificationsForm.valid) {
       this.error = '';
       const data = {
-        'api_key': this.twitterForm.value.apikey,
-        'api_secret_key': this.twitterForm.value.apiSecret,
-        'access_token': this.twitterForm.value.token,
-        'access_token_secret': this.twitterForm.value.tokenSecret
+        'twitter_api_key': this.notificationsForm.value.twitter_apikey,
+        'twitter_api_secret_key': this.notificationsForm.value.twitter_apiSecret,
+        'twitter_access_token': this.notificationsForm.value.twitter_token,
+        'twitter_access_token_secret': this.notificationsForm.value.twitter_tokenSecret,
+        'telegram_token': this.notificationsForm.value.telegram_token,
+        'telegram_user_id': this.notificationsForm.value.telegram_userId,
+        'twilio_sid': this.notificationsForm.value.twilio_sid,
+        'twilio_token': this.notificationsForm.value.twilio_token,
+        'twilio_from': this.notificationsForm.value.twilio_from,
+        'twilio_to': this.notificationsForm.value.twilio_to,
+        'slack_token': this.notificationsForm.value.slack_token,
+        'slack_user_id': this.notificationsForm.value.slack_userId,
+        'aws_email': this.notificationsForm.value.aws_email,
+        'aws_access_key': this.notificationsForm.value.aws_accessKey,
+        'aws_secret_key': this.notificationsForm.value.aws_secretKey
       };
       swal({
         title: 'Are you sure?',
@@ -52,7 +84,7 @@ export class SecurityComponent implements OnInit {
         if (willDelete) {
           this.http.post(posturl, data).subscribe((res) => {
             if (res.status === 201) {
-              this.twitterForm.reset();
+              this.notificationsForm.reset();
               $('#startForm').hide();
               $('#stopForm').show();
               this.error = '';
@@ -84,7 +116,7 @@ export class SecurityComponent implements OnInit {
         if (willDelete) {
           this.http.get(posturl).subscribe((res) => {
             if (res.status === 201) {
-              this.twitterForm.reset();
+              this.notificationsForm.reset();
               $('#startForm').hide();
               $('#stopForm').show();
               this.error = '';
