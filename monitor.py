@@ -397,13 +397,47 @@ def sleep():
         return "404", 404
 
     creds = request.get_json()
+    # print(creds)
+    args_str = ""
+    try:
+        if len(creds['twitter_api_key']) and len(creds['twitter_api_secret_key']) and len(creds['twitter_access_token']) and len(creds['twitter_access_token_secret']):
+            args_str += ' --twitter_api_key="' + creds['twitter_api_key'] + '"'
+            args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
+            args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
+            args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
+    except:
+        pass
+    try:
+        if len(creds['telegram_token']) and len(creds['telegram_user_id']):
+            args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
+            args_str += ' --telegram_user_id="' + creds['telegram_user_id'] + '"'
+    except:
+        pass
+    try:
+        if len(creds['twilio_sid']) and len(creds['twilio_token']) and len(creds['twilio_from']) and len(creds['twilio_to']):
+            args_str += ' --twilio_sid="' + creds['twilio_sid'] + '"'
+            args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
+            args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
+            args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
+    except:
+        pass
+    try:
+        if len(creds['slack_token']) and len(creds['slack_user_id']):
+            args_str += ' --slack_token="' + creds['slack_token'] + '"'
+            args_str += ' --slack_user_id="' + creds['slack_user_id'] + '"'
+    except:
+        pass
+    try:
+        if len(creds['aws_email']) and len(creds['aws_access_key']) and len(creds['aws_secret_key']):
+            args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
+            args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
+            args_str += ' --aws_email="' + creds['aws_email'] + '"'
+    except:
+        pass
+    print(args_str)
     try:
         if not processid:
-            processid = subprocess.Popen('python SecureTea.py --twitter_api_key="' + creds['api_key'] +
-                                         '" --twitter_api_secret_key="' + creds['api_secret_key'] +
-                                         '" --twitter_access_token="' + creds['access_token'] +
-                                         '" --twitter_access_token_secret="' +
-                                         creds['access_token_secret'] + '" &',
+            processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
                                          stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
             return '201', 201
         else:

@@ -232,8 +232,8 @@ class ArgsHelper(object):
         return {
             'input': {
                 'aws_email': 'aws verified email',
-                'ses_access_key': 'aws ses access key',
-                'ses_secret_key': 'aws ses secret key'
+                'aws_access_key': 'aws ses access key',
+                'aws_secret_key': 'aws ses secret key'
             },
             'default': default
         }
@@ -456,11 +456,11 @@ class ArgsHelper(object):
 
         if not self.aws_ses_provided:
             if (self.args.aws_email and
-                self.args.ses_access_key and self.args.ses_secret_key):
-                slack = {}
-                slack['aws_email'] = self.args.aws_email
-                slack['ses_access_key'] = self.args.ses_access_key
-                slack['ses_secret_key'] = self.args.ses_secret_key
+                self.args.aws_access_key and self.args.aws_secret_key):
+                aws_ses = {}
+                aws_ses['aws_email'] = self.args.aws_email
+                aws_ses['aws_access_key'] = self.args.aws_access_key
+                aws_ses['aws_secret_key'] = self.args.aws_secret_key
                 self.cred['aws_ses'] = aws_ses
                 self.aws_ses_provided = True
 
