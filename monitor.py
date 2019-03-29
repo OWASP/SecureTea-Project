@@ -398,41 +398,31 @@ def sleep():
 
     creds = request.get_json()
     args_str = ""
-    try:
-        if not creds['twitter_api_key'] and not creds['twitter_api_secret_key'] and not creds['twitter_access_token'] and not creds['twitter_access_token_secret']:
+    if "twitter_api_key" in creds and "twitter_access_token" in creds and "twitter_access_token_secret" in creds and "twitter_api_secret_key" in creds:
+        if bool(creds['twitter_api_key']) and bool(creds['twitter_api_secret_key']) and bool(creds['twitter_access_token']) and bool(creds['twitter_access_token_secret']):
             args_str += ' --twitter_api_key="' + creds['twitter_api_key'] + '"'
             args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
             args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
             args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
-    except:
-        pass
-    try:
-        if not creds['telegram_token'] and not creds['telegram_user_id']:
+    if "telegram_token" in creds and "telegram_user_id" in creds:
+        if bool(creds['telegram_token']) and bool(creds['telegram_user_id']):
             args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
             args_str += ' --telegram_user_id="' + creds['telegram_user_id'] + '"'
-    except:
-        pass
-    try:
-        if not creds['twilio_sid'] and not creds['twilio_token'] and not creds['twilio_from'] and not creds['twilio_to']:
+    if "twilio_sid" in creds and "twilio_token" in creds and "twilio_from" in creds and "twilio_to" in creds:
+        if bool(creds['twilio_sid']) and bool(creds['twilio_token']) and bool(creds['twilio_from']) and bool(creds['twilio_to']):
             args_str += ' --twilio_sid="' + creds['twilio_sid'] + '"'
             args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
             args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
             args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
-    except:
-        pass
-    try:
-        if not creds['slack_token'] and not creds['slack_user_id']:
+    if "slack_token" in creds and "slack_user_id" in creds:
+        if bool(creds['slack_token']) and bool(creds['slack_user_id']):
             args_str += ' --slack_token="' + creds['slack_token'] + '"'
             args_str += ' --slack_user_id="' + creds['slack_user_id'] + '"'
-    except:
-        pass
-    try:
-        if not creds['aws_email'] and not creds['aws_access_key'] and not creds['aws_secret_key']:
+    if "aws_access_key" in creds and "aws_email" in creds and "aws_secret_key" in creds:
+        if bool(creds['aws_email']) and bool(creds['aws_access_key']) and bool(creds['aws_secret_key']):
             args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
             args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
             args_str += ' --aws_email="' + creds['aws_email'] + '"'
-    except:
-        pass
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
