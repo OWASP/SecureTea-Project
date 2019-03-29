@@ -20,27 +20,84 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body p-0">
-              <h2 class="card-title">Twitter</h2>
-              <h3 class="card-subtitle">Notification to twitter</h3>
               <div id="startForm">
-                <form [formGroup]="twitterForm" (ngSubmit)="Submit()">
-                    <div class="form-group">
-                        <label>API key</label>
-                        <input type="text" class="form-control" formControlName="apikey" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>API secret key</label>
-                        <input type="text" class="form-control" formControlName="apiSecret" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Access token</label>
-                        <input type="text" class="form-control" formControlName="token" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
-                    </div>
-                    <div class="form-group">
-                        <label>Access token secret</label>
-                        <input type="text" class="form-control" formControlName="tokenSecret" placeholder="xxxx-xxxx-xxxx-xxxx" required/>
-                    </div>
-                    <button type="submit" class="btn btn-primary m-b-10 pull-right">Secure</button>
+                <form [formGroup]="notificationsForm" (ngSubmit)="Submit()">
+                    <h1 class="card-title">Twitter Notification</h1>
+                    <h3 class="card-subtitle">Notification to twitter</h3>
+                        <div class="form-group">
+                            <label>API key</label>
+                            <input type="text" class="form-control" formControlName="twitter_apikey" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>API secret key</label>
+                            <input type="text" class="form-control" formControlName="twitter_apiSecret" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Access token</label>
+                            <input type="text" class="form-control" formControlName="twitter_token" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Access token secret</label>
+                            <input type="text" class="form-control" formControlName="twitter_tokenSecret" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                    <hr style="border-width:5px">
+                    <h1 class="card-title">Telegram Notification</h1>
+                    <h3 class="card-subtitle">Notification to telegram</h3>
+                        <div class="form-group">
+                            <label>Token</label>
+                            <input type="text" class="form-control" formControlName="telegram_token" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>User Id</label>
+                            <input type="text" class="form-control" formControlName="telegram_userId" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                    <hr style="border-width:5px">
+                    <h1 class="card-title">Twilio Notification</h1>
+                    <h3 class="card-subtitle">Notification to twilio</h3>
+                        <div class="form-group">
+                            <label>SID</label>
+                            <input type="text" class="form-control" formControlName="twilio_sid" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Token</label>
+                            <input type="text" class="form-control" formControlName="twilio_token" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" class="form-control" formControlName="twilio_from" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" class="form-control" formControlName="twilio_to" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                    <hr style="border-width:5px">
+                    <h1 class="card-title">Slack Notification</h1>
+                    <h3 class="card-subtitle">Notification to slack</h3>
+                        <div class="form-group">
+                            <label>Token</label>
+                            <input type="text" class="form-control" formControlName="slack_token" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>User Id</label>
+                            <input type="text" class="form-control" formControlName="slack_userId" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                    <hr style="border-width:5px">
+                    <h1 class="card-title">AWS SES Notification</h1>
+                    <h3 class="card-subtitle">Notification to mail</h3>
+                        <div class="form-group">
+                            <label>Verified Email Id</label>
+                            <input type="text" class="form-control" formControlName="aws_email" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>SES Access Key</label>
+                            <input type="text" class="form-control" formControlName="aws_accessKey" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                        <div class="form-group">
+                            <label>SES Secret Key</label>
+                            <input type="text" class="form-control" formControlName="aws_secretKey" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                        </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>
                 <div class="error">
                     {{ error }}
