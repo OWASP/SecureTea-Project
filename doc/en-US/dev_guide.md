@@ -1,6 +1,6 @@
  # Developer Guide
 
-Read user guide [here](/doc/user_guide.md).
+Read user guide [here](/doc/en-US/user_guide.md).
 
  ## Table of Contents
  
