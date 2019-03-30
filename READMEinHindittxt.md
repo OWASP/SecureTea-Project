@@ -39,23 +39,18 @@ The OWASP SecureTea Project एक ऐसा एप्लिकेशन है 
 -   ट्विटर / एसएमएस / स्लैक / टेलीग्राम पर चेतावनी संदेश भेजें|
 
 लक्ष्य
-====
 
 जब भी कंप्यूटर / सर्वर किसी / हमलावर द्वारा उपयोग किया जा रहा है, तो संचार तंत्र के माध्यम से उपयोगकर्ता को सचेत करने के लिए।
 इसका उपयोग रक्षा के रूप में आपके सिस्टम और सिक्योरटी फायरवाल की निगरानी के लिए भी किया जा सकता है।
 
 इंस्टालेशन
-====
-उपयोगकर्ता गाइड:
-====
+उपयोगकर्ता गाइड
 इस पर अधिक देखें [User Guide](/doc/user_guide.md)
 
 डेवलपर गाइड
-====
 इस पर अधिक देखें [Developer guide](/doc/dev_guide.md)
 
 [सुझाव और योगदान](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
-=====
 
 -   योगदानकर्ताओं के लिए, कृपया नीचे अपना नाम जोड़ें।:
 -   [Ade Yoseman](https://www.owasp.org/index.php/Ade_Yoseman_Putra)
@@ -67,11 +62,9 @@ The OWASP SecureTea Project एक ऐसा एप्लिकेशन है 
 
 
 समूह चैट करें
-==========
 
 [
 ![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
 गूगल समर ऑफ कोड
-======
 <img src="https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg" width="200"></img>
