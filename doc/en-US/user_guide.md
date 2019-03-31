@@ -49,7 +49,7 @@
  
 -  [License](#license)
 
--  [Developer Guide](/doc/dev_guide.md)
+-  [Developer Guide](/doc/en-US/dev_guide.md)
 
 ## Introduction
 The OWASP SecureTea Project is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows).<br>
@@ -239,7 +239,11 @@ This is still under development.
 ![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20gui.PNG "Secure Tea Dashboard")
 <br><br>
 ![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/securetea%20security%20gui.PNG "Secure Tea Security Dashboard")
-
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/aws.png "Aws Email")
+<br><br>
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/tele-gui.png "Telegram")
+<br><br>
+![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/slack-twilio.png "Secure Tea Security Dashboard")
 ##### Configuring using CLI arguments
 
 ```argument
