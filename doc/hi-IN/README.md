@@ -11,7 +11,6 @@
 ## सूची
 *   [उपयोगकर्ता](#उपयोगकर्ता)
 *   [लक्ष्य](#लक्ष्य)
-*   [आवश्यक शर्तें](#आवश्यक-शर्तें]
 *   [स्थापना प्रक्रिया](#स्थापना-प्रक्रिया)
 *   [सुझाव और योगदान](#सुझाव-और-योगदान)
 *   [आचार संहिता](https://github.com/OWASP/SecureTea-Project/blob/master/CODE_OF_CONDUCT.md)
@@ -19,7 +18,7 @@
 *   [उपयोगकर्ता गाइड](/doc/en-US/user_guide.md)
 *   [डेवलपर गाइड](/doc/en-US/dev_guide.md)
 *   [जापानी में अनुवाद / 日本語の翻訳 ](/doc/ja-JP/README.md)
-*   [अंग्रेज़ी अनुवाद / Translation in English ] (/doc/en-US/README.md)
+*   [अंग्रेज़ी अनुवाद / Translation in English ](README.md)
 
 ## उपयोगकर्ता
 
@@ -40,11 +39,11 @@
 
 ### उपयोगकर्ता गाइड
 
-इस पर अधिक देखें|  [User Guide](/doc/en-US/user_guide.md)
+इस पर अधिक देखें।[User Guide](/doc/en-US/user_guide.md)
 
 ### डेवलपर गाइड
 
-इस पर अधिक देखें| -> [Developer guide](/doc/en-US/dev_guide.md)
+इस पर अधिक देखें।[Developer guide](/doc/en-US/dev_guide.md)
 
 ## [सुझाव और योगदान](https://github.com/OWASP/SecureTea-Project/blob/master/CONTRIBUTING.md)
 
@@ -57,9 +56,7 @@
 
 ## समूह बातचीत
 
-[
-![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
+[![Telegram](https://github.com/OWASP/SecureTea-Project/blob/master/img/telegram.png "Telegram")](https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ)
 
 ## गूगल समर ऑफ़ कोड
-[
-![Google Summer of Code](https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg)](https://summerofcode.withgoogle.com/organizations/6362925392986112/)
+[![Google Summer of Code](https://betanews.com/wp-content/uploads/2016/03/vertical-GSoC-logo.jpg)](https://summerofcode.withgoogle.com/organizations/6362925392986112/)
