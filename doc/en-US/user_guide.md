@@ -198,6 +198,11 @@ Default configuration:
 			"time_ub": "23:59"
 		}
 	},
+	"aws-ses": {
+		"aws_email": "XX@XX",
+		"aws_accessKey": "XXXX",
+		"aws_accessKey": "XXXX"
+	},
 	"debug": false
 }
 ```
@@ -224,6 +229,7 @@ Arguments list
 --twitter      Start Twitter interactive setup
 --twilio_sms   Start Twilio SMS interactive setup
 --firewall     Start Firewall interactive setup
+--aws_ses      Start Amazon Web Services(AWS-Simple Email Services) interactive setup
 ```
 
 Examples:<br>
@@ -274,6 +280,10 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--HTTP_response_action HTTP_RESPONSE_ACTION]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
+		    [--aws_ses]
+		    [--aws_email AWS_VERIFIED_EMAIL]
+		    [--aws_secret_key SECRET_ACCESS_KEY]
+		    [--aws_access_key ACCESS_KEY]
 ```
 
 Example usage:
@@ -294,6 +304,7 @@ In order to use the various communication medium you need to get yourself a veri
 -  [Getting Slack tokens](#getting-slack-tokens)
 -  [Getting Telegram tokens](#getting-telegram-tokens)
 -  [Getting Twilio SMS tokens](#getting-twilio-sms-tokens)
+-  [Getting AWS-SES tokens](#getting-aws-ses-tokens)
 
 ##### Getting Twitter tokens
 -  Visit https://apps.twitter.com.
@@ -312,6 +323,18 @@ In order to use the various communication medium you need to get yourself a veri
 ##### Getting Twilio SMS tokens
  -  Visit https://www.twilio.com and click on "Get a free API key".
 
+#### Getting AWS-SES tokens
+ -  Sign up for AWS https://aws.amazon.com/ (For new users)
+ -  Search for Simple Email Service in search bar of AWS
+ -  Select your AWS region accordingly( e.g, US East)
+ -  Click on email address and verify your email
+ -  Click on "My security credentials"
+ -  Click "Get started with IAM users" and add a new user(You can use root user's access code too ,but that would be insecure.)
+ -  Click on the username of just created user
+ -  Click "Security Credentials" and note down your "Access Key ID(aws_access_key)" and "Secret Access Key(aws_secret_kay)".
+ Warning: Do not share this keys for security reasons.
+ -  Put those keys and email into 'SecureTea.conf' file.
+
 ## Usage
 The following argument options are currently available:
 ```argument
@@ -323,6 +346,7 @@ The following argument options are currently available:
   --twilio_sms          Setup twilio SMS credentials
   --telegram            Setup telegram SMS credentials
   --slack               Setup Slack credentials
+  --aws_ses		Setup AWS-SES credentials
   --twitter_api_key TWITTER_API_KEY, -tak TWITTER_API_KEY
                         Twitter api key
   --twitter_api_secret_key TWITTER_API_SECRET_KEY, -tas TWITTER_API_SECRET_KEY
@@ -382,7 +406,10 @@ The following argument options are currently available:
                         DNS action (0: BLOCK, 1: ALLOW)
   --dns_list DNS_LIST   List of DNS to look for
   --time_lb TIME_LB     Time lower bound
-  --time_ub TIME_UB     Time upper bound
+  --time_ub TIME_UB     Time upper bound		
+  --aws_email		Verified email address
+  --aws_secret_key	AWS Secret Access Key
+  --aws_access_key 	AWS Access Key
  ```
 ### Example usages
 #### Starting Twitter notifier
@@ -413,6 +440,12 @@ sudo SecureTea.py --twilio_sid <data> --twilio_token <data> --twilio_from <data>
 Usage:<br>
 ```argument
 sudo SecureTea.py --interface <data> --inbound_IP_action <data> --inbound_IP_list <data> --outbound_IP_action <data> --outbound_IP_list <data> --protocol_action <data> --protocol_list <data> --scan_action <data> --scan_list <data> --dest_port_action <data> --dest_port_list <data> --source_port_action <data> --source_port_list <data> --HTTP_request_action <data> --HTTP_response_action <data> --dns_action <data> --dns_list <data> --time_lb <data> --time_ub <data> 
+```
+
+#### Starting AWS-SES
+Usage:<br>
+```argument
+sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
 ```
 
 ## Database
