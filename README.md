@@ -60,13 +60,10 @@ For contributors, please add your name below:
 -   [Rejah Rehim][Rejah]
 -   [Ananthu S][Ananthu]
 
-## Chat Group
+| **Chat Group** | **Google Summer of Code** |
+| -------------- | ------------------------- |
+| [<img src="/img/telegram.png" width="48" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  |
 
-[<img src="/img/telegram.png" width="48" title="Telegram">][Telegram]
-
-## Google Summer of Code
-
-[<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]
 
 [OWASP-logo]: https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png
 [SecureTea-OWASP]: https://www.owasp.org/index.php/OWASP_SecureTea_Project
