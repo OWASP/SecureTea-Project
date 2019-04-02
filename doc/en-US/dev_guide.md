@@ -1,9 +1,9 @@
- # Developer Guide
+# Developer Guide
 
 Read user guide [here](/doc/en-US/user_guide.md).
 
- ## Table of Contents
- 
+## Table of Contents
+
  - [Contributing guidelines](#contributing-guidelines)
 
  - [Code of Conduct](#code-of-conduct)
@@ -44,6 +44,7 @@ Read user guide [here](/doc/en-US/user_guide.md).
      - [Using pytest](#running-using-pytest)
 
 ### Contributing guidelines
+
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 <br><br>
 Please note we have a code of conduct, please follow it in all your interactions with the project.
@@ -167,7 +168,7 @@ Before continuing go through the **Before installation**.
 `cd SecureTea-Project`
 7.  Install the dependencies using<br>
 `pip install -r requirements.txt`
-	
+
 #### Arguments
 -  [Setting up an interactive setup with takeInput](#setting-up-an-interactive-setup-with-takeinput)
 -  [Writing a compatible function](#writing-a-compatible-function)
@@ -217,7 +218,7 @@ Currently, there are three levels:
  `logtype="error"`<br><br>
  -  warning<br>
  `logtype="warning"`<br><br>
- 
+
 #### Firewall
 -  [Writing-new-rules](#writing-new-rules)
   -  [Function format for rules](#function-format-for-rules)
@@ -251,7 +252,7 @@ Add this function to `packet_filter.PacketFilter`.
  where,
 -  1: Allow
 -  0: Block
- 
+
 ###### Usage:
 To use the `@xnor` decorator, follow the following format:
 
