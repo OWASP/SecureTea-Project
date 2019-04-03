@@ -135,7 +135,8 @@ Notify by Twitter            | Yes
 Securetea Dashboard          | Yes
 Notify by Telegram           | Yes
 Notify by Slack              | Yes
-Notify by SMS Alerts         | Yes
+Notify by Twilio SMS         | Yes
+Amazon Web Service-Simple Email Service | Yes
 SecureTea Firewall           | Yes
 Notify by WhatsApp           | No
 SecureTea IDS/IPS            | No
@@ -144,6 +145,7 @@ SecureTea Log monitoring     | No
 Web Defacement Detection     | No
 Last login                   | No
 Detection of malcious device | No
+
 
 <br>
 
