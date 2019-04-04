@@ -78,6 +78,7 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Telegram account (optional)
 -  Slack account (optional)
 -  Twilio SMS account (optional)
+-  Amazon Web Services account (optional)
 
 #### Installing pre-requisites
 Python:<br>
@@ -123,7 +124,10 @@ Installing from Zip involves the following steps:
 4.  Install SecureTea package<br>
 `sudo python setup.py install`<br>
 5.  Install python dependencies<br>
-`pip install -r requirements.txt`<br><br>
+`pip install -r requirements.txt`<br>
+or 
+`pip3 install -r requirements.txt`<br>
+tip: Incase of any error during installation, try using `apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
 
 If done, proceed to [After installation](#after-installation)
 
@@ -207,11 +211,12 @@ Default configuration:
 }
 ```
 
-###### Using vim<br>
-`vi etc/securetea/securetea.conf`
-
 ###### Using gedit<br>
-`gedit etc/securetea/securetea.conf`
+`gedit securetea.conf`
+
+###### Using vim<br>
+
+`vi securetea.conf`
 
 ##### Configuring using interactive setup mode
 
@@ -454,7 +459,7 @@ Currently, SecureTea-Project uses **sqlite3** database.
 ## License
 **MIT License**
 
-Copyright (c) 2017 OWASP SecureTea-Project Team - http://owasp.or.id
+Copyright (c) 2019 OWASP SecureTea-Project Team - http://owasp.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
