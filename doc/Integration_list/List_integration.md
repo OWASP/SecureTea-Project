@@ -1,4 +1,4 @@
-# List of services to be integrated
+# List of services to be integrated.
 
 |**Name**|**developer site**|**Integrated?** |
 |----|----|----|
@@ -6,14 +6,14 @@
 |Telegram|https://core.telegram.org/|Yes|
 |Slack|https://api.slack.com/|Yes|
 |Twilio|https://www.twilio.com/docs/usage/api|Yes|
-|AWS-services||Yes|
+|AWS-services|https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html|Yes|
 |Disa|https://disa.im/opensource.html||
 |VKontakte |https://vk.com/dev/openapi||
 |Sina Weibo |https://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3/en||
 | WeChat|https://open.wechat.com/cgi-bin/newreadtemplate?t=overseas_open/index||
 |Line|https://developers.line.biz/en/services/messaging-api/||
-|Whatsapp|||
-|Viber|||
+|Whatsapp|https://www.whatsapp.com/business/api||
+|Viber|https://developers.viber.com/docs/api/rest-bot-api/||
 |IMO|https://www.programmableweb.com/api/imo-games||
 |Reddit|https://www.reddit.com/dev/api/||
 |Baidu Tieba |||
