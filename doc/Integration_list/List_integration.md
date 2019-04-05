@@ -40,3 +40,6 @@
 |Wire|||
 |Dust|||
 |Wickr|||
+
+
+#### Note: Please add the name of Messeging/Notification services that I may have missed. Also, check whether an API exists for the service that you want to add. It will make integration easy. 
