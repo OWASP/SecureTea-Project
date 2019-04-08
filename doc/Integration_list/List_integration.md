@@ -1,6 +1,6 @@
 # List of services to be integrated.
 
-|**Name**|**developer site**|**Integrated?** | **Popularity ( MAU )** | **Assigned?**|
+|**Name**|**developer site**|**Integrated?** | **Popularity/MAU ** | **Assigned?**|
 |----|----|----|----|----|
 | Example | giyf.com | Yes/No/Partially | 1.23 million | Yes/No/Assigned to Mr. Tux Penguin  |
 |Twitter|https://developer.twitter.com/en/docs.html | Yes | 335 million ||
