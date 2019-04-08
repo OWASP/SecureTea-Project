@@ -1,7 +1,8 @@
 # List of services to be integrated.
 
-|**Name**|**developer site**|**Integrated?** | **Popularity( MAU )** |
+|**Name**|**developer site**|**Integrated?** | **Popularity( MAU )** | **Assigned?**|
 |----|----|----|----|
+| Example | giyf.com | Yes/No/Partially | 1.23 million | Yes/No/Assigned to Mr. Tux Penguin  |
 |Twitter|https://developer.twitter.com/en/docs.html | Yes | 335 million |
 |Telegram|https://core.telegram.org/ | Yes |  | 200 million |
 |Slack|https://api.slack.com/ |Yes|
