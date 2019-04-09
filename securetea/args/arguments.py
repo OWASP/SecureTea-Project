@@ -58,6 +58,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--gmail',
+        action='store_true',
+        required=False,
+        help='Setup Gmail credentials'
+    )
+
+    parser.add_argument(
         '--slack',
         required=False,
         action='store_true',
@@ -165,6 +172,27 @@ def get_args():
         type=str,
         required=False,
         help='Slack user id'
+    )
+
+    parser.add_argument(
+        '--sender_email',
+        type=str,
+        required=False,
+        help='Gmail sender e-mail id'
+    )
+
+    parser.add_argument(
+        '--to_email',
+        type=str,
+        required=False,
+        help='Destination of e-mail'
+    )
+
+    parser.add_argument(
+        '--password',
+        type=str,
+        required=False,
+        help='Password for Gmail sender account'
     )
 
     parser.add_argument(
