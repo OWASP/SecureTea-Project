@@ -42,6 +42,7 @@
 	   -  [Getting Slack tokens](#getting-slack-tokens)
 	   -  [Getting Telegram tokens](#getting-telegram-tokens)
         -  [Get Twilio SMS tokens](#getting-twilio-sms-tokens)
+	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
  
@@ -328,7 +329,7 @@ In order to use the various communication medium you need to get yourself a veri
 ##### Getting Twilio SMS tokens
  -  Visit https://www.twilio.com and click on "Get a free API key".
 
-#### Getting AWS-SES tokens
+##### Getting AWS-SES tokens
  -  Sign up for AWS https://aws.amazon.com/ (For new users)
  -  Search for Simple Email Service in search bar of AWS
  -  Select your AWS region accordingly( e.g, US East)
@@ -339,6 +340,13 @@ In order to use the various communication medium you need to get yourself a veri
  -  Click "Security Credentials" and note down your "Access Key ID(aws_access_key)" and "Secret Access Key(aws_secret_kay)".
  Warning: Do not share this keys for security reasons.
  -  Put those keys and email into 'SecureTea.conf' file.
+ 
+ ##### Getting Gmail tokens
+  - Sign up for a Gmail account https://mail.google.com (for new users)
+  - Go to "Accounts" and proceed to "Security" dashboard
+  - Turn on "Less secure app access" to allow SecureTea be able to send emails
+  - Proceed to https://accounts.google.com/DisplayUnlockCaptcha and click on Continue, and then allow
+  - Put your sender email ID, password and destination email ID in the `securetea.conf` file.
 
 ## Usage
 The following argument options are currently available:
@@ -415,6 +423,10 @@ The following argument options are currently available:
   --aws_email		Verified email address
   --aws_secret_key	AWS Secret Access Key
   --aws_access_key 	AWS Access Key
+  --sender_email SENDER_EMAIL
+                        Gmail sender e-mail id
+  --to_email TO_EMAIL   Destination of e-mail
+  --password PASSWORD   Password for Gmail sender account
  ```
 ### Example usages
 #### Starting Twitter notifier
