@@ -149,6 +149,7 @@ class ArgsHelper(object):
         self.twilio_provided = False
         self.slack_provided = False
         self.aws_ses_provided = False
+        self.gmail_provided = False
         self.firewall_provided = False
         self.insecure_headers_provided = False
 
@@ -234,6 +235,22 @@ class ArgsHelper(object):
                 'aws_email': 'aws verified email',
                 'aws_access_key': 'aws ses access key',
                 'aws_secret_key': 'aws ses secret key'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureGmail(self):
+        """
+        Returns the format to configure GMAIL.
+        """
+        self.logger.log('Gmail configuration setup')
+        default = load_default('gmail')
+        return {
+            'input': {
+                'sender_email': 'email of the sender',
+                'password': 'password',
+                'to_email': 'mail to send to'
             },
             'default': default
         }
@@ -354,6 +371,12 @@ class ArgsHelper(object):
                 self.cred['aws_ses'] = aws_ses
                 self.aws_ses_provided = True
 
+            # Start the Gmail configuraton setup
+            gmail = self.configureGmail()
+            if gmail:
+                self.cred['gmail'] = gmail
+                self.gmail_provided = True
+
             # Start the firewall configuration setup
             firewall = self.configureFirewall()
             if firewall:
@@ -395,6 +418,12 @@ class ArgsHelper(object):
             if aws_ses:
                 self.cred['aws_ses'] = aws_ses
                 self.aws_ses_provided = True
+
+        if self.args.gmail and not self.gmail_provided:
+            gmail = self.configureGmail()
+            if gmail:
+                self.cred['gmail'] = gmail
+                self.gmail_provided = True
 
         if self.args.firewall and not self.firewall_provided:
             firewall = self.configureFirewall()
@@ -453,6 +482,17 @@ class ArgsHelper(object):
                 slack['user_id'] = self.args.slack_user_id
                 self.cred['slack'] = slack
                 self.slack_provided = True
+
+        if not self.gmail_provided:
+            if (self.args.sender_email and
+                self.args.to_email and
+                self.args.password):
+                gmail = {}
+                gmail['sender_email'] = self.args.sender_email
+                gmail['to_email'] = self.args.to_email
+                gmail['password'] = self.args.password
+                self.cred['gmail'] = gmail
+                self.gmail_provided = True
 
         if not self.aws_ses_provided:
             if (self.args.aws_email and
@@ -546,7 +586,8 @@ class ArgsHelper(object):
             self.slack_provided or
             self.aws_ses_provided or
             self.firewall_provided or
-            self.insecure_headers_provided):
+            self.insecure_headers_provided or
+            self.gmail_provided):
             self.cred_provided = True
 
         return {
@@ -557,6 +598,7 @@ class ArgsHelper(object):
             'twilio_provided': self.twilio_provided,
             'slack_provided': self.slack_provided,
             'aws_ses_provided': self.aws_ses_provided,
+            'gmail_provided': self.gmail_provided,
             'firewall_provided': self.firewall_provided,
             'insecure_headers_provided': self.insecure_headers_provided
         }
