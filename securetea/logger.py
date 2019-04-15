@@ -14,8 +14,8 @@ Project:
 import time
 import sqlite3
 
-
 connection = sqlite3.connect('/etc/securetea/db.sqlite3')
+
 connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     TYPE CHAR(50),
@@ -23,7 +23,7 @@ connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
     MODULE CHAR(100),
     MESSAGE CHAR(100)
     );''')
-    
+
 class SecureTeaLogger():
     """Initilize the logger for the script.
 
@@ -113,4 +113,4 @@ class SecureTeaLogger():
             elif logtype == "warning":
                 self.printwarning(message)
             else:
-                pass
+                passs
