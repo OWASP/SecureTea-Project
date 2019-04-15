@@ -24,7 +24,6 @@ connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
     MESSAGE CHAR(100)
     );''')
     
-
 class SecureTeaLogger():
     """Initilize the logger for the script.
 
