@@ -85,9 +85,8 @@ class SecureTeaUserLogger():
         print(self.LEGEND + self.OKGREEN + message + self.ENDC)
         return message
 
-
     def log(self):
-        """For adding users.
-
+        """
+        For adding users.
         """
         return self.addUsers()
