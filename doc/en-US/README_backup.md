@@ -46,7 +46,7 @@ And also it can be used to monitor your system.
 
 ## Pre-requisites
 
-### I. Hardware 
+### I. Hardware
 
 *   Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
 *   Mouse / Wireless Mouse / Touchpad congenital laptop

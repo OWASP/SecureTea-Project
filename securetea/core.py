@@ -22,6 +22,7 @@ from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
 from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
+from securetea.lib.notifs import secureTeaGmail
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
@@ -75,6 +76,7 @@ class SecureTea(object):
         self.twilio_provided = args_dict['twilio_provided']
         self.slack_provided = args_dict['slack_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
+        self.gmail_provided = args_dict['gmail_provided']
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
 
@@ -138,6 +140,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "AWS SES configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['gmail']:
+                    self.gmail_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Gmail configuraton parameter not set.",
                     logtype="error"
                 )
 
@@ -250,6 +262,20 @@ class SecureTea(object):
             else:
                 self.aws_ses.notify("Welcome to SecureTea..!! Initializing System")
 
+        if self.gmail_provided:
+            self.gmail_obj = secureTeaGmail.SecureTeaGmail(
+                cred=self.cred['gmail'],
+                debug=self.cred['debug']
+            )
+
+            if not self.gmail_obj.enabled:
+                self.logger.log(
+                    "Gmail not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.gmail_obj.notify("Welcome to SecureTea..!! Initializing System")
+
         if self.firewall_provided:
             try:
                 if self.cred['firewall']:
@@ -309,6 +335,10 @@ class SecureTea(object):
         # Send a warning message via aws ses bot3 app
         if self.aws_ses_provided:
             self.aws_ses.notify(msg)
+
+        # Send a warning message via Gmail
+        if self.gmail_provided:
+            self.gmail_obj.notify(msg)
 
         # Update counter for the next move
         self.alert_count += 1

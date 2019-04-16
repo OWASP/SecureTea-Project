@@ -42,6 +42,7 @@
 	   -  [Getting Slack tokens](#getting-slack-tokens)
 	   -  [Getting Telegram tokens](#getting-telegram-tokens)
         -  [Get Twilio SMS tokens](#getting-twilio-sms-tokens)
+	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
  
@@ -78,6 +79,7 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Telegram account (optional)
 -  Slack account (optional)
 -  Twilio SMS account (optional)
+-  Amazon Web Services account (optional)
 
 #### Installing pre-requisites
 Python:<br>
@@ -123,7 +125,10 @@ Installing from Zip involves the following steps:
 4.  Install SecureTea package<br>
 `sudo python setup.py install`<br>
 5.  Install python dependencies<br>
-`pip install -r requirements.txt`<br><br>
+`pip install -r requirements.txt`<br>
+or 
+`pip3 install -r requirements.txt`<br>
+tip: Incase of any error during installation, try using `apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
 
 If done, proceed to [After installation](#after-installation)
 
@@ -198,15 +203,21 @@ Default configuration:
 			"time_ub": "23:59"
 		}
 	},
+	"aws-ses": {
+		"aws_email": "XX@XX",
+		"aws_accessKey": "XXXX",
+		"aws_accessKey": "XXXX"
+	},
 	"debug": false
 }
 ```
 
-###### Using vim<br>
-`vi etc/securetea/securetea.conf`
-
 ###### Using gedit<br>
-`gedit etc/securetea/securetea.conf`
+`gedit securetea.conf`
+
+###### Using vim<br>
+
+`vi securetea.conf`
 
 ##### Configuring using interactive setup mode
 
@@ -224,6 +235,7 @@ Arguments list
 --twitter      Start Twitter interactive setup
 --twilio_sms   Start Twilio SMS interactive setup
 --firewall     Start Firewall interactive setup
+--aws_ses      Start Amazon Web Services(AWS-Simple Email Services) interactive setup
 ```
 
 Examples:<br>
@@ -274,6 +286,10 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--HTTP_response_action HTTP_RESPONSE_ACTION]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
+		    [--aws_ses]
+		    [--aws_email AWS_VERIFIED_EMAIL]
+		    [--aws_secret_key SECRET_ACCESS_KEY]
+		    [--aws_access_key ACCESS_KEY]
 ```
 
 Example usage:
@@ -294,6 +310,7 @@ In order to use the various communication medium you need to get yourself a veri
 -  [Getting Slack tokens](#getting-slack-tokens)
 -  [Getting Telegram tokens](#getting-telegram-tokens)
 -  [Getting Twilio SMS tokens](#getting-twilio-sms-tokens)
+-  [Getting AWS-SES tokens](#getting-aws-ses-tokens)
 
 ##### Getting Twitter tokens
 -  Visit https://apps.twitter.com.
@@ -312,6 +329,25 @@ In order to use the various communication medium you need to get yourself a veri
 ##### Getting Twilio SMS tokens
  -  Visit https://www.twilio.com and click on "Get a free API key".
 
+##### Getting AWS-SES tokens
+ -  Sign up for AWS https://aws.amazon.com/ (For new users)
+ -  Search for Simple Email Service in search bar of AWS
+ -  Select your AWS region accordingly( e.g, US East)
+ -  Click on email address and verify your email
+ -  Click on "My security credentials"
+ -  Click "Get started with IAM users" and add a new user(You can use root user's access code too ,but that would be insecure.)
+ -  Click on the username of just created user
+ -  Click "Security Credentials" and note down your "Access Key ID(aws_access_key)" and "Secret Access Key(aws_secret_kay)".
+ Warning: Do not share this keys for security reasons.
+ -  Put those keys and email into 'SecureTea.conf' file.
+ 
+ ##### Getting Gmail tokens
+  - Sign up for a Gmail account https://mail.google.com (for new users)
+  - Go to "Accounts" and proceed to "Security" dashboard
+  - Turn on "Less secure app access" to allow SecureTea be able to send emails
+  - Proceed to https://accounts.google.com/DisplayUnlockCaptcha and click on Continue, and then allow
+  - Put your sender email ID, password and destination email ID in the `securetea.conf` file.
+
 ## Usage
 The following argument options are currently available:
 ```argument
@@ -323,6 +359,7 @@ The following argument options are currently available:
   --twilio_sms          Setup twilio SMS credentials
   --telegram            Setup telegram SMS credentials
   --slack               Setup Slack credentials
+  --aws_ses		Setup AWS-SES credentials
   --twitter_api_key TWITTER_API_KEY, -tak TWITTER_API_KEY
                         Twitter api key
   --twitter_api_secret_key TWITTER_API_SECRET_KEY, -tas TWITTER_API_SECRET_KEY
@@ -382,7 +419,14 @@ The following argument options are currently available:
                         DNS action (0: BLOCK, 1: ALLOW)
   --dns_list DNS_LIST   List of DNS to look for
   --time_lb TIME_LB     Time lower bound
-  --time_ub TIME_UB     Time upper bound
+  --time_ub TIME_UB     Time upper bound		
+  --aws_email		Verified email address
+  --aws_secret_key	AWS Secret Access Key
+  --aws_access_key 	AWS Access Key
+  --sender_email SENDER_EMAIL
+                        Gmail sender e-mail id
+  --to_email TO_EMAIL   Destination of e-mail
+  --password PASSWORD   Password for Gmail sender account
  ```
 ### Example usages
 #### Starting Twitter notifier
@@ -415,13 +459,19 @@ Usage:<br>
 sudo SecureTea.py --interface <data> --inbound_IP_action <data> --inbound_IP_list <data> --outbound_IP_action <data> --outbound_IP_list <data> --protocol_action <data> --protocol_list <data> --scan_action <data> --scan_list <data> --dest_port_action <data> --dest_port_list <data> --source_port_action <data> --source_port_list <data> --HTTP_request_action <data> --HTTP_response_action <data> --dns_action <data> --dns_list <data> --time_lb <data> --time_ub <data> 
 ```
 
+#### Starting AWS-SES
+Usage:<br>
+```argument
+sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
+```
+
 ## Database
 Currently, SecureTea-Project uses **sqlite3** database.
 
 ## License
 **MIT License**
 
-Copyright (c) 2017 OWASP SecureTea-Project Team - http://owasp.or.id
+Copyright (c) 2019 OWASP SecureTea-Project Team - http://owasp.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
