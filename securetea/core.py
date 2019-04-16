@@ -16,6 +16,7 @@ import time
 
 from securetea import configurations
 from securetea import logger
+from securetea import users
 from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
@@ -80,6 +81,7 @@ class SecureTea(object):
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
 
+        self.userLogger = users.SecureTeaUserLogger(self.cred['debug'])
         self.logger = logger.SecureTeaLogger(
             modulename,
             self.cred['debug']
@@ -374,6 +376,43 @@ class SecureTea(object):
                 posy = 0
                 self.on_move(posx, posy)
 
+    def on_user_update(self):
+        """Docstring.
+        """
+        msg = self.userLogger.log()
+        # print(msg)
+        if msg == "USERS UPDATES\n":
+            self.logger.log("NO NEW USERS DETECTED")
+            return True
+        # Shows the warning msg on the console
+        self.logger.log(msg, logtype="warning")
+
+        # Send a warning message via twitter account
+        if self.twitter_provided:
+            self.twitter.notify(msg)
+
+        # Send a warning message via telegram bot
+        if self.telegram_provided:
+            self.telegram.notify(msg)
+
+        # Send a warning message via twilio account
+        if self.twilio_provided:
+            self.twilio.notify(msg)
+
+        # Send a warning message via slack bot app
+        if self.slack_provided:
+            self.slack.notify(msg)
+
+        # Send a warning message via aws ses bot3 app
+        if self.aws_ses_provided:
+            self.aws_ses.notify(msg)
+
+        # Send a warning message via Gmail
+        if self.gmail_provided:
+            self.gmail_obj.notify(msg)
+
+        return True
+
     def run(self):
         """Docstring."""
         time.sleep(10)
@@ -382,6 +421,7 @@ class SecureTea(object):
                 self.get_by_mice()
             else:
                 while 1:
+                    self.on_user_update()
                     # Starting mouse event listner
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
