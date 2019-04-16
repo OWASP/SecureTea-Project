@@ -62,8 +62,8 @@ class SecureTeaUserLogger():
         self.debug = debug
 
     def addUsers(self):
-        """add user info. and return new users added
-
+        """
+        add user info. and return new users added
         """
         message = "USERS UPDATES\n"
         cur_users = []
@@ -75,7 +75,7 @@ class SecureTeaUserLogger():
             if user not in cur_users:
                 connection.execute("DELETE FROM USERS WHERE NAME=\"" + user[0] + "\" AND IP=\"" + user[1] + "\"")
                 message += "REMOVED USER:- NAME: " + user[0] + " IP: " + user[1] + "\n"
-                
+
         for user in cur_users:
             if user not in users:
                 connection.execute("INSERT INTO USERS (NAME, IP, dt) \
