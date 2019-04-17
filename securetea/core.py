@@ -303,21 +303,12 @@ class SecureTea(object):
                     logtype="error"
                 )
 
-    def on_move(self, x, y):
+    def send_notif(self, msg):
         """Docstring.
 
         Args:
-            x (TYPE): X - mouse position
-            y (TYPE): y - mouse position
+            msg (String)
         """
-        self.logger.log('Pointer moved to {0}'.format((x, y)))
-
-        msg = '(' + str(self.alert_count) + \
-            ') : Someone has accessed your computer'
-
-        # Shows the warning msg on the console
-        self.logger.log(msg, logtype="warning")
-
         # Send a warning message via twitter account
         if self.twitter_provided:
             self.twitter.notify(msg)
@@ -341,6 +332,24 @@ class SecureTea(object):
         # Send a warning message via Gmail
         if self.gmail_provided:
             self.gmail_obj.notify(msg)
+
+
+    def on_move(self, x, y):
+        """Docstring.
+        Args:
+            x (TYPE): X - mouse position
+            y (TYPE): y - mouse position
+        """
+        self.logger.log('Pointer moved to {0}'.format((x, y)))
+
+        msg = '(' + str(self.alert_count) + \
+            ') : Someone has accessed your computer'
+
+        # Shows the warning msg on the console
+        self.logger.log(msg, logtype="warning")
+
+        # Send message notification to available platforms
+        self.send_notif(msg)
 
         # Update counter for the next move
         self.alert_count += 1
@@ -378,40 +387,19 @@ class SecureTea(object):
 
     def on_user_update(self):
         """Docstring.
+        Send updates regarding the users currently logged in to the system
+        to various platforms.
         """
         msg = self.userLogger.log()
-        # print(msg)
         if msg == "USERS UPDATES\n":
             self.logger.log("NO NEW USERS DETECTED")
-            return True
+            return
         # Shows the warning msg on the console
         self.logger.log(msg, logtype="warning")
 
-        # Send a warning message via twitter account
-        if self.twitter_provided:
-            self.twitter.notify(msg)
-
-        # Send a warning message via telegram bot
-        if self.telegram_provided:
-            self.telegram.notify(msg)
-
-        # Send a warning message via twilio account
-        if self.twilio_provided:
-            self.twilio.notify(msg)
-
-        # Send a warning message via slack bot app
-        if self.slack_provided:
-            self.slack.notify(msg)
-
-        # Send a warning message via aws ses bot3 app
-        if self.aws_ses_provided:
-            self.aws_ses.notify(msg)
-
-        # Send a warning message via Gmail
-        if self.gmail_provided:
-            self.gmail_obj.notify(msg)
-
-        return True
+        # Send message notification to available platforms
+        self.send_notif(msg)
+        return
 
     def run(self):
         """Docstring."""

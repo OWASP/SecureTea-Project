@@ -24,6 +24,7 @@ connection.execute('''CREATE TABLE IF NOT EXISTS USERS(
     dt TIMESTAMP
     );''')
 
+
 class SecureTeaUserLogger():
     """Initilize the logger for the script.
 
@@ -63,7 +64,12 @@ class SecureTeaUserLogger():
 
     def addUsers(self):
         """
-        add user info. and return new users added
+        Updates the database with new users information
+        Removes the logged out users
+        Adds newly logged in users
+        Creates a message to notify about the same
+
+        Return value: Message to display regarding changes in USER table
         """
         message = "USERS UPDATES\n"
         cur_users = []
