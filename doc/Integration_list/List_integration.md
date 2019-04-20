@@ -34,7 +34,7 @@
 |Skyrock|https://www.skyrock.com/developer/documentation/ ||
 |Kik messenger |https://dev.kik.com/#/home ||
 |Kakaotalk|https://developers.kakao.com/ | | 49 million |
-|BBM |https://help.bbm.com/en/support/solutions/articles/19000082778-partner-api ||
+|BBM |https://help.bbm.com/en/support/solutions/articles/19000082778-partner-api | Shutting down(31 may,2019) |
 |Tango |https://www.tangocard.com/docs/raas-api/#introduction ||
 |Medium|https://github.com/Medium/medium-api-docs | | 60 million |
 |GroupMe|https://dev.groupme.com/ || 11.69 million
