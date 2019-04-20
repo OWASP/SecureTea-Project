@@ -15,8 +15,13 @@ Project:
 import boto3
 from botocore.exceptions import ClientError
 
+
 class Email:
-    def __init__(self, to, subject, access_key, secret_key):
+    def __init__(self,
+                 to,
+                 subject,
+                 access_key,
+                 secret_key):
         self.to_email = to
         self.from_email = to
         self.subject = subject
@@ -34,7 +39,10 @@ class Email:
         self._text = text
 
     def send(self):
-        client = boto3.client(service_name='ses', region_name=self.region, aws_access_key_id=self.access_key, aws_secret_access_key=self.secret_key)
+        client = boto3.client(service_name='ses',
+                              region_name=self.region,
+                              aws_access_key_id=self.access_key,
+                              aws_secret_access_key=self.secret_key)
         try:
             response = client.send_email(
                 Destination={
@@ -62,9 +70,6 @@ class Email:
             )
         # Display an error if something goes wrong.
         except ClientError as e:
-            # print(e.response['Error']['Message'])
             return "Error", e.response['Error']['Message']
         else:
-            # print("Email sent! Message ID:"),
-            # print(response['MessageId'])
             return "Ok", response['MessageId']

@@ -7,6 +7,7 @@ import time
 
 from securetea.core import SecureTea
 
+
 if __name__ == '__main__':
 
     secT = SecureTea()
