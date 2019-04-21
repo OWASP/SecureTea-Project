@@ -24,6 +24,7 @@ The software is still under development, and will eventually have it's own IDS(I
 -   [User guide](/doc/en-US/user_guide.md)
 -   [Developer guide](/doc/en-US/dev_guide.md)
 -   [Translation-Japanese](/doc/ja-JP/README.md)
+-   [Translation-Hindi](/doc/hi-IN/README.md)
 
 ## Target User
 
@@ -32,8 +33,8 @@ It was written to be used by anyone who is interested in IoT Security (Internet 
 ### How it functions:
 
 -   Keep track of the movement of the mouse/touchpad
--   Detect who access the laptop with mouse/touchpad is installed
--   Send warning messages on Twitter/SMS/Slack/Telegram
+-   Detect who accesses your device(laptop/server/other iot device) with mouse/touchpad installed.
+-   Send warning messages on Twitter/Twilio-SMS/Slack/Telegram. More features on the way.
 
 ## Objective
 
@@ -45,10 +46,11 @@ And also it can be used to monitor your system & SecureTea firewall as Defense.
 ### User Guide
 
 See more at [User Guide](/doc/en-US/user_guide.md)
-
+for translated user guides(/doc)
 ### Developer Guide
 
 See more at [Developer guide](/doc/en-US/dev_guide.md)
+for translated developer guides(/doc)
 
 ## [Suggestions and Contributing](/CONTRIBUTING.md)
 
