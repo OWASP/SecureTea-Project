@@ -1,5 +1,9 @@
 # ![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png)OWASP SecureTea Tool Project
 
+# User Guide
+
+Read developer guide [here](/doc/en-US/dev_guide.md).
+
 ## Table of Contents
 - [Introduction](#introduction)
 
