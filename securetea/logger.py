@@ -13,8 +13,17 @@ Project:
 """
 import time
 import sqlite3
+from pathlib import Path
 
-connection = sqlite3.connect('/etc/securetea/db.sqlite3')
+
+DB_PATH = "/etc/securetea/db.sqlite3"
+
+try:
+    connection = sqlite3.connect(DB_PATH)
+except sqlite3.OperationalError:
+    Path("/etc/securetea/").mkdir()
+    Path(DB_PATH).touch()
+    connection = sqlite3.connect(DB_PATH)
 
 connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
