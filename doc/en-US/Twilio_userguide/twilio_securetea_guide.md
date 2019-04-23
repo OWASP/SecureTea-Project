@@ -1,6 +1,16 @@
-# SecureTea- How to use TWILIO SMS for receiving notification.
+# [![OWASP][OWASP-logo] OWASP SECURETEA TOOL PROJECT][SecureTea-OWASP]
 
-###Hello, Today I'll tell you how to use SecureTea with Twilio SMS. The OWASP SecureTea Project is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server.I will help you to install and use securetea with telegram in this session but first make sure you have installed angular and python and have a telegram account already. Let's get started.
+[![Codacy Badge][Codacy-badge]][Codacy]
+[![GitHub][License-badge]][License]
+[![Telegram][Telegram-badge]][Telegram]
+[![Version][Version-badge]][Version]
+[![GitHub issues][Issues-badge]][Issues]
+[![GitHub pull requests][PR-badge]][PRs]
+[![GSOC 2019][GSOC-2019-badge]][GSOC-OWASP]
+
+## SecureTea- How to use TWILIO SMS for receiving notification.
+
+### Hello, Today I'll tell you how to use SecureTea with Twilio SMS. The OWASP SecureTea Project is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server.I will help you to install and use securetea with telegram in this session but first make sure you have installed angular and python and have a telegram account already. Let's get started.
 
 
 ## Part A
@@ -8,7 +18,7 @@ Visit https://www.twilio.com/
 
 Log in into your Twillio account( create if don't have any already)
 
-## Par B 
+## Part B 
 
 Then visit https://www.twilio.com/console
 
