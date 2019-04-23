@@ -4,7 +4,7 @@
 |----|----|----|----|----|
 | Example | giyf.com | Yes/No/Partially | 1.23 million | Yes/No/Assigned to Mr. Tux Penguin  |
 |Twitter|https://developer.twitter.com/en/docs.html | Yes | 335 million ||
-|Telegram|https://core.telegram.org/ | Yes |  | 200 million | |
+|Telegram|https://core.telegram.org/ | Yes | 200 million | |
 |Slack|https://api.slack.com/ |Yes| |
 |Twilio|https://www.twilio.com/docs/usage/api |Yes| |
 |AWS-services|https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html |Yes| |
