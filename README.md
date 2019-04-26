@@ -62,11 +62,11 @@ For contributors, please add your name below:
 -   [Rejah Rehim][Rejah]
 -   [Ananthu S][Ananthu]
 
-| **Chat Group** | **Google Summer of Code** |
-| -------------- | ------------------------- |
-| [<img src="/img/telegram.png" width="48" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  |
+| **Chat Group** | **Google Summer of Code** | **YouTube** |
+| -------------- | ------------------------- |---------------------|
+| [<img src="/img/telegram.png" width="50" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png" width="90" title="YouTube">][YouTube] | 
 
-
+[YouTube]: https://www.youtube.com/channel/UCGdl9tpc1qZYcM3WRRFRPPA
 [OWASP-logo]: https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png
 [SecureTea-OWASP]: https://www.owasp.org/index.php/OWASP_SecureTea_Project
 [GSOC-OWASP]: https://summerofcode.withgoogle.com/organizations/6362925392986112/
@@ -84,7 +84,6 @@ For contributors, please add your name below:
 [PRs]: https://github.com/OWASP/SecureTea-Project/pulls
 [PR-badge]: https://img.shields.io/github/issues-pr/OWASP/SecureTea-Project.svg
 [Setup-help-animation]: /img/setup_all.gif
-
 [Rejah]: https://rejahrehim.com
 [Ananthu]: https://github.com/sananthu
 [Ade]: https://www.owasp.org/index.php/Ade_Yoseman_Putra
