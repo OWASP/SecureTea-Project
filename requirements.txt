@@ -11,3 +11,4 @@ scapy
 NetfilterQueue
 boto3
 geocoder
+pathlib
