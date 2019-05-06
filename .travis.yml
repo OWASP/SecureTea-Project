@@ -4,10 +4,9 @@ python:
   - "3.6"
 
 install: "pip3 install -r requirements.txt"
-
+"apt-get install build-essential python-dev libnetfilter-queue-dev"
 script:
 "sudo python setup.py install"
-"apt-get install build-essential python-dev libnetfilter-queue-dev"
 "sudo SecureTea.py"
 
 
