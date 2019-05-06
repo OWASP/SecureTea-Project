@@ -3,7 +3,8 @@ python:
   - "2.7"
   - "3.6"
 before_install:
--"apt-get install build-essential python-dev libnetfilter-queue-dev"
+-"sudo apt-get update"
+-"sudo apt-get install build-essential python-dev libnetfilter-queue-dev"
 install: 
 -"pip3 install -r requirements.txt"
 script:
