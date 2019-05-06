@@ -1,0 +1,16 @@
+dist: xenial
+sudo: required
+
+os:
+- linux
+language: python
+ 
+before_install:
+-sudo apt-get update
+-sudo apt-get install build-essential python-dev libnetfilter-queue-dev
+-sudo python setup.py install
+
+install: 
+-pip3 install -r requirements.txt
+script:
+-sudo SecureTea.py
