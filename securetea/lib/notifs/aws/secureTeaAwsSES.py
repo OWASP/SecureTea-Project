@@ -12,7 +12,7 @@ Project:
 
 """
 
-from securetea.lib.notifs.aws.helper_email import Email
+from securetea.lib.notifs.aws import helper_email
 from securetea import logger
 from securetea import common
 
@@ -44,10 +44,10 @@ class SecureTeaAwsSES():
         self.user_email = cred['aws_email']
         self.access_key = cred['aws_access_key']
         self.secret_key = cred['aws_secret_key']
-        self.email_obj = Email(self.user_email,
-                               "secureTea Security Alert!",
-                               self.access_key,
-                               self.secret_key)
+        self.email_obj = helper_email.Email(self.user_email,
+                                            "secureTea Security Alert!",
+                                            self.access_key,
+                                            self.secret_key)
 
     def notify(self, msg):
         """Docstring.
@@ -69,7 +69,7 @@ class SecureTeaAwsSES():
         typ, typ_desc = self.email_obj.send()
         if typ == "Ok":
             self.logger.log(
-                "Notification sent, message ID: "+
+                "Notification sent, message ID: " +
                 str(typ_desc)
             )
         else:
