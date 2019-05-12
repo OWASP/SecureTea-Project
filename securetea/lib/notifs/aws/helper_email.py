@@ -38,35 +38,43 @@ class Email:
     def text(self, text):
         self._text = text
 
+    def get_details(self):
+        return {
+            "Destination": {
+                'ToAddresses': [
+                    self.to_email,
+                ],
+            },
+            "Message": {
+                'Body': {
+                    'Html': {
+                        'Charset': "UTF-8",
+                        'Data': self._html,
+                    },
+                    'Text': {
+                        'Charset': "UTF-8",
+                        'Data': self._text,
+                    },
+                },
+                'Subject': {
+                    'Charset': "UTF-8",
+                    'Data': self.subject,
+                },
+            },
+            "Source": self.from_email
+        }
+
     def send(self):
         client = boto3.client(service_name='ses',
                               region_name=self.region,
                               aws_access_key_id=self.access_key,
                               aws_secret_access_key=self.secret_key)
         try:
+            details = self.get_details()
             response = client.send_email(
-                Destination={
-                    'ToAddresses': [
-                        self.to_email,
-                    ],
-                },
-                Message={
-                    'Body': {
-                        'Html': {
-                            'Charset': "UTF-8",
-                            'Data': self._html,
-                        },
-                        'Text': {
-                            'Charset': "UTF-8",
-                            'Data': self._text,
-                        },
-                    },
-                    'Subject': {
-                        'Charset': "UTF-8",
-                        'Data': self.subject,
-                    },
-                },
-                Source=self.from_email,
+                Destination=details["Destination"],
+                Message=details["Message"],
+                Source=details["Source"],
             )
         # Display an error if something goes wrong.
         except ClientError as e:
