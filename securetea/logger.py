@@ -34,7 +34,7 @@ connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
     );''')
 
 class SecureTeaLogger():
-    """Initilize the logger for the script.
+    """Initialize the logger for the script.
 
     Attributes:
         BLUE (str): Blue color

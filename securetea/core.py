@@ -37,30 +37,26 @@ except Exception as e:
 
 
 class SecureTea(object):
-    """This is the class for SecureTea."""
+    """SecureTea Class."""
 
     alert_count = 1
 
     def __init__(self):
-        """Initialize SecureTea.
+        """Init SecureTea params.
 
-        Parameters:
-        ----------
-        None
-
-        Returns:
-        --------
-        None
-
-        Working:
-        --------
-        Collects the arguments passed and calls the respected module accordingly
-        for parsing the arguments. Further, creates object for the demanded
-        notification medium and starts SecureTea.
+        Args:
+            None
 
         Raises:
-        -------
-        None
+            None
+
+        Returns:
+            None
+
+        Working:
+            Collects the arguments passed and calls the respected module accordingly
+            for parsing the arguments. Further, creates object for the demanded
+            notification medium and starts SecureTea.
         """
         modulename = 'Core'
         self.cred = {}
@@ -80,6 +76,7 @@ class SecureTea(object):
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
 
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             modulename,
             self.cred['debug']
@@ -302,11 +299,14 @@ class SecureTea(object):
                 )
 
     def on_move(self, x, y):
-        """Docstring.
+        """Trigger notification on mouse movement.
 
         Args:
             x (TYPE): X - mouse position
             y (TYPE): y - mouse position
+
+        Raises:
+            None
         """
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
@@ -355,14 +355,35 @@ class SecureTea(object):
 
     @staticmethod
     def get_mouse_event():
-        """Docstring."""
+        """Get mouse event.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            x (int): X - mouse position
+            y (int): y - mouse position
+        """
         with open("/dev/input/mice", "rb") as fh:
             buf = fh.read(3)
             x, y = struct.unpack("bb", buf[1:])
             return x, y
 
     def get_by_mice(self):
-        """Docstring."""
+        """Detect intrusion by watching mouse coordinates.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            None
+        """
         posx = 0
         posy = 0
         while(1):
@@ -375,7 +396,17 @@ class SecureTea(object):
                 self.on_move(posx, posy)
 
     def run(self):
-        """Docstring."""
+        """Start mouse listener.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            None
+        """
         time.sleep(10)
         try:
             if not pynput_status:

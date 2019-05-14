@@ -24,17 +24,18 @@ class SecureTeaTwilio():
     enabled = True
 
     def __init__(self, cred, debug):
-        """Init logger params.
+        """Init Twilio params.
 
         Args:
-        -----
-            modulename (str): secureTeaTwilio
+            debug (bool): Log on terminal or not
             cred (dict): Twilio credentials
         """
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             self.modulename,
             debug
         )
+
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
@@ -55,13 +56,10 @@ class SecureTeaTwilio():
         Generate message by attaching the current CPU time.
 
         Args:
-        -----
-        :msg : str
-            Message to send
+            msg (str): Message to send
 
         Returns:
-        --------
-        str: Message appended with CPU time
+            messsage (str): Message appended with CPU time
         """
         message = (str(msg) + " at " + common.getdatetime() +
                    " " + common.get_current_location() + common.get_platform())
@@ -70,16 +68,16 @@ class SecureTeaTwilio():
 
     def notify(self, msg):
         """
-        Send the generated message.
+        Send the notification.
 
         Args:
-        -----
-        :msg : str
-            Message to send
+            msg (str): Message to send
+
+        Raises:
+            None
 
         Returns:
-        --------
-        None
+            None
         """
         try:
             self.client.messages \
@@ -94,5 +92,4 @@ class SecureTeaTwilio():
                 "Exception in notification sent, error is: " + str(e),
                 logtype="error"
             )
-            print(e)
         return

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""Logger module for SecureTea.
+u"""Twitter module for SecureTea.
 
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
@@ -21,19 +21,22 @@ from securetea import common
 
 
 class SecureTeaTwitter():
-    """Initilize the twitter."""
+    """Initialize Twitter."""
 
     modulename = "Twitter"
     enabled = True
 
     def __init__(self, cred, debug):
-        """Init logger params.
+        """Init Twitter paramss.
 
         Args:
-            modulename (str): Script module name
+            debug (bool): Log on terminal or not
             cred (dict): Twitter credentials
-            username (TYPE): Twitter username to post the message
+
+        Raises:
+            None
         """
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             self.modulename,
             debug
@@ -51,17 +54,35 @@ class SecureTeaTwitter():
             self.id = self.getuserid()
 
     def getuserid(self):
-        """Docstring."""
+        """
+        Return the user id.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            response_id (int): User id
+        """
         endpoint = "/account/verify_credentials.json"
         response = requests.get(self.baseUrl + endpoint, auth=self.auth)
         response = response.json()
         return response['id']
 
     def notify(self, msg):
-        """Docstring.
+        """
+        Send the notification.
 
         Args:
-            msg (TYPE): Description
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         try:
             message = (str(msg) + " at " + common.getdatetime() +
