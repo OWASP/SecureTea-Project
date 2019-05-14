@@ -34,7 +34,7 @@ class SecureTeaTelegram():
             self.modulename,
             debug
         )
-        s
+        
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
