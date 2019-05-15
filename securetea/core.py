@@ -13,6 +13,7 @@ Project:
 import struct
 import sys
 import time
+import threading
 
 from securetea import configurations
 from securetea import logger
@@ -298,24 +299,12 @@ class SecureTea(object):
                     logtype="error"
                 )
 
-    def on_move(self, x, y):
-        """Trigger notification on mouse movement.
+    def send_notif(self, msg):
+        """Docstring.
 
         Args:
-            x (TYPE): X - mouse position
-            y (TYPE): y - mouse position
-
-        Raises:
-            None
+            msg (String)
         """
-        self.logger.log('Pointer moved to {0}'.format((x, y)))
-
-        msg = '(' + str(self.alert_count) + \
-            ') : Someone has accessed your computer'
-
-        # Shows the warning msg on the console
-        self.logger.log(msg, logtype="warning")
-
         # Send a warning message via twitter account
         if self.twitter_provided:
             self.twitter.notify(msg)
@@ -339,6 +328,23 @@ class SecureTea(object):
         # Send a warning message via Gmail
         if self.gmail_provided:
             self.gmail_obj.notify(msg)
+
+    def on_move(self, x, y):
+        """Docstring.
+        Args:
+            x (TYPE): X - mouse position
+            y (TYPE): y - mouse position
+        """
+        self.logger.log('Pointer moved to {0}'.format((x, y)))
+
+        msg = '(' + str(self.alert_count) + \
+            ') : Someone has accessed your computer'
+
+        # Shows the warning msg on the console
+        self.logger.log(msg, logtype="warning")
+
+        # Send message notification to available platforms
+        self.send_notif(msg)
 
         # Update counter for the next move
         self.alert_count += 1
@@ -395,18 +401,25 @@ class SecureTea(object):
                 posy = 0
                 self.on_move(posx, posy)
 
-    def run(self):
-        """Start mouse listener.
-
-        Args:
-            None
-
-        Raises:
-            None
-
-        Returns:
-            None
+    def on_user_update(self):
+        """Docstring.
+        Send updates regarding the users currently logged in to the system
+        to various platforms.
         """
+        msg = self.userLogger.log()
+        if msg == "USERS UPDATES\n":
+            self.logger.log("NO NEW USERS DETECTED")
+            return
+        # Shows the warning msg on the console
+        self.logger.log(msg, logtype="warning")
+
+        # Send message notification to available platforms
+        self.send_notif(msg)
+        return
+
+    def run_mouse_notifs(self):
+        """Run methods for notification using mice activity"""
+
         time.sleep(10)
         try:
             if not pynput_status:
@@ -417,6 +430,7 @@ class SecureTea(object):
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
         except Exception as e:
+            print(e)
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
                 logtype="error"
@@ -424,3 +438,44 @@ class SecureTea(object):
         except KeyboardInterrupt as e:
             self.logger.log(
                 "You pressed Ctrl+C!, Bye")
+            exit()
+
+    def run_user_notifs(self):
+        """Run methods for notification of users added or removed"""
+        try:
+            from securetea import users
+            self.userLogger = users.SecureTeaUserLogger(self.cred['debug'])
+            if not pynput_status:
+                self.get_by_mice()
+            else:
+                while 1:
+                    # Starting user notifs
+                    self.on_user_update()
+                    time.sleep(10)
+        except Exception as e:
+            print(e)
+            self.logger.log(
+                "Something went wrong: " + str(e) + " End of program",
+                logtype="error"
+            )
+        except KeyboardInterrupt as e:
+            self.logger.log(
+                "You pressed Ctrl+C!, Bye")
+            exit()
+
+    def run(self):
+        try:
+            t1 = threading.Thread(target=self.run_mouse_notifs)
+            t2 = threading.Thread(target=self.run_user_notifs)
+            t2.start()
+            t1.start()
+        except Exception as e:
+            print(e)
+            self.logger.log(
+                "Something went wrong: " + str(e) + " End of program",
+                logtype="error"
+            )
+        except KeyboardInterrupt as e:
+            self.logger.log(
+                "You pressed Ctrl+C!, Bye")
+            exit()
