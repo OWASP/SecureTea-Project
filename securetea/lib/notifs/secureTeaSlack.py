@@ -18,22 +18,24 @@ from securetea import common
 
 
 class SecureTeaSlack():
-    """Initilize the slack."""
+    """Initialize Slack."""
 
     modulename = "Slack"
     enabled = True
 
     def __init__(self, cred, debug):
-        """Init logger params.
+        """Init Slack params.
 
         Args:
-            modulename (str): Script module name
-            cred (dict): Slack user_id, token
+            debug (bool): Log on terminal or not
+            cred (dict): Slack credentials
         """
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             self.modulename,
             debug
         )
+
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
@@ -48,13 +50,17 @@ class SecureTeaSlack():
         self.auth_header = 'Bearer ' + self.slack_token
 
     def notify(self, msg):
-        """Docstring.
-
-           Init: "Welcome to SecureTea..!! Initializing System"
-           Intrusion detector: "(Count) Someone has access your laptop"
+        """
+        Send the notification.
 
         Args:
-            msg (TYPE): Description
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         message = (str(msg) + " at " + common.getdatetime() +
                    " " + common.get_current_location() + common.get_platform())

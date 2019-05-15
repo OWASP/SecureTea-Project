@@ -17,28 +17,65 @@ from botocore.exceptions import ClientError
 
 
 class Email:
+    """Class for AWS SES Email."""
     def __init__(self,
                  to,
                  subject,
                  access_key,
                  secret_key):
+        """Initialize AWS SES Email."""
         self.to_email = to
         self.from_email = to
         self.subject = subject
         self._html = ""
         self._text = ""
-        self._format = 'html'
         self.access_key = access_key
         self.secret_key = secret_key
         self.region = 'us-west-2'
 
     def html(self, html):
+        """
+        Update HTML to the new HTML.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            None
+        """
         self._html = html
 
     def text(self, text):
+        """
+        Update text to the new text.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            None
+        """
         self._text = text
 
     def get_details(self):
+        """
+        Returns details to set up boto3 client.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            details (dict): Details of sender email
+        """
         return {
             "Destination": {
                 'ToAddresses': [
@@ -65,6 +102,19 @@ class Email:
         }
 
     def send(self):
+        """
+        Send mail using the boto3 client.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            response_message (str): Error or Ok
+            response_code (str): Response code
+        """
         client = boto3.client(service_name='ses',
                               region_name=self.region,
                               aws_access_key_id=self.access_key,

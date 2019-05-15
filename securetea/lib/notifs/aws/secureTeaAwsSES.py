@@ -18,22 +18,24 @@ from securetea import common
 
 
 class SecureTeaAwsSES():
-    """Initilize AWS SES."""
+    """Initialize AWS SES."""
 
     modulename = "AWS_SES"
     enabled = True
 
     def __init__(self, cred, debug=False):
-        """Init logger params.
+        """Init AWS SES params.
 
         Args:
-            modulename (str): Script module name
-            cred (dict): AWS user_email, access_key, secret_key
+            debug (bool): Log on terminal or not
+            cred (dict): AWS SES credentials
         """
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             self.modulename,
             debug
         )
+
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
@@ -50,13 +52,17 @@ class SecureTeaAwsSES():
                                             self.secret_key)
 
     def notify(self, msg):
-        """Docstring.
-
-           Init: "Welcome to SecureTea..!! Initializing System"
-           Intrusion detector: "(Count) Someone has access your laptop"
+        """
+        Send the notification.
 
         Args:
-            msg (TYPE): Description
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         message = (str(msg) + " at " + common.getdatetime() +
                    " " + common.get_current_location() + common.get_platform())

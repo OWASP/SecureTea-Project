@@ -19,16 +19,16 @@ from securetea import common
 
 
 class SecureTeaGmail(object):
-    """Intialize GMAIL."""
+    """Initialize Gmail Class."""
 
     def __init__(self,
                  cred,
                  debug=False):
-        """Init params.
+        """Init Gmail params.
 
         Args:
+            debug (bool): Log on terminal or not
             cred (dict): GMAIL credentials
-            debug (bool): Run in debug mode or not
         """
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
