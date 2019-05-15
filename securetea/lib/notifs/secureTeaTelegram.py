@@ -18,16 +18,16 @@ from securetea import logger
 
 
 class SecureTeaTelegram():
-    """Initilize the telegram."""
+    """Initialize the telegram."""
 
     modulename = "Telegram"
     enabled = True
 
     def __init__(self, cred, debug):
-        """Init logger params.
+        """Init Telegram params.
 
         Args:
-            modulename (str): Script module name
+            debug (bool): Log on terminal or not
             cred (dict): Telegram user_id
         """
         self.logger = logger.SecureTeaLogger(
@@ -45,10 +45,17 @@ class SecureTeaTelegram():
         self.user_id = cred['user_id']
 
     def notify(self, msg):
-        """Docstring.
+        """
+        Send the notification.
 
         Args:
-            msg (TYPE): Description
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         message = (str(msg) + " at " + common.getdatetime() +
                    " " + common.get_current_location() + common.get_platform())

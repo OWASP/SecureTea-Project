@@ -7,6 +7,7 @@
 [![GitHub issues][Issues-badge]][Issues]
 [![GitHub pull requests][PR-badge]][PRs]
 [![GSOC 2019][GSOC-2019-badge]][GSOC-OWASP]
+[![Follow Us](https://img.shields.io/twitter/url/https/secureteatool.svg?label=SecureTea%20Project&style=social)](https://twitter.com/secureteatool)
 
 **The OWASP SecureTea Project** is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows).<br>
 The software is still under development, and will eventually have it's own IDS(Intrusion Detection System) / IPS(Instrusion Prevention System), firewall, anti-virus, intelligent log monitoring capabilities with web defacement detection, and support for much more communication medium.
@@ -24,6 +25,7 @@ The software is still under development, and will eventually have it's own IDS(I
 -   [User guide](/doc/en-US/user_guide.md)
 -   [Developer guide](/doc/en-US/dev_guide.md)
 -   [Translation-Japanese](/doc/ja-JP/README.md)
+-   [Translation-Hindi](/doc/hi-IN/README.md)
 
 ## Target User
 
@@ -32,12 +34,12 @@ It was written to be used by anyone who is interested in IoT Security (Internet 
 ### How it functions:
 
 -   Keep track of the movement of the mouse/touchpad
--   Detect who access the laptop with mouse/touchpad is installed
--   Send warning messages on Twitter/SMS/Slack/Telegram
+-   Detect who accesses your device(laptop/server/other iot device) with mouse/touchpad installed.
+-   Send warning messages on Twitter/Twilio-SMS/Slack/Telegram. More features on the way.
 
 ## Objective
 
-To alert the user via variuos communication mechanism, whenever The Computer / Server had been accessed by someone / attacker.
+To alert the user via various communication mechanism, whenever The Computer / Server had been accessed by someone / attacker.
 And also it can be used to monitor your system & SecureTea firewall as Defense.
 
 ## Installation Procedure
@@ -45,10 +47,11 @@ And also it can be used to monitor your system & SecureTea firewall as Defense.
 ### User Guide
 
 See more at [User Guide](/doc/en-US/user_guide.md)
-
+for translated user guides(/doc)
 ### Developer Guide
 
 See more at [Developer guide](/doc/en-US/dev_guide.md)
+for translated developer guides(/doc)
 
 ## [Suggestions and Contributing](/CONTRIBUTING.md)
 
@@ -60,11 +63,11 @@ For contributors, please add your name below:
 -   [Rejah Rehim][Rejah]
 -   [Ananthu S][Ananthu]
 
-| **Chat Group** | **Google Summer of Code** |
-| -------------- | ------------------------- |
-| [<img src="/img/telegram.png" width="48" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  |
+| **Chat Group** | **Google Summer of Code** | **YouTube** |
+| -------------- | ------------------------- |---------------------|
+| [<img src="/img/telegram.png" width="50" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png" width="90" title="YouTube">][YouTube] | 
 
-
+[YouTube]: https://www.youtube.com/channel/UCGdl9tpc1qZYcM3WRRFRPPA
 [OWASP-logo]: https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png
 [SecureTea-OWASP]: https://www.owasp.org/index.php/OWASP_SecureTea_Project
 [GSOC-OWASP]: https://summerofcode.withgoogle.com/organizations/6362925392986112/
@@ -82,7 +85,6 @@ For contributors, please add your name below:
 [PRs]: https://github.com/OWASP/SecureTea-Project/pulls
 [PR-badge]: https://img.shields.io/github/issues-pr/OWASP/SecureTea-Project.svg
 [Setup-help-animation]: /img/setup_all.gif
-
 [Rejah]: https://rejahrehim.com
 [Ananthu]: https://github.com/sananthu
 [Ade]: https://www.owasp.org/index.php/Ade_Yoseman_Putra

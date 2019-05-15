@@ -1,5 +1,9 @@
 # ![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png)OWASP SecureTea Tool Project
 
+# User Guide
+
+Read developer guide [here](/doc/en-US/dev_guide.md).
+
 ## Table of Contents
 - [Introduction](#introduction)
 
@@ -80,6 +84,7 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Slack account (optional)
 -  Twilio SMS account (optional)
 -  Amazon Web Services account (optional)
+-  Libnetfilter
 
 #### Installing pre-requisites
 Python:<br>
@@ -87,6 +92,13 @@ https://www.python.org/
 
 Angular:<br>
 https://angular.io/
+
+Libnetfilter:<br>
+https://www.netfilter.org/projects/libnetfilter_queue/
+```command
+sudo apt-get update
+sudo apt-get install build-essential python-dev libnetfilter-queue-dev
+```
 
 ### Procedure for installing
 You can install OWASP SecureTea Tool using the following methods:

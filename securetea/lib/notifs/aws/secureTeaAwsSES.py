@@ -12,28 +12,30 @@ Project:
 
 """
 
-from securetea.lib.notifs.aws.helper_email import Email
+from securetea.lib.notifs.aws import helper_email
 from securetea import logger
 from securetea import common
 
 
 class SecureTeaAwsSES():
-    """Initilize AWS SES."""
+    """Initialize AWS SES."""
 
     modulename = "AWS_SES"
     enabled = True
 
     def __init__(self, cred, debug=False):
-        """Init logger params.
+        """Init AWS SES params.
 
         Args:
-            modulename (str): Script module name
-            cred (dict): AWS user_email, access_key, secret_key
+            debug (bool): Log on terminal or not
+            cred (dict): AWS SES credentials
         """
+        # Initialize logger
         self.logger = logger.SecureTeaLogger(
             self.modulename,
             debug
         )
+
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
@@ -44,19 +46,23 @@ class SecureTeaAwsSES():
         self.user_email = cred['aws_email']
         self.access_key = cred['aws_access_key']
         self.secret_key = cred['aws_secret_key']
-        self.email_obj = Email(self.user_email,
-                               "secureTea Security Alert!",
-                               self.access_key,
-                               self.secret_key)
+        self.email_obj = helper_email.Email(self.user_email,
+                                            "secureTea Security Alert!",
+                                            self.access_key,
+                                            self.secret_key)
 
     def notify(self, msg):
-        """Docstring.
-
-           Init: "Welcome to SecureTea..!! Initializing System"
-           Intrusion detector: "(Count) Someone has access your laptop"
+        """
+        Send the notification.
 
         Args:
-            msg (TYPE): Description
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         message = (str(msg) + " at " + common.getdatetime() +
                    " " + common.get_current_location() + common.get_platform())
@@ -69,7 +75,7 @@ class SecureTeaAwsSES():
         typ, typ_desc = self.email_obj.send()
         if typ == "Ok":
             self.logger.log(
-                "Notification sent, message ID: "+
+                "Notification sent, message ID: " +
                 str(typ_desc)
             )
         else:
