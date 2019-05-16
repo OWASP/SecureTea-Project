@@ -152,6 +152,7 @@ class ArgsHelper(object):
         self.gmail_provided = False
         self.firewall_provided = False
         self.insecure_headers_provided = False
+        self.ids_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -308,6 +309,20 @@ class ArgsHelper(object):
         }
 
     @takeInput
+    def configureIDS(self):
+        """
+        Returns the format to configure IDS.
+        """
+        self.logger.log("IDS configuraton setup")
+        default = load_default("ids")
+        return {
+            "input": {
+                "threshold": "threshold settings (integer value)"
+                },
+                "default": default
+        }
+
+    @takeInput
     def configureHeaders(self):
         """
         Returns the format to configure insecure_headers.
@@ -389,6 +404,12 @@ class ArgsHelper(object):
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
 
+            # Start the IDS configuration setup
+            ids = self.configureIDS()
+            if ids:
+                self.cred["ids"] = ids
+                self.ids_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -430,6 +451,12 @@ class ArgsHelper(object):
             if firewall:
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
+
+        if self.args.ids and not self.ids_provided:
+            ids = self.configureIDS()
+            if ids:
+                self.cred["ids"] = ids
+                self.ids_provided = True
 
         if (self.args.insecure_headers and
             not self.insecure_headers_provided and
@@ -512,6 +539,13 @@ class ArgsHelper(object):
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
 
+        if not self.ids_provided:
+            if (self.args.threshold):
+                ids = {}
+                ids["threshold"] = self.args.threshold
+                self.cred["ids"] = ids
+                self.ids_provided = True
+
         if not self.firewall_provided:
             if (self.args.interface and
                 self.args.inbound_IP_action and
@@ -587,7 +621,8 @@ class ArgsHelper(object):
             self.aws_ses_provided or
             self.firewall_provided or
             self.insecure_headers_provided or
-            self.gmail_provided):
+            self.gmail_provided or
+            self.ids_provided):
             self.cred_provided = True
 
         return {
@@ -600,5 +635,6 @@ class ArgsHelper(object):
             'aws_ses_provided': self.aws_ses_provided,
             'gmail_provided': self.gmail_provided,
             'firewall_provided': self.firewall_provided,
-            'insecure_headers_provided': self.insecure_headers_provided
+            'insecure_headers_provided': self.insecure_headers_provided,
+            'ids_provided': self.ids_provided
         }
