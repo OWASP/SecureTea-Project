@@ -16,3 +16,5 @@ from .lib.firewall import secureTeaFirewall
 from .lib.firewall import utils
 from .lib.firewall import firewall_monitor
 from .lib.security_header import secureTeaHeaders
+from .lib.ids import recon_attack
+from .lib.ids import secureTeaIDS

@@ -13,3 +13,5 @@ from .firewall import utils
 from .firewall import mapping
 from .firewall import firewall_monitor
 from .security_header import secureTeaHeaders
+from .ids import recon_attack
+from .ids import secureTeaIDS

@@ -366,12 +366,28 @@ def get_args():
         required=False,
         help="Test URL for insecure headers"
     )
+
     parser.add_argument(
         '--url',
         '-u',
         type=str,
         required=False,
         help="URL on which operations are to be performed"
+    )
+
+    parser.add_argument(
+        '--ids',
+        action="store_true",
+        required=False,
+        help="Start Intrusion Detection System (IDS)"
+    )
+
+    parser.add_argument(
+        '--threshold',
+        '-th',
+        type=int,
+        required=False,
+        help="Intrusion Detection System (IDS) threshold"
     )
 
     args = parser.parse_args()

@@ -28,6 +28,7 @@ from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
 from securetea.lib.security_header import secureTeaHeaders
+from securetea.lib.ids import secureTeaIDS
 
 pynput_status = True
 
@@ -76,6 +77,7 @@ class SecureTea(object):
         self.gmail_provided = args_dict['gmail_provided']
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
+        self.ids_provided = args_dict['ids_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -168,6 +170,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Insecure headers parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['ids']:
+                    self.ids_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Intrusion Detection System (IDS) not set.",
                     logtype="error"
                 )
 
@@ -296,6 +308,18 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Insecure headers parameter not configured.",
+                    logtype="error"
+                )
+
+        if self.ids_provided:
+            try:
+                if self.cred['ids']:
+                    ids_obj = secureTeaIDS.SecureTeaIDS(cred=self.cred['ids'],
+                                                        debug=self.cred['debug'])
+                    ids_obj.start_ids()
+            except KeyError:
+                self.logger.log(
+                    "Intrusion Detection System (IDS) parameter not configured.",
                     logtype="error"
                 )
 
