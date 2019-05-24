@@ -12,6 +12,7 @@ Project:
 """
 
 from securetea.lib.ids.recon_attack import DetectRecon
+from securetea.lib.ids.r2l_rules.r2l_engine import R2LEngine
 from securetea.lib.firewall.utils import check_root
 from securetea import logger
 import scapy.all as scapy
@@ -47,6 +48,8 @@ class SecureTeaIDS(object):
             # Create DetectRecon object
             self.recon_obj = DetectRecon(threshold=self.cred["threshold"],
                                          debug=debug)
+            # Create R2LEngine object
+            self.r2l_rules = R2LEngine(debug=debug, interface=self.cred["interface"])
             self.logger.log(
                 "SecureTea Intrusion Detection started",
                 logtype="info"
@@ -64,7 +67,7 @@ class SecureTeaIDS(object):
         filters.
 
         - Reconnaissance attacks
-        - R2L attacks (to be added)
+        - R2L attacks
 
         Args:
             scapy_pkt (scapy_object): Packet to dissect and process
@@ -77,6 +80,8 @@ class SecureTeaIDS(object):
         """
         # Process the packet for reconnaissance detection
         self.recon_obj.run(scapy_pkt)
+        # Process the packet for R2L attack detection
+        self.r2l_rules.run(scapy_pkt)
 
     def start_ids(self):
         """
