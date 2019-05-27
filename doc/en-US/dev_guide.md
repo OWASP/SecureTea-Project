@@ -31,6 +31,7 @@ Read user guide [here](/doc/en-US/user_guide.md).
    - [Logger](#logger)
 
      - [Adding logger to your module](#adding-logger-to-your-module)
+     
      - [Log levels](#log-levels)
 
    - [Firewall](#firewall)
@@ -38,11 +39,16 @@ Read user guide [here](/doc/en-US/user_guide.md).
        - [Writing new rules](#writing-new-rules)
 
        - [Function format for rules](#function-format-for-rules)
+       
        - [Using xnor decorator](#using-xnor-decorator)
-
+      
+   - [Intrusion Detection System](#intrusion-detection-system)
+        - [Adding new rules](#adding-new-rules)
+	
    - [Running tests](#running-tests)
 
      - [Using unittest](#running-using-unittest)
+     
      - [Using pytest](#running-using-pytest)
 
 ### Contributing guidelines
@@ -133,15 +139,15 @@ List general components of the application that this PR will affect:
 
 | SecureTea Tool Features    |  Progress |
 -----------------------------|------------
-Notify by Twitter            | Yes
 Securetea Dashboard          | Yes
+Notify by Twitter            | Yes
 Notify by Telegram           | Yes
 Notify by Slack              | Yes
 Notify by Twilio SMS         | Yes
-Amazon Web Service-Simple Email Service | Yes
-SecureTea Firewall           | Yes
+Notify by Amazon (AWS-SES)   | Yes
 Notify by WhatsApp           | No
-SecureTea IDS/IPS            | No
+SecureTea Firewall           | Yes
+SecureTea IDS/IPS            | Yes
 SecureTea Anti-Virus         | No
 SecureTea Log monitoring     | No
 Web Defacement Detection     | No
@@ -271,6 +277,69 @@ To use the `@xnor` decorator, follow the following format:
 		'result': 0
 	}
 ```
+
+#### Intrusion Detection System
+-  [Adding new rules](#adding-new-rules)
+
+##### Adding new rules
+To add a new rule for an atack vector to IDS, classify the attack vector into the following two categories:
+ - [Reconnaissance (peformed for information gathering)](#reconnaissance-detection-rules)
+ - [Remaining attack vectors (R2L attack vectors like DoS, MiTM attacks)](#r2l-detection-rules)
+
+###### Reconnaissance detection rules
+Currently, the IDS supports the detection of the followings:
+
+ - **General scans:** TCP ACK & TCP Window, UDP, ICMP scans
+ - **Stealth scans:** FIN, XMAS, NULL scans
+ - **OS fingerprinting scans**
+
+Adding a new rule is pretty simple, follow the following function format and add this to the `DetectRecon` class in `recon_attack.py`.
+
+```python
+def rule_name(self, pkt=None):
+	"""
+	pkt (scapy packet): Packet to dissect and observe
+	"""
+	if pkt is not None:
+		# perform your logic here
+		# log any abnormalities
+```
+
+After this addition, please make sure to update `run` method in `DetectRecon` class in `recon_attack.py`. This will enable the IDS engine to detect the new rule.
+
+###### R2L detection rules
+Currently, the IDS supports the detection of the following attack vectors:
+
+- DoS attacks
+- CAM Table Exhaustion
+- DHCP Exhaustion
+- Man in The Middle (MiTM) / ARP cache poisoning
+- SYN flood attack
+- Ping of death
+- Land attack
+- Wireless
+    - Deauthentication attack
+    - Hidden node attack
+    - SSID spoofing
+    - Fake access point
+    
+Adding a new rule is again pretty simple, except here the rules need to be as an independent object oriented module. The rules should be encapsulated within an independent class.
+<br><br>
+**Example:**
+```python
+class RuleName(object):
+	def __init__(self, debug=False):
+		# Initialize your variables
+		
+	def detect_attack(self, pkt=None):
+		"""
+		pkt (scapy_object): Packet to dissect and observe
+		"""
+		# perform attack detection logic here
+		# log any abnormalities
+```
+
+This independent module should be categorized either as **Wired** attack or **Wireless** attack, and should be placed in the respective directory. The next step is to update the `R2LEngine` class in `lib/ids/r2l_rules/r2l_engine.py`. This involves the following, creating an object of your rule class in `R2LEngine` constructor, and then updating the `run` method in `R2LEngine` class. That's it! IDS engine will pick up the new rules and pass the network packets.
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
