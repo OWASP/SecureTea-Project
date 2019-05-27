@@ -317,7 +317,8 @@ class ArgsHelper(object):
         default = load_default("ids")
         return {
             "input": {
-                "threshold": "threshold settings (integer value)"
+                "threshold": "threshold settings (integer value: 10 - 1000)",
+                "interface": "interface on which to monitor"
                 },
                 "default": default
         }
@@ -540,9 +541,10 @@ class ArgsHelper(object):
                 self.insecure_headers_provided = True
 
         if not self.ids_provided:
-            if (self.args.threshold):
+            if (self.args.threshold and self.args.interface):
                 ids = {}
                 ids["threshold"] = self.args.threshold
+                ids["interface"] = self.args.interface
                 self.cred["ids"] = ids
                 self.ids_provided = True
 

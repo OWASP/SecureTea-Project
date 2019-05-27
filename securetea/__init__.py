@@ -18,3 +18,15 @@ from .lib.firewall import firewall_monitor
 from .lib.security_header import secureTeaHeaders
 from .lib.ids import recon_attack
 from .lib.ids import secureTeaIDS
+from .lib.ids.r2l_rules import arp_spoof
+from .lib.ids.r2l_rules import cam_attack
+from .lib.ids.r2l_rules import ddos
+from .lib.ids.r2l_rules import dhcp
+from .lib.ids.r2l_rules import land_attack
+from .lib.ids.r2l_rules import ping_of_death
+from .lib.ids.r2l_rules import r2l_engine
+from .lib.ids.r2l_rules import syn_flood
+from .lib.ids.r2l_rules.wireless import deauth
+from .lib.ids.r2l_rules.wireless import fake_access
+from .lib.ids.r2l_rules.wireless import hidden_node
+from .lib.ids.r2l_rules.wireless import ssid_spoof
