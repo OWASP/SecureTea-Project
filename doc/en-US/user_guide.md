@@ -49,6 +49,10 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
+
+-  [Firewall](#firewall)
+
+-  [Intrusion Detection System](#intrusion-detection-system)
  
 -  [Database](#database)
  
@@ -174,6 +178,16 @@ Default configuration:
 		"token": "XXXX",
 		"user_id": "XXXX"
 	},
+	"aws_ses": {
+		"aws_email": "XXXX",
+		"ses_access_key": "XXXX",
+		"ses_secret_key": "XXXX"
+	},
+	"gmail": {
+		"sender_email": "XXXX",
+		"to_email": "XXXX",
+		"password": "XXXX"
+	},
 	"firewall": {
 		"interface": "",
 		"inbound_IPRule": {
@@ -215,10 +229,12 @@ Default configuration:
 			"time_ub": "23:59"
 		}
 	},
-	"aws-ses": {
-		"aws_email": "XX@XX",
-		"aws_accessKey": "XXXX",
-		"aws_accessKey": "XXXX"
+	"insecure_headers": {
+			"url": ""
+	},
+	"ids": {
+		"threshold": 10,
+		"interface": "XXXX"
 	},
 	"debug": false
 }
@@ -248,6 +264,7 @@ Arguments list
 --twilio_sms   Start Twilio SMS interactive setup
 --firewall     Start Firewall interactive setup
 --aws_ses      Start Amazon Web Services(AWS-Simple Email Services) interactive setup
+--gmail        Start G-Mail interactive setup
 ```
 
 Examples:<br>
@@ -268,11 +285,12 @@ This is still under development.
 ![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/tele-gui.png "Telegram")
 <br><br>
 ![Network graph](https://github.com/OWASP/SecureTea-Project/blob/master/img/slack-twilio.png "Secure Tea Security Dashboard")
-##### Configuring using CLI arguments
 
+##### Configuring using CLI arguments
 ```argument
 usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
-                    [--telegram] [--slack] [--twitter_api_key TWITTER_API_KEY]
+                    [--telegram] [--gmail] [--slack] [--aws_ses]
+                    [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
                     [--twitter_access_token TWITTER_ACCESS_TOKEN]
                     [--twitter_access_token_secret TWITTER_ACCESS_TOKEN_SECRET]
@@ -281,7 +299,11 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--twilio_sid TWILIO_SID] [--twilio_token TWILIO_TOKEN]
                     [--twilio_from TWILIO_FROM] [--twilio_to TWILIO_TO]
                     [--slack_token SLACK_TOKEN]
-                    [--slack_user_id SLACK_USER_ID] [--firewall]
+                    [--slack_user_id SLACK_USER_ID]
+                    [--sender_email SENDER_EMAIL] [--to_email TO_EMAIL]
+                    [--password PASSWORD] [--aws_email AWS_EMAIL]
+                    [--aws_secret_key AWS_SECRET_KEY]
+                    [--aws_access_key AWS_ACCESS_KEY] [--firewall]
                     [--interface INTERFACE]
                     [--inbound_IP_action INBOUND_IP_ACTION]
                     [--inbound_IP_list INBOUND_IP_LIST]
@@ -298,10 +320,8 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--HTTP_response_action HTTP_RESPONSE_ACTION]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
-		    [--aws_ses]
-		    [--aws_email AWS_VERIFIED_EMAIL]
-		    [--aws_secret_key SECRET_ACCESS_KEY]
-		    [--aws_access_key ACCESS_KEY]
+                    [--insecure_headers] [--url URL] [--ids]
+                    [--threshold THRESHOLD]
 ```
 
 Example usage:
@@ -370,8 +390,9 @@ The following argument options are currently available:
   --twitter             Setup twitter credentials
   --twilio_sms          Setup twilio SMS credentials
   --telegram            Setup telegram SMS credentials
+  --gmail               Setup Gmail credentials
   --slack               Setup Slack credentials
-  --aws_ses		Setup AWS-SES credentials
+  --aws_ses             Setup AWS SES credentials
   --twitter_api_key TWITTER_API_KEY, -tak TWITTER_API_KEY
                         Twitter api key
   --twitter_api_secret_key TWITTER_API_SECRET_KEY, -tas TWITTER_API_SECRET_KEY
@@ -396,6 +417,16 @@ The following argument options are currently available:
                         Slack token
   --slack_user_id SLACK_USER_ID, -suid SLACK_USER_ID
                         Slack user id
+  --sender_email SENDER_EMAIL
+                        Gmail sender e-mail id
+  --to_email TO_EMAIL   Destination of e-mail
+  --password PASSWORD   Password for Gmail sender account
+  --aws_email AWS_EMAIL, -awse AWS_EMAIL
+                        AWS email id
+  --aws_secret_key AWS_SECRET_KEY, -awss AWS_SECRET_KEY
+                        AWS secret key
+  --aws_access_key AWS_ACCESS_KEY, -awsa AWS_ACCESS_KEY
+                        AWS access key
   --firewall, -f        Start firewall
   --interface INTERFACE
                         Name of the interface
@@ -431,15 +462,15 @@ The following argument options are currently available:
                         DNS action (0: BLOCK, 1: ALLOW)
   --dns_list DNS_LIST   List of DNS to look for
   --time_lb TIME_LB     Time lower bound
-  --time_ub TIME_UB     Time upper bound		
-  --aws_email		Verified email address
-  --aws_secret_key	AWS Secret Access Key
-  --aws_access_key 	AWS Access Key
-  --sender_email SENDER_EMAIL
-                        Gmail sender e-mail id
-  --to_email TO_EMAIL   Destination of e-mail
-  --password PASSWORD   Password for Gmail sender account
+  --time_ub TIME_UB     Time upper bound
+  --insecure_headers, -ih
+                        Test URL for insecure headers
+  --url URL, -u URL     URL on which operations are to be performed
+  --ids                 Start Intrusion Detection System (IDS)
+  --threshold THRESHOLD, -th THRESHOLD
+                        Intrusion Detection System (IDS) threshold
  ```
+ 
 ### Example usages
 #### Starting Twitter notifier
 Usage:<br>
@@ -477,6 +508,51 @@ Usage:<br>
 sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
 ```
 
+## Firewall
+SecureTea Firewall currently uses the following rules to filter the incoming traffic:
+<br><br>
+**Process 1 (Firewall Engine):**
+- Filter packets based on:
+    - Inbound IP rules
+    - Outbound IP rules
+    - Source port rules
+    - Destination port rules
+    - Protocols
+    - Scan for downloads in HTTP websites
+    - DNS filter rules
+    - Filter HTTP request & response 
+    
+ Apart from that, the background process deals with the following functions:
+ <br><br>
+**Process 2 (Firewall Monitor):**
+- Monitor open ports
+- Monitor active services
+- Monitor network usage
+- Monitor active CPU process
+
+## Intrusion Detection System
+SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities:
+
+**Detect probe (reconnaissance) attacks (performed for information gathering)**
+
+- General scans: TCP ACK & TCP Window, UDP, ICMP scans
+- Stealth scans: FIN, XMAS, NULL scans
+- OS fingerprinting scans
+
+**Detect Denial of Service (DoS) & Remote to Local (R2L) attacks**
+- DoS attacks
+- CAM Table Exhaustion
+- DHCP Exhaustion
+- Man in The Middle (MiTM) / ARP cache poisoning
+- SYN flood attack
+- Ping of death
+- Land attack
+- Wireless
+     - Deauthentication attack
+    - Hidden node attack
+    - SSID spoofing
+    - Fake access point
+    
 ## Database
 Currently, SecureTea-Project uses **sqlite3** database.
 
