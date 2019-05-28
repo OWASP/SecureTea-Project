@@ -256,10 +256,6 @@ class TestPacket_Filter(unittest.TestCase):
         """
         Test check_invalid_ip.
         """
-        pkt = scapy.IP(src="0.0.0.0")
-        result = self.pf1.check_invalid_ip(pkt)
-        self.assertEqual(result, 0)
-
         pkt = scapy.IP(src="1.1.1.1")
         result = self.pf1.check_invalid_ip(pkt)
         self.assertEqual(result, 1)

@@ -408,7 +408,8 @@ class PacketFilter(object):
                 'result': 0
             }
 
-    def check_first_fragment(self, pkt):
+    @staticmethod
+    def check_first_fragment(pkt):
         """
         Check first fragment. Drop a packet if
         flag is "MF", offset value = 0 & total
@@ -433,7 +434,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_ip_version(self, pkt):
+    @staticmethod
+    def check_ip_version(pkt):
         """
         Check for unknown IP version
 
@@ -456,7 +458,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_ip_fragment_boundary(self, pkt):
+    @staticmethod
+    def check_ip_fragment_boundary(pkt):
         """
         Check IP fragment boundary. Drop a packet if
         packet length + fragmentation offset > 65355
@@ -479,7 +482,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_ip_fragment_offset(self, pkt):
+    @staticmethod
+    def check_ip_fragment_offset(pkt):
         """
         Check IP fragment small offset. Drop a packet if
         0 < fragmentation offset < 60
@@ -502,7 +506,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_invalid_ip(self, pkt):
+    @staticmethod
+    def check_invalid_ip(pkt):
         """
         Check invalid IP. Drop a packet if IP
         is invalid or is 0.0.0.0.
@@ -526,7 +531,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_ip_header_length(self, pkt):
+    @staticmethod
+    def check_ip_header_length(pkt):
         """
         Check invalid IP header length. Drop a
         packet if length < 20 bytes.
@@ -541,15 +547,16 @@ class PacketFilter(object):
             bool (int): Allow or drop
         """
         if (pkt.haslayer(scapy.IP)):
-            len = pkt[scapy.IP].len
-            if int(len) < 20:
+            hlen = pkt[scapy.IP].len
+            if int(hlen) < 20:
                 return 0
             else:
                 return 1
         else:
             return 1
 
-    def icmp_fragmentation_attack(self, pkt):
+    @staticmethod
+    def icmp_fragmentation_attack(pkt):
         """
         Check for ICMP fragmentation. Drop a packet if
         protocol is set to ICMP, and IP flag is set to "MF" or
@@ -578,7 +585,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_large_icmp(self, pkt):
+    @staticmethod
+    def check_large_icmp(pkt):
         """
         Check for large ICMP. Drop a packet if
         protocol is set to ICMP, and length > 1024 bytes.
@@ -595,8 +603,8 @@ class PacketFilter(object):
         if pkt.haslayer(scapy.IP):
             proto = int(pkt[scapy.IP].proto)
             if proto == 1:
-                len = int(pkt[scapy.IP].len)
-                if (len > 1024):
+                hlen = int(pkt[scapy.IP].len)
+                if (hlen > 1024):
                     return 0
                 else:
                     return 1
@@ -605,7 +613,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def syn_fragmentation_attack(self, pkt):
+    @staticmethod
+    def syn_fragmentation_attack(pkt):
         """
         Check for SYN fragmentation. Drop a packet if
         SYN flag is set, and IP flag is set to "MF" or
@@ -635,7 +644,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_fin_ack(self, pkt):
+    @staticmethod
+    def check_fin_ack(pkt):
         """
         Check whether “FIN” flag is set but not “ACK”.
         TCP segments with the FIN flag set also have the ACK
@@ -663,7 +673,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_tcp_flag(self, pkt):
+    @staticmethod
+    def check_tcp_flag(pkt):
         """
         Check TCP flag. Drop a
         packet if TCP flag is None.
@@ -686,7 +697,8 @@ class PacketFilter(object):
         else:
             return 1
 
-    def check_network_congestion(self, pkt):
+    @staticmethod
+    def check_network_congestion(pkt):
         """
         Enable network congestion detection by
         observing “ECE” flag at the TCP
