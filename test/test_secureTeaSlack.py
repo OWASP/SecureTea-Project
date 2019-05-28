@@ -37,12 +37,14 @@ class TestSecureTeaSlack(unittest.TestCase):
         self.slack_obj = SecureTeaSlack(cred=self.cred,
                                         debug=self.debug)
 
+    @patch('securetea.lib.notifs.secureTeaSlack.common.get_current_location')
     @patch('securetea.lib.notifs.secureTeaSlack.logger')
     @patch('securetea.lib.notifs.secureTeaSlack.requests')
-    def test_notify(self, mock_requests, mock_log):
+    def test_notify(self, mock_requests, mock_log, mock_loc):
         """
         Test notify.
         """
+        mock_loc.return_value = "Random location"
         mock_requests.post.return_value = self.response
 
         # If response['ok'] is valid
