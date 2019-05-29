@@ -9,8 +9,9 @@ Project:
     Version: 1.1
     Module: SecureTea
 """
-# To share mouse gestures and post on Twitter
+# To share mouse gestures
 import struct
+
 import sys
 import time
 import threading
@@ -324,10 +325,17 @@ class SecureTea(object):
                 )
 
     def send_notif(self, msg):
-        """Docstring.
+        """Send notification through
+        the available mediums.
 
         Args:
-            msg (String)
+            msg (str): Message to send
+
+        Raises:
+            None
+
+        Returns:
+            None
         """
         # Send a warning message via twitter account
         if self.twitter_provided:
@@ -354,10 +362,19 @@ class SecureTea(object):
             self.gmail_obj.notify(msg)
 
     def on_move(self, x, y):
-        """Docstring.
+        """
+        Log warning on terminal & send notification
+        on mouse movement.
+
         Args:
             x (TYPE): X - mouse position
             y (TYPE): y - mouse position
+
+        Raises:
+            None
+
+        Returns:
+            bool (False): Stop the listener
         """
         self.logger.log('Pointer moved to {0}'.format((x, y)))
 
@@ -426,7 +443,7 @@ class SecureTea(object):
                 self.on_move(posx, posy)
 
     def on_user_update(self):
-        """Docstring.
+        """
         Send updates regarding the users currently logged in to the system
         to various platforms.
         """
@@ -443,7 +460,6 @@ class SecureTea(object):
 
     def run_mouse_notifs(self):
         """Run methods for notification using mice activity"""
-
         time.sleep(10)
         try:
             if not pynput_status:
@@ -454,7 +470,6 @@ class SecureTea(object):
                     with mouse.Listener(on_move=self.on_move) as listener:
                         listener.join()
         except Exception as e:
-            print(e)
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
                 logtype="error"
@@ -477,7 +492,6 @@ class SecureTea(object):
                     self.on_user_update()
                     time.sleep(10)
         except Exception as e:
-            print(e)
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
                 logtype="error"
@@ -488,13 +502,25 @@ class SecureTea(object):
             exit()
 
     def run(self):
+        """
+        Track mouse activity & SSH users on
+        different threads.
+
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            None
+        """
         try:
             t1 = threading.Thread(target=self.run_mouse_notifs)
             t2 = threading.Thread(target=self.run_user_notifs)
             t2.start()
             t1.start()
         except Exception as e:
-            print(e)
             self.logger.log(
                 "Something went wrong: " + str(e) + " End of program",
                 logtype="error"

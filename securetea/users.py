@@ -15,6 +15,7 @@ import time
 import sqlite3
 import psutil
 
+
 connection = sqlite3.connect('/etc/securetea/db.sqlite3')
 
 connection.execute('''CREATE TABLE IF NOT EXISTS USERS(
@@ -38,7 +39,6 @@ class SecureTeaUserLogger():
         VIOLET (str): Violet  color
         WARNING (TYPE): Orange color
         YELLOW (str): Yellow color
-
     """
 
     BOLD = '\033[1m'
@@ -64,23 +64,33 @@ class SecureTeaUserLogger():
 
     def addUsers(self):
         """
-        Updates the database with new users information
-        Removes the logged out users
-        Adds newly logged in users
-        Creates a message to notify about the same
+        Update the database with new users information.
+        Remove the logged out users.
+        Add newly logged in users.
+        Create a message to notify about the same.
 
-        Return value: Message to display regarding changes in USER table
+        Args:
+            None
+
+        Raises:
+            None
+
+        Returns:
+            message (str): message to display regarding
+                           changes in USER table
         """
         message = "USERS UPDATES\n"
         cur_users = []
         for user in psutil.users():
             cur_users.append((user.name, user.host))
-        # print(cur_users)
+
         users = list(connection.execute("SELECT NAME,IP FROM USERS"))
         for user in users:
             if user not in cur_users:
-                connection.execute("DELETE FROM USERS WHERE NAME=\"" + user[0] + "\" AND IP=\"" + user[1] + "\"")
-                message += "REMOVED USER:- NAME: " + user[0] + " IP: " + user[1] + "\n"
+                connection.execute("DELETE FROM USERS WHERE NAME=\"" + \
+                                    user[0] + "\" AND IP=\"" + user[1] + "\"")
+                message += ("REMOVED USER:- NAME: " +
+                            user[0] + " IP: " + user[1] + "\n")
 
         for user in cur_users:
             if user not in users:
@@ -94,5 +104,8 @@ class SecureTeaUserLogger():
     def log(self):
         """
         For adding users.
+
+        Args:
+            None
         """
         return self.addUsers()
