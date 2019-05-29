@@ -146,14 +146,18 @@ Notify by Slack              | Yes
 Notify by Twilio SMS         | Yes
 Notify by Amazon (AWS-SES)   | Yes
 Notify by WhatsApp           | No
+Insecure Header Detection    | Yes
 SecureTea Firewall           | Yes
 SecureTea IDS/IPS            | Yes
+SecureTea System Log Monitor | No
+SecureTea Server Log Monitor | No
 SecureTea Anti-Virus         | No
-SecureTea Log monitoring     | No
+SecureTea Auto Server Patcher| No
 Web Defacement Detection     | No
+SecureTea OSINT		     | No
+IoT Anonymity checker	     | No
 Last login                   | No
 Detection of malcious device | No
-
 
 <br>
 
