@@ -191,3 +191,177 @@ class TestPacket_Filter(unittest.TestCase):
         self.pf1._action_scanLoad = 1
         result = self.pf1.scanLoad(self.scapy_pkt)
         self.assertEqual(result, 0)
+
+    def test_check_first_fragment(self):
+        """
+        Test check_first_fragment.
+        """
+        pkt = scapy.IP(flags="MF",
+                       frag=0,
+                       len=100)
+        result = self.pf1.check_first_fragment(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(flags="MF",
+                       frag=0,
+                       len=160)
+        result = self.pf1.check_first_fragment(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_ip_version(self):
+        """
+        Test check_ip_version.
+        """
+        pkt = scapy.IP(version=8)
+        result = self.pf1.check_ip_version(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(version=4)
+        result = self.pf1.check_ip_version(pkt)
+        self.assertEqual(result, 1)
+
+        pkt = scapy.IP(version=6)
+        result = self.pf1.check_ip_version(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_ip_fragment_boundary(self):
+        """
+        Test check_ip_fragment_boundary.
+        """
+        pkt = scapy.IP(len=60000, frag=7000)
+        result = self.pf1.check_ip_fragment_boundary(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(len=60000, frag=1000)
+        result = self.pf1.check_ip_fragment_boundary(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_ip_fragment_offset(self):
+        """
+        Test check_ip_fragment_offset.
+        """
+        pkt = scapy.IP(frag=50)
+        result = self.pf1.check_ip_fragment_offset(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(frag=70)
+        result = self.pf1.check_ip_fragment_offset(pkt)
+        self.assertEqual(result, 1)
+
+        pkt = scapy.IP(frag=0)
+        result = self.pf1.check_ip_fragment_offset(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_invalid_ip(self):
+        """
+        Test check_invalid_ip.
+        """
+        pkt = scapy.IP(src="1.1.1.1")
+        result = self.pf1.check_invalid_ip(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_ip_header_length(self):
+        """
+        Test check_ip_header_length.
+        """
+        pkt = scapy.IP(len=10)
+        result = self.pf1.check_ip_header_length(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(len=30)
+        result = self.pf1.check_ip_header_length(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_tcp_flag(self):
+        """
+        Test check_tcp_flag.
+        """
+        pkt = scapy.TCP(flags=None)
+        result = self.pf1.check_tcp_flag(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.TCP(flags="S")
+        result = self.pf1.check_tcp_flag(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_network_congestion(self):
+        """
+        Test check_network_congestion.
+        """
+        pkt = scapy.TCP(flags="EC")
+        result = self.pf1.check_network_congestion(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.TCP(flags="S")
+        result = self.pf1.check_network_congestion(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_fin_ack(self):
+        """
+        Test check_fin_ack.
+        """
+        pkt = scapy.TCP(flags="FA")
+        result = self.pf1.check_fin_ack(pkt)
+        self.assertEqual(result, 1)
+
+        pkt = scapy.TCP(flags="F")
+        result = self.pf1.check_fin_ack(pkt)
+        self.assertEqual(result, 0)
+
+    def test_syn_fragmentation_attack(self):
+        """
+        Test syn_fragmentation_attack.
+        """
+        pkt = scapy.IP(flags="MF",
+                       frag=10) \
+              / scapy.TCP(flags="S")
+        result = self.pf1.syn_fragmentation_attack(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(flags="MF",
+                       frag=0) \
+              / scapy.TCP(flags="S")
+        result = self.pf1.syn_fragmentation_attack(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(flags="MF",
+                       frag=0) \
+              / scapy.TCP(flags="F")
+        result = self.pf1.syn_fragmentation_attack(pkt)
+        self.assertEqual(result, 1)
+
+    def test_check_large_icmp(self):
+        """
+        Test check_large_icmp.
+        """
+        pkt = scapy.IP(proto=1,
+                       len=2048)
+        result = self.pf1.check_large_icmp(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(proto=1,
+                       len=512)
+        result = self.pf1.check_large_icmp(pkt)
+        self.assertEqual(result, 1)
+
+    def test_icmp_fragmentation_attack(self):
+        """
+        Test icmp_fragmentation_attack.
+        """
+        pkt = scapy.IP(proto=1,
+                      flags="MF",
+                      frag=20)
+        result = self.pf1.icmp_fragmentation_attack(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(proto=1,
+                      flags="MF",
+                      frag=0)
+        result = self.pf1.icmp_fragmentation_attack(pkt)
+        self.assertEqual(result, 0)
+
+        pkt = scapy.IP(proto=2,
+                      flags="MF",
+                      frag=20)
+        result = self.pf1.icmp_fragmentation_attack(pkt)
+        self.assertEqual(result, 1)
