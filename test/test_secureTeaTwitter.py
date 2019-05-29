@@ -59,12 +59,14 @@ class TestSecureTeaTwitter(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.twitter_obj.getuserid()
 
+    @patch('securetea.lib.notifs.secureTeaTwitter.common.get_current_location')
     @patch('securetea.lib.notifs.secureTeaTwitter.logger')
     @patch('securetea.lib.notifs.secureTeaTwitter.requests')
-    def test_notify(self, mock_requests, mock_log):
+    def test_notify(self, mock_requests, mock_log, mock_loc):
         """
         Test notify.
         """
+        mock_loc.return_value = "Random location"
         # Setup twitter object
         mock_requests.get.return_value = self.response
         self.twitter_obj = SecureTeaTwitter(debug=self.debug,
