@@ -529,4 +529,3 @@ class SecureTea(object):
             self.logger.log(
                 "You pressed Ctrl+C!, Bye")
             exit()
-            
