@@ -53,6 +53,8 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Firewall](#firewall)
 
 -  [Intrusion Detection System](#intrusion-detection-system)
+
+-  [Insecure Headers](#insecure-headers)
  
 -  [Database](#database)
  
@@ -520,7 +522,19 @@ SecureTea Firewall currently uses the following rules to filter the incoming tra
     - Protocols
     - Scan for downloads in HTTP websites
     - DNS filter rules
-    - Filter HTTP request & response 
+    - Filter HTTP request & response
+    - IP packet first fragment
+    - IP packet fragment boundary
+    - IP packet fragment small offset
+    - Unknown IP version
+    - Invalid IP source
+    - Invalid IP header length:
+    - Network congestion detection
+    - Ending FIN-ACK handshakes
+    - TCP Packet with None flag
+    - SYN fragmentation
+    - ICMP fragmentation attack:
+    - Large ICMP packets
     
  Apart from that, the background process deals with the following functions:
  <br><br>
@@ -553,6 +567,18 @@ SecureTea Intrusion Detection System (IDS) deals with the following attack vecto
     - SSID spoofing
     - Fake access point
     
+## Insecure Headers
+Check/monitor the website for the followings:
+  - X-XSS-Protection
+  - X-Content-Type
+  - Strict Transport Security
+  - Content Security Policy
+  - X-Frame
+  - HTTP methods
+       - Test all methods - 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'TRACE', 'TEST'
+       - Cross Site Tracing vulnerability
+- Check for cookie details
+
 ## Database
 Currently, SecureTea-Project uses **sqlite3** database.
 
