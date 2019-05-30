@@ -122,7 +122,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.1',
+    version='1.2',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
@@ -133,7 +133,7 @@ setup(
     description='SecureTea',
     long_description=open('doc/en-US/user_guide.md').read(),
     long_description_content_type='text/markdown',
-    url='git@github.com:OWASP/SecureTea-Project.git',
+    url='https://github.com/OWASP/SecureTea-Project',
     author='OWASP SecureTea',
     author_email='rejah.rehim@owasp.org',
     install_requires=[
@@ -158,7 +158,7 @@ setup(
         'Programming Language :: Python',
         'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Version Control :: Git',
         'Topic :: Software Development :: Testing :: Unit',
     ],
