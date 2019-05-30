@@ -123,18 +123,44 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 setup(
     name='securetea',
     version='1.1',
-    packages=find_packages(exclude=['tests*']),
+    packages=find_packages(exclude=["test",
+                                    "*.test",
+                                    "*.test.*",
+                                    "test.*"]),
     data_files=files_definition,
     scripts=['SecureTea.py'],
     license='MIT',
     description='SecureTea',
-    long_description=open('README.md').read(),
+    long_description=open('doc/en-US/user_guide.md').read(),
+    long_description_content_type='text/markdown',
     url='git@github.com:OWASP/SecureTea-Project.git',
     author='OWASP SecureTea',
     author_email='rejah.rehim@owasp.org',
     install_requires=[
-        "twitter",
-        "pynput"
+        "requests",
+        "requests_oauthlib",
+        "py_cpuinfo",
+        "psutil",
+        "flask",
+        "flask_cors",
+        "pynput",
+        "python-telegram-bot",
+        "twilio",
+        "scapy",
+        "NetfilterQueue",
+        "boto3",
+        "geocoder",
+        "pathlib"
+    ],
+    python_requires='>=2.7',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Programming Language :: Python',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6'
+        'Topic :: Software Development :: Version Control :: Git',
+        'Topic :: Software Development :: Testing :: Unit',
     ],
     zip_safe=False
 )
