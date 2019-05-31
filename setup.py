@@ -202,7 +202,7 @@ def check_dependency():
         system is not None):  # not installed
         # get the OS specific command
         command = DEPENDENCY_COMMAND_MAP[dependency_name][system]
-        install_dependency(dependency, command)
+        install_dependency(dependency_name, command)
 
 file_rename()
 check_dependency()
