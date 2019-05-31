@@ -36,7 +36,7 @@ files_definition = [
 DEPENDENCY_COMMAND_MAP = {
     "libnetfilter-queue-dev": "sudo apt-get install "
                               "build-essential python-dev "
-                              "libnetfilter-queue-dev",
+                              "libnetfilter-queue-dev"
 }
 
 
