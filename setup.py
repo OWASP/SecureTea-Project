@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.1
+    Version: 1.2
     Module: SecureTea
 
 Attributes:
@@ -19,6 +19,8 @@ from setuptools import setup
 from setuptools import Distribution
 from setuptools.command.install import install
 import platform
+import subprocess
+import re
 
 os_name = platform.dist()[0]
 os_major_version = platform.dist()[1].split('.')[0]
@@ -29,6 +31,13 @@ if not os_name:
 files_definition = [
     ('/etc/securetea', ['securetea.conf']),
 ]
+
+# dependency-name to command mapping dict
+DEPENDENCY_COMMAND_MAP = {
+    "libnetfilter-queue-dev": "sudo apt-get install "
+                              "build-essential python-dev "
+                              "libnetfilter-queue-dev",
+}
 
 
 class OnlyGetScriptPath(install):
@@ -101,7 +110,84 @@ def file_write(path, data):
     except Exception as e:
         print(e)
 
+def execute_command(command):
+    """Execute the commnand passed &
+    return the output.
+
+    Args:
+        command (str): Command to execute
+
+    Returns:
+        output (str): Output of the command execution
+    """
+    output = subprocess.check_output(command,
+                                     shell=True)
+    return output.decode("ascii")
+
+
+def verify_installation(output):
+    """Verify whether the installation is
+    successful or not.
+
+    Args:
+        output (str): Output after the execution
+
+    Returns:
+        TYPE: bool
+    """
+    found = re.findall(r'([0-9]+\supgraded).*([0-9]+\snewly installed)',
+                       output)
+
+    upgraded = found[0][0]
+    installed = found[0][1]
+
+    upgraded_num = re.findall(r'^[0-9]+',
+                              upgraded)
+    upgraded_num = int(upgraded_num[0])
+
+    installed_num = re.findall(r'^[0-9]+',
+                               installed)
+    installed_num = int(installed_num[0])
+
+    if (upgraded_num > 0 or
+        installed_num > 0):
+        return True
+
+
+def install_dependency(dependency, command):
+    """Install the dependency.
+
+    Args:
+        dependency (str): Name of the dependency
+        command (str): Command to execute to install
+                       the dependency
+    """
+    print("[!] installing ", dependency)
+    # install the dependency
+    output = execute_command(command)
+
+    if verify_installation(output):
+        print("[+] ", dependency, " --installed")
+    else:
+        print("[-] ", dependency, "--failed")
+
+
+def check_dependency():
+    """Check for the dependencies in the system."""
+
+    for dependency in DEPENDENCY_COMMAND_MAP.keys():
+        command = "dpkg -s " + dependency + " |grep Status"
+        output = execute_command(command)
+
+    if "install ok installed" in output:
+        print("[!] ", dependency, " --already installed")
+    else:
+        # install the dependency
+        command = DEPENDENCY_COMMAND_MAP[dependency]  # get the command
+        install_dependency(dependency, command)
+
 file_rename()
+check_dependency()
 
 if os_name == 'Ubuntu':
     if int(os_major_version) >= 16:
