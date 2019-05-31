@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.2
+    Version: 1.3
     Module: SecureTea
 
 Attributes:
@@ -112,8 +112,7 @@ def file_write(path, data):
 
 
 def execute_command(command):
-    """Execute the commnand passed &
-    return the output.
+    """Execute the commnand passed & return the output.
 
     Args:
         command (str): Command to execute
@@ -127,8 +126,7 @@ def execute_command(command):
 
 
 def verify_installation(output):
-    """Verify whether the installation is
-    successful or not.
+    """Verify whether the installation is successful or not.
 
     Args:
         output (str): Output after the execution
@@ -150,8 +148,7 @@ def verify_installation(output):
                                installed)
     installed_num = int(installed_num[0])
 
-    if (upgraded_num > 0 or
-        installed_num > 0):
+    if (upgraded_num > 0 or installed_num > 0):
         return True
 
 
@@ -175,7 +172,6 @@ def install_dependency(dependency, command):
 
 def check_dependency():
     """Check for the dependencies in the system."""
-
     # categorize OS
     if os_name.lower() in ["ubuntu", "kali", "debian"]:
         system = "debian"
@@ -230,7 +226,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.2',
+    version='1.3',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
