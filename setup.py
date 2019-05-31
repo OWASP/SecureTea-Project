@@ -34,9 +34,9 @@ files_definition = [
 
 # dependency-name to command mapping dict
 DEPENDENCY_COMMAND_MAP = {
-    "libnetfilter-queue-dev": "sudo apt-get install "
-                              "build-essential python-dev "
-                              "libnetfilter-queue-dev"
+    "libnetfilter-queue-dev": {"debian": "sudo apt-get install "
+                                         "build-essential python-dev "
+                                         "libnetfilter-queue-dev"}
 }
 
 
@@ -110,6 +110,7 @@ def file_write(path, data):
     except Exception as e:
         print(e)
 
+
 def execute_command(command):
     """Execute the commnand passed &
     return the output.
@@ -175,16 +176,33 @@ def install_dependency(dependency, command):
 def check_dependency():
     """Check for the dependencies in the system."""
 
-    for dependency in DEPENDENCY_COMMAND_MAP.keys():
-        command = "dpkg -s " + dependency + " |grep Status"
-        output = execute_command(command)
+    flag = 0
+    dependency_name = None
+    system = None
 
-        if "install ok installed" in output:
-            print("[!] ", dependency, " --already installed")
-        else:
-            # install the dependency
-            command = DEPENDENCY_COMMAND_MAP[dependency]  # get the command
-            install_dependency(dependency, command)
+    for dependency in DEPENDENCY_COMMAND_MAP.keys():
+        # if debian
+        if os_name.lower() in ["ubuntu", "kali", "debian"]:
+            # command for debian based OS
+            command = "dpkg -s " + dependency + " |grep Status"
+            output = execute_command(command)
+
+            if "install ok installed" in output:
+                print("[!] ", dependency, " --already installed")
+                flag = 1  # installed
+            else:
+                dependency_name = dependency
+                system = "debian"
+
+        # elif some other based OS
+        # add logic here
+
+    if (flag == 0 and
+        dependency_name is not None and
+        system is not None):  # not installed
+        # get the OS specific command
+        command = DEPENDENCY_COMMAND_MAP[dependency_name][system]
+        install_dependency(dependency, command)
 
 file_rename()
 check_dependency()
