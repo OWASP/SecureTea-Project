@@ -34,9 +34,9 @@ files_definition = [
 
 # dependency-name to command mapping dict
 DEPENDENCY_COMMAND_MAP = {
-    "libnetfilter-queue-dev": "sudo apt-get install "
-                              "build-essential python-dev "
-                              "libnetfilter-queue-dev"
+    "libnetfilter-queue-dev": {"debian": "sudo apt-get install "
+                                         "build-essential python-dev "
+                                         "libnetfilter-queue-dev"}
 }
 
 
@@ -110,6 +110,7 @@ def file_write(path, data):
     except Exception as e:
         print(e)
 
+
 def execute_command(command):
     """Execute the commnand passed &
     return the output.
@@ -175,15 +176,36 @@ def install_dependency(dependency, command):
 def check_dependency():
     """Check for the dependencies in the system."""
 
-    for dependency in DEPENDENCY_COMMAND_MAP.keys():
-        command = "dpkg -s " + dependency + " |grep Status"
-        output = execute_command(command)
+    # categorize OS
+    if os_name.lower() in ["ubuntu", "kali", "debian"]:
+        system = "debian"
+    # elif some other based OS
+    else:  # if OS not in listing
+        print("[!] No suitable command for OS: {0}".format(os_name))
+        # exit & continue with rest of the installation
+        return
 
-        if "install ok installed" in output:
-            print("[!] ", dependency, " --already installed")
-        else:
-            # install the dependency
-            command = DEPENDENCY_COMMAND_MAP[dependency]  # get the command
+    for dependency in DEPENDENCY_COMMAND_MAP.keys():
+
+        flag = 0
+
+        # if debian
+        if system == "debian":
+            # command for debian based OS to check installed or not
+            command = "dpkg -s " + dependency + " |grep Status"
+            output = execute_command(command)
+
+            if "install ok installed" in output:
+                print("[!] ", dependency, " --already installed")
+                flag = 1  # installed
+
+        # elif some other based OS
+        # add logic here to check whether dependency is installed
+
+        # not installed (common for all)
+        if flag == 0:
+            # get the OS specific command
+            command = DEPENDENCY_COMMAND_MAP[dependency][system]
             install_dependency(dependency, command)
 
 file_rename()
