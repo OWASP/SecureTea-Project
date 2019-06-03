@@ -2,30 +2,34 @@ os: linux
 dist: xenial
 language: python
 python:
-  - "3.6"
+- '3.6'
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++
-      - gcc
-      - build-essential
-      - python-dev
-      - libnetfilter-queue-dev
+    - g++
+    - gcc
+    - build-essential
+    - python-dev
+    - libnetfilter-queue-dev
 install:
-  - pip install scapy==2.4.0
+- pip install scapy==2.4.0
 script:
-  - python --version
+- python --version
 deploy:
   provider: pypi
   user:
-    secure: "t1aUH/3MgRvar2M2OcJfsEB7kYvr9bxQgk/NSWORt1zrOC2tvRdmR+ukSmJAIDgH5I8uMb2NtOKEuZr+O6EXZBIQJsvH5acpxAPOmwJWucA8Nab5ELNyPhZK0lxGOh4WfQEMbZNjdt3DybwxuygR10twoc4fVJIhKd6JkWbsKWOx2bZZNPr6xfXtZvSOUCNGR9apQJTHNJ6lLRS4HtnamLOk+a+Uu4n1jsG2txpZNQQM9O/gndm5Sob8Ci9zfiHoSyd/yAtjEsxBj/WWc0hyjOQ5gBmg31bShjCXy3Gd4dhvPIPBo/KQHqfr5zyfpBeWB8Sj/DX1HblyuIUGHowJalx9HkctivpQwEcDuJsSsblSdXZTYx1PZIFteXAezLQY+wKd6D21wco+fHEGp21DvPNpmHg8kTW7aZCdSVbZRRUc7ChHRlewcy2Jvu8Umf4QoUfHJfNWhuwsS6VQh14cGyq9N+LvMQeZzK81KWSRb21l/swnafHP3cCzoxYp+feVhTkz+k6a5XX+3UzzD09JSCjBgtgx5FGLQOvJzW6KRQmqIgRthP4WqbBo4e7M7E9K1YTnc8vNTjQO0VWjHri83+sugWratLj0imYolJJeYnMhRAXnSyiw4drEKkj7R2HO6iVktfK3bZA+WLlBA1Y8qA7SS9O5Hyr4cbFU1AFEuXk="
+    secure: t1aUH/3MgRvar2M2OcJfsEB7kYvr9bxQgk/NSWORt1zrOC2tvRdmR+ukSmJAIDgH5I8uMb2NtOKEuZr+O6EXZBIQJsvH5acpxAPOmwJWucA8Nab5ELNyPhZK0lxGOh4WfQEMbZNjdt3DybwxuygR10twoc4fVJIhKd6JkWbsKWOx2bZZNPr6xfXtZvSOUCNGR9apQJTHNJ6lLRS4HtnamLOk+a+Uu4n1jsG2txpZNQQM9O/gndm5Sob8Ci9zfiHoSyd/yAtjEsxBj/WWc0hyjOQ5gBmg31bShjCXy3Gd4dhvPIPBo/KQHqfr5zyfpBeWB8Sj/DX1HblyuIUGHowJalx9HkctivpQwEcDuJsSsblSdXZTYx1PZIFteXAezLQY+wKd6D21wco+fHEGp21DvPNpmHg8kTW7aZCdSVbZRRUc7ChHRlewcy2Jvu8Umf4QoUfHJfNWhuwsS6VQh14cGyq9N+LvMQeZzK81KWSRb21l/swnafHP3cCzoxYp+feVhTkz+k6a5XX+3UzzD09JSCjBgtgx5FGLQOvJzW6KRQmqIgRthP4WqbBo4e7M7E9K1YTnc8vNTjQO0VWjHri83+sugWratLj0imYolJJeYnMhRAXnSyiw4drEKkj7R2HO6iVktfK3bZA+WLlBA1Y8qA7SS9O5Hyr4cbFU1AFEuXk=
   server: https://test.pypi.org/legacy/
   password:
-    secure: "VllS+XIgbxbvpHVn10PqHw1gn1TqM7HzycTgqUJRMNxX32AQFnuITPQWOEZXSN1RMAI7h3UhvDP2IwP6PEnxfGKqx3hgC/Yd4VAnypfNDr9lKitys7Nmp+JY8p4yWFjBGXjxj3IUstGpdG8CpSv1fKsCGWhf1H4JVA2ufKk9XSioe3cadcJSCuib/OVCZL/6dLzUsQsBnlS8Xq1WbxyBd3VsAW40IHQ9ChfMgXCPodTSNeEM26vxB7WLEYHvvfw/+/45NuMBu14Gc6YuUk1Pgg0lsUvCyfppR76LesUYpD5VB7XSC8wHay97hJ+NT2M4fUIDMcOHYjHSYT/eSNuHjyv0OaXqksmii6nwR3/av3ovUXInVIuqTGRK+7YVyqrblk3G/oRwBZgPLQRFh0xItufLSwS1nm6WHal7Lbsk9WbY2LJvGCY3940/Nh+skWm6jN/uMFipYCjl+1evtmth1sbmmrb4wnaabJsYjeuEV+ZfWx+3xIHOra7R57c2388vi8lvSenuw/CHAubgxj1b8UbHPRe5FHgAu2AjwsLFpIdt3F4R6oZM+kAJzjzq0w8kUuLotqk03bEl0/HoeQHapxTga9BsDz9lwXcn7guMikIheQ1iWK/8mt1lKuxrIsP0fbzGddQsaYupqzkQ4Fw3RnE8HwhNX+YeUK1b2V1TEes="
-  distributions: "sdist bdist_wheel"
+    secure: VllS+XIgbxbvpHVn10PqHw1gn1TqM7HzycTgqUJRMNxX32AQFnuITPQWOEZXSN1RMAI7h3UhvDP2IwP6PEnxfGKqx3hgC/Yd4VAnypfNDr9lKitys7Nmp+JY8p4yWFjBGXjxj3IUstGpdG8CpSv1fKsCGWhf1H4JVA2ufKk9XSioe3cadcJSCuib/OVCZL/6dLzUsQsBnlS8Xq1WbxyBd3VsAW40IHQ9ChfMgXCPodTSNeEM26vxB7WLEYHvvfw/+/45NuMBu14Gc6YuUk1Pgg0lsUvCyfppR76LesUYpD5VB7XSC8wHay97hJ+NT2M4fUIDMcOHYjHSYT/eSNuHjyv0OaXqksmii6nwR3/av3ovUXInVIuqTGRK+7YVyqrblk3G/oRwBZgPLQRFh0xItufLSwS1nm6WHal7Lbsk9WbY2LJvGCY3940/Nh+skWm6jN/uMFipYCjl+1evtmth1sbmmrb4wnaabJsYjeuEV+ZfWx+3xIHOra7R57c2388vi8lvSenuw/CHAubgxj1b8UbHPRe5FHgAu2AjwsLFpIdt3F4R6oZM+kAJzjzq0w8kUuLotqk03bEl0/HoeQHapxTga9BsDz9lwXcn7guMikIheQ1iWK/8mt1lKuxrIsP0fbzGddQsaYupqzkQ4Fw3RnE8HwhNX+YeUK1b2V1TEes=
+  distributions: sdist bdist_wheel
   skip_existing: true
   on:
     branch: master
     repo: OWASP/SecureTea-Project
+env:
+  global:
+  - secure: EoBrg113MoXeX2QeBoBmx8/kdHTrWrAVds9AP21/hvUxwEcDKjPlXM8oOb6i0dbGM6zFbXVzfFwWGHBWxIw0UNvu9e682wVOBjEGz2PosHyDdSiQAZtGHZ779Wu/eTPaDCou/mbDfNcMtG5T4I9ouMTcys8mhmb/DyQ8lqeTXjYGJ8fQkjzSI7ZWsFMTUoKEoZ/tlJ/d965mSEciwL7SxW01PolQxXcX1hJY/rhKshr7LglvLycA1rlN/7eK0kUN0fFxLDwLmBC+6cf9rtl6Ze66v6l7SCYLW74aTETj7WFI/ruYDguP03odHvuVGepu3ZWsUh9IN1LQBTkOq7HvNmN/+OplG+S5Rye1hnB0eIAXTHHKfky7SFTmaHhFs5hGw4ULjWAYxNv34RPpdYqjfLcVz9KK8rsDe3VMtwXMCDTZAuuyHIcKKfBY+hN6SGl6rlfpGUY500D5TDalBQBy1y93JPZLtYH8EXMtFEt6AM5lxvsZvfPowgYHXC9SQ17EjhhcLHJKvMlMGB21eFDb93IgaF/vOJh0SRAuucEYIgZjwHIlUIZtV9bYA8KAX1Bmzk+tWTf5m20Z/vlqmsBcNC41bFRq7plZj+vehKCNR5T4nWPhAZdRnh8TZ3yYzjo6ggI0Tph45E6M7itLEFlI2dAf+gNsJBT6w+RvjZXrtGc=
+  - secure: xwsGmrtL88yRZgxzFZTrUe8GFnyZvenPAaFtAsDadkWsjsiUn7txv3K4RSBTYPzE8sd1JXavSGyIN3SMnsvc3o92+MAI0bStxVNA3lgmoOcIE/4Fp5iIoRWSXh4+JOgo28y3CnuaKp2/NJFN8k+N6vyGUXlw6XAzX1xcitQnSB3Jnz5SrEgHI+RTk9qtRXukxjVbMYlMg7tlUYHPXc7NzBK6QN+fVSydtHnAb9Qkb8z4FMqOMXp2sCAA4mSDRejaDiaKnj6Xv+u9tlRm0AqndOZRTZmM/Jc1IqWm1XemfRRVbUqyeJWmbbMAed0xZLd968tRVgXR6DEOAIcNqD5mElqdaGy9LEYZs3vbWmK7xTKH9Ua0+0Yh7HuMbjzoLgzyM7vBj28CYrZCFTbG74rVAR3OjoSVHpTp+e0LGbWSJQcRp3G1AZNKY6wl45kdVZ1hQKzC5jnI0jTHUvqvG/5CZ9D/grU6wyFk6DuMx5BHXrCErBbtsZHFQ4tsLchkg/A4ffxDxzpZbeyp1uUSJva26lXVQU+vDTvc4hV+DSC3irzXYyTicyI5a9tpOuBs3Tiohy8fU3WIJ6Q4H1KSeCYedMpXIcQdzwjAZoEZ3EgPyznJ0m3iPHijYMmWGdPXcVWua0BFCx0CflHYGTvSDiPxbB4BPC5G88apZQuPvZMOhiw=
