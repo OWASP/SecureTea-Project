@@ -25,5 +25,7 @@ deploy:
   password:
     secure: "VllS+XIgbxbvpHVn10PqHw1gn1TqM7HzycTgqUJRMNxX32AQFnuITPQWOEZXSN1RMAI7h3UhvDP2IwP6PEnxfGKqx3hgC/Yd4VAnypfNDr9lKitys7Nmp+JY8p4yWFjBGXjxj3IUstGpdG8CpSv1fKsCGWhf1H4JVA2ufKk9XSioe3cadcJSCuib/OVCZL/6dLzUsQsBnlS8Xq1WbxyBd3VsAW40IHQ9ChfMgXCPodTSNeEM26vxB7WLEYHvvfw/+/45NuMBu14Gc6YuUk1Pgg0lsUvCyfppR76LesUYpD5VB7XSC8wHay97hJ+NT2M4fUIDMcOHYjHSYT/eSNuHjyv0OaXqksmii6nwR3/av3ovUXInVIuqTGRK+7YVyqrblk3G/oRwBZgPLQRFh0xItufLSwS1nm6WHal7Lbsk9WbY2LJvGCY3940/Nh+skWm6jN/uMFipYCjl+1evtmth1sbmmrb4wnaabJsYjeuEV+ZfWx+3xIHOra7R57c2388vi8lvSenuw/CHAubgxj1b8UbHPRe5FHgAu2AjwsLFpIdt3F4R6oZM+kAJzjzq0w8kUuLotqk03bEl0/HoeQHapxTga9BsDz9lwXcn7guMikIheQ1iWK/8mt1lKuxrIsP0fbzGddQsaYupqzkQ4Fw3RnE8HwhNX+YeUK1b2V1TEes="
   distributions: "sdist bdist_wheel"
+  skip_existing: true
   on:
     branch: master
+    repo: OWASP/SecureTea-Project
