@@ -30,6 +30,7 @@ from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
 from securetea.lib.security_header import secureTeaHeaders
 from securetea.lib.ids import secureTeaIDS
+from securetea.lib.log_monitor.system_log import engine
 
 pynput_status = True
 
@@ -79,6 +80,7 @@ class SecureTea(object):
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
         self.ids_provided = args_dict['ids_provided']
+        self.system_log_provided = args_dict['system_log_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -321,6 +323,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Intrusion Detection System (IDS) parameter not configured.",
+                    logtype="error"
+                )
+
+        if self.system_log_provided:
+            try:
+                sys_obj = engine.SystemLogEngine(debug=self.cred['debug'])
+                sys_obj.run()
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
                     logtype="error"
                 )
 

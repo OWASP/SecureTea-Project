@@ -390,5 +390,13 @@ def get_args():
         help="Intrusion Detection System (IDS) threshold"
     )
 
+    parser.add_argument(
+        '--system_log',
+        '-sys_log',
+        action="store_true",
+        required=False,
+        help="Start system log monitoring process"
+    )
+
     args = parser.parse_args()
     return args

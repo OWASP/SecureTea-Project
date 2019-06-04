@@ -30,3 +30,14 @@ from .lib.ids.r2l_rules.wireless import deauth
 from .lib.ids.r2l_rules.wireless import fake_access
 from .lib.ids.r2l_rules.wireless import hidden_node
 from .lib.ids.r2l_rules.wireless import ssid_spoof
+from .lib.log_monitor.system_log import check_sync
+from .lib.log_monitor.system_log import detect_backdoor
+from .lib.log_monitor.system_log import detect_sniffer
+from .lib.log_monitor.system_log import engine
+from .lib.log_monitor.system_log import failed_login
+from .lib.log_monitor.system_log import harmful_root_command
+from .lib.log_monitor.system_log import non_std_hash
+from .lib.log_monitor.system_log import password_defect
+from .lib.log_monitor.system_log import port_scan
+from .lib.log_monitor.system_log import ssh_login
+from .lib.log_monitor.system_log import utils
