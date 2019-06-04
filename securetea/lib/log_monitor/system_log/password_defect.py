@@ -79,18 +79,18 @@ class PasswordDefect(object):
         log_data = utils.open_file(self.log_file)
         for line in log_data:
              user = (line.split(":")[0]).strip("\n")
-             password = (line.split(":")[1]).strip("\n")
+             found_pss = (line.split(":")[1]).strip("\n")
 
-             if (password is None or password == "" or password == " "):
-                 self.update_dict(user, password)
+             if (found_pss is None or found_pss == "" or found_pss == " "):
+                 self.update_dict(user, found_pss)
 
-    def update_dict(self, user, password):
+    def update_dict(self, user, found_pss):
         """
         Update user_password dict.
 
         Args:
             user (str): username
-            password (str): hashed password
+            found_pss (str): hashed password
 
         Raises:
             None
@@ -99,7 +99,7 @@ class PasswordDefect(object):
             None
         """
         if self.user_password.get(user) is None:
-            self.user_password[user] = password
+            self.user_password[user] = found_pss
             self.logger.log(
                 "Password not found for user: {}".format(user),
                 logtype="warning"
