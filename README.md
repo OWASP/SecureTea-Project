@@ -6,6 +6,7 @@
 [![GitHub][License-badge]][License]
 [![Telegram][Telegram-badge]][Telegram]
 [![Version][Version-badge]][Version]
+[![Tag][Tag-badge]][Tag]
 [![GitHub issues][Issues-badge]][Issues]
 [![GitHub pull requests][PR-badge]][PRs]
 [![GSOC 2019][GSOC-2019-badge]][GSOC-OWASP]
@@ -86,6 +87,8 @@ For contributors, please add your name below:
 [License-badge]: https://img.shields.io/github/license/mashape/apistatus.svg
 [Version]: https://github.com/OWASP/SecureTea-Project/releases
 [Version-badge]: https://img.shields.io/github/release/OWASP/SecureTea-Project.svg
+[Tag]: https://github.com/OWASP/SecureTea-Project/tag
+[Tag-badge]: https://img.shields.io/github/tag/OWASP/SecureTea-Project.svg?color=orange&label=version
 [Issues]: https://github.com/OWASP/SecureTea-Project/issues
 [Issues-badge]: https://img.shields.io/github/issues/OWASP/SecureTea-Project.svg
 [PRs]: https://github.com/OWASP/SecureTea-Project/pulls
