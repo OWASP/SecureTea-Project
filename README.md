@@ -87,7 +87,7 @@ For contributors, please add your name below:
 [License-badge]: https://img.shields.io/github/license/mashape/apistatus.svg
 [Version]: https://github.com/OWASP/SecureTea-Project/releases
 [Version-badge]: https://img.shields.io/github/release/OWASP/SecureTea-Project.svg
-[Tag]: https://github.com/OWASP/SecureTea-Project/tag
+[Tag]: https://github.com/OWASP/SecureTea-Project/tags
 [Tag-badge]: https://img.shields.io/github/tag/OWASP/SecureTea-Project.svg?color=orange&label=version
 [Issues]: https://github.com/OWASP/SecureTea-Project/issues
 [Issues-badge]: https://img.shields.io/github/issues/OWASP/SecureTea-Project.svg
