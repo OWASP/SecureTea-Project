@@ -8,9 +8,9 @@ PARSE_MODE="Markdown"
 
 # Check if all previous steps passed:
 if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
-    build_status="failed"
+    build_status=" ❌ Failed 👎"
 else
-    build_status="succeeded"
+    build_status=" ✅ Succeeded 👍"
 fi
 
 # Send message function
@@ -21,12 +21,19 @@ send_msg () {
 
 # Call send message with the message
 send_msg "
--------------------------------------
-Travis build *${build_status}!*
-\`Repository:  ${TRAVIS_REPO_SLUG}\`
-\`Branch:      ${TRAVIS_BRANCH}\`
-*Commit Msg:*
-${TRAVIS_COMMIT_MESSAGE}
-[Job Log here](${TRAVIS_JOB_WEB_URL})
---------------------------------------
+
+\`----------------------------------------------------------------\`
+
+Build *${build_status}!*
+
+\`Repository 📦:  ${TRAVIS_REPO_SLUG}\`
+\`Branch 🏷:      ${TRAVIS_BRANCH}\`
+
+*Commit Msg 💭:*
+_${TRAVIS_COMMIT_MESSAGE}_
+
+[Job Log view here 👉](${TRAVIS_JOB_WEB_URL})
+
+\`----------------------------------------------------------------\`
 "
+
