@@ -15,20 +15,21 @@ class TestNonStdHash(unittest.TestCase):
     Test class for NonStdHash.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.non_std_hash.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for NonStdHash.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create NonStdHash object
-        self.non_std_hash = NonStdHash()
+        self.os = "debian"
 
     @patch('securetea.lib.log_monitor.system_log.non_std_hash.utils')
     def test_parse_log_file(self, mock_utils):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create NonStdHash object
+        self.non_std_hash = NonStdHash()
+
         # Case 1: When algo is used
         value = ["root:$1$XXX$YYY:17661:0:99999:7:::"]
         mock_utils.open_file.return_value = value
@@ -41,11 +42,15 @@ class TestNonStdHash(unittest.TestCase):
         self.non_std_hash.parse_log_file()
         self.assertEqual(self.non_std_hash.used_algo, ["1"])
 
+    @patch('securetea.lib.log_monitor.system_log.non_std_hash.utils')
     @patch.object(SecureTeaLogger, "log")
-    def test_check_manipulation(self, mock_log):
+    def test_check_manipulation(self, mock_log, mock_utils):
         """
         Test check_manipulation.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create NonStdHash object
+        self.non_std_hash = NonStdHash()
         self.non_std_hash.THRESHOLD = -10   # Set THRESHOLD to negative to trigger alarm
         self.non_std_hash.used_algo.append("2")  # Random Hash
         self.non_std_hash.check_manipulation()

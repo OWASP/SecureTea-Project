@@ -15,14 +15,11 @@ class TestDetSniffer(unittest.TestCase):
     Test class for DetSniffer.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.detect_sniffer.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for DetSniffer..
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create DetSniffer object
-        self.det_sniff = DetSniffer()
+        self.os = "debian"
 
     @patch.object(SecureTeaLogger, "log")
     @patch('securetea.lib.log_monitor.system_log.detect_sniffer.utils')
@@ -30,6 +27,9 @@ class TestDetSniffer(unittest.TestCase):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create DetSniffer object
+        self.det_sniff = DetSniffer()
         mock_utils.open_file.return_value = ["Jun  4 11:10:31 adam kernel: [11.770669] \
                                              device virbr0-nic entered promiscuous mode"]
         self.det_sniff.parse_log_file()

@@ -15,14 +15,11 @@ class TestSSHLogin(unittest.TestCase):
     Test class for SSHLogin.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for SSHLogin.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create SSHLogin object
-        self.ssh_login_obj = SSHLogin()
+        self.os = "debian"
 
     @patch.object(SSHLogin, "update_username_dict")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
@@ -30,6 +27,9 @@ class TestSSHLogin(unittest.TestCase):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create SSHLogin object
+        self.ssh_login_obj = SSHLogin()
         mock_utils.open_file.return_value = ["Jun 1 10:22:56 ip-172-31-1-163 sshd[2363]:\
                                               Invalid user ubnt from 179.39.2.133"]
         mock_utils.get_epoch_time.return_value = 1
@@ -37,10 +37,14 @@ class TestSSHLogin(unittest.TestCase):
         mock_utils.get_epoch_time.assert_called_with('Jun', '1', '10:22:56')
         mock_failed_login.assert_called_with('ubnt', '179.39.2.133', 'Jun 1', 1)
 
-    def test_update_username_dict(self):
+    @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
+    def test_update_username_dict(self, mock_utils):
         """
         Test update_username_dict.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create SSHLogin object
+        self.ssh_login_obj = SSHLogin()
         self.ssh_login_obj.update_username_dict('ubnt', '179.39.2.133', 'Jun 1', 1)
         hashed_username = "ubnt" + self.ssh_login_obj.SALT + "Jun 1"
         self.assertTrue(self.ssh_login_obj.username_dict.get(hashed_username))
@@ -51,12 +55,16 @@ class TestSSHLogin(unittest.TestCase):
         }
         self.assertEqual(temp_dict, self.ssh_login_obj.username_dict[hashed_username])
 
+    @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
     @patch.object(SecureTeaLogger, "log")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.time')
-    def test_check_ssh_bruteforce(self, mock_time, mock_log):
+    def test_check_ssh_bruteforce(self, mock_time, mock_log, mock_utils):
         """
         Test check_ssh_bruteforce.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create SSHLogin object
+        self.ssh_login_obj = SSHLogin()
         mock_time.time.return_value = 2
         self.ssh_login_obj.update_username_dict('ubnt', '179.39.2.133', 'Jun 1', 1)
         self.ssh_login_obj.THRESHOLD = -10  # Set THRESHOLD to negative to trigger alarm

@@ -15,14 +15,11 @@ class TestDetectBackdoor(unittest.TestCase):
     Test class for DetectBackdoor.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.detect_backdoor.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for DetectBackdoor.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create DetectBackdoor object
-        self.det_bck = DetectBackdoor()
+        self.os = "debian"
 
     @patch.object(DetectBackdoor, "update_dict")
     @patch('securetea.lib.log_monitor.system_log.detect_backdoor.utils')
@@ -30,15 +27,22 @@ class TestDetectBackdoor(unittest.TestCase):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create DetectBackdoor object
+        self.det_bck = DetectBackdoor()
         mock_utils.open_file.return_value = ["root:x:0:0:root:/root:/bin/bash"]
         self.det_bck.parse_log_file()
         mock_up_dct.assert_called_with("0", "root")
 
+    @patch('securetea.lib.log_monitor.system_log.detect_backdoor.utils')
     @patch.object(SecureTeaLogger, "log")
-    def test_update_dict(self, mock_log):
+    def test_update_dict(self, mock_log, mock_utils):
         """
         Test update_dict.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create DetectBackdoor object
+        self.det_bck = DetectBackdoor()
         self.det_bck.id_username["0"] = "root"
         # Add a new user with same UID
         self.det_bck.update_dict("0", "user")

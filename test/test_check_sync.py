@@ -15,30 +15,34 @@ class TestCheckSync(unittest.TestCase):
     Test class for CheckSync.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.check_sync.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for CheckSync.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create CheckSync object
-        self.chk_sync = CheckSync()
+        self.os = "debian"
 
     @patch('securetea.lib.log_monitor.system_log.check_sync.utils')
     def test_parse_log_file(self, mock_utils):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create CheckSync object
+        self.chk_sync = CheckSync()
         mock_utils.open_file.return_value = ["root:x:0:0:root:/root:/bin/bash"]
         self.chk_sync.parse_log_file()
         self.assertEqual(self.chk_sync.log1_users, ["root"])
         self.assertEqual(self.chk_sync.log2_users, ["root"])
 
+    @patch('securetea.lib.log_monitor.system_log.check_sync.utils')
     @patch.object(SecureTeaLogger, "log")
-    def test_check_sync(self, mock_log):
+    def test_check_sync(self, mock_log, mock_utils):
         """
         Test check_sync.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create CheckSync object
+        self.chk_sync = CheckSync()
         # Add new user to list1
         self.chk_sync.log1_users.append("user1")
         self.chk_sync.check_sync()

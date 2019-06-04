@@ -15,15 +15,11 @@ class TestHarmfulCommands(unittest.TestCase):
     Test class for HarmfulCommands.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.harmful_root_command.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for HarmfulCommands.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        mock_utils.open_file.return_value = ["command"]
-        # Create HarmfulCommands object
-        self.harm_com_obj = HarmfulCommands()
+        self.os = "debian"
 
     @patch.object(SecureTeaLogger, "log")
     @patch.object(HarmfulCommands, "check_command")
@@ -32,6 +28,10 @@ class TestHarmfulCommands(unittest.TestCase):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        mock_utils.open_file.return_value = ["command"]
+        # Create HarmfulCommands object
+        self.harm_com_obj = HarmfulCommands()
         mock_utils.open_file.return_value = ["COMMAND=command "]
         mock_check.return_value = True
         self.harm_com_obj.parse_log_file()
@@ -40,13 +40,18 @@ class TestHarmfulCommands(unittest.TestCase):
         mock_log.assert_called_with('Possible harmful command found: command',
                                     logtype='warning')
 
-    def test_check_command(self):
+    @patch('securetea.lib.log_monitor.system_log.harmful_root_command.utils')
+    def test_check_command(self, mock_utils):
         """
         Test check_command.
         """
+        mock_utils.categorize_os.return_value = self.os
+        mock_utils.open_file.return_value = ["command"]
+        # Create HarmfulCommands object
+        self.harm_com_obj = HarmfulCommands()
         # Make the "command" as harmful
         if "command" not in self.harm_com_obj.harmful_commands:
             self.harm_com_obj.harmful_commands.append("command")
 
-        status = self.harm_com_obj.check_command("command-123")
+        status = self.harm_com_obj.check_command("command")
         self.assertTrue(status)

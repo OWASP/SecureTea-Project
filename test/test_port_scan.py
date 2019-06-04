@@ -15,14 +15,11 @@ class TestPortScan(unittest.TestCase):
     Test class for PortScan.
     """
 
-    @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
-    def setUp(self, mock_utils):
+    def setUp(self):
         """
         Setup class for PortScan.
         """
-        mock_utils.categorize_os.return_value = "debian"
-        # Create PortScan object
-        self.port_scan_obj = PortScan()
+        self.os = "debian"
 
     @patch.object(PortScan, "update_ip_dict")
     @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
@@ -30,6 +27,9 @@ class TestPortScan(unittest.TestCase):
         """
         Test parse_log_file.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create PortScan object
+        self.port_scan_obj = PortScan()
         mock_utils.open_file.return_value = ["Jan 11 12:34:24 ip-172-31-1-163 sshd[2598]: \
                                               Received disconnect from 121.18.238.114: 11: \
                                               [preauth]"]
@@ -37,10 +37,14 @@ class TestPortScan(unittest.TestCase):
         self.port_scan_obj.parse_log_file()
         mock_update.assert_called_with('121.18.238.114', 'Jan 11', 1)
 
-    def test_update_ip_dict(self):
+    @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
+    def test_update_ip_dict(self, mock_utils):
         """
         Test update_ip_dict.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create PortScan object
+        self.port_scan_obj = PortScan()
         self.port_scan_obj.update_ip_dict('121.18.238.114', 'Jan 11', 1)
         hashed_ip = '121.18.238.114' + self.port_scan_obj.SALT + "Jan 11"
         self.assertTrue(self.port_scan_obj.ip_dict.get(hashed_ip))
@@ -51,12 +55,16 @@ class TestPortScan(unittest.TestCase):
         self.assertEqual(self.port_scan_obj.ip_dict[hashed_ip],
                          temp_dict)
 
+    @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
     @patch("securetea.lib.log_monitor.system_log.port_scan.time")
     @patch.object(SecureTeaLogger, "log")
-    def test_detect_port_scan(self, mock_log, mock_time):
+    def test_detect_port_scan(self, mock_log, mock_time, mock_utils):
         """
         Test detect_port_scan.
         """
+        mock_utils.categorize_os.return_value = self.os
+        # Create PortScan object
+        self.port_scan_obj = PortScan()
         self.port_scan_obj.update_ip_dict('121.18.238.114', 'Jan 11', 1)
         self.port_scan_obj.THRESHOLD = -10  # Set THRESHOLD to negative to trigger alarm
         mock_time.return_value = 2
