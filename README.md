@@ -85,7 +85,7 @@ For contributors, please add your name below:
 [License]:  /LICENSE
 [License-badge]: https://img.shields.io/github/license/mashape/apistatus.svg
 [Version]: https://github.com/OWASP/SecureTea-Project/releases
-[Version-badge]: https://img.shields.io/badge/version-1.1-orange.svg
+[Version-badge]: https://img.shields.io/github/release/OWASP/SecureTea-Project.svg
 [Issues]: https://github.com/OWASP/SecureTea-Project/issues
 [Issues-badge]: https://img.shields.io/github/issues/OWASP/SecureTea-Project.svg
 [PRs]: https://github.com/OWASP/SecureTea-Project/pulls
