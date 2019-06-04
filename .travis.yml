@@ -16,7 +16,7 @@ addons:
 install:
 - pip install scapy==2.4.0
 script:
-- python --version
+- pytest
 deploy:
   - provider: pypi
     user:
