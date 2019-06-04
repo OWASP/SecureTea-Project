@@ -38,6 +38,7 @@ def get_system_name():
 def categorize_os():
     """
     Categorize operating system by its parent distribution.
+from .lib.log_monitor.system_log import engine
 
     Args:
         None
@@ -112,11 +113,11 @@ def get_epoch_time(month, day, last_time):
     # Type cast str variables to int variables
     day = int(day.strip())
     hour = int(last_time.split(":")[0])
-    min = int(last_time.split(":")[1])
+    t_min = int(last_time.split(":")[1])
     sec = int(last_time.split(":")[2])
 
     # Generate datetime object out of the values
-    dt = datetime.datetime(year, month_index, day, hour, min, sec)
+    dt = datetime.datetime(year, month_index, day, hour, t_min, sec)
 
     # Return epoch time
     return int(time.mktime(dt.timetuple()))

@@ -15,7 +15,6 @@ Project:
 import re
 from securetea import logger
 from securetea.lib.log_monitor.system_log import utils
-import time
 
 
 class DetSniffer(object):

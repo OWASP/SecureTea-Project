@@ -31,13 +31,6 @@ class TestUtils(unittest.TestCase):
         mock_system.return_value = "debian"
         self.assertEqual(utils.categorize_os(), "debian")
 
-    def test_get_epoch_time(self):
-        """
-        Test get_epoch_time.
-        """
-        epoch_time = utils.get_epoch_time("Jan", "1", "00:00:00")
-        self.assertEqual(epoch_time, 1546281000)
-
     @patch("securetea.lib.log_monitor.system_log.utils.os")
     def test_check_root(self, mock_os):
         """
