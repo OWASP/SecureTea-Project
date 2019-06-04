@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from securetea import configurations
+from securetea.configurations import SecureTeaConf
 import argparse
 import json
 
@@ -40,12 +41,12 @@ class TestConfigurations(unittest.TestCase):
         self.assertEqual(self.creds,
                          self.conf_obj.get_json(path='securetea.conf'))
 
-    @patch('securetea.configurations.json')
+    @patch.object(SecureTeaConf, "get_json")
     def test_get_creds(self, mock_json):
         """
         Test get_creds.
         """
-        mock_json.load.return_value = self.dummy_dict
+        mock_json.return_value = self.dummy_dict
         parser = argparse.ArgumentParser()
         parser.add_argument('--conf',
                             type=str)
