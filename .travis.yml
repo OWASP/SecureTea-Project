@@ -17,7 +17,7 @@ install:
 - pip install scapy==2.4.0
 before_script:
 - mkdir -p /etc
-- mkdir -p /etc/securetea
+- sudo mkdir -p /etc/securetea
 script:
 - pytest
 deploy:
