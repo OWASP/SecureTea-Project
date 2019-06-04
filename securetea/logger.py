@@ -17,21 +17,26 @@ from pathlib import Path
 
 
 DB_PATH = "/etc/securetea/db.sqlite3"
+connection = None
 
 try:
     connection = sqlite3.connect(DB_PATH)
 except sqlite3.OperationalError:
-    Path("/etc/securetea/").mkdir()
-    Path(DB_PATH).touch()
-    connection = sqlite3.connect(DB_PATH)
+    try:
+        Path("/etc/securetea/").mkdir()
+        Path(DB_PATH).touch()
+        connection = sqlite3.connect(DB_PATH)
+    except Exception:
+        pass
 
-connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    TYPE CHAR(50),
-    dt TIMESTAMP,
-    MODULE CHAR(100),
-    MESSAGE CHAR(100)
-    );''')
+if connection:
+    connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        TYPE CHAR(50),
+        dt TIMESTAMP,
+        MODULE CHAR(100),
+        MESSAGE CHAR(100)
+        );''')
 
 class SecureTeaLogger():
     """Initialize the logger for the script.
@@ -78,9 +83,10 @@ class SecureTeaLogger():
         Args:
             message (str): Message to log as info
         """
-        connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
-            VALUES (?, ?, ?, ?)", ("info", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
-        connection.commit()
+        if connection:
+            connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
+                VALUES (?, ?, ?, ?)", ("info", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
+            connection.commit()
         print(self.LEGEND + self.OKGREEN + message + self.ENDC)
 
     def printerror(self, message):
@@ -89,9 +95,10 @@ class SecureTeaLogger():
         Args:
             message (str): Message to log as error
         """
-        connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
-            VALUES (?, ?, ?, ?)", ("error", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
-        connection.commit()
+        if connection:
+            connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
+                VALUES (?, ?, ?, ?)", ("error", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
+            connection.commit()
         print(self.LEGEND + self.ERROR + message + self.ENDC)
 
     def printwarning(self, message):
@@ -100,9 +107,10 @@ class SecureTeaLogger():
         Args:
             message (str): Message to log as warning
         """
-        connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
-            VALUES (?, ?, ?, ?)", ("warning", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
-        connection.commit()
+        if connection:
+            connection.execute("INSERT INTO LOGS (TYPE, dt, MODULE, MESSAGE) \
+                VALUES (?, ?, ?, ?)", ("warning", time.strftime("%Y-%m-%d %H:%M"), self.modulename, message))
+            connection.commit()
         print(self.LEGEND + self.WARNING + message + self.ENDC)
 
     def log(self, message, logtype="info"):
