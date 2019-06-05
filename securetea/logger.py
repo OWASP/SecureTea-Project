@@ -26,8 +26,8 @@ except sqlite3.OperationalError:
         Path("/etc/securetea/").mkdir()
         Path(DB_PATH).touch()
         connection = sqlite3.connect(DB_PATH)
-    except Exception:
-        pass
+    except Exception as e:
+        print(e)
 
 if connection:
     connection.execute('''CREATE TABLE IF NOT EXISTS LOGS(
