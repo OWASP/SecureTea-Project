@@ -55,6 +55,8 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Intrusion Detection System](#intrusion-detection-system)
 
 -  [Insecure Headers](#insecure-headers)
+
+-  [System Log Monitor](#system-log-monitor)
  
 -  [Database](#database)
  
@@ -528,12 +530,12 @@ SecureTea Firewall currently uses the following rules to filter the incoming tra
     - IP packet fragment small offset
     - Unknown IP version
     - Invalid IP source
-    - Invalid IP header length:
+    - Invalid IP header length
     - Network congestion detection
     - Ending FIN-ACK handshakes
     - TCP Packet with None flag
     - SYN fragmentation
-    - ICMP fragmentation attack:
+    - ICMP fragmentation attack
     - Large ICMP packets
     
  Apart from that, the background process deals with the following functions:
@@ -578,6 +580,25 @@ Check/monitor the website for the followings:
        - Test all methods - 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'TRACE', 'TEST'
        - Cross Site Tracing vulnerability
 - Check for cookie details
+
+## System Log Monitor
+System log aggregator to disparate log files, organize the useful data and apply intelligence to detect intrusion activities.
+
+**a. Log file :** `/etc/passwd` & `/etc/shadow`
+  - Detect backdoors
+  - Detect user existing without a password that may lead to privilege escalation
+  - Check integrity of system's password storing
+  - Detect non-standard hashing algorithm used in passwords to guess system manipulation
+
+**b. Log file**: `/var/log/auth.log` & `/var/log/faillog`
+  - Detect system login attempts
+  - Detect password brute-force
+  - Detect harmful commands executed as root
+  - Detect port scans
+  - Detect SSH login attempts & brute-force
+
+**c. Log file:** `/var/log/syslog`
+  - Detect malicious sniffer by extracting PROMISC mode
 
 ## Database
 Currently, SecureTea-Project uses **sqlite3** database.
