@@ -36,6 +36,9 @@ class SecureTeaGmail(object):
             debug=debug
         )
 
+        # Initialize server for deconstructor
+        self.server = None
+
         self.enabled = common.check_config(cred)
         if not self.enabled:
             self.logger.log(
