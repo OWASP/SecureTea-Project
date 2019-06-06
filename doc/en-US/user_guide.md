@@ -325,7 +325,7 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
                     [--insecure_headers] [--url URL] [--ids]
-                    [--threshold THRESHOLD]
+                    [--threshold THRESHOLD] [--system_log]
 ```
 
 Example usage:
@@ -473,6 +473,8 @@ The following argument options are currently available:
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
                         Intrusion Detection System (IDS) threshold
+  --system_log, -sys_log
+                        Start system log monitoring process
  ```
  
 ### Example usages
