@@ -45,6 +45,9 @@ Read user guide [here](/doc/en-US/user_guide.md).
    - [Intrusion Detection System](#intrusion-detection-system)
         - [Adding new rules](#adding-new-rules)
 	
+   - [System Log Monitor](#system-log-monitor)
+        - [Extending support for distributions](#extending-support-for-distributions)
+	
    - [Running tests](#running-tests)
 
      - [Using unittest](#running-using-unittest)
@@ -149,7 +152,7 @@ Notify by WhatsApp           | No
 Insecure Header Detection    | Yes
 SecureTea Firewall           | Yes
 SecureTea IDS/IPS            | Yes
-SecureTea System Log Monitor | No
+SecureTea System Log Monitor | Yes
 SecureTea Server Log Monitor | No
 SecureTea Anti-Virus         | No
 SecureTea Auto Server Patcher| No
@@ -344,6 +347,64 @@ class RuleName(object):
 ```
 
 This independent module should be categorized either as **Wired** attack or **Wireless** attack, and should be placed in the respective directory. The next step is to update the `R2LEngine` class in `lib/ids/r2l_rules/r2l_engine.py`. This involves the following, creating an object of your rule class in `R2LEngine` constructor, and then updating the `run` method in `R2LEngine` class. That's it! IDS engine will pick up the new rules and pass the network packets.
+
+#### System Log Monitor
+  - [Extending support for distributions](#extending-support-for-distributions)
+  
+Currently, system log monitor supports the following:
+
+##### 1. Debian based OS
+   - `/etc/passwd`
+   - `/etc/shadow`
+   - `/var/log/auth.log`
+   - `/var/log/faillog`
+   - `/var/log/syslog`
+
+##### Features
+###### a. Log file `/etc/passwd` & `/etc/shadow`
+  - Detect backdoors by detecting user sharing the same numerical ID
+  - Detect user existing without a password that may lead to privilege escalation
+  - Detect if there is any sync between `/etc/passwd` & `/etc/shadow` else system has been manipulated
+  - Detect non-standard hashing algorithm used in passwords to guess system manipulation
+
+###### b. Log file `/var/log/auth.log` & `/var/log/faillog`
+  - Detect login attempts
+  - Detect password brute-force
+  - Detect harmful commands executed as sudo
+  - Detect port scans by observing quick “Received Disconnect”
+  - Detect SSH login attempts & brute-force
+
+###### c. Log file `/var/log/syslog`
+  - Detect malicious sniffer by extracting PROMISC mode
+
+##### Extending support for distributions
+Extending support for various Linux distribution is pretty simple, Linux uses the same format for log storing, hence log parsing remains the same for various Linux flavours, the only change that happens is the path of the log file.
+
+To add path for a log file for a different Linux distro, update the mapping in the modules.<br>
+
+An example would be:<br>
+
+```python
+# OS name to password-log path map
+self.system_log_map = {
+   "debian": "/etc/passwd",
+   "distro_name": "/path_to_log_file"
+}
+```
+
+After that, make sure to update the `categorize_os()` function in `log_monitor/system_log/utils.py`.<br>
+
+An example would be:<br>
+```python
+os_name = get_system_name()
+if os_name in ["ubuntu", "kali", "backtrack", "debian"]:
+    return "debian"
+# elif some other OS, add their  name
+elif os_name in ["new_os"]:
+    return "distro_name" 
+else:  # if OS not in list
+    return None
+```
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
