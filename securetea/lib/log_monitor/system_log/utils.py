@@ -38,7 +38,6 @@ def get_system_name():
 def categorize_os():
     """
     Categorize operating system by its parent distribution.
-from .lib.log_monitor.system_log import engine
 
     Args:
         None
