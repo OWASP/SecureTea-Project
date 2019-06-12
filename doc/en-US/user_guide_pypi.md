@@ -50,6 +50,7 @@ sudo apt-get install build-essential python-dev libnetfilter-queue-dev
 
 ### Procedure for installing
 You can install OWASP SecureTea Tool using the following methods:
+-  PyPi
 -  GitHub
 -  Zip
 
@@ -60,6 +61,13 @@ You can install OWASP SecureTea Tool using the following methods:
 `virtualenv venv1`<br>
 3.  Activate virtual environment `venv1`<br>
 `source venv1/bin/activate`<br>
+
+#### PyPi
+You can install SecureTea from PyPi package manager
+
+`pip install securetea`
+
+Please make sure all dependencies are installed if this fails.
 
 #### GitHub
 Installing from GitHub involves the following steps:

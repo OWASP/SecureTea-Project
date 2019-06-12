@@ -74,12 +74,12 @@ The software is still under development, and will eventually have it's own IDS(I
 -  [Pre-requisites](#pre-requisites)
 -  [Procedure for installing](#procedure-for-installing)
 -  [After installation](#after-installation)
- 
+
 ### Pre-requisites
- 
+
 #### Supported Platforms
 OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems. It is compatible with both Python 2 and Python 3.
- 
+
 #### Hardware
 -  Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
 -  Mouse / Wireless Mouse / Touchpad congenital laptop
@@ -110,6 +110,7 @@ sudo apt-get install build-essential python-dev libnetfilter-queue-dev
 
 ### Procedure for installing
 You can install OWASP SecureTea Tool using the following methods:
+-  [PyPi](#PyPi)
 -  [GitHub](#github)
 -  [Zip](#zip)
 
@@ -120,6 +121,14 @@ You can install OWASP SecureTea Tool using the following methods:
 `virtualenv venv1`<br>
 3.  Activate virtual environment `venv1`<br>
 `source venv1/bin/activate`<br>
+
+#### PyPi
+
+You can install SecureTea from PyPi package manager
+
+`pip install securetea`
+
+Please make sure all dependencies are installed if this fails.
 
 #### GitHub
 Installing from GitHub involves the following steps:
