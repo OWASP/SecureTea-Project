@@ -1,6 +1,6 @@
-<img align="left" width="130" height="130" src="img/logo/secure-tea-white.png">
+<img align="left" width="120" height="120" src="img/logo/secure-tea-white.png">
 
-# [OWASP SECURETEA TOOL PROJECT][SecureTea-OWASP]
+# [OWASP SecureTea][SecureTea-OWASP]
 
 [![Build Status][Travis-badge]][Travis]
 [![Codacy Badge][Codacy-badge]][Codacy]
