@@ -1,4 +1,4 @@
-<img align="left" width="120" height="120" src="img/logo/secure-tea-white.png">
+<img align="left" width="120" height="120" style="margin-top:25px;"src="img/logo/secure-tea-white.png">
 
 # [OWASP SecureTea][SecureTea-OWASP]
 
