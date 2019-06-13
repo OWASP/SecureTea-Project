@@ -153,6 +153,7 @@ class ArgsHelper(object):
         self.firewall_provided = False
         self.insecure_headers_provided = False
         self.ids_provided = False
+        self.system_log_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -459,6 +460,9 @@ class ArgsHelper(object):
                 self.cred["ids"] = ids
                 self.ids_provided = True
 
+        if self.args.system_log and not self.system_log_provided:
+            self.system_log_provided = True
+
         if (self.args.insecure_headers and
             not self.insecure_headers_provided and
             not self.args.url):
@@ -624,7 +628,8 @@ class ArgsHelper(object):
             self.firewall_provided or
             self.insecure_headers_provided or
             self.gmail_provided or
-            self.ids_provided):
+            self.ids_provided or
+            self.system_log_provided):
             self.cred_provided = True
 
         return {
@@ -638,5 +643,6 @@ class ArgsHelper(object):
             'gmail_provided': self.gmail_provided,
             'firewall_provided': self.firewall_provided,
             'insecure_headers_provided': self.insecure_headers_provided,
-            'ids_provided': self.ids_provided
+            'ids_provided': self.ids_provided,
+            'system_log_provided': self.system_log_provided
         }

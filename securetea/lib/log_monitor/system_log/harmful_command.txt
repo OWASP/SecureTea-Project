@@ -1,0 +1,27 @@
+rm -rf
+rm -rf /
+rm -rf *
+rm -rf .
+mv
+> file
+^foo^bar
+/proc/sys/kernel/panic
+: () {: |: &} ;:
+:(){:|:&};:
+/ dev / sda
+shred /dev/sda
+/dev/port
+/dev/zero > /dev/mem
+/ dev / null
+mv / /dev/null
+wget http://
+wget https://
+Mkfs.ext3 / dev / sda
+mkfs.ext4 /dev/sda1
+dd if = / dev / random of = / dev / sda
+dd if=/dev/random of=/dev/sda
+wget
+shred /dev/sda
+-O- | sh
+gunzip
+file.conf
