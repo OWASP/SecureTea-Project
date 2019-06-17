@@ -1,0 +1,20 @@
+((\%3D)|(=))[^\n]*((\%27)|(\')|(\-\-)|(\%3B)|(;))
+exec(\s|\+)+(s|x)p\w+
+((\%27)|(\'))|union
+((\%27)|(\'))|select
+((\%27)|(\'))|drop
+((\%27)|(\'))|insert
+((\%27)|(\'))|delete
+((\%27)|(\'))|update
+\w*((\%27)|(\'))((\%6F)|o|(\%4F))((\%72)|r|(\%52))
+.*(select|union|insert|update|delete|drop).*
+(/\*!?|\*/|[';]--|--[\s\r\n\v\f]|(?:--[^-]*?-)|([^\-&])#.*?[\s\r\n\v\f]|;?\\x00)
+(?i:(?:\A|[^\d])0x[a-f\d]{3,}[a-f\d]*)+
+(^[\"'`;]+|[\"'`]+$)
+(?i:(?:,.*?[)\da-f\"'`][\"'`](?:[\"'`].*?[\"'`]|\Z|[^\"'`]+))|(?:\Wselect.+\W*?from)|((?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\s*?\(\s*?space\s*?\())
+(?i:(?:@.+=\s*?\(\s*?select)|(?:\d+\s*?(x?or|div|like|between|and)\s*?\d+\s*?[\-+])|(?:\/\w+;?\s+(?:having|and|x?or|div|like|between|and|select)\W)|(?:\d\s+group\s+by.+\()|(?:(?:;|#|--)\s*?(?:drop|alter))|(?:(?:;|#|--)\s*?(?:update|insert)\s*?\w{2,})|(?:[^\w]SET\s*?@\w+)|(?:(?:n?and|x?x?or|div|like|between|and|not |\|\||\&\&)[\s(]+\w+[\s)]*?[!=+]+[\s\d]*?[\"'`=()]))
+(?i:(?:[\s()]case\s*?\()|(?:\)\s*?like\s*?\()|(?:having\s*?[^\s]+\s*?[^\w\s])|(?:if\s?\([\d\w]\s*?[=<>~]))
+(?i:(?:alter\s*?\w+.*?character\s+set\s+\w+)|([\"'`];\s*?waitfor\s+time\s+[\"'`])|(?:[\"'`];.*?:\s*?goto))
+(?i:(?:merge.*?using\s*?\()|(execute\s*?immediate\s*?[\"'`])|(?:\W+\d*?\s*?having\s*?[^\s\-])|(?:match\s*?[\w(),+-]+\s*?against\s*?\())
+(?i:(?:union\s*?(?:all|distinct|[(!@]*?)?\s*?[([]*?\s*?select\s+)|(?:\w+\s+like\s+[\"'`])|(?:like\s*?[\"'`]\%)|(?:[\"'`]\s*?like\W*?[\"'`\d])|(?:[\"'`]\s*?(?:n?and|x?x?or|div|like|between|and|not |\|\||\&\&)\s+[\s\w]+=\s*?\w+\s*?having\s+)|(?:[\"'`]\s*?\*\s*?\w+\W+[\"'`])|(?:[\"'`]\s*?[^?\w\s=.,;)(]+\s*?[(@\"'`]*?\s*?\w+\W+\w)|(?:select\s+?[\[\]()\s\w\.,\"'`-]+from\s+)|(?:find_in_set\s*?\())
+(?i:(?:(union(.*?)select(.*?)from)))

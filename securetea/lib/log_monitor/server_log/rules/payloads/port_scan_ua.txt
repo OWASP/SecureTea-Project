@@ -1,0 +1,15 @@
+dscan
+masscan
+nmap
+zmap
+nikto
+dns-scanner
+massdns
+goscan
+lazymap
+nmap-bootstrap
+python-libnmap
+sandmap
+scantron
+webmap
+zenmap

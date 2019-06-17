@@ -31,6 +31,7 @@ from securetea.lib.firewall.utils import setup_logger
 from securetea.lib.security_header import secureTeaHeaders
 from securetea.lib.ids import secureTeaIDS
 from securetea.lib.log_monitor.system_log import engine
+from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
 
 pynput_status = True
 
@@ -81,6 +82,7 @@ class SecureTea(object):
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
         self.ids_provided = args_dict['ids_provided']
         self.system_log_provided = args_dict['system_log_provided']
+        self.server_log_provided = args_dict['server_log_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -183,6 +185,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Intrusion Detection System (IDS) not set.",
+                    logtype="error"
+                )
+
+            try:
+                 if self.cred['server_log']:
+                     self.server_log_provided = True
+                     self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Server Log configuraton parameter not set.",
                     logtype="error"
                 )
 
@@ -330,6 +342,27 @@ class SecureTea(object):
             try:
                 sys_obj = engine.SystemLogEngine(debug=self.cred['debug'])
                 sys_obj.run()
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+        if self.server_log_provided:
+            server_cred = self.cred['server_log']
+            try:
+                server_obj = SecureTeaServerLog(debug=self.cred['debug'],
+                                                log_type=server_cred['log_type'],
+                                                log_file=server_cred['log_file'],
+                                                window=server_cred['window'],
+                                                ip_list=server_cred['ip_list'],
+                                                status_code=server_cred['status_code'])
+                server_obj.run()
+            except KeyError:
+                self.logger.log(
+                    "Server Log parameters not configured.",
+                    logtype="error"
+                )
             except Exception as e:
                 self.logger.log(
                     "Error occured: " + str(e),

@@ -398,5 +398,47 @@ def get_args():
         help="Start system log monitoring process"
     )
 
+    parser.add_argument(
+        '--server_log',
+        action="store_true",
+        required=False,
+        help="Start server log monitoring process"
+    )
+
+    parser.add_argument(
+        '--log_file',
+        type=str,
+        required=False,
+        help="Path of the log file"
+    )
+
+    parser.add_argument(
+        '--log_type',
+        type=str,
+        required=False,
+        help="Type of the log file (Apache/Nginx)"
+    )
+
+    parser.add_argument(
+        '--window',
+        type=int,
+        required=False,
+        help="Days old log to process"
+    )
+
+    parser.add_argument(
+        '--ip_list',
+        type=str,
+        required=False,
+        help="List of IPs to grab from log file"
+    )
+
+    parser.add_argument(
+        '--status_code',
+        type=str,
+        required=False,
+        help="List of status code to grab from log file"
+    )
+
     args = parser.parse_args()
     return args

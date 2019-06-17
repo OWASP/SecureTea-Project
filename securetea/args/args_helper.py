@@ -154,6 +154,7 @@ class ArgsHelper(object):
         self.insecure_headers_provided = False
         self.ids_provided = False
         self.system_log_provided = False
+        self.server_log_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -338,6 +339,24 @@ class ArgsHelper(object):
             "default": default
         }
 
+    @takeInput
+    def configureServerLogMonitor(self):
+        """
+        Returns the format to configure Server Log Monitor.
+        """
+        self.logger.log("Server Log Monitor setup")
+        default = load_default("server_log")
+        return {
+            "input": {
+                "log_type": "type of log file (Apache/Nginx)",
+                "log_file": "path of log file (else leave blank)",
+                "window": "days old log file to process (default: 30)",
+                "ip_list": "list of IPs to grab, sep. by comma",
+                "status_code": "list of status code to look for, sep. by comma"
+            },
+            "default": default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -412,6 +431,12 @@ class ArgsHelper(object):
                 self.cred["ids"] = ids
                 self.ids_provided = True
 
+            # Start the server log setup
+            server_log = self.configureServerLogMonitor()
+            if server_log:
+                self.cred["server_log"] = server_log
+                self.server_log_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -462,6 +487,12 @@ class ArgsHelper(object):
 
         if self.args.system_log and not self.system_log_provided:
             self.system_log_provided = True
+
+        if self.args.server_log and not self.server_log_provided:
+            server_log = self.configureServerLogMonitor()
+            if server_log:
+                self.cred["server_log"] = server_log
+                self.server_log_provided = True
 
         if (self.args.insecure_headers and
             not self.insecure_headers_provided and
@@ -552,6 +583,22 @@ class ArgsHelper(object):
                 self.cred["ids"] = ids
                 self.ids_provided = True
 
+        if not self.server_log_provided:
+            if (self.args.server_log and
+                self.args.log_file and
+                self.args.log_type and
+                self.args.window and
+                self.args.ip_list and
+                self.args.status_code):
+                server_log = {}
+                server_log["log_file"] = self.args.log_file
+                server_log["log_type"] = self.args.log_type
+                server_log["window"] = self.args.window
+                server_log["ip_list"] = self.args.ip_list
+                server_log["status_code"] = self.args.status_code
+                self.cred["server_log"] = server_log
+                self.server_log_provided = True
+
         if not self.firewall_provided:
             if (self.args.interface and
                 self.args.inbound_IP_action and
@@ -629,7 +676,8 @@ class ArgsHelper(object):
             self.insecure_headers_provided or
             self.gmail_provided or
             self.ids_provided or
-            self.system_log_provided):
+            self.system_log_provided or
+            self.server_log_provided):
             self.cred_provided = True
 
         return {
@@ -644,5 +692,6 @@ class ArgsHelper(object):
             'firewall_provided': self.firewall_provided,
             'insecure_headers_provided': self.insecure_headers_provided,
             'ids_provided': self.ids_provided,
-            'system_log_provided': self.system_log_provided
+            'system_log_provided': self.system_log_provided,
+            'server_log_provided': self.server_log_provided
         }
