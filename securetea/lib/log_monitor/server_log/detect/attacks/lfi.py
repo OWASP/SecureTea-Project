@@ -64,8 +64,8 @@ class LFI(object):
             if (self.payload_match(get_req)):
                 if ip not in self.logged_IP:  # if IP not logged earlier
                     self.logged_IP.append(ip)
-                    msg =  "Possible LFI injection detected from: " + str(ip) + \
-                           " on: " + utils.epoch_to_date(data[ip]["ep_time"][0])
+                    msg = "Possible LFI injection detected from: " + str(ip) + \
+                          " on: " + utils.epoch_to_date(data[ip]["ep_time"][0])
                     self.logger.log(
                         msg,
                         logtype="warning"
