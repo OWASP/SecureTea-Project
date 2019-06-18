@@ -49,7 +49,6 @@ class PortScan(object):
     def detect_port_scan(self, data):
         """
         Detect possible Port Scan recon attacks.
-
         Look for a possible port scan user agent payload
         in the user agent field.
 

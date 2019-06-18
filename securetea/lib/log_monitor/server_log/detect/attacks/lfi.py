@@ -49,7 +49,6 @@ class LFI(object):
     def detect_lfi(self, data):
         """
         Detect possible Local File Inclusion (lfi) attacks.
-        
         Use string comparison to scan GET request with the
         list of possible LFI payloads.
 

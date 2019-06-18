@@ -49,7 +49,6 @@ class WebShell(object):
     def detect_web_shell(self, data):
         """
         Detect possible Web Shell attacks.
-        
         Use string comparison to scan GET request with the
         list of possible web shell payloads.
 

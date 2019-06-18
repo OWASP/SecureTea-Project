@@ -66,7 +66,6 @@ class FuzzerDetect(object):
     def detect_fuzzer(self, data):
         """
         Detect possible URL fuzzing attacks.
-
         High number of failure codes (400-500) range from an IP
         within a small period of time indicates a possible
         fuzzing attack.

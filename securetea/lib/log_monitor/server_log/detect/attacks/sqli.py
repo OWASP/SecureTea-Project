@@ -54,10 +54,8 @@ class SQLi(object):
     def detect_sqli(self, data):
         """
         Detect possible SQL Injection (sqli) attacks.
-        
         Use regex rules and string matching to detect
         SQLi attacks.
-
         4 Level rules:
             - Simple regex
             - Hex regex

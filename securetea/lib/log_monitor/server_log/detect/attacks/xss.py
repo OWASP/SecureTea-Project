@@ -54,10 +54,8 @@ class CrossSite(object):
     def detect_xss(self, data):
         """
         Detect possible Cross Site Scripting (XSS) attacks.
-        
         Use regex rules and string matching to detect
         XSS attacks.
-
         4 Level rules:
             - Simple regex
             - Hex regex

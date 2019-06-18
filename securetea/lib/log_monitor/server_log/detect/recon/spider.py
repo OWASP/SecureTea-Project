@@ -52,7 +52,6 @@ class SpiderDetect(object):
     def detect_spider(self, data):
         """
         Detect possible Web Crawler / Spider / Bad user agents.
-
         High amount of unique GET request from an IP within a
         small period of time are likely to indicate a web crawler /
         spider.
