@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.3
+    Version: 1.4
     Module: SecureTea
 
 Attributes:
@@ -235,7 +235,7 @@ setup(
     scripts=['SecureTea.py'],
     license='MIT',
     description='SecureTea',
-    long_description=open('doc/en-US/user_guide.md').read(),
+    long_description=open('doc/en-US/user_guide_pypi.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/OWASP/SecureTea-Project',
     author='OWASP SecureTea',
