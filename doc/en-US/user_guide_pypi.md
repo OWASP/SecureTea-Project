@@ -132,8 +132,8 @@ Default configuration:
 	},
 	"aws_ses": {
 		"aws_email": "XXXX",
-		"ses_access_key": "XXXX",
-		"ses_secret_key": "XXXX"
+		"aws_access_key": "XXXX",
+		"aws_secret_key": "XXXX"
 	},
 	"gmail": {
 		"sender_email": "XXXX",
@@ -187,6 +187,13 @@ Default configuration:
 	"ids": {
 		"threshold": 10,
 		"interface": "XXXX"
+	},
+	"server_log": {
+		"log_type": "",
+		"log_file": "",
+		"window": "30",
+		"ip_list": "",
+		"status_code": ""
 	},
 	"debug": false
 }
@@ -273,7 +280,10 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
                     [--insecure_headers] [--url URL] [--ids]
-                    [--threshold THRESHOLD]
+                    [--threshold THRESHOLD] [--system_log] [--server_log]
+                    [--log_file LOG_FILE] [--log_type LOG_TYPE]
+                    [--window WINDOW] [--ip_list IP_LIST]
+                    [--status_code STATUS_CODE]
 ```
 
 Example usage:
@@ -330,7 +340,7 @@ In order to use the various communication medium you need to get yourself a veri
 ## Usage
 The following argument options are currently available:
 ```argument
-  -h, --help            show this help message and exit
+   -h, --help           show this help message and exit
   --conf CONF           Path of config file. default:-
                         "~/.securetea/securetea.conf"
   --debug               Degug true or false
@@ -416,6 +426,15 @@ The following argument options are currently available:
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
                         Intrusion Detection System (IDS) threshold
+  --system_log, -sys_log
+                        Start system log monitoring process
+  --server_log          Start server log monitoring process
+  --log_file LOG_FILE   Path of the log file
+  --log_type LOG_TYPE   Type of the log file (Apache/Nginx)
+  --window WINDOW       Days old log to process
+  --ip_list IP_LIST     List of IPs to grab from log file
+  --status_code STATUS_CODE
+                        List of status code to grab from log file
  ```
  
 ### Example usages
@@ -543,8 +562,32 @@ System log aggregator to disparate log files, organize the useful data and apply
 **c. Log file:** `/var/log/syslog`
   - Detect malicious sniffer by extracting PROMISC mode
 
-## Database
-Currently, SecureTea-Project uses **sqlite3** database.
+## Server Log Monitor
+System log aggregator to disparate server log files, organize the useful data and apply intelligence to detect intrusion activities.
+
+Currently, the server log monitor supports the following log file types:
+1. Apache
+2. Nginx
+
+The following suspicious activities/attacks can be detected:
+- Attacks
+   - Denial of Service (DoS) attacks
+   - Cross site scripting (XSS) injection
+   - SQL injection (SQLi)
+   - Local file inclusion (LFI)
+   - Web shell injection
+   
+ - Reconnaissance attacks
+   - Web crawlers / spiders / bots
+   - URL Fuzzing
+   - Port scans
+   - Bad user agents
+
+- Log bad/suspicious IP (later on picked up by Firewall to block incoming request from that IP)
+
+- User defined rules:
+   - Filter based on selected IPs
+   - Filter based on response code
 
 ## License
 **MIT License**
