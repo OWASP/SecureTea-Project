@@ -50,6 +50,12 @@ class DDoS(object):
         - Single IP Single Port DoS Attack
         - Single IP Multiple Port DoS Attack
 
+        Look for IP addresses having high number of GET request and
+        a small time difference to predict SISP DoS attack.
+
+        High number of alarms triggered for SISP DoS attack indicates
+        MISP DoS attack.
+
         Args:
             data (dict): Parsed log file data
 

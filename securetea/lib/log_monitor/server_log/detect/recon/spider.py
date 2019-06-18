@@ -53,6 +53,12 @@ class SpiderDetect(object):
         """
         Detect possible Web Crawler / Spider / Bad user agents.
 
+        High amount of unique GET request from an IP within a
+        small period of time are likely to indicate a web crawler /
+        spider.
+
+        Look for bad user agents payload to guess a bad user agent.
+
         Args:
             data (dict): Parsed log file data
 

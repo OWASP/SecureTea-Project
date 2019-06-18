@@ -50,6 +50,9 @@ class PortScan(object):
         """
         Detect possible Port Scan recon attacks.
 
+        Look for a possible port scan user agent payload
+        in the user agent field.
+
         Args:
             data (dict): Parsed log file data
 
