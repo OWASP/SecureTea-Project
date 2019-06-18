@@ -345,14 +345,14 @@ class ArgsHelper(object):
         Returns the format to configure Server Log Monitor.
         """
         self.logger.log("Server Log Monitor setup")
-        default = load_default("server_log")
+        default = load_default("server-log")
         return {
             "input": {
-                "log_type": "type of log file (Apache/Nginx)",
-                "log_file": "path of log file (else leave blank)",
+                "log-type": "type of log file (Apache/Nginx)",
+                "log-file": "path of log file (else leave blank)",
                 "window": "days old log file to process (default: 30)",
-                "ip_list": "list of IPs to grab, sep. by comma",
-                "status_code": "list of status code to look for, sep. by comma"
+                "ip-list": "list of IPs to grab, sep. by comma",
+                "status-code": "list of status code to look for, sep. by comma"
             },
             "default": default
         }
@@ -591,12 +591,12 @@ class ArgsHelper(object):
                 self.args.ip_list and
                 self.args.status_code):
                 server_log = {}
-                server_log["log_file"] = self.args.log_file
-                server_log["log_type"] = self.args.log_type
+                server_log["log-file"] = self.args.log_file
+                server_log["log-type"] = self.args.log_type
                 server_log["window"] = self.args.window
-                server_log["ip_list"] = self.args.ip_list
-                server_log["status_code"] = self.args.status_code
-                self.cred["server_log"] = server_log
+                server_log["ip-list"] = self.args.ip_list
+                server_log["status-code"] = self.args.status_code
+                self.cred["server-log"] = server_log
                 self.server_log_provided = True
 
         if not self.firewall_provided:

@@ -352,11 +352,11 @@ class SecureTea(object):
             server_cred = self.cred['server_log']
             try:
                 server_obj = SecureTeaServerLog(debug=self.cred['debug'],
-                                                log_type=server_cred['log_type'],
-                                                log_file=server_cred['log_file'],
+                                                log_type=server_cred['log-type'],
+                                                log_file=server_cred['log-file'],
                                                 window=server_cred['window'],
-                                                ip_list=server_cred['ip_list'],
-                                                status_code=server_cred['status_code'])
+                                                ip_list=server_cred['ip-list'],
+                                                status_code=server_cred['status-code'])
                 server_obj.run()
             except KeyError:
                 self.logger.log(

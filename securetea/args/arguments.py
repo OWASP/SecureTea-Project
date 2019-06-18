@@ -399,21 +399,21 @@ def get_args():
     )
 
     parser.add_argument(
-        '--server_log',
+        '--server-log',
         action="store_true",
         required=False,
         help="Start server log monitoring process"
     )
 
     parser.add_argument(
-        '--log_file',
+        '--log-file',
         type=str,
         required=False,
         help="Path of the log file"
     )
 
     parser.add_argument(
-        '--log_type',
+        '--log-type',
         type=str,
         required=False,
         help="Type of the log file (Apache/Nginx)"
@@ -427,14 +427,14 @@ def get_args():
     )
 
     parser.add_argument(
-        '--ip_list',
+        '--ip-list',
         type=str,
         required=False,
         help="List of IPs to grab from log file"
     )
 
     parser.add_argument(
-        '--status_code',
+        '--status-code',
         type=str,
         required=False,
         help="List of status code to grab from log file"
