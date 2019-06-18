@@ -226,7 +226,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.3',
+    version='1.4',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
