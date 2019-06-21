@@ -49,10 +49,17 @@ And also it can be used to monitor your system & SecureTea firewall as Defense.
 
 ## Installation Procedure
 
+You can install SecureTea from PyPi package manager
+
+`pip install securetea`
+
+Please make sure all dependencies are installed if this fails.
+
 ### User Guide
 
 See more at [User Guide](/doc/en-US/user_guide.md)
 for translated user guides
+
 ### Developer Guide
 
 See more at [Developer guide](/doc/en-US/dev_guide.md)
