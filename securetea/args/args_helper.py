@@ -155,6 +155,7 @@ class ArgsHelper(object):
         self.ids_provided = False
         self.system_log_provided = False
         self.server_log_provided = False
+        self.auto_server_patcher_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -357,6 +358,20 @@ class ArgsHelper(object):
             "default": default
         }
 
+    @takeInput
+    def configureAutoServerPatcher(self):
+        """
+        Returns the format to configure Auto Server Patcher.
+        """
+        self.logger.log("Auto Server Patcher setup")
+        default = load_default("auto-server-patcher")
+        return {
+            "input":{
+                "url": "url to scan for SSL vulnerability"
+            },
+            "default": default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -437,6 +452,12 @@ class ArgsHelper(object):
                 self.cred["server_log"] = server_log
                 self.server_log_provided = True
 
+            # Start the Auto Server Patcher setup
+            auto_server_patcher = self.configureAutoServerPatcher()
+            if auto_server_patcher:
+                self.cred['auto_server_patcher'] = auto_server_patcher
+                self.auto_server_patcher_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -493,6 +514,14 @@ class ArgsHelper(object):
             if server_log:
                 self.cred["server_log"] = server_log
                 self.server_log_provided = True
+
+        if (self.args.auto_server_patcher and
+            not self.auto_server_patcher_provided and
+            not self.args.url):
+            auto_server_patcher = self.configureAutoServerPatcher()
+            if auto_server_patcher:
+                self.cred['auto_server_patcher'] = auto_server_patcher
+                self.auto_server_patcher_provided = True
 
         if (self.args.insecure_headers and
             not self.insecure_headers_provided and
@@ -599,6 +628,13 @@ class ArgsHelper(object):
                 self.cred["server-log"] = server_log
                 self.server_log_provided = True
 
+        if not self.auto_server_patcher_provided:
+            if (self.args.auto_server_patcher and self.args.url):
+                auto_server_patcher = {}
+                auto_server_patcher['url'] = self.args.url
+                self.cred['auto_server_patcher'] = auto_server_patcher
+                self.auto_server_patcher_provided = True
+
         if not self.firewall_provided:
             if (self.args.interface and
                 self.args.inbound_IP_action and
@@ -677,7 +713,8 @@ class ArgsHelper(object):
             self.gmail_provided or
             self.ids_provided or
             self.system_log_provided or
-            self.server_log_provided):
+            self.server_log_provided or
+            self.auto_server_patcher_provided):
             self.cred_provided = True
 
         return {
@@ -693,5 +730,6 @@ class ArgsHelper(object):
             'insecure_headers_provided': self.insecure_headers_provided,
             'ids_provided': self.ids_provided,
             'system_log_provided': self.system_log_provided,
-            'server_log_provided': self.server_log_provided
+            'server_log_provided': self.server_log_provided,
+            'auto_server_patcher_provided': self.auto_server_patcher_provided
         }

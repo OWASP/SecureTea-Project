@@ -440,5 +440,13 @@ def get_args():
         help="List of status code to grab from log file"
     )
 
+    parser.add_argument(
+        '--auto-server-patcher',
+        '-asp',
+        action="store_true",
+        required=False,
+        help="Start auto server patcher"
+    )
+
     args = parser.parse_args()
     return args

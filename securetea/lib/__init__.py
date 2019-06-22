@@ -47,3 +47,8 @@ from .log_monitor.server_log.parser import nginx
 from .log_monitor.server_log import secureTeaServerLog
 from .log_monitor.server_log import server_logger
 from .log_monitor.server_log import user_filter
+from .auto_server_patcher import installer
+from .auto_server_patcher import patch_logger
+from .auto_server_patcher import patcher
+from .auto_server_patcher import secureTeaServerPatcher
+from .auto_server_patcher import ssl_scanner
