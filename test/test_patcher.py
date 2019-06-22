@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-from securetea.lib.auto_server_patcher.patch_logger import PatchLogger
 from securetea.lib.auto_server_patcher.patcher import ConfigPatcher
 
 try:
