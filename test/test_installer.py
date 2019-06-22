@@ -62,9 +62,9 @@ class TestInstaller(unittest.TestCase):
         }
         # Create Installer object
         self.installer = Installer()
-        mck_ex_com.return_value = ("output", "error")
+        mck_ex_com.return_value = ("output", "")
         self.installer.install()
-        mck_log.assert_called_with('Command: command1: output, Error: error', logtype='info')
+        mck_log.assert_called_with('Ouput: output', logtype='info')
 
     @patch.object(Installer, "open_json")
     @patch("securetea.lib.auto_server_patcher.installer.open")

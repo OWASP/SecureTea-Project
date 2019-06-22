@@ -119,10 +119,22 @@ class Installer(object):
             None
         """
         for command in self.os_config_data["commands"]:
-            output, error = self.excecute_command(command)
-            msg = "Command: " + command + ": " + str(output) + \
-                  ", Error: " + str(error)
             self.logger.log(
-                msg,
+                "Executing command: " + command,
                 logtype="info"
             )
+            output, error = self.excecute_command(command)
+
+            if output:
+                msg = "Ouput: " + str(output)
+                self.logger.log(
+                    msg,
+                    logtype="info"
+                )
+
+            if error:
+                msg = "Error: " + str(output)
+                self.logger.log(
+                    msg,
+                    logtype="info"
+                )

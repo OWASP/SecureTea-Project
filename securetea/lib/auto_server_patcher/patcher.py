@@ -185,11 +185,19 @@ class ConfigPatcher(object):
                                         in_front = True  # found in forward refrencing
 
                             if not in_front:  # not in forward refrencing
+                                self.logger.log(
+                                    "Old config line: " + line.strip("\n"),
+                                    logtype="info"
+                                )
                                 new_config_line = rep_text + sep + \
                                                   self.os_config_data[path]["config"][rep_text]
                                 new_data.append(new_config_line)
                                 config_added.append(rep_text)
                                 flag = 1  # write the new line
+                                self.logger.log(
+                                    "New config line: " + new_config_line,
+                                    logtype="info"
+                                )
 
                     if flag == 0:  # write the original line
                         new_data.append(line.strip(" ").strip("\n"))
