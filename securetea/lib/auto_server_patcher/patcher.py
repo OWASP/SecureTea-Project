@@ -19,7 +19,7 @@ from securetea.lib.auto_server_patcher import utils
 class ConfigPatcher(object):
     """ConfigPatcher class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, to_patch=None):
         """
         Initialize ConfigPatcher.
 
@@ -55,9 +55,16 @@ class ConfigPatcher(object):
                 )
         else:
             self.logger.log(
-                "Operating system cannot be determined."
+                "Operating system cannot be determined.",
+                logtype="error"
             )
             sys.exit(0)
+
+        # List of files to patch
+        if to_patch:
+            self.to_patch = to_patch
+        else:
+            self.to_patch = []
 
     def open_file(self, path):
         """
@@ -103,7 +110,6 @@ class ConfigPatcher(object):
                 "Error occured: " + str(e),
                 logtype="error"
             )
-            print(e)
 
     def write_data(self, path, data):
         """
@@ -124,7 +130,6 @@ class ConfigPatcher(object):
                 for line in data:
                     wf.write(line + "\n")
         except Exception as e:
-            print(e)
             self.logger.log(
                 "Error occured: " + str(e),
                 logtype="error"
@@ -145,64 +150,70 @@ class ConfigPatcher(object):
             None
         """
         for path in self.os_config_data:  # iterate over the configuration
-            self.logger.log(
-                "Patching: " + str(path),
-                logtype="info"
-            )
-            file_data = self.open_file(path)  # open the file to configure
+            patch_this = False  # patch this file or not
+            for req_patch in self.to_patch:
+                if req_patch in path:
+                    patch_this = True
 
-            new_data = []  # new data to over-write
-            config_added = []  # successfully configured parameters
-            confif_not_added = []  # not configured parameters
+            if patch_this:
+                self.logger.log(
+                    "Patching: " + str(path),
+                    logtype="info"
+                )
+                file_data = self.open_file(path)  # open the file to configure
 
-            sep = self.os_config_data[path]["sep"]  # separator
+                new_data = []  # new data to over-write
+                config_added = []  # successfully configured parameters
+                config_not_added = []  # not configured parameters
 
-            for index, line in enumerate(file_data):
-                flag = 0  # write the original line
+                sep = self.os_config_data[path]["sep"]  # separator
+
+                for index, line in enumerate(file_data):
+                    flag = 0  # write the original line
+                    for rep_text in self.os_config_data[path]["config"].keys():
+                        hold = False  # forward refrencing not needed
+                        in_front = False  # not found in forward refrence
+
+                        if rep_text in line:
+                            if line.strip(" ").strip("\n").startswith("#"):  # found comment
+                                hold = True  # hold, prepare for forward refrence
+
+                            if hold:  # if forward refrence is needed
+                                for _, nf_line in enumerate(file_data, start=index+1):
+                                    if (rep_text in nf_line and
+                                        not nf_line.strip(" ").strip("\n").startswith("#")):
+                                        in_front = True  # found in forward refrencing
+
+                            if not in_front:  # not in forward refrencing
+                                new_config_line = rep_text + sep + \
+                                                  self.os_config_data[path]["config"][rep_text]
+                                new_data.append(new_config_line)
+                                config_added.append(rep_text)
+                                flag = 1  # write the new line
+
+                    if flag == 0:  # write the original line
+                        new_data.append(line.strip(" ").strip("\n"))
+                    elif flag == 1:  # already written
+                        flag = 0  # reset flag
+
+                # Look which parameters were not over-written
+                # as they were not found in the config file
                 for rep_text in self.os_config_data[path]["config"].keys():
-                    hold = False  # forward refrencing not needed
-                    in_front = False  # not found in forward refrence
+                    if rep_text not in config_added:
+                        new_config_line = rep_text + sep + \
+                                          self.os_config_data[path]["config"][rep_text]
+                        config_not_added.append(new_config_line)
 
-                    if rep_text in line:
-                        if line.strip(" ").strip("\n").startswith("#"):  # found comment
-                            hold = True  # hold, prepare for forward refrence
+                # Extend the new configuration
+                new_data.extend(config_not_added)
+                # Write the data (overwrite) the config file
+                self.write_data(path=path, data=new_data)
+                self.logger.log(
+                    "Patched: " + str(path),
+                    logtype="info"
+                )
 
-                        if hold:  # if forward refrence is needed
-                            for _, nf_line in enumerate(file_data, start=index+1):
-                                if (rep_text in nf_line and
-                                    not nf_line.strip(" ").strip("\n").startswith("#")):
-                                    in_front = True  # found in forward refrencing
-
-                        if not in_front:  # not in forward refrencing
-                            new_config_line = rep_text + sep + \
-                                              self.os_config_data[path]["config"][rep_text]
-                            new_data.append(new_config_line)
-                            config_added.append(rep_text)
-                            flag = 1  # write the new line
-
-                if flag == 0:  # write the original line
-                    new_data.append(line.strip(" ").strip("\n"))
-                elif flag == 1:  # already written
-                    flag = 0  # reset flag
-
-            # Look which parameters were not over-written
-            # as they were not found in the config file
-            for rep_text in self.os_config_data[path]["config"].keys():
-                if rep_text not in config_added:
-                    new_config_line = rep_text + sep + \
-                                      self.os_config_data[path]["config"][rep_text]
-                    confif_not_added.append(new_config_line)
-
-            # Extend the new configuration
-            new_data.extend(confif_not_added)
-            # Write the data (overwrite) the config file
-            self.write_data(path=path, data=new_data)
-            self.logger.log(
-                "Patched: " + str(path),
-                logtype="info"
-            )
-
-            # Empty the list for the next configuration file
-            new_data.clear()
-            config_added.clear()
-            confif_not_added.clear()
+                # Empty the list for the next configuration file
+                new_data.clear()
+                config_added.clear()
+                config_not_added.clear()

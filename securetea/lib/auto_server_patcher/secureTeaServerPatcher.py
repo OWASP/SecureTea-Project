@@ -21,7 +21,7 @@ from securetea.lib.auto_server_patcher import utils
 class SecureTeaAutoServerPatcher(object):
     """SecureTeaAutoServerPatcher Class."""
 
-    def __init__(self, debug=False, url=None):
+    def __init__(self, debug=False, cred=None):
         """
         Initialize SecureTeaAutoServerPatcher.
 
@@ -48,6 +48,32 @@ class SecureTeaAutoServerPatcher(object):
             )
             sys.exit(0)
 
+        if not cred:
+            self.logger.log(
+                "No credentials specified.",
+                logtype="error"
+            )
+            sys.exit(0)
+
+        # List of files to patch
+        self.to_patch = list()
+
+        url = cred['url']
+        apache = int(cred['apache'])
+        ssh = int(cred['ssh'])
+        login = int(cred['login'])
+        sysctl = int(cred['sysctl'])
+
+        # Determine which file to patch
+        if apache == 1:
+            self.to_patch.append("apache")
+        if ssh == 1:
+            self.to_patch.append("ssh")
+        if login == 1:
+            self.to_patch.append("login")
+        if sysctl == 1:
+            self.to_patch.append("sysctl")
+
         if url and url != "XXXX":  # if valid URL
             self.url = url
         else:
@@ -56,7 +82,7 @@ class SecureTeaAutoServerPatcher(object):
         # Create Installer object
         self.installer = Installer(debug=debug)
         # Create Patcher object
-        self.patcher = ConfigPatcher(debug=debug)
+        self.patcher = ConfigPatcher(debug=debug, to_patch=self.to_patch)
         if self.url:
             # Create SSLScanner object
             self.ssl_scanner = SSLScanner(debug=debug, url=self.url)

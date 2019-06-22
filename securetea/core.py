@@ -385,7 +385,7 @@ class SecureTea(object):
             auto_server_patcher_cred = self.cred['auto_server_patcher']
             try:
                 patcher_obj = SecureTeaAutoServerPatcher(debug=self.cred['debug'],
-                                                         url=auto_server_patcher_cred['url'])
+                                                         cred=auto_server_patcher_cred)
                 patcher_obj.start()
             except KeyError:
                 self.logger.log(

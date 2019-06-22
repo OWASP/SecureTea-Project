@@ -448,5 +448,40 @@ def get_args():
         help="Start auto server patcher"
     )
 
+    parser.add_argument(
+        '--ssh',
+        action="store_true",
+        required=False,
+        help="Patch SSH config"
+    )
+
+    parser.add_argument(
+        '--sysctl',
+        action="store_true",
+        required=False,
+        help="Patch system configuration"
+    )
+
+    parser.add_argument(
+        '--login',
+        action="store_true",
+        required=False,
+        help="Patch login configuration"
+    )
+
+    parser.add_argument(
+        '--apache',
+        action="store_true",
+        required=False,
+        help="Patch apache configuration"
+    )
+
+    parser.add_argument(
+        '--ssl',
+        action="store_true",
+        required=False,
+        help="Scan for SSL vulnerability"
+    )
+
     args = parser.parse_args()
     return args

@@ -367,7 +367,11 @@ class ArgsHelper(object):
         default = load_default("auto-server-patcher")
         return {
             "input":{
-                "url": "url to scan for SSL vulnerability"
+                "url": "url to scan for SSL vulnerability, else leave blank",
+                "apache": "whether to patch Apache config (0/1)?",
+                "sysctl": "whether to patch sysctl (0/1)?",
+                "ssh": "whether to patch SSH config (0/1)?",
+                "login": "whether to patch login config (0/1)?"
             },
             "default": default
         }
@@ -517,7 +521,9 @@ class ArgsHelper(object):
 
         if (self.args.auto_server_patcher and
             not self.auto_server_patcher_provided and
-            not self.args.url):
+            not self.args.url and not self.args.apache and
+            not self.args.ssh and not self.args.login and
+            not self.args.sysctl):
             auto_server_patcher = self.configureAutoServerPatcher()
             if auto_server_patcher:
                 self.cred['auto_server_patcher'] = auto_server_patcher
@@ -629,9 +635,18 @@ class ArgsHelper(object):
                 self.server_log_provided = True
 
         if not self.auto_server_patcher_provided:
-            if (self.args.auto_server_patcher and self.args.url):
+            if (self.args.auto_server_patcher and
+               (self.args.url or
+                self.args.apache or
+                self.args.sysctl or
+                self.args.login or
+                self.args.ssh)):
                 auto_server_patcher = {}
                 auto_server_patcher['url'] = self.args.url
+                auto_server_patcher['apache'] = self.args.apache
+                auto_server_patcher['sysctl'] = self.args.sysctl
+                auto_server_patcher['login'] = self.args.login
+                auto_server_patcher['ssh'] = self.args.ssh
                 self.cred['auto_server_patcher'] = auto_server_patcher
                 self.auto_server_patcher_provided = True
 
