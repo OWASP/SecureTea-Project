@@ -10,38 +10,38 @@
 				"net.ipv4.conf.default.accept_redirects": "0",
 				"net.ipv4.icmp_ignore_bogus_error_responses": "1"
 			}
-    },
-			"/etc/apache2/apache2.conf": {
-				"sep": " ",
-				"config": {
-					"ServerTokens": "Prod",
-					"ServerSignature": "Off",
-					"Header always unset X-Powered-By": " ",
-					"TraceEnable": "Off"
-				}
-			},
-      "/etc/ssh/ssh_config": {
-          "sep": " ",
-					"config":{
-	          "PermitRootLogin": "no",
-	          "IgnoreRhosts": "yes",
-	          "HostbasedAuthentication": "no",
-	          "PermitEmptyPasswords": "no",
-	          "X11Forwarding": "no",
-						"MaxAuthTries": "5",
-						"Ciphers": "aes128-ctr,aes192-ctr,aes256-ctr",
-						"UsePAM": "yes",
-						"ClientAliveInterval": "900",
-						"ClientAliveCountMax": "0"
-				}
-      },
-			"/etc/login.defs":{
-				"sep": " ",
-				"config":{
-					"PASS_MAX_DAYS": "30",
-					"PASS_MIN_DAYS": "0",
-					"PASS_WARN_AGE": "7"
-				}
+		},
+		"/etc/apache2/apache2.conf": {
+			"sep": " ",
+			"config": {
+				"ServerTokens": "Prod",
+				"ServerSignature": "Off",
+				"Header always unset X-Powered-By": " ",
+				"TraceEnable": "Off"
 			}
-	 }
+		},
+		"/etc/ssh/ssh_config": {
+			"sep": " ",
+			"config": {
+				"PermitRootLogin": "no",
+				"IgnoreRhosts": "yes",
+				"HostbasedAuthentication": "no",
+				"PermitEmptyPasswords": "no",
+				"X11Forwarding": "no",
+				"MaxAuthTries": "5",
+				"Ciphers": "aes128-ctr,aes192-ctr,aes256-ctr",
+				"UsePAM": "yes",
+				"ClientAliveInterval": "900",
+				"ClientAliveCountMax": "0"
+			}
+		},
+		"/etc/login.defs": {
+			"sep": " ",
+			"config": {
+				"PASS_MAX_DAYS": "30",
+				"PASS_MIN_DAYS": "0",
+				"PASS_WARN_AGE": "7"
+			}
+		}
+	}
 }
