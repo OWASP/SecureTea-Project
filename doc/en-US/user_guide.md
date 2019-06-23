@@ -49,6 +49,20 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
+    - [Setting up Notifiers](#setting-up-notifiers)
+    
+       - [Setting up Twitter](#setting-up-twitter)
+       - [Setting up Telegram](#setting-up-telegram)
+       - [Setting up Slack](#setting-up-slack)
+       - [Setting up SMS](#setting-up-sms)
+       - [Setting up Amazon SES](#setting-up-amazon-ses)
+       - [Setting up Gmail](#setting-up-gmail)
+	  
+    - [Setting up Firewall](#setting-up-firewall)
+    - [Setting up Intrusion Detection System](#setting-up-intrusion-detection-system)
+    - [Setting up System Log Monitor](#setting-up-system-log-monitor)
+    - [Setting up Server Log Monitor](#setting-up-server-log-monitor)
+    - [Setting up Insecure Headers](#setting-up-insecure-headers)
 
 -  [Firewall](#firewall)
 
@@ -539,6 +553,162 @@ Usage:<br>
 ```argument
 sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
 ```
+
+### Setting up notifiers
+
+#### Setting up Twitter
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --twitter
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--twitter_api_key` | XXXX | Twitter API key |
+| `--twitter_api_secret_key` | XXXX | Twitter API Secret Key |
+| `--twitter_access_token` | XXXX | Twitter Access Token |
+| `--twitter_access_token_secret` | XXXX | Twitter Access Token Secret |
+
+#### Setting up Slack
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --slack
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--slack_token` | XXXX | Slack Token |
+| `--slack_user_id` | XXXX | Slack User ID |
+
+#### Setting up Amazon SES
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --aws_ses
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--aws_email` | XXXX | AWS SES Email |
+| `--aws_secret_key` | XXXX | AWS SES Secret Key |
+| `--aws_access_key` | XXXX | AWS SES Access Key |
+
+#### Setting up Gmail
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --gmail
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--to_email` | XXXX | G-mail To E-mail |
+| `--sender_email` | XXXX | G-mail From E-mail|
+| `--password` | XXXX | G-mail App Password |
+
+#### Setting up Telegram
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --telegram
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--telegram_bot_token` | XXXX | Telegram Bot Token |
+| `--telegram_user_id` | XXXX | Telegram User ID |
+
+#### Setting up SMS
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --twilio_sms
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--twilio_sid` | XXXX | Twilio SID |
+| `--twilio_token` | XXXX | Twilio Token |
+| `--twilio_from` | XXXX | Twilio From Phone No.|
+| `--twilio_to` | XXXX | Twilio To Phone No.|
+
+### Setting up Firewall
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --firewall
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--interface` | None | Name of the interface |
+| `--inbound_IP_action` | 0 |Inbound IP rule action (0: BLOCK, 1: ALLOW)||
+| `--inbound_IP_list` | None | List of inbound IPs to look for|
+| `--outbound_IP_action` | 0 |Outbound IP rule action (0: BLOCK, 1: ALLOW)|
+| `--outbound_IP_list` | None | List of outbound IPs to look for.|
+| `--protocol_action` | 0 |Protocol action (0: BLOCK, 1: ALLOW)|
+| `--protocol_list` | None | List of protocols to look for|
+| `--scan_action` | 0 |Scan load action (0: BLOCK, 1: ALLOW)|
+| `--scan_list` | None |List of extensions to scan for|
+| `--dest_port_action` | 0 |Destination port action (0: BLOCK, 1: ALLOW)|
+| `--dest_port_list` | None |List of destination ports to look for|
+| `--source_port_action` | 0 |Source port action (0: BLOCK, 1: ALLOW)|
+| `--source_port_list` | None |List of source ports to look for|
+| `--HTTP_request_action` | 0 |HTTP request action (0: BLOCK, 1: ALLOW)|
+| `--HTTP_response_action` | None |HTTP response action (0: BLOCK, 1: ALLOW)|
+| `--dns_action` | 0 |DNS action (0: BLOCK, 1: ALLOW)|
+| `--dns_list` | None |List of DNS to look for|
+| `--time_lb` | 00:00 |Time lower bound|
+| `--time_ub` | 23:59 |Time upper bound|
+
+#### Setting up Intrusion Detection System
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --ids
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--threshold` | 10 | Intrusion Detection System (IDS) threshold |
+| `--interface` | None |Name of the interface|
+
+#### Setting up Insecure Headers
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --insecure_headers
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--url` | None | URL on which operations are to be performed |
+
+#### Setting up Server Log Monitor
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --server-log
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--log-file` | XXXX |Path of the log file|
+| `--log-type` | XXXX |Type of the log file (Apache/Nginx)|
+| `--window` | XXXX |Days old log to process|
+| `--ip-list` | XXXX | List of IPs to grab from log file|
+| `--status-code` | XXXX |List of status code to grab from log file|
+
+#### Setting up System Log Monitor
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --system_log
+```
+#### 2. Argument list
+No optional arguments.
 
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
