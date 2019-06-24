@@ -50,3 +50,8 @@ from .lib.log_monitor.server_log.parser import nginx
 from .lib.log_monitor.server_log import secureTeaServerLog
 from .lib.log_monitor.server_log import server_logger
 from .lib.log_monitor.server_log import user_filter
+from .lib.auto_server_patcher import installer
+from .lib.auto_server_patcher import patch_logger
+from .lib.auto_server_patcher import patcher
+from .lib.auto_server_patcher import secureTeaServerPatcher
+from .lib.auto_server_patcher import ssl_scanner

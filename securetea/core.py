@@ -32,6 +32,7 @@ from securetea.lib.security_header import secureTeaHeaders
 from securetea.lib.ids import secureTeaIDS
 from securetea.lib.log_monitor.system_log import engine
 from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
+from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
 
 pynput_status = True
 
@@ -83,6 +84,7 @@ class SecureTea(object):
         self.ids_provided = args_dict['ids_provided']
         self.system_log_provided = args_dict['system_log_provided']
         self.server_log_provided = args_dict['server_log_provided']
+        self.auto_server_patcher_provided = args_dict['auto_server_patcher_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -195,6 +197,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Server Log configuraton parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['auto_server_patcher']:
+                    self.auto_server_patcher_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Auto server patcher configuraton not set.",
                     logtype="error"
                 )
 
@@ -361,6 +373,23 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Server Log parameters not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+        if self.auto_server_patcher_provided:
+            auto_server_patcher_cred = self.cred['auto_server_patcher']
+            try:
+                patcher_obj = SecureTeaAutoServerPatcher(debug=self.cred['debug'],
+                                                         cred=auto_server_patcher_cred)
+                patcher_obj.start()
+            except KeyError:
+                self.logger.log(
+                    "Auto Server Patcher parameters not configured.",
                     logtype="error"
                 )
             except Exception as e:
