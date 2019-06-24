@@ -13,7 +13,7 @@ Project:
 
 from securetea.lib.ids.recon_attack import DetectRecon
 from securetea.lib.ids.r2l_rules.r2l_engine import R2LEngine
-from securetea.lib.firewall.utils import check_root
+from securetea.lib.firewall.utils import *
 from securetea import logger
 import scapy.all as scapy
 import sys
@@ -48,8 +48,19 @@ class SecureTeaIDS(object):
             # Create DetectRecon object
             self.recon_obj = DetectRecon(threshold=self.cred["threshold"],
                                          debug=debug)
+
+            interface = self.cred["interface"]
+            if interface is not None and interface != "XXXX":
+                self.interface = interface
+            else:
+                self.logger.log(
+                    "Collecting interface",
+                    logtype="info"
+                )
+                self.interface = get_interface()
+
             # Create R2LEngine object
-            self.r2l_rules = R2LEngine(debug=debug, interface=self.cred["interface"])
+            self.r2l_rules = R2LEngine(debug=debug, interface=self.interface)
             self.logger.log(
                 "SecureTea Intrusion Detection started",
                 logtype="info"
