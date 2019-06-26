@@ -1,4 +1,4 @@
-# ![OWASP Logo](https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png)OWASP SecureTea Tool Project
+# ![OWASP Logo](https://github.com/OWASP/SecureTea-Project/blob/master/img/owasp_logo.png)OWASP SecureTea Tool Project
 
 # User Guide
 
