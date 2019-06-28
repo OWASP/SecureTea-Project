@@ -2,7 +2,6 @@
 import unittest
 from securetea.lib.web_deface.backup import BackUp
 from securetea.lib.web_deface.deface_logger import DefaceLogger
-from pathlib import Path
 
 try:
     # if python 3.x.x
@@ -15,7 +14,6 @@ class TestBackUp(unittest.TestCase):
     """
     Test class for SecureTea Web Deface BackUp.
     """
-    
     def setUp(self):
         """
         Setup TestBackUp.

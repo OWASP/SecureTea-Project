@@ -15,7 +15,6 @@ import os
 from securetea.lib.web_deface.deface_logger import DefaceLogger
 from securetea.lib.web_deface.utils import *
 from securetea.lib.web_deface.file_handler import *
-import sys
 
 
 class GatherFile(object):
@@ -61,7 +60,7 @@ class GatherFile(object):
 
         try:
             # Iterate through the directory
-            for root, dir, files in os.walk(self._PATH):
+            for root, _ , files in os.walk(self._PATH):
                 for file in files:
                     found_files.append(os.path.join(root, file))
         except Exception as e:

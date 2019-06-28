@@ -64,7 +64,7 @@ class BackUp(object):
                 Path(path).mkdir()
         except FileExistsError:
             os.remove(path)  # remove file to create directory
-            self.check_dir()  # recursively check for any other file
+            self.check_dir(path)  # recursively check for any other file
         except FileNotFoundError:
             # Create directory recursively
             new_path = "/".join(path.split("/")[:-1])

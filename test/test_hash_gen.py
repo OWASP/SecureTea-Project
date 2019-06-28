@@ -13,7 +13,6 @@ class TestHash(unittest.TestCase):
     """
     Test class for SecureTea Web Deface Hash.
     """
-
     def setUp(self):
         """
         Setup test class for TestHash.

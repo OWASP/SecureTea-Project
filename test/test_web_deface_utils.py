@@ -13,7 +13,6 @@ class TestUtils(unittest.TestCase):
     """
     Test class for SecureTea Web Deface Utils.
     """
-
     @patch("securetea.lib.web_deface.utils.get_system_name")
     def test_categorize_os(self, mock_system):
         """

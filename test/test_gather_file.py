@@ -13,7 +13,6 @@ class TestGatherFile(unittest.TestCase):
     """
     Test class for SecureTea Web Deface GatherFile.
     """
-
     def setUp(self):
         """
         Setup test class for TestGatherFile.
