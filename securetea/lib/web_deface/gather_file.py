@@ -60,7 +60,7 @@ class GatherFile(object):
 
         try:
             # Iterate through the directory
-            for root, _ , files in os.walk(self._PATH):
+            for root, _, files in os.walk(self._PATH):
                 for file in files:
                     found_files.append(os.path.join(root, file))
         except Exception as e:
