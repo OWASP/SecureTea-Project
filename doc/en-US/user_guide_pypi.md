@@ -195,6 +195,13 @@ Default configuration:
 		"ip_list": "",
 		"status_code": ""
 	},
+	"auto-server-patcher": {
+		"url": "XXXX",
+		"apache": "1",
+		"sysctl": "1",
+		"login": "1",
+		"ssh": "1"
+	},
 	"debug": false
 }
 ```
@@ -283,7 +290,8 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--threshold THRESHOLD] [--system_log] [--server_log]
                     [--log_file LOG_FILE] [--log_type LOG_TYPE]
                     [--window WINDOW] [--ip_list IP_LIST]
-                    [--status_code STATUS_CODE]
+                    [--status-code STATUS_CODE] [--auto-server-patcher]
+                    [--ssh] [--sysctl] [--login] [--apache] [--ssl]	
 ```
 
 Example usage:
@@ -435,6 +443,13 @@ The following argument options are currently available:
   --ip_list IP_LIST     List of IPs to grab from log file
   --status_code STATUS_CODE
                         List of status code to grab from log file
+  --auto-server-patcher, -asp
+                        Start auto server patcher
+  --ssh                 Patch SSH config
+  --sysctl              Patch system configuration
+  --login               Patch login configuration
+  --apache              Patch apache configuration
+  --ssl                 Scan for SSL vulnerability
  ```
  
 ### Example usages
@@ -473,6 +488,183 @@ Usage:<br>
 ```argument
 sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
 ```
+
+### Setting up notifiers
+
+#### Setting up Twitter
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --twitter
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--twitter_api_key` | XXXX | Twitter API key |
+| `--twitter_api_secret_key` | XXXX | Twitter API Secret Key |
+| `--twitter_access_token` | XXXX | Twitter Access Token |
+| `--twitter_access_token_secret` | XXXX | Twitter Access Token Secret |
+
+#### Setting up Slack
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --slack
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--slack_token` | XXXX | Slack Token |
+| `--slack_user_id` | XXXX | Slack User ID |
+
+#### Setting up Amazon SES
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --aws_ses
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--aws_email` | XXXX | AWS SES Email |
+| `--aws_secret_key` | XXXX | AWS SES Secret Key |
+| `--aws_access_key` | XXXX | AWS SES Access Key |
+
+#### Setting up Gmail
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --gmail
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--to_email` | XXXX | G-mail To E-mail |
+| `--sender_email` | XXXX | G-mail From E-mail|
+| `--password` | XXXX | G-mail App Password |
+
+#### Setting up Telegram
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --telegram
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--telegram_bot_token` | XXXX | Telegram Bot Token |
+| `--telegram_user_id` | XXXX | Telegram User ID |
+
+#### Setting up SMS
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --twilio_sms
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--twilio_sid` | XXXX | Twilio SID |
+| `--twilio_token` | XXXX | Twilio Token |
+| `--twilio_from` | XXXX | Twilio From Phone No.|
+| `--twilio_to` | XXXX | Twilio To Phone No.|
+
+### Setting up Firewall
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --firewall
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--interface` | None | Name of the interface |
+| `--inbound_IP_action` | 0 |Inbound IP rule action (0: BLOCK, 1: ALLOW)||
+| `--inbound_IP_list` | None | List of inbound IPs to look for|
+| `--outbound_IP_action` | 0 |Outbound IP rule action (0: BLOCK, 1: ALLOW)|
+| `--outbound_IP_list` | None | List of outbound IPs to look for.|
+| `--protocol_action` | 0 |Protocol action (0: BLOCK, 1: ALLOW)|
+| `--protocol_list` | None | List of protocols to look for|
+| `--scan_action` | 0 |Scan load action (0: BLOCK, 1: ALLOW)|
+| `--scan_list` | None |List of extensions to scan for|
+| `--dest_port_action` | 0 |Destination port action (0: BLOCK, 1: ALLOW)|
+| `--dest_port_list` | None |List of destination ports to look for|
+| `--source_port_action` | 0 |Source port action (0: BLOCK, 1: ALLOW)|
+| `--source_port_list` | None |List of source ports to look for|
+| `--HTTP_request_action` | 0 |HTTP request action (0: BLOCK, 1: ALLOW)|
+| `--HTTP_response_action` | None |HTTP response action (0: BLOCK, 1: ALLOW)|
+| `--dns_action` | 0 |DNS action (0: BLOCK, 1: ALLOW)|
+| `--dns_list` | None |List of DNS to look for|
+| `--time_lb` | 00:00 |Time lower bound|
+| `--time_ub` | 23:59 |Time upper bound|
+
+#### Setting up Intrusion Detection System
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --ids
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--threshold` | 10 | Intrusion Detection System (IDS) threshold |
+| `--interface` | None |Name of the interface|
+
+#### Setting up Insecure Headers
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --insecure_headers
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--url` | None | URL on which operations are to be performed |
+
+#### Setting up Server Log Monitor
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --server-log
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--log-file` | XXXX |Path of the log file|
+| `--log-type` | XXXX |Type of the log file (Apache/Nginx)|
+| `--window` | XXXX |Days old log to process|
+| `--ip-list` | XXXX | List of IPs to grab from log file|
+| `--status-code` | XXXX |List of status code to grab from log file|
+
+#### Setting up System Log Monitor
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --system_log
+```
+#### 2. Argument list
+No optional arguments.
+
+#### Setting up Auto Server Patcher
+Example usage:<br>
+#### 1. Using interactive setup
+```argumnent
+sudo SecureTea.py --auto-server-patcher
+```
+**or:**
+```argumnent
+sudo SecureTea.py -asp
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--url` | XXXX |URL for SSL scanning|
+| `--apache` | 1 |Patch apache configuration or not (0:no, 1:yes)|
+| `--sysctl` | 1 |Patch system configuration or not (0:no, 1:yes)|
+| `--login` | 1 |Patch login configuration or not (0:no, 1:yes)|
+| `--ssh` | 1 |Patch SSH configuration or not (0:no, 1:yes)|
+| `--ssl` | 1 |Scan for SSL vulnerability|
+
 
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
@@ -588,6 +780,63 @@ The following suspicious activities/attacks can be detected:
 - User defined rules:
    - Filter based on selected IPs
    - Filter based on response code
+
+## Auto Server Patcher
+SecureTea Auto Server Patcher will patch the server configurations for highest security & help overcome common security deployment mistakes.
+
+The following features are currently supported:
+
+- Auto update packages
+
+- Set password expiration & password strength rules
+
+- Check for rootkits
+
+- Auto remove discarded package
+
+- Enhance **IP TABLE** rules:
+  - Force SYN packets check
+  - Drop XMAS packets
+  - Drop null packets
+  - Drop incoming packets with fragments
+
+- Configure **`/etc/sysctl.conf`**
+  - Disable IP forwarding & IP source routing
+  - Disable sent packets redirects
+  - Disable ICMP redirect acceptance
+  - Enable IP spoofing protection
+  - Enable bad error message protection
+
+- Patch **Apache** server configurations
+  - Prevent server from broadcasting version number
+  - Turn off TRACE method to prevent Cross-Site Scripting
+  -  X-powered by headers
+
+- Configure **SSH**
+  -  Disallow root access via SSH
+  -  Disallow SSH from trusting a host based only on its IP
+  -  Prevent users from logging into SSH with an empty password
+  -  Sop the possibility of the server sending commands back to the client
+  -  Drop the SSH connection after 5 failed authorization attempts
+  -  Disable weak ciphers
+  -  Disables password authentication and defers authorization to the key-based PAM
+  -  Log out idle users after 15 minutes
+  - Configure server checks whether the session is active before dropping
+
+- List all the possible **SSL** vulnerabilities in the server using SSL Labs API
+  - Beast attack
+  -  Poodle
+  - Poodle TLS
+  - RC4
+  - Heartbeat
+  - Heartbleed
+  - Ticketbleed
+  - OpenSSL CCS
+  - OpenSSL padding
+  - Robot attack
+  - Freak
+  - Logjam
+  - Drown attack
 
 ## License
 **MIT License**
