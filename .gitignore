@@ -312,3 +312,7 @@ API
 *.swp
 /build/
 /dist/
+
+## Temp PCAP files ##
+
+blocked.pcap
