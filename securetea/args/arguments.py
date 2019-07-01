@@ -483,5 +483,26 @@ def get_args():
         help="Scan for SSL vulnerability"
     )
 
+    parser.add_argument(
+        '--web-deface',
+        action="store_true",
+        required=False,
+        help="Start Web Deface Detection"
+    )
+
+    parser.add_argument(
+        '--path',
+        type=str,
+        required=False,
+        help="Path of the directory"
+    )
+
+    parser.add_argument(
+        '--server-name',
+        type=str,
+        required=False,
+        help="Name of the server (apache/nginx/etc.)"
+    )
+
     args = parser.parse_args()
     return args

@@ -52,3 +52,11 @@ from .auto_server_patcher import patch_logger
 from .auto_server_patcher import patcher
 from .auto_server_patcher import secureTeaServerPatcher
 from .auto_server_patcher import ssl_scanner
+from .web_deface import backup
+from .web_deface import deface_logger
+from .web_deface import file_handler
+from .web_deface import gather_file
+from .web_deface import hash_gen
+from .web_deface import monitor
+from .web_deface import secureTeaWebDeface
+from .web_deface import web_deface_engine

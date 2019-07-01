@@ -33,6 +33,7 @@ from securetea.lib.ids import secureTeaIDS
 from securetea.lib.log_monitor.system_log import engine
 from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
 from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
+from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
 
 pynput_status = True
 
@@ -85,6 +86,7 @@ class SecureTea(object):
         self.system_log_provided = args_dict['system_log_provided']
         self.server_log_provided = args_dict['server_log_provided']
         self.auto_server_patcher_provided = args_dict['auto_server_patcher_provided']
+        self.web_deface_provided = args_dict['web_deface_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -208,6 +210,16 @@ class SecureTea(object):
                 self.logger.log(
                     "Auto server patcher configuraton not set.",
                     logtype="error"
+                )
+
+            try:
+                if self.cred['web_deface_provided']:
+                    self.web_deface_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Web Deface Detection configuraton not set.",
+                    logtype="eror"
                 )
 
         if not self.cred:
@@ -390,6 +402,24 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Auto Server Patcher parameters not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+        if self.web_deface_provided:
+            web_deface = self.cred['web_deface']
+            try:
+                web_deface_obj = WebDeface(debug=self.cred['debug'],
+                                           path=web_deface['path'],
+                                           server_name=web_deface['server-name'])
+                web_deface_obj.start()
+            except KeyError:
+                self.logger.log(
+                    "Web Deface Detection parameters not configured.",
                     logtype="error"
                 )
             except Exception as e:
