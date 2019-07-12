@@ -17,3 +17,4 @@ yara-python
 clamd
 beautifulsoup4
 pyudev
+lxml
