@@ -34,6 +34,7 @@ from securetea.lib.log_monitor.system_log import engine
 from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
 from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
 from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
+from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 
 pynput_status = True
 
@@ -87,6 +88,7 @@ class SecureTea(object):
         self.server_log_provided = args_dict['server_log_provided']
         self.auto_server_patcher_provided = args_dict['auto_server_patcher_provided']
         self.web_deface_provided = args_dict['web_deface_provided']
+        self.antivirus_provided = args_dict['antivirus_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -220,6 +222,16 @@ class SecureTea(object):
                 self.logger.log(
                     "Web Deface Detection configuraton not set.",
                     logtype="eror"
+                )
+
+            try:
+                if self.cred['antivirus_provided']:
+                    self.antivirus_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "AntiVirus configuraton not set.",
+                    logtype="error"
                 )
 
         if not self.cred:
@@ -420,6 +432,22 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Web Deface Detection parameters not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+        if self.antivirus_provided:
+            antivirus = self.cred['antivirus']
+            try:
+                antivirus_obj = SecureTeaAntiVirus(debug=self.cred['debug'], cred=antivirus)
+                antivirus_obj.start()
+            except KeyError:
+                self.logger.log(
+                    "AntiVirus parameters not configured.",
                     logtype="error"
                 )
             except Exception as e:

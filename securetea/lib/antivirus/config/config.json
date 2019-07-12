@@ -1,0 +1,28 @@
+{
+	"debian": {
+		"update": {
+			"hash": {
+				"storage": "/etc/securetea/antivirus/md5_hash/"
+			},
+			"yara": {
+				"storage": "/etc/securetea/antivirus/yara/"
+			}
+		},
+		"scanner": {
+			"malicious_file_log_path": "/etc/securetea/antivirus/malicious_files.log",
+			"hash": {
+				"threads": 2
+			},
+			"yara": {
+				"threads": 2
+			},
+			"clamav": {
+				"threads": 2
+			}
+		},
+		"monitor": {
+			"threshold_min": 20,
+			"password_log_file": "/etc/passwd"
+		}
+	}
+}

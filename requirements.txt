@@ -12,3 +12,8 @@ NetfilterQueue
 boto3
 geocoder
 pathlib
+wget
+yara-python
+clamd
+beautifulsoup4
+pyudev
