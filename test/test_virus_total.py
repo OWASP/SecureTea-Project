@@ -41,12 +41,10 @@ class TestVirusTotal(unittest.TestCase):
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
         mck_log.assert_called_with('File: file_path found suspicious in VirusTotal SandBox test',
                                    logtype='warning')
-        
         response_obj._content = JSON_DATA_2
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
         mck_log.assert_called_with('File: file_path not found suspicious in VirusTotal SandBox test',
                                    logtype='info')
-
         # Case 2:
         response_obj.status_code = 203
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
@@ -54,14 +52,12 @@ class TestVirusTotal(unittest.TestCase):
                                    'You have exceeded one of your quotas (minute, daily or monthly). '\
                                    'Daily quotas are reset every day at 00:00 UTC.',
                                     logtype='error')
-
         # Case 3:
         response_obj.status_code = 400
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
         mck_log.assert_called_with('Bad request. Your request was somehow incorrect. '
                                    'This can be caused by missing arguments or arguments with wrong values.',
                                     logtype='error')
-
         # Case 4:
         response_obj.status_code = 403
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
@@ -69,7 +65,6 @@ class TestVirusTotal(unittest.TestCase):
                                    "You may be doing a request without providing an API key or you may be "
                                    "making a request to a Private API without having the appropriate privileges.",
                                    logtype='error')
-
         # Case 5:
         response_obj.status_code = 405
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
