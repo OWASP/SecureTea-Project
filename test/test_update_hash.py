@@ -72,9 +72,9 @@ class TestUpdateHash(unittest.TestCase):
     @patch("securetea.lib.antivirus.update.update_hash.wget")
     @patch.object(AntiVirusLogger, "log")
     @patch("securetea.lib.antivirus.update.update_hash.utils")
-    def test_update(mck_utils, mck_log, mck_wget, mck_rt, mck_helper):
+    def test_download(mck_utils, mck_log, mck_wget, mck_rt, mck_helper):
         """
-        Test test_update.
+        Test test_download.
         """
         mck_utils.json_to_dict.return_value = {
         	"debian": {

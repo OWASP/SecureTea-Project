@@ -15,7 +15,6 @@ class TestVirusTotal(unittest.TestCase):
     """
     Test class for SecureTea AntiVirus VirusTotal.
     """
-    
     @staticmethod
     @patch.object(AntiVirusLogger, "log")
     @patch("securetea.lib.antivirus.scanner.virus_total.requests")
@@ -28,7 +27,7 @@ class TestVirusTotal(unittest.TestCase):
                 "positives": 2
                 }"""
 
-        JSON_DATA_2= b"""{
+        JSON_DATA_2 = b"""{
                 "positives": 0
                 }"""
 
@@ -42,6 +41,11 @@ class TestVirusTotal(unittest.TestCase):
         vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
         mck_log.assert_called_with('File: file_path found suspicious in VirusTotal SandBox test',
                                    logtype='warning')
+        
+        response_obj._content = JSON_DATA_2
+        vt_obj.check_hash(hash_value="hash_value", file_path="file_path")
+        mck_log.assert_called_with('File: file_path not found suspicious in VirusTotal SandBox test',
+                                   logtype='info')
 
         # Case 2:
         response_obj.status_code = 203

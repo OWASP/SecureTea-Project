@@ -11,7 +11,6 @@ Project:
 
 """
 from securetea.lib.antivirus.scanner.scanner_parent import Scanner
-from securetea.lib.antivirus.tools import utils
 
 import sys
 import os

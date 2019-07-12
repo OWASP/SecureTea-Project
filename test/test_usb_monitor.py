@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
 from securetea.lib.antivirus.monitor.usb_monitor import USBMonitor
-from securetea.lib.antivirus.antivirus_logger import AntiVirusLogger
 
 try:
     # if python 3.x.x
@@ -15,10 +14,11 @@ class TestUSBMonitor(unittest.TestCase):
     Test class for SecureTea AntiVirus USB Monitor.
     """
 
+    @staticmethod
     @patch.object(USBMonitor, "create_initial_disk_list")
     @patch.object(USBMonitor, "get_block_path")
     @patch("securetea.lib.antivirus.monitor.usb_monitor.utils")
-    def test_get_device_path(self, mck_utils, mck_get_bp, mck_cidl):
+    def test_get_device_path(mck_utils, mck_get_bp, mck_cidl):
         """
         Test get_device_path.
         """

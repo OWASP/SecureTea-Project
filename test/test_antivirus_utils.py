@@ -24,24 +24,27 @@ class TestAntiVirusUtils(unittest.TestCase):
         orig_md5_hash = "e757655e1d90f9e4c33009498920f465"
         self.assertEqual(hash_value, orig_md5_hash)
 
+    @staticmethod
     @patch("securetea.lib.antivirus.tools.utils.open")
-    def test_extractBytes(self, mck_open):
+    def test_extractBytes(mck_open):
         """
         Test extractBytes.
         """
         utils.extractBytes("random_path")
         mck_open.assert_called_with('random_path', 'rb')
 
+    @staticmethod
     @patch("securetea.lib.antivirus.tools.utils.open")
-    def test_json_to_dict(self, mck_open):
+    def test_json_to_dict(mck_open):
         """
         Test json_to_dict.
         """
-        data = utils.json_to_dict("random_path")
+        utils.json_to_dict("random_path")
         mck_open.assert_called_with('random_path', 'r')
 
+    @staticmethod
     @patch("securetea.lib.antivirus.tools.utils.open")
-    def test_open_file(self, mck_open):
+    def test_open_file(mck_open):
         """
         Test open_file.
         """
