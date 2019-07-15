@@ -18,3 +18,5 @@ clamd
 beautifulsoup4
 pyudev
 lxml
+ipwhois
+csv
