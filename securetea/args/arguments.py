@@ -504,5 +504,54 @@ def get_args():
         help="Name of the server (apache/nginx/etc.)"
     )
 
+    parser.add_argument(
+        '--antivirus',
+        required=False,
+        action="store_true",
+        help="Start AntiVirus"
+    )
+
+    parser.add_argument(
+        '--update',
+        required=False,
+        type=int,
+        help="Auto-update AntiVirus or not (1: yes, 0: no)"
+    )
+
+    parser.add_argument(
+        '--custom-scan',
+        type=str,
+        required=False,
+        help="Path to custom scan"
+    )
+
+    parser.add_argument(
+        '--auto-delete',
+        required=False,
+        action="store_true",
+        help="Auto delete malicious files or manually (1: auto, 0: manual)"
+    )
+
+    parser.add_argument(
+        '--monitor-usb',
+        required=False,
+        action="store_true",
+        help="Monitor USB devices or not (1: yes, 0: no)"
+    )
+
+    parser.add_argument(
+        '--monitor-file-changes',
+        required=False,
+        action="store_true",
+        help="Monitor file changes or not (1:yes, 0:no)"
+    )
+
+    parser.add_argument(
+        '--virustotal-api-key',
+        required=False,
+        action="store_true",
+        help="Virus Total API key"
+    )
+
     args = parser.parse_args()
     return args

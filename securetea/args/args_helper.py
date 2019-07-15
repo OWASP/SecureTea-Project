@@ -157,6 +157,7 @@ class ArgsHelper(object):
         self.server_log_provided = False
         self.auto_server_patcher_provided = False
         self.web_deface_provided = False
+        self.antivirus_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -392,6 +393,25 @@ class ArgsHelper(object):
             "default": default
         }
 
+    @takeInput
+    def configureAntiVirus(self):
+        """
+        Returns the format to configure AntiVirus.
+        """
+        self.logger.log("AntiVirus configuration setup")
+        default = load_default("antivirus")
+        return {
+            "input": {
+                "update": "whether to update (1) or not (0)",
+                "custom-scan": "whether to perform a full scan (leave blank) or custom scan (enter path)",
+                "auto-delete": "whether to auto-delete (1) malicious files or manually (0)",
+                "monitor-usb": "whether to monitor USB device (1) or not (0)",
+                "monitor-file-changes": "whether to monitor file changes (1) or not (0)",
+                "virustotal-api-key": "VirusTotal API key"
+            },
+            "default": default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -484,6 +504,12 @@ class ArgsHelper(object):
                 self.cred['web_deface'] = web_deface
                 self.web_deface_provided = True
 
+            # Start the AntiVirus setup
+            antivirus = self.configureAntiVirus()
+            if antivirus:
+                self.cred['antivirus'] = antivirus
+                self.antivirus_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -540,6 +566,12 @@ class ArgsHelper(object):
             if server_log:
                 self.cred["server_log"] = server_log
                 self.server_log_provided = True
+
+        if self.args.antivirus:
+            antivirus = self.configureAntiVirus()
+            if antivirus:
+                self.cred["antivirus"] = antivirus
+                self.antivirus_provided = True
 
         if (self.args.auto_server_patcher and
             not self.auto_server_patcher_provided and
@@ -691,6 +723,20 @@ class ArgsHelper(object):
                 self.cred['web_deface'] = web_deface
                 self.web_deface_provided = True
 
+        if not self.antivirus_provided:
+            if (self.args.update and
+                self.args.auto_delete and
+                self.args.monitor_usb and
+                self.args.monitor_file_changes and
+                self.args.virustotal_api_key):
+                antivirus = {}
+                antivirus['update'] = self.args.update
+                antivirus['custom-scan'] = self.args.custom_scan
+                antivirus['auto-delete'] = self.args.auto_delete
+                antivirus['monitor-usb'] = self.args.monitor_usb
+                antivirus['monitor-file-changes'] = self.args.monitor_file_changes
+                antivirus['virustotal-api-key'] = self.args.virustotal_api_key
+
         if not self.firewall_provided:
             if (self.args.interface and
                 self.args.inbound_IP_action and
@@ -771,7 +817,8 @@ class ArgsHelper(object):
             self.system_log_provided or
             self.server_log_provided or
             self.auto_server_patcher_provided or
-            self.web_deface_provided):
+            self.web_deface_provided or
+            self.antivirus_provided):
             self.cred_provided = True
 
         return {
@@ -789,5 +836,6 @@ class ArgsHelper(object):
             'system_log_provided': self.system_log_provided,
             'server_log_provided': self.server_log_provided,
             'auto_server_patcher_provided': self.auto_server_patcher_provided,
-            'web_deface_provided': self.web_deface_provided
+            'web_deface_provided': self.web_deface_provided,
+            'antivirus_provided': self.antivirus_provided
         }
