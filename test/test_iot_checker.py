@@ -29,9 +29,10 @@ class TestIoTChecker(unittest.TestCase):
 
         self.assertEqual("1.1.1.1", iot_checker_obj.ip)
 
+    @staticmethod
     @patch.object(shodan.Shodan, "host")
     @patch.object(SecureTeaLogger, "log")
-    def test_check_shodan_range(self, mck_log, mck_host):
+    def test_check_shodan_range(mck_log, mck_host):
         """
         Test check_shodan_range.
         """
