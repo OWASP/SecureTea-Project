@@ -158,6 +158,7 @@ class ArgsHelper(object):
         self.auto_server_patcher_provided = False
         self.web_deface_provided = False
         self.antivirus_provided = False
+        self.iot_checker_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -412,6 +413,21 @@ class ArgsHelper(object):
             "default": default
         }
 
+    @takeInput
+    def configureIoTChecker(self):
+        """
+        Returns the format to configure IoTChecker.
+        """
+        self.logger.log("IoT Checker configuraton setup")
+        default = load_default("iot-check")
+        return {
+            "input": {
+                "shodan-api-key": "Shodan API key",
+                "ip": "public IP address of the IoT device (else leave blank)"
+            },
+            "default": default
+        }
+
     def check_args(self):
         """
         Parse the args, check the configuration
@@ -510,6 +526,12 @@ class ArgsHelper(object):
                 self.cred['antivirus'] = antivirus
                 self.antivirus_provided = True
 
+            # Start the IoT Checker setup
+            iot_checker = self.configureIoTChecker()
+            if iot_checker:
+                self.cred['iot-check'] = iot_checker
+                self.iot_checker_provided = True
+
         if self.args.twitter and not self.twitter_provided:
             twitter = self.configureTwitter()
             if twitter:
@@ -557,6 +579,14 @@ class ArgsHelper(object):
             if ids:
                 self.cred["ids"] = ids
                 self.ids_provided = True
+
+        if (self.args.iot_checker and
+            not self.iot_checker_provided and
+            not self.args.shodan_api_key):
+            iot_checker = self.configureIoTChecker()
+            if iot_checker:
+                self.cred["iot-check"] = iot_checker
+                self.iot_checker_provided = True
 
         if self.args.system_log and not self.system_log_provided:
             self.system_log_provided = True
@@ -713,6 +743,14 @@ class ArgsHelper(object):
                 self.cred['auto_server_patcher'] = auto_server_patcher
                 self.auto_server_patcher_provided = True
 
+        if not self.iot_checker_provided:
+            if self.args.shodan_api_key and self.args.iot_checker:
+                iot_checker = {}
+                iot_checker['shodan-api-key'] = self.args.shodan_api_key
+                iot_checker['ip'] = self.args.ip
+                self.cred['iot-check'] = iot_checker
+                self.iot_checker_provided = True
+
         if not self.web_deface_provided:
             if (self.args.web_deface and
                (self.args.path or
@@ -818,7 +856,8 @@ class ArgsHelper(object):
             self.server_log_provided or
             self.auto_server_patcher_provided or
             self.web_deface_provided or
-            self.antivirus_provided):
+            self.antivirus_provided or
+            self.iot_checker_provided):
             self.cred_provided = True
 
         return {
@@ -837,5 +876,6 @@ class ArgsHelper(object):
             'server_log_provided': self.server_log_provided,
             'auto_server_patcher_provided': self.auto_server_patcher_provided,
             'web_deface_provided': self.web_deface_provided,
-            'antivirus_provided': self.antivirus_provided
+            'antivirus_provided': self.antivirus_provided,
+            'iot_checker_provided': self.iot_checker_provided
         }
