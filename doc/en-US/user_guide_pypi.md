@@ -48,6 +48,30 @@ sudo apt-get update
 sudo apt-get install build-essential python-dev libnetfilter-queue-dev
 ```
 
+Yara:<br>
+https://yara.readthedocs.io/en/v3.7.0/gettingstarted.html
+1. Download the latest Yara release at: https://github.com/VirusTotal/yara/releases
+2. Execute the following instructions in the order:
+```command
+tar -zxf yara-3.10.0.tar.gz
+cd yara-3.10.0
+./bootstrap.sh
+sudo apt-get install automake libtool make gcc
+sudo apt-get install flex bison
+./configure
+make
+sudo make install
+make check
+```
+
+Clam AV:<br>
+https://www.clamav.net/
+1. Execute the following instructions in the order:
+```command
+sudo apt-get install clamav
+sudo freshclam
+```
+
 ### Procedure for installing
 You can install OWASP SecureTea Tool using the following methods:
 -  PyPi
@@ -202,8 +226,16 @@ Default configuration:
 		"login": "1",
 		"ssh": "1"
 	},
+	"antivirus": {
+		"update": "1",
+		"custom-scan": "",
+		"auto-delete": "0",
+		"monitor-usb": "1",
+		"monitor-file-changes": "1",
+		"virustotal-api-key": "XXXX"
+	},
 	"debug": false
-}
+}	
 ```
 
 ###### Using gedit<br>
@@ -292,6 +324,10 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--window WINDOW] [--ip_list IP_LIST]
                     [--status-code STATUS_CODE] [--auto-server-patcher]
                     [--ssh] [--sysctl] [--login] [--apache] [--ssl]	
+		    [--antivirus] [--update UPDATE]
+                    [--custom-scan CUSTOM_SCAN] [--auto-delete]
+                    [--monitor-usb] [--monitor-file-changes]
+                    [--virustotal-api-key] 		    
 ```
 
 Example usage:
@@ -450,6 +486,16 @@ The following argument options are currently available:
   --login               Patch login configuration
   --apache              Patch apache configuration
   --ssl                 Scan for SSL vulnerability
+  --antivirus           Start AntiVirus
+  --update UPDATE       Auto-update AntiVirus or not (1: yes, 0: no)
+  --custom-scan CUSTOM_SCAN
+			Path to custom scan
+  --auto-delete         Auto delete malicious files or manually (1: auto, 0:
+			manual)
+  --monitor-usb         Monitor USB devices or not (1: yes, 0: no)
+  --monitor-file-changes
+			Monitor file changes or not (1:yes, 0:no)
+  --virustotal-api-key  Virus Total API key  
  ```
  
 ### Example usages
@@ -665,6 +711,21 @@ sudo SecureTea.py -asp
 | `--ssh` | 1 |Patch SSH configuration or not (0:no, 1:yes)|
 | `--ssl` | 1 |Scan for SSL vulnerability|
 
+#### Setting up AntiVirus
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --antivirus
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--update` | 1 |Auto update ON (1) or OFF (0)|
+| `--custom-scan` | None |Path of the directory to custom scan|
+| `--auto-delete` | 0 |Auto clean the found malicious files (1) or manually (0)|
+| `--monitor-usb` | 1 |Monitor USB devices or not (1:yes, 0:no)|
+| `--monitor-file-changes` | 1 |Monitor files changes or addition (1:yes, 0:no)|
+| `--virustotal-api-key` | XXXX |VirusTotal API key|
 
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
@@ -837,6 +898,39 @@ The following features are currently supported:
   - Freak
   - Logjam
   - Drown attack
+  
+## AntiVirus
+SecureTea real-time signature & heuristic based antivirus.
+
+The following features are currently supported:
+
+1. **Auto fetch updates**: Smart update mechanism, that keeps track of the last update and resumes update from the last downloaded file. User can configure to **switch off** and **switch on** the auto-update feature.
+
+2. **Real-Time monitoring**: Scan as soon as a file is modified or a new file is added.
+
+3. **Scanner engine**: Scanner engine runs on **3 process**, they are as follows:
+   - **Hash** Signature scanner
+   - **Yara** Heuristic scanner
+   - **Clam AV** Scanner
+
+4. **YARA** rules can detect: 
+   - Viruses
+   - Worms
+   - Ransomware
+   - Adware
+   - Spyware
+   - Rootkits
+   - RATs
+
+5. Leveraging the power of **VirusTotal API**: Optional for users, provides an easy option for them to test for specific files against multiple anti-viruses & in a safe sandbox environment, i.e. after a file is detected malicious, the file will be put under VirusTotal test for a final confirmation.
+
+6. Monitor **orphaned files**: Use SUID, SGID and read capabilities in Linux to separate orphaned files and check if any file is granted more capabilities than it should be.
+
+7. Keeps an eye on **USB devices**: Start scanning the USB device as soon as it is plugged in & report for any virus/malware found.
+
+8. Cleaning the found files: Opt for either **auto-delete** or **manual** delete option, in auto-delete the file found malicious is automatically deleted, whereas in manual it requires the confirmation of the user.
+
+9. **Custom** and **Full** scan options
 
 ## License
 **MIT License**
