@@ -35,6 +35,7 @@ from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaSer
 from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
 from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
 from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
+from securetea.lib.iot import iot_checker
 
 pynput_status = True
 
@@ -89,6 +90,7 @@ class SecureTea(object):
         self.auto_server_patcher_provided = args_dict['auto_server_patcher_provided']
         self.web_deface_provided = args_dict['web_deface_provided']
         self.antivirus_provided = args_dict['antivirus_provided']
+        self.iot_checker_provided = args_dict['iot_checker_provided']
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -231,6 +233,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "AntiVirus configuraton not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['iot-check']:
+                    self.iot_checker_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "IoT Checker configuraton not set.",
                     logtype="error"
                 )
 
@@ -448,6 +460,23 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "AntiVirus parameters not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+        if self.iot_checker_provided:
+            try:
+                iot_checker_obj = iot_checker.IoTChecker(debug=self.cred['debug'],
+                                                         api_key=self.cred['iot-check']['shodan-api-key'],
+                                                         ip=self.cred['iot-check']['ip'])
+                iot_checker_obj.check_shodan_range()
+            except KeyError:
+                self.logger.log(
+                    "IoT checker parameters not configured.",
                     logtype="error"
                 )
             except Exception as e:

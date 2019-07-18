@@ -19,3 +19,4 @@ beautifulsoup4
 pyudev
 lxml
 ipwhois
+shodan

@@ -553,5 +553,28 @@ def get_args():
         help="Virus Total API key"
     )
 
+    parser.add_argument(
+        '--iot-checker',
+        '-ic',
+        required=False,
+        action="store_true",
+        help="Shodan API Key"
+    )
+
+    parser.add_argument(
+        '--shodan-api-key',
+        '-sak',
+        required=False,
+        type=str,
+        help="Shodan API Key"
+    )
+
+    parser.add_argument(
+        '--ip',
+        required=False,
+        type=str,
+        help="IP address on which to perform operation"
+    )
+
     args = parser.parse_args()
     return args

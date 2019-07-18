@@ -76,3 +76,5 @@ from .antivirus.monitor import monitor_changes
 from .antivirus.monitor import monitor_engine
 from .antivirus.monitor import usb_monitor
 from .antivirus.cleaner import cleaner
+from .iot import iot_checker
+from .iot import iot_logger
