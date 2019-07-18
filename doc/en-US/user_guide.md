@@ -65,6 +65,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
     - [Setting up Insecure Headers](#setting-up-insecure-headers)
     - [Setting up Auto Server Patcher](#setting-up-auto-server-patcher)
     - [Setting up AntiVirus](#setting-up-antivirus)
+    - [Setting up Web Deface Detection](#setting-up-web-deface-detection)
 
 -  [Firewall](#firewall)
 
@@ -79,6 +80,8 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Auto Server Patcher](#auto-server-patcher)
 
 -  [AntiVirus](#antivirus)
+
+-  [Web Deface Detection](#web-deface-detection)
   
 -  [License](#license)
 
@@ -317,6 +320,10 @@ Default configuration:
 		"monitor-file-changes": "1",
 		"virustotal-api-key": "XXXX"
 	},
+	"web-deface": {
+		"path": "",
+		"server-name": ""
+	},	
 	"debug": false
 }	
 ```
@@ -411,6 +418,7 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--custom-scan CUSTOM_SCAN] [--auto-delete]
                     [--monitor-usb] [--monitor-file-changes]
                     [--virustotal-api-key] 		    
+                    [--web-deface] [--path PATH] [--server-name SERVER_NAME]		    
 ```
 
 Example usage:
@@ -584,6 +592,10 @@ The following argument options are currently available:
   --monitor-file-changes
 			Monitor file changes or not (1:yes, 0:no)
   --virustotal-api-key  Virus Total API key
+  --web-deface          Start Web Deface Detection
+  --path PATH           Path of the directory
+  --server-name SERVER_NAME
+                        Name of the server (apache/nginx/etc.)
  ```
  
 ### Example usages
@@ -815,6 +827,18 @@ sudo SecureTea.py --antivirus
 | `--monitor-file-changes` | 1 |Monitor files changes or addition (1:yes, 0:no)|
 | `--virustotal-api-key` | XXXX |VirusTotal API key|
 
+#### Setting up Web Deface Detection
+Example usage: <br>
+##### 1. Using interactive setup
+```argument
+sudo SecureTea.py --web-deface
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--path` | None |Path of the directory|
+| `--server-name` | None |Name of the server (apache/nginx/etc.)|
+
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
 <br><br>
@@ -1019,6 +1043,20 @@ The following features are currently supported:
 8. Cleaning the found files: Opt for either **auto-delete** or **manual** delete option, in auto-delete the file found malicious is automatically deleted, whereas in manual it requires the confirmation of the user.
 
 9. **Custom** and **Full** scan options
+
+## Web Deface Detection
+Monitor server files to detect any changes, roll back to default in case of defacement.
+
+**Features:**
+1. Auto locate the server files based on the user choice of server (i.e. Apache, Nginx, etc.) and the operating system detected.
+
+2. Allow user to overwrite the above default auto-located file path and use their custom file path.
+
+3. Scan the directory for files and generate a cache / backup of the files.
+
+4. Generate SHA 256 hashes of each file and use them for comparison.
+
+SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
 
 ## License
 **MIT License**
