@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "rejahrehim",
+      "name": "Rejah Rehim ",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4394746?v=4",
+      "profile": "http://rejahrehim.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "SecureTea-Project",
+  "projectOwner": "OWASP",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
