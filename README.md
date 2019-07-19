@@ -119,6 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://abhisharma404.blogspot.com/"><img src="https://avatars0.githubusercontent.com/u/29058921?v=4" width="100px;" alt="Abhishek Sharma"/><br /><sub><b>Abhishek Sharma</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=abhisharma404" title="Code">💻</a> <a href="https://github.com/OWASP/SecureTea-Project/commits?author=abhisharma404" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://rejahrehim.com"><img src="https://avatars3.githubusercontent.com/u/4394746?v=4" width="100px;" alt="Rejah Rehim "/><br /><sub><b>Rejah Rehim </b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=rejahrehim" title="Code">💻</a></td>
   </tr>
 </table>
 
