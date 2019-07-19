@@ -43,6 +43,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sunn-e",
+      "name": "Sunny Dhoke",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/30065288?v=4",
+      "profile": "http://sunn-e.github.io",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
