@@ -33,8 +33,17 @@
         "code",
         "doc"
       ]
-    }
-  ],
+    },
+    {
+      "login": "ananthus",
+      "name": "Ananthu S",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/30488894?v=4",
+      "profile": "https://github.com/ananthus",
+      "contributions": [
+        "code"
+        ]
+     }
+    ],
   "contributorsPerLine": 7,
   "projectName": "SecureTea-Project",
   "projectOwner": "OWASP",
