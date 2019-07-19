@@ -1,4 +1,5 @@
 <img align="left" width="120" height="120" src="img/logo/secure-tea-white.png">
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 # [OWASP SecureTea][SecureTea-OWASP]
 
@@ -108,3 +109,19 @@ For contributors, please add your name below:
 [Ade]: https://www.owasp.org/index.php/Ade_Yoseman_Putra
 [Bambang]: https://www.owasp.org/index.php/User:Idbmb
 [Lojislav]: https://github.com/lojikil/
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://abhisharma404.blogspot.com/"><img src="https://avatars0.githubusercontent.com/u/29058921?v=4" width="100px;" alt="Abhishek Sharma"/><br /><sub><b>Abhishek Sharma</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=abhisharma404" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
