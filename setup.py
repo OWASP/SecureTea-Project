@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.4
+    Version: 1.5
     Module: SecureTea
 
 Attributes:
@@ -14,6 +14,7 @@ Attributes:
     os_name (TYPE): Description
 
 """
+
 from setuptools import find_packages
 from setuptools import setup
 from setuptools import Distribution
@@ -21,6 +22,7 @@ from setuptools.command.install import install
 import platform
 import subprocess
 import re
+
 
 os_name = platform.dist()[0]
 os_major_version = platform.dist()[1].split('.')[0]
@@ -36,7 +38,8 @@ files_definition = [
 DEPENDENCY_COMMAND_MAP = {
     "libnetfilter-queue-dev": {"debian": "sudo apt-get install "
                                          "build-essential python-dev "
-                                         "libnetfilter-queue-dev"}
+                                         "libnetfilter-queue-dev"},
+    "clamav": {"debian" : "sudo apt-get install clamav"}
 }
 
 
@@ -70,7 +73,7 @@ def file_rename():
         "bin/systemd/securetea.service.sample"
     ]
     script_dir = get_setuptools_script_dir()
-    print("herrr" + script_dir)
+    print("[!] " + script_dir)
     string = "/usr/bin/securetea"
 
     for file in sample_files:
@@ -120,9 +123,17 @@ def execute_command(command):
     Returns:
         output (str): Output of the command execution
     """
-    output = subprocess.check_output(command,
-                                     shell=True)
-    return output.decode("ascii")
+    success = True
+
+    try:
+        output = subprocess.check_output(command, shell=True)
+    except subprocess.CalledProcessError:
+        success = False
+
+    if success:
+        return output.decode("ascii")
+    else:
+        return None
 
 
 def verify_installation(output):
@@ -134,18 +145,15 @@ def verify_installation(output):
     Returns:
         TYPE: bool
     """
-    found = re.findall(r'([0-9]+\supgraded).*([0-9]+\snewly installed)',
-                       output)
+    found = re.findall(r'([0-9]+\supgraded).*([0-9]+\snewly installed)', output)
 
     upgraded = found[0][0]
     installed = found[0][1]
 
-    upgraded_num = re.findall(r'^[0-9]+',
-                              upgraded)
+    upgraded_num = re.findall(r'^[0-9]+', upgraded)
     upgraded_num = int(upgraded_num[0])
 
-    installed_num = re.findall(r'^[0-9]+',
-                               installed)
+    installed_num = re.findall(r'^[0-9]+', installed)
     installed_num = int(installed_num[0])
 
     if (upgraded_num > 0 or installed_num > 0):
@@ -163,11 +171,11 @@ def install_dependency(dependency, command):
     print("[!] installing ", dependency)
     # install the dependency
     output = execute_command(command)
-
-    if verify_installation(output):
-        print("[+] ", dependency, " --installed")
-    else:
-        print("[-] ", dependency, "--failed")
+    if output:
+        if verify_installation(output):
+            print("[+] ", dependency, " --installed")
+        else:
+            print("[-] ", dependency, "--failed")
 
 
 def check_dependency():
@@ -191,9 +199,10 @@ def check_dependency():
             command = "dpkg -s " + dependency + " |grep Status"
             output = execute_command(command)
 
-            if "install ok installed" in output:
-                print("[!] ", dependency, " --already installed")
-                flag = 1  # installed
+            if output:
+                if "install ok installed" in output:
+                    print("[!] ", dependency, " --already installed")
+                    flag = 1  # installed
 
         # elif some other based OS
         # add logic here to check whether dependency is installed
@@ -226,7 +235,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.4',
+    version='1.5',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
@@ -254,15 +263,23 @@ setup(
         "NetfilterQueue",
         "boto3",
         "geocoder",
-        "pathlib"
+        "pathlib",
+        "wget",
+        "yara-python",
+        "clamd",
+        "beautifulsoup4",
+        "pyudev",
+        "lxml",
+        "ipwhois",
+        "shodan"
     ],
     python_requires='>=2.7',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python',
-        'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
+        'Natural Language :: English',
         'Topic :: Software Development :: Version Control :: Git',
         'Topic :: Software Development :: Testing :: Unit',
     ],
