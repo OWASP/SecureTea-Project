@@ -558,7 +558,7 @@ def get_args():
         '-ic',
         required=False,
         action="store_true",
-        help="Shodan API Key"
+        help="Start IoT Anonymity Checker"
     )
 
     parser.add_argument(
