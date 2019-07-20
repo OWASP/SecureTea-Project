@@ -238,8 +238,12 @@ Default configuration:
 		"path": "",
 		"server-name": ""
 	},	
+	"iot-check": {
+		"shodan-api-key": "XXXX",
+		"ip": ""
+	},
 	"debug": false
-}		
+}	
 ```
 
 ###### Using gedit<br>
@@ -332,7 +336,8 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--custom-scan CUSTOM_SCAN] [--auto-delete]
                     [--monitor-usb] [--monitor-file-changes]
                     [--virustotal-api-key]
-                    [--web-deface] [--path PATH] [--server-name SERVER_NAME]		    		    
+                    [--web-deface] [--path PATH] [--server-name SERVER_NAME]	
+		    [--iot-checker][--shodan-api-key SHODAN_API_KEY] [--ip IP]		    
 ```
 
 Example usage:
@@ -505,6 +510,10 @@ The following argument options are currently available:
   --path PATH           Path of the directory
   --server-name SERVER_NAME
                         Name of the server (apache/nginx/etc.)
+  --iot-checker, -ic    Start IoT Anonymity Checker
+  --shodan-api-key SHODAN_API_KEY, -sak SHODAN_API_KEY
+                        Shodan API Key
+  --ip IP               IP address on which to perform operation
  ```
  
 ### Example usages
@@ -748,6 +757,21 @@ sudo SecureTea.py --web-deface
 | `--path` | None |Path of the directory|
 | `--server-name` | None |Name of the server (apache/nginx/etc.)|
 
+#### Setting up IoT Anonymity Checker
+Example usage: <br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --iot-checker
+```
+```argument
+sudo SecureTea.py -ic
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--shodan-api-key` | XXXX |Shodan API Key|
+| `--ip` | None |IP address on which to perform operation|
+
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
 <br><br>
@@ -966,6 +990,17 @@ Monitor server files to detect any changes, roll back to default in case of defa
 4. Generate SHA 256 hashes of each file and use them for comparison.
 
 SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
+
+## IoT Anonymity Checker
+
+“Shodan is a search engine which collects the information about all IPv4 and IPv6 devices connected to the internet and gives us the ability to search devices using filters that can be very sophisticated.” (source: https://resources.infosecinstitute.com/shodan-iot-problem/#gref)
+
+In short, Shodan is a search engine for IoT devices, that can index thousands of IoT devices connected to the internet. At times, this can be great for hackers trying to gain access to the device. As a security feature, it would be good to stay out of Shodan search radar. It will good to check whether the IoT device is under the Shodan grid or not, if
+yes, immediate action needs to be taken or else we are all fine!
+
+**Features:**
+
+1. Use public IP address of the device to check (if provided) else auto-collect the public IP address of the device and perform the check.
 
 ## License
 **MIT License**
