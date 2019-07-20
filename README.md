@@ -68,8 +68,9 @@ for translated developer guides
 
 ## [Suggestions and Contributing](/CONTRIBUTING.md)
 
+See more at [Contributing Guide](/CONTRIBUTING.md)
 
-Project Leaders
+## Project Leaders
 
 -   [Ade Yoseman][Ade]
 -   [Rejah Rehim][Rejah]
