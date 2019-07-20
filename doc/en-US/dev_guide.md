@@ -153,14 +153,14 @@ Insecure Header Detection    | Yes
 SecureTea Firewall           | Yes
 SecureTea IDS/IPS            | Yes
 SecureTea System Log Monitor | Yes
-SecureTea Server Log Monitor | No
-SecureTea Anti-Virus         | No
-SecureTea Auto Server Patcher| No
-Web Defacement Detection     | No
-SecureTea OSINT		     | No
-IoT Anonymity checker	     | No
-Last login                   | No
-Detection of malcious device | No
+SecureTea Server Log Monitor | Yes
+SecureTea Anti-Virus         | Yes
+SecureTea Auto Server Patcher| Yes
+Web Defacement Detection     | Yes
+SecureTea OSINT		     | Yes
+IoT Anonymity checker	     | Yes
+GUI Last login               | No
+Detection of malcious device | Yes
 
 <br>
 
