@@ -39,7 +39,7 @@ DEPENDENCY_COMMAND_MAP = {
     "libnetfilter-queue-dev": {"debian": "sudo apt-get install "
                                          "build-essential python-dev "
                                          "libnetfilter-queue-dev"},
-    "clamav": {"debian" : "sudo apt-get install clamav"}
+    "clamav": {"debian": "sudo apt-get install clamav"}
 }
 
 
@@ -145,7 +145,10 @@ def verify_installation(output):
     Returns:
         TYPE: bool
     """
-    found = re.findall(r'([0-9]+\supgraded).*([0-9]+\snewly installed)', output)
+    found = re.findall(
+        r'([0-9]+\supgraded).*([0-9]+\snewly installed)',
+        output
+    )
 
     upgraded = found[0][0]
     installed = found[0][1]
