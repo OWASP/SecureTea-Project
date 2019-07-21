@@ -900,6 +900,13 @@ SecureTea Firewall currently uses the following rules to filter the incoming tra
 - Monitor network usage
 - Monitor active CPU process
 
+**Generate report about the malicious IP address using OSINT tools**
+The report will contain the following fields:
+1. Reverse DNS
+2. Geo lookup
+3. WHOIS lookup
+4. Other important details 
+
 ## Intrusion Detection System
 SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities:
 
@@ -922,6 +929,13 @@ SecureTea Intrusion Detection System (IDS) deals with the following attack vecto
     - Hidden node attack
     - SSID spoofing
     - Fake access point
+   
+**Generate report about the malicious IP address using OSINT tools**
+The report will contain the following fields:
+1. Reverse DNS
+2. Geo lookup
+3. WHOIS lookup
+4. Other important details
     
 ## Insecure Headers
 Check/monitor the website for the followings:
@@ -980,6 +994,13 @@ The following suspicious activities/attacks can be detected:
 - User defined rules:
    - Filter based on selected IPs
    - Filter based on response code
+  
+**Generate report about the malicious IP address using OSINT tools**
+The report will contain the following fields:
+1. Reverse DNS
+2. Geo lookup
+3. WHOIS lookup
+4. Other important details
   
 ## Auto Server Patcher
 SecureTea Auto Server Patcher will patch the server configurations for highest security & help overcome common security deployment mistakes.
