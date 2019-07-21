@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.5
+    Version: 1.5.1
     Module: SecureTea
 
 Attributes:
@@ -131,7 +131,7 @@ def execute_command(command):
         success = False
 
     if success:
-        return output.decode("ascii")
+        return output.decode("utf-8")
     else:
         return None
 
@@ -238,7 +238,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.5',
+    version='1.5.1',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
