@@ -47,7 +47,23 @@ Read user guide [here](/doc/en-US/user_guide.md).
 	
    - [System Log Monitor](#system-log-monitor)
         - [Extending support for distributions](#extending-support-for-distributions)
+
+   - [Server Log Monitor](#server-log-monitor)
+      - [Extending support for more server log files (writing a parser)](#extending-support-for-more-server-log-files)
+      - [Extending server log support for more distributions](#extending-server-log-support-for-more-distributions)
+      - [Adding new rules](#adding-new-rules)
+
+   - [AntiVirus](#antivirus)
+      - [Integrating new scanner into ours](#integrating-new-scanner-into-ours)
+      - [Extending AntiVirus support for more OS](#extending-antivirus-support-for-more-os)
 	
+   - [Auto Server Patcher](#auto-server-patcher)
+        - [Adding new patching commands](#adding-new-patching-commands)
+        - [Editing patcher configurations](#editing-patcher-configurations)
+
+   - [Web Deface Detection](#web-deface-detection)
+      - [Extending deface detection support for more OS and servers](#extending-deface-detection-support-for-more-os-and-servers)
+   
    - [Running tests](#running-tests)
 
      - [Using unittest](#running-using-unittest)
@@ -404,6 +420,329 @@ elif os_name in ["new_os"]:
     return "distro_name" 
 else:  # if OS not in list
     return None
+```
+
+#### Server Log Monitor
+System log aggregator to disparate server log files, organize the useful data and apply intelligence to detect intrusion activities.
+
+- [Extending support for more server log files (writing a parser)](#extending-support-for-more-server-log-files)
+- [Extending server log support for more distributions](#extending-server-log-support-for-more-distributions)
+- [Adding new log rules](#adding-new-log-rules)
+
+Currently, the server log monitor supports the following log file types:
+
+- Apache
+- Nginx
+
+**The following suspicious activities/attacks can be detected:**
+
+- **Attacks**
+
+  - Denial of Service (DoS) attacks
+  - Cross site scripting (XSS) injection
+  - SQL injection (SQLi)
+  - Local file inclusion (LFI)
+  - Web shell injection
+  - Reconnaissance attacks
+
+  - Web crawlers / spiders / bots
+  - URL Fuzzing
+  - Port scans
+  - Bad user agents
+  - Log bad/suspicious IP (later on picked up by Firewall to block incoming request from that IP)
+
+- **User defined rules:**
+
+  - Filter based on selected IPs
+  - Filter based on response code
+
+##### Extending support for more server log files
+Adding a new parser is pretty easy and straight-forward to begin with. The basic outline of the parser goes like this.
+<br>
+```python
+class ParserName(object):
+    	def __init__(self, debug=False, path=None, window=30):
+		# define all the variables here
+		# take inspiration from the current parser
+		
+	def parse(self):
+		# use regex or any other option of your choice
+		# to parse the log file
+	
+  	def update_dict(self, ip, ep_time, get, status_code, user_agent):
+		# update the dict with the parsed (formatted data)
+```
+Add this parser to the `parser` directory. Keeping this in mind and taking inspiration from the current parsers is the best way to extend support for other server log files. Apart from this, please be sure to add you parser details to `engine.py`, after that it'll be automatically picked up for rest of the tasks.
+
+##### Extending server log support for more distributions
+Extending support for more distributions is easy, one needs to just add the corresponding log file path to the `mapping_dict` in `engine.py`, it goes like this.
+
+```python
+# OS to log file path mapping
+self.system_log_file_map = {
+	"apache": {
+	    "debian": "/var/log/apache2/access.log",
+	    "fedora": "/var/log/httpd/access_log",
+	    "freebsd": "/var/log/httpd-access.log"
+	},
+	"nginx": {
+	    "debian": "/var/log/nginx/access.log"
+	}
+}
+```
+Update the above mapping dict with the OS of your choice.
+
+##### Adding new log rules
+There are two types of rules, regex rules and payload rules. Both of them are stored in `.txt` format in the `rules` directory. To extend the rules, one just needs to add new rules (both regex and payload) to the corresponding file, which can be easily done using a text editor. It's that simple to add a rule, the processing engine will load all the rules automatically.
+
+#### AntiVirus
+
+- [Integrating new scanner into ours](#integrating-new-scanner-into-ours)
+- [Extending AntiVirus support for more OS](#extending-antivirus-support-for-more-os)
+
+SecureTea real-time signature & heuristic based antivirus.
+
+The following features are currently supported:
+
+1. **Auto fetch updates**: Smart update mechanism, that keeps track of the last update and resumes update from the last downloaded file. User can configure to **switch off** and **switch on** the auto-update feature.
+
+2. **Real-Time monitoring**: Scan as soon as a file is modified or a new file is added.
+
+3. **Scanner engine**: Scanner engine runs on **3 process**, they are as follows:
+   - **Hash** Signature scanner
+   - **Yara** Heuristic scanner
+   - **Clam AV** Scanner
+
+4. **YARA** rules can detect: 
+   - Viruses
+   - Worms
+   - Ransomware
+   - Adware
+   - Spyware
+   - Rootkits
+   - RATs
+
+5. Leveraging the power of **VirusTotal API**: Optional for users, provides an easy option for them to test for specific files against multiple anti-viruses & in a safe sandbox environment, i.e. after a file is detected malicious, the file will be put under VirusTotal test for a final confirmation.
+
+6. Monitor **orphaned files**: Use SUID, SGID and read capabilities in Linux to separate orphaned files and check if any file is granted more capabilities than it should be.
+
+7. Keeps an eye on **USB devices**: Start scanning the USB device as soon as it is plugged in & report for any virus/malware found.
+
+8. Cleaning the found files: Opt for either **auto-delete** or **manual** delete option, in auto-delete the file found malicious is automatically deleted, whereas in manual it requires the confirmation of the user.
+
+9. **Custom** and **Full** scan options
+
+##### Integrating new scanner into ours
+To integrate a new scanner project into ours follow along. You need to worry about multi-threading and multi-processing, these will be handled by the `Scanner` parent (base) class. To do this, create a new scanner file and inherit the `Scanner` class. An example would be:
+
+```python
+from securetea.lib.antivirus.scanner.scanner_parent import Scanner
+
+class NewScanner(Scanner):
+	def __init__(self, debug=False, config_path=None, file_list=None, vt_api_key=None):
+		# Initialize parent class
+		super().__init__(debug, config_path, file_list, vt_api_key)
+		# Perform rest of your operations
+	
+	def scan_file(self, file_path):
+		# Peform the logic to scan the file
+		# and log the results
+```
+To get a more clear understanding of this, take inspiration from rest of the scanner engines.
+
+##### Extending AntiVirus support for more OS
+To extend support for more OS, add the OS category name to the following `config.json` in config directory and the required variables to it, rest will be automatically picked by the engine.
+
+```json
+{
+	"debian": {
+		"update": {
+			"hash": {
+				"storage": "/etc/securetea/antivirus/md5_hash/"
+			},
+			"yara": {
+				"storage": "/etc/securetea/antivirus/yara/"
+			}
+		},
+		"scanner": {
+			"malicious_file_log_path": "/etc/securetea/antivirus/malicious_files.log",
+			"hash": {
+				"threads": 2
+			},
+			"yara": {
+				"threads": 2
+			},
+			"clamav": {
+				"threads": 2
+			}
+		},
+		"monitor": {
+			"threshold_min": 20,
+			"password_log_file": "/etc/passwd"
+		}
+	}
+}
+```
+
+#### Auto Server Patcher
+
+- [Adding new patching commands](#adding-new-patching-commands)
+- [Editing patcher configurations](#editing-patcher-configurations)
+
+SecureTea Auto Server Patcher will patch the server configurations for highest security & help overcome common security deployment mistakes.
+
+The following features are currently supported:
+
+- Auto update packages
+
+- Set password expiration & password strength rules
+
+- Check for rootkits
+
+- Auto remove discarded package
+
+- Enhance **IP TABLE** rules:
+  - Force SYN packets check
+  - Drop XMAS packets
+  - Drop null packets
+  - Drop incoming packets with fragments
+
+- Configure **`/etc/sysctl.conf`**
+  - Disable IP forwarding & IP source routing
+  - Disable sent packets redirects
+  - Disable ICMP redirect acceptance
+  - Enable IP spoofing protection
+  - Enable bad error message protection
+
+- Patch **Apache** server configurations
+  - Prevent server from broadcasting version number
+  - Turn off TRACE method to prevent Cross-Site Scripting
+  -  X-powered by headers
+
+- Configure **SSH**
+  -  Disallow root access via SSH
+  -  Disallow SSH from trusting a host based only on its IP
+  -  Prevent users from logging into SSH with an empty password
+  -  Sop the possibility of the server sending commands back to the client
+  -  Drop the SSH connection after 5 failed authorization attempts
+  -  Disable weak ciphers
+  -  Disables password authentication and defers authorization to the key-based PAM
+  -  Log out idle users after 15 minutes
+  - Configure server checks whether the session is active before dropping
+
+- List all the possible **SSL** vulnerabilities in the server using SSL Labs API
+  - Beast attack
+  -  Poodle
+  - Poodle TLS
+  - RC4
+  - Heartbeat
+  - Heartbleed
+  - Ticketbleed
+  - OpenSSL CCS
+  - OpenSSL padding
+  - Robot attack
+  - Freak
+  - Logjam
+  - Drown attack
+  
+##### Adding new patching commands
+The current list of commands can be extracted from the `commands.json` file. The current version is the following:
+```json
+{
+	"debian": {
+		"commands": [
+			"iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP",
+			"iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP",
+			"iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP",
+			"iptables -A INPUT -f -j DROP",
+			"apt-get update",
+			"apt-get autoremove",
+			"apt-get remove telnet",
+			"chkrootkit"
+		]
+	}
+}
+```
+To add a new command, just add the command to the list of commands for the respected OS. Also, to extend support for other OS, add the list of commands for that OS under the respected OS key.
+
+##### Editing patcher configurations
+The following is the current patcher configuration. To modify a command and it's new value edit the following configuration file. Same can be done to extend support for more OS.
+```json
+{
+	"debian": {
+		"/etc/sysctl.conf": {
+			"sep": "=",
+			"config": {
+				"net.ipv4.ip_forward": "0",
+				"net.ipv4.conf.all.send_redirects": "0",
+				"net.ipv4.conf.default.send_redirects": "0",
+				"net.ipv4.conf.all.accept_redirects": "0",
+				"net.ipv4.conf.default.accept_redirects": "0",
+				"net.ipv4.icmp_ignore_bogus_error_responses": "1"
+			}
+		},
+		"/etc/apache2/apache2.conf": {
+			"sep": " ",
+			"config": {
+				"ServerTokens": "Prod",
+				"ServerSignature": "Off",
+				"Header always unset X-Powered-By": " ",
+				"TraceEnable": "Off"
+			}
+		},
+		"/etc/ssh/ssh_config": {
+			"sep": " ",
+			"config": {
+				"PermitRootLogin": "no",
+				"IgnoreRhosts": "yes",
+				"HostbasedAuthentication": "no",
+				"PermitEmptyPasswords": "no",
+				"X11Forwarding": "no",
+				"MaxAuthTries": "5",
+				"Ciphers": "aes128-ctr,aes192-ctr,aes256-ctr",
+				"UsePAM": "yes",
+				"ClientAliveInterval": "900",
+				"ClientAliveCountMax": "0"
+			}
+		},
+		"/etc/login.defs": {
+			"sep": " ",
+			"config": {
+				"PASS_MAX_DAYS": "30",
+				"PASS_MIN_DAYS": "0",
+				"PASS_WARN_AGE": "7"
+			}
+		}
+	}
+}
+```
+
+#### Web Deface Detection
+
+- [Extending deface detection support for more OS and servers](#extending-deface-detection-support-for-more-os-and-servers)
+
+Monitor server files to detect any changes, roll back to default in case of defacement.
+
+**Features:**
+1. Auto locate the server files based on the user choice of server (i.e. Apache, Nginx, etc.) and the operating system detected.
+
+2. Allow user to overwrite the above default auto-located file path and use their custom file path.
+
+3. Scan the directory for files and generate a cache / backup of the files.
+
+4. Generate SHA 256 hashes of each file and use them for comparison.
+
+SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
+
+##### Extending deface detection support for more OS and servers
+The following servers and the OS are supported, to add new servers and OS, extend the below configuration accordingly.
+```json
+{
+	"debian": {
+		"apache": "/var/www/html",
+		"nginx": "/usr/share/nginx/html"
+	}
+}
 ```
 
 #### Running tests
