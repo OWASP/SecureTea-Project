@@ -3,6 +3,7 @@ import unittest
 from securetea.lib.ids.r2l_rules.ping_of_death import PingOfDeath
 import scapy.all as scapy
 from securetea.logger import SecureTeaLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -31,11 +32,13 @@ class TestPingOfDeath(unittest.TestCase):
         # Initialize PingOfDeath object
         self.ping_of_death = PingOfDeath()
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch.object(SecureTeaLogger, 'log')
-    def test_detect(self, mock_log):
+    def test_detect(self, mock_log, mck_osint):
         """
         Test detect_ping_of_death.
         """
+        mck_osint.return_value = True
         # Case 1: Non suspicious packet
         self.ping_of_death.detect(self.pkt1)
         self.assertFalse(mock_log.called)

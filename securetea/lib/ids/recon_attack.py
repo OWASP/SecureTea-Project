@@ -15,6 +15,7 @@ import sys
 import scapy.all as scapy
 import time
 from securetea import logger
+from securetea.lib.osint.osint import OSINT
 
 
 class DetectRecon(object):
@@ -76,6 +77,9 @@ class DetectRecon(object):
         self.xmas_scan = dict()
         self.null_scan = dict()
         self.os_scan = dict()
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def detect_tcp_ack(self, packet=None):
         """
@@ -480,6 +484,8 @@ class DetectRecon(object):
                     new_msg,
                     logtype="warning"
                 )
+                # Generate CSV report using OSINT tools
+                self.osint_obj.perform_osint_scan(str(key).strip(" "))
 
     def run(self, packet):
         """
