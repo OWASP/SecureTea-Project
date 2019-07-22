@@ -2,6 +2,7 @@
 import unittest
 from securetea.lib.log_monitor.server_log.detect.attacks.sqli import SQLi
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -34,14 +35,16 @@ class TestSQLi(unittest.TestCase):
             }
         }
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.sqli.utils")
     @patch.object(ServerLogger, "log")
     @patch.object(SQLi, "regex_check")
     @patch.object(SQLi, "payload_match")
-    def test_detect_sqli(self, mck_pm, mck_rc, mock_log, mck_utils):
+    def test_detect_sqli(self, mck_pm, mck_rc, mock_log, mck_utils, mck_osint):
         """
         Test detect_sqli.
         """
+        mck_osint.return_value = True
         mck_utils.write_ip.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
 

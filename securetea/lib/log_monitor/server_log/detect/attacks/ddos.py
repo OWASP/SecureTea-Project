@@ -13,6 +13,7 @@ Project:
 
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
 from securetea.lib.log_monitor.server_log import utils
+from securetea.lib.osint.osint import OSINT
 
 
 class DDoS(object):
@@ -43,6 +44,9 @@ class DDoS(object):
 
         # List of IPs
         self.SISP_LIST = list()
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def detect_ddos(self, data):
         """
@@ -83,6 +87,8 @@ class DDoS(object):
                 )
                 if ip not in self.SISP_LIST:
                     self.SISP_LIST.append(ip)
+                    # Generate CSV report using OSINT tools
+                    self.osint_obj.perform_osint_scan(ip.strip(" "))
 
             if len(self.SISP_LIST) > self._SIMP_THRESHOLD:  # if no. of SISP is huge
                 for ip in self.SISP_LIST:
