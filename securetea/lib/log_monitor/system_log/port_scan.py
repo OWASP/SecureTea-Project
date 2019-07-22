@@ -15,6 +15,7 @@ Project:
 import re
 from securetea import logger
 from securetea.lib.log_monitor.system_log import utils
+from securetea.lib.osint.osint import OSINT
 import time
 
 
@@ -72,6 +73,9 @@ class PortScan(object):
 
         # Set threshold to 5 attempts per second to detect port scan
         self.THRESHOLD = 5  # inter = 0.2
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def parse_log_file(self):
         """
@@ -165,6 +169,8 @@ class PortScan(object):
                     msg,
                     logtype="warning"
                 )
+                # Generate CSV report using OSINT tools
+                self.osint_obj.perform_osint_scan(ip.split(self.SALT)[0].strip(" "))
 
     def run(self):
         """

@@ -2,6 +2,7 @@
 import unittest
 from securetea.lib.log_monitor.system_log.ssh_login import SSHLogin
 from securetea.logger import SecureTeaLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -55,13 +56,15 @@ class TestSSHLogin(unittest.TestCase):
         }
         self.assertEqual(temp_dict, self.ssh_login_obj.username_dict[hashed_username])
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
     @patch.object(SecureTeaLogger, "log")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.time')
-    def test_check_ssh_bruteforce(self, mock_time, mock_log, mock_utils):
+    def test_check_ssh_bruteforce(self, mock_time, mock_log, mock_utils, mck_osint):
         """
         Test check_ssh_bruteforce.
         """
+        mck_osint.return_value = True
         mock_utils.categorize_os.return_value = self.os
         # Create SSHLogin object
         self.ssh_login_obj = SSHLogin()
