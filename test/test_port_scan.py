@@ -2,6 +2,7 @@
 import unittest
 from securetea.lib.log_monitor.system_log.port_scan import PortScan
 from securetea.logger import SecureTeaLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -55,13 +56,15 @@ class TestPortScan(unittest.TestCase):
         self.assertEqual(self.port_scan_obj.ip_dict[hashed_ip],
                          temp_dict)
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
     @patch("securetea.lib.log_monitor.system_log.port_scan.time")
     @patch.object(SecureTeaLogger, "log")
-    def test_detect_port_scan(self, mock_log, mock_time, mock_utils):
+    def test_detect_port_scan(self, mock_log, mock_time, mock_utils, mck_osint):
         """
         Test detect_port_scan.
         """
+        mck_osint.return_value = True
         mock_utils.categorize_os.return_value = self.os
         # Create PortScan object
         self.port_scan_obj = PortScan()

@@ -15,6 +15,7 @@ Project:
 import re
 from securetea import logger
 from securetea.lib.log_monitor.system_log import utils
+from securetea.lib.osint.osint import OSINT
 import time
 
 
@@ -73,6 +74,9 @@ class SSHLogin(object):
 
         # Set threshold to 5 attempts per second to detect brute-force
         self.THRESHOLD = 5  # inter = 0.2
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def parse_log_file(self):
         """
@@ -178,6 +182,8 @@ class SSHLogin(object):
                         msg,
                         logtype="warning"
                     )
+                    # Generate CSV report using OSINT tools
+                    self.osint_obj.perform_osint_scan(self.username_dict[user]["ip"][0].strip(" "))
                 else:
                     for ip in self.username_dict[user]["ip"]:
                         msg = "Possible SSH brute force detected for the user: " + \
@@ -187,6 +193,8 @@ class SSHLogin(object):
                             msg,
                             logtype="warning"
                         )
+                        # Generate CSV report using OSINT tools
+                        self.osint_obj.perform_osint_scan(ip.strip(" "))
 
     def run(self):
         """
