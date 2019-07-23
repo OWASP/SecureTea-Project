@@ -3,6 +3,7 @@ import unittest
 from securetea.lib.ids.recon_attack import DetectRecon
 import scapy.all as scapy
 from securetea.logger import SecureTeaLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -32,13 +33,14 @@ class TestDetectRecon(unittest.TestCase):
         # Create a scapy packet out of payload
         self.scapy_pkt = scapy.IP(self.payload)
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch.object(SecureTeaLogger, 'log')
     @patch("securetea.lib.ids.recon_attack.time.time")
-    def test_calc_intrusion(self, mock_time, mock_log):
+    def test_calc_intrusion(self, mock_time, mock_log, mck_osint):
         """
         Test calc_intrusion.
         """
-
+        mck_osint.return_value = True
         mock_time.return_value = 1557832260.793729
 
         # Case 1: When (count < threshold_count) and
@@ -98,11 +100,12 @@ class TestDetectRecon(unittest.TestCase):
         mock_log.assert_called_with('TCP ACK Scan detected from IP: 127.0.0.2',
                                     logtype='warning')
 
-    def test_detect_tcp_ack(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_tcp_ack(self, mck_calc_intrusion):
         """
         Test detect_tcp_ack.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attacks
         # Case 1: When packet has ACK flag and is spanning
         # across multiple ports
@@ -143,11 +146,12 @@ class TestDetectRecon(unittest.TestCase):
         # it should not exceed the last length
         self.assertEqual(len(self.recon_obj.tcp_ack), 2)
 
-    def test_detect_fin_scan(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_fin_scan(self, mck_calc_intrusion):
         """
         Test detect_fin_scan.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attack
         # Case 1: When packet has FIN flag and is spanning
         # across multiple ports
@@ -188,11 +192,12 @@ class TestDetectRecon(unittest.TestCase):
         # it should not exceed the last length
         self.assertEqual(len(self.recon_obj.fin_scan), 2)
 
-    def test_detect_null_scan(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_null_scan(self, mck_calc_intrusion):
         """
         Test detect_null_scan.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attack
         # Case 1: When packet has None flag and is spanning
         # across multiple ports
@@ -234,11 +239,12 @@ class TestDetectRecon(unittest.TestCase):
         # it should not exceed the last length
         self.assertEqual(len(self.recon_obj.null_scan), 2)
 
-    def test_detect_xmas_scan(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_xmas_scan(self, mck_calc_intrusion):
         """
         Test detect_xmas_scan.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attack
         # Case 1: When packet has FPU flag and is spanning
         # across multiple ports
@@ -280,11 +286,12 @@ class TestDetectRecon(unittest.TestCase):
         # it should not exceed the last length
         self.assertEqual(len(self.recon_obj.xmas_scan), 2)
 
-    def test_detect_os_scan(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_os_scan(self, mck_calc_intrusion):
         """
         Test detect_os_scan.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attacks
         # Case 1: When packet has FSflag and is spanning
         # across multiple ports
@@ -326,11 +333,12 @@ class TestDetectRecon(unittest.TestCase):
         # it should not exceed the last length
         self.assertEqual(len(self.recon_obj.os_scan), 2)
 
-    def test_detect_udp_scan(self):
+    @patch.object(DetectRecon, "calc_intrusion")
+    def test_detect_udp_scan(self, mck_calc_intrusion):
         """
         Test detect_udp_scan.
         """
-
+        mck_calc_intrusion.return_value = True
         # Replicate attacks
         # Case 1: When packet has UDP frame
         packet_bundle = []

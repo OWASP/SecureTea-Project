@@ -11,6 +11,7 @@ Project:
 """
 import scapy.all as scapy
 from securetea import logger
+from securetea.lib.osint.osint import OSINT
 
 
 class PingOfDeath(object):
@@ -37,6 +38,9 @@ class PingOfDeath(object):
 
         # Initialize threshold
         self._THRESHOLD = 60000
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def detect(self, pkt):
         """
@@ -67,3 +71,5 @@ class PingOfDeath(object):
                         msg,
                         logtype="warning"
                     )
+                    # Generate CSV report using OSINT tools
+                    self.osint_obj.perform_osint_scan(source_ip.strip(" "))
