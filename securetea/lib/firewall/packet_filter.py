@@ -15,6 +15,7 @@ import scapy.all as scapy
 from securetea import logger
 from securetea.lib.firewall import utils
 from scapy.utils import PcapWriter
+from securetea.lib.osint.osint import OSINT
 
 
 class PacketFilter(object):
@@ -85,6 +86,8 @@ class PacketFilter(object):
         self.pktdump = PcapWriter("blocked.pcap",
                                   append=True,
                                   sync=True)
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     @utils.xnor
     def inbound_IPRule(self, scapy_pkt):
@@ -767,4 +770,8 @@ class PacketFilter(object):
             )
             # PCAP dumping of rejected packets
             self.pktdump.write(scapy_pkt)
+            # Generate report using OSINT tools
+            src_ip = scapy_pkt[scapy.IP].src
+            src_ip = src_ip.strip(" ")
+            self.osint_obj.perform_osint_scan(src_ip)
             return 0
