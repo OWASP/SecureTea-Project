@@ -55,7 +55,7 @@ class CrossSite(object):
 
         # Initialize OSINT object
         self.osint_obj = OSINT(debug=debug)
-        
+
     def detect_xss(self, data):
         """
         Detect possible Cross Site Scripting (XSS) attacks.
