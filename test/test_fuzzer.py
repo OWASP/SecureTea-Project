@@ -2,6 +2,7 @@
 import unittest
 from securetea.lib.log_monitor.server_log.detect.recon.fuzzer import FuzzerDetect
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -61,12 +62,14 @@ class TestFuzzer(unittest.TestCase):
         res = self.fuzzer_obj.count_failure(status_code)
         self.assertEqual(res, 0)
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.recon.fuzzer.utils")
     @patch.object(ServerLogger, "log")
-    def test_detect_fuzzer(self, mock_log, mck_utils):
+    def test_detect_fuzzer(self, mock_log, mck_utils, mck_osint):
         """
         Test detect_fuzzer.
         """
+        mck_osint.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
         mck_utils.write_ip.return_value = True
 

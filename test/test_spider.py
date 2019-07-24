@@ -2,6 +2,7 @@
 import unittest
 from securetea.lib.log_monitor.server_log.detect.recon.spider import SpiderDetect
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
+from securetea.lib.osint.osint import OSINT
 
 try:
     # if python 3.x.x
@@ -34,13 +35,15 @@ class TestSpiderDetect(unittest.TestCase):
             }
         }
 
+    @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.recon.spider.utils")
     @patch.object(SpiderDetect, "payload_match")
     @patch.object(ServerLogger, "log")
-    def test_detect_spider(self, mock_log, mck_pm, mck_utils):
+    def test_detect_spider(self, mock_log, mck_pm, mck_utils, mck_osint):
         """
         Test detect_spider.
         """
+        mck_osint.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
         mck_utils.write_ip.return_value = True
 

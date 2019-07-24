@@ -13,6 +13,7 @@ Project:
 
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
 from securetea.lib.log_monitor.server_log import utils
+from securetea.lib.osint.osint import OSINT
 
 
 class SpiderDetect(object):
@@ -48,6 +49,9 @@ class SpiderDetect(object):
 
         # List of IPs
         self.logged_IP = list()
+
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
     def detect_spider(self, data):
         """
@@ -90,6 +94,8 @@ class SpiderDetect(object):
                         logtype="warning"
                     )
                     utils.write_ip(str(ip))
+                    # Generate CSV report using OSINT tools
+                    self.osint_obj.perform_osint_scan(ip.strip(" "))
 
     def payload_match(self, user_agent):
         """
