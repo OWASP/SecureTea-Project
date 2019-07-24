@@ -385,6 +385,6 @@ class TestPacket_Filter(unittest.TestCase):
         self.assertEqual(result, 0)
 
         # Case 2: When IP is not in malicious IP list, allow packet
-        pkt = scapy.IP(src="0.0.0.0")
+        pkt = scapy.IP(src="2.2.2.2")
         result = self.pf1.check_mal_ip(pkt)
         self.assertEqual(result, 1)
