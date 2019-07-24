@@ -28,7 +28,7 @@ class FirewallEngine(object):
         Call PacketFilter and Monitor.
     """
 
-    def __init__(self, cred, debug=False):
+    def __init__(self, cred, debug=False, test=False):
         """Initialize FirewallEngine."""
 
         self.cred = cred
@@ -86,7 +86,8 @@ class FirewallEngine(object):
                                             action_HTTPResponse=self.action_HTTPResponse,
                                             action_HTTPRequest=self.action_HTTPRequest,
                                             action_protocolRule=self.action_protocolRule,
-                                            action_scanLoad=self.action_scanLoad)
+                                            action_scanLoad=self.action_scanLoad,
+                                            test=test)
 
         # Setup Montior object
         self.monitorObj = FirewallMonitor(interface=self.interface,

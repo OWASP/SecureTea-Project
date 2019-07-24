@@ -33,13 +33,15 @@ class TestDetectRecon(unittest.TestCase):
         # Create a scapy packet out of payload
         self.scapy_pkt = scapy.IP(self.payload)
 
+    @patch("securetea.lib.ids.recon_attack.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch.object(SecureTeaLogger, 'log')
     @patch("securetea.lib.ids.recon_attack.time.time")
-    def test_calc_intrusion(self, mock_time, mock_log, mck_osint):
+    def test_calc_intrusion(self, mock_time, mock_log, mck_osint, mck_wm_ip):
         """
         Test calc_intrusion.
         """
+        mck_wm_ip.return_value = True
         mck_osint.return_value = True
         mock_time.return_value = 1557832260.793729
 

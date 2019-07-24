@@ -325,3 +325,23 @@ def get_interface():
     )
 
     return interfaces[intf]
+
+
+def open_file(file_path):
+    """
+    Open file and return the contents as a list.
+
+    Args:
+        file_path (str): Path of the file
+
+    Raises:
+        None
+
+    Returns:
+        TYPE: list
+    """
+    try:
+        with open(file_path, "r") as rf:
+            return rf.readlines()
+    except FileNotFoundError:
+        return []

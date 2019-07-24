@@ -12,6 +12,7 @@ Project:
 import scapy.all as scapy
 from securetea import logger
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 
 
 class PingOfDeath(object):
@@ -73,3 +74,5 @@ class PingOfDeath(object):
                     )
                     # Generate CSV report using OSINT tools
                     self.osint_obj.perform_osint_scan(source_ip.strip(" "))
+                    # Write malicious IP to file
+                    write_mal_ip(str(source_ip).strip(" "))

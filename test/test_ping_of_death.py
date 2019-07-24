@@ -32,12 +32,14 @@ class TestPingOfDeath(unittest.TestCase):
         # Initialize PingOfDeath object
         self.ping_of_death = PingOfDeath()
 
+    @patch("securetea.lib.ids.r2l_rules.ping_of_death.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch.object(SecureTeaLogger, 'log')
-    def test_detect(self, mock_log, mck_osint):
+    def test_detect(self, mock_log, mck_osint, mck_wm_ip):
         """
         Test detect_ping_of_death.
         """
+        mck_wm_ip.return_value = True
         mck_osint.return_value = True
         # Case 1: Non suspicious packet
         self.ping_of_death.detect(self.pkt1)

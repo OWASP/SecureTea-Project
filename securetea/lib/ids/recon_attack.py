@@ -16,6 +16,7 @@ import scapy.all as scapy
 import time
 from securetea import logger
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 
 
 class DetectRecon(object):
@@ -486,6 +487,8 @@ class DetectRecon(object):
                 )
                 # Generate CSV report using OSINT tools
                 self.osint_obj.perform_osint_scan(str(key).strip(" "))
+                # Write malicious IP to file
+                write_mal_ip(str(key).strip(" "))
 
     def run(self, packet):
         """

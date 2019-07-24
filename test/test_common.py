@@ -60,3 +60,11 @@ class TestCommon(unittest.TestCase):
         test_msg = "Location: random (IP: 10.10.10.10 )"
         msg_gen = common.get_current_location()
         self.assertEqual(test_msg, msg_gen)
+
+    @patch("securetea.common.open")
+    def test_write_mal_ip(self, mck_open):
+        """
+        Test write_mal_ip.
+        """
+        common.write_mal_ip("10.0.0.0")
+        mck_open.assert_called_with('/etc/securetea/mal_ip.txt', 'a')
