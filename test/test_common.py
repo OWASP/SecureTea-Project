@@ -61,8 +61,9 @@ class TestCommon(unittest.TestCase):
         msg_gen = common.get_current_location()
         self.assertEqual(test_msg, msg_gen)
 
+    @staticmethod
     @patch("securetea.common.open")
-    def test_write_mal_ip(self, mck_open):
+    def test_write_mal_ip(mck_open):
         """
         Test write_mal_ip.
         """
