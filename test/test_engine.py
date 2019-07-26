@@ -53,7 +53,7 @@ class TestEngine(unittest.TestCase):
               "time_ub": "23:59"
             },
         }
-        self.engine1 = engine.FirewallEngine(cred=self.cred, debug=False)
+        self.engine1 = engine.FirewallEngine(cred=self.cred, debug=False, test=True)
 
     def test_parse_inbound_IPRule(self):
         """

@@ -3,6 +3,12 @@ import unittest
 from securetea.lib.firewall import utils
 import os
 
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
+
 
 class TestUtils(unittest.TestCase):
     """Test class for utils module."""
@@ -143,3 +149,12 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(check2, 1)
         self.assertEqual(check3, 1)
         self.assertEqual(check4, 0)
+
+    @staticmethod
+    @patch("securetea.lib.firewall.utils.open")
+    def test_open_file(mck_open):
+        """
+        Test open_file.
+        """
+        utils.open_file("random-file-path")
+        mck_open.assert_called_with('random-file-path', 'r')

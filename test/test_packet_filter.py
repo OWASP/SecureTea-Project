@@ -3,6 +3,12 @@ import unittest
 from securetea.lib.firewall.packet_filter import PacketFilter
 import scapy.all as scapy
 
+try:
+    # if python 3.x.x
+    from unittest.mock import patch
+except ImportError:  # python 2.x.x
+    from mock import patch
+
 
 class TestPacket_Filter(unittest.TestCase):
     """Test class for PacketFilter module."""
@@ -16,7 +22,7 @@ class TestPacket_Filter(unittest.TestCase):
                       x80\x10\x00\xf5\xe7B\x00\x00\x01\x01\x08\n\xeb7\xc9\
                       xa6bjc\xed"""
 
-        self.pf1 = PacketFilter()
+        self.pf1 = PacketFilter(test=True)
         self.scapy_pkt = scapy.IP(payload)
 
     def test_inbound_IPRule(self):
@@ -364,4 +370,21 @@ class TestPacket_Filter(unittest.TestCase):
                       flags="MF",
                       frag=20)
         result = self.pf1.icmp_fragmentation_attack(pkt)
+        self.assertEqual(result, 1)
+
+    @patch("securetea.lib.firewall.packet_filter.utils.open_file")
+    def test_check_mal_ip(self, mck_open):
+        """
+        Test check_mal_ip.
+        """
+        mck_open.return_value = ["1.1.1.1"]
+
+        # Case 1: When IP is in malicious IP list, block packet
+        pkt = scapy.IP(src="1.1.1.1")
+        result = self.pf1.check_mal_ip(pkt)
+        self.assertEqual(result, 0)
+
+        # Case 2: When IP is not in malicious IP list, allow packet
+        pkt = scapy.IP(src="2.2.2.2")
+        result = self.pf1.check_mal_ip(pkt)
         self.assertEqual(result, 1)

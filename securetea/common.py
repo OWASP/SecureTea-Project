@@ -91,3 +91,24 @@ def get_current_location():
     # Generate message
     msg = "Location: " + address + " (IP: " + ip + " )"
     return msg
+
+
+def write_mal_ip(ip):
+    """
+    Write malicious IP address to common malicious
+    IP address file.
+
+    Args:
+        ip (str): Malicious IP to write
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    # Malicious IP file path
+    path = "/etc/securetea/mal_ip.txt"
+
+    with open(path, "a") as af:
+        af.write(ip.strip(" ") + "\n")
