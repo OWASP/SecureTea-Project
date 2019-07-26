@@ -62,13 +62,15 @@ class TestFuzzer(unittest.TestCase):
         res = self.fuzzer_obj.count_failure(status_code)
         self.assertEqual(res, 0)
 
+    @patch("securetea.lib.log_monitor.server_log.detect.recon.fuzzer.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.recon.fuzzer.utils")
     @patch.object(ServerLogger, "log")
-    def test_detect_fuzzer(self, mock_log, mck_utils, mck_osint):
+    def test_detect_fuzzer(self, mock_log, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_fuzzer.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
         mck_utils.write_ip.return_value = True
@@ -81,3 +83,4 @@ class TestFuzzer(unittest.TestCase):
         self.fuzzer_obj.detect_fuzzer(self.data_2)
         mock_log.assert_called_with('Possible URL fuzzing detected from: 1.1.1.1 on: random_date',
                                     logtype='warning')
+        mck_wmip.assert_called_with("1.1.1.1")

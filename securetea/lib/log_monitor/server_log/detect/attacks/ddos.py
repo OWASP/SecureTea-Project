@@ -14,6 +14,7 @@ Project:
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
 from securetea.lib.log_monitor.server_log import utils
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 
 
 class DDoS(object):
@@ -89,6 +90,8 @@ class DDoS(object):
                     self.SISP_LIST.append(ip)
                     # Generate CSV report using OSINT tools
                     self.osint_obj.perform_osint_scan(ip.strip(" "))
+                    # Write malicious IP to file, to teach Firewall about the IP
+                    write_mal_ip(ip.strip(" "))
 
             if len(self.SISP_LIST) > self._SIMP_THRESHOLD:  # if no. of SISP is huge
                 for ip in self.SISP_LIST:

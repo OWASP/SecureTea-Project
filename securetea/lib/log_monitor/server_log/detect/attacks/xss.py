@@ -14,6 +14,7 @@ Project:
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
 from securetea.lib.log_monitor.server_log import utils
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 
 import re
 
@@ -91,6 +92,8 @@ class CrossSite(object):
                     utils.write_ip(str(ip))
                     # Generate CSV report using OSINT tools
                     self.osint_obj.perform_osint_scan(ip.strip(" "))
+                    # Write malicious IP to file, to teach Firewall about the IP
+                    write_mal_ip(ip.strip(" "))
 
     def payload_match(self, get_req):
         """

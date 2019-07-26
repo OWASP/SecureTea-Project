@@ -48,13 +48,15 @@ class TestDDoS(unittest.TestCase):
             }
         }
 
+    @patch("securetea.lib.log_monitor.server_log.detect.attacks.ddos.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.ddos.utils")
     @patch.object(ServerLogger, "log")
-    def test_detect_ddos(self, mock_log, mck_utils, mck_osint):
+    def test_detect_ddos(self, mock_log, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_ddos.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.epoch_to_date.return_value = "2019-06-14 20:26:40"
         # Case 1: No DoS
@@ -65,3 +67,4 @@ class TestDDoS(unittest.TestCase):
         self.ddos_obj.detect_ddos(self.data_2)
         mock_log.assert_called_with('Possible Single IP DoS Attack Detected from: 1.1.1.1 on: 2019-06-14 20:26:40',
                                     logtype='warning')
+        mck_wmip.assert_called_with("1.1.1.1")

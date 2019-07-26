@@ -35,14 +35,16 @@ class TestWebShell(unittest.TestCase):
             }
         }
 
+    @patch("securetea.lib.log_monitor.server_log.detect.attacks.web_shell.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.web_shell.utils")
     @patch.object(ServerLogger, "log")
     @patch.object(WebShell, "payload_match")
-    def test_detect_web_shell(self, mck_pm, mock_log, mck_utils, mck_osint):
+    def test_detect_web_shell(self, mck_pm, mock_log, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_web_shell.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.write_ip.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
@@ -56,6 +58,7 @@ class TestWebShell(unittest.TestCase):
         self.web_shell_obj.detect_web_shell(self.data)
         mock_log.assert_called_with('Possible web shell detected from: 1.1.1.1 on: random_date',
                                     logtype='warning')
+        mck_wmip.assert_called_with("1.1.1.1")
 
     def test_payload_match(self):
         """

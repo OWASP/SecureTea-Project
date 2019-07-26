@@ -35,15 +35,17 @@ class TestCrossSite(unittest.TestCase):
             }
         }
 
+    @patch("securetea.lib.log_monitor.server_log.detect.attacks.xss.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.xss.utils")
     @patch.object(ServerLogger, "log")
     @patch.object(CrossSite, "regex_check")
     @patch.object(CrossSite, "payload_match")
-    def test_detect_xss(self, mck_pm, mck_rc, mock_log, mck_utils, mck_osint):
+    def test_detect_xss(self, mck_pm, mck_rc, mock_log, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_xss.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.write_ip.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
@@ -59,6 +61,7 @@ class TestCrossSite(unittest.TestCase):
         self.xss_obj.detect_xss(self.data)
         mock_log.assert_called_with('Possible Cross Site Scripting (XSS) detected from: 1.1.1.1 on: random_date',
                                     logtype='warning')
+        mck_wmip.assert_called_with("1.1.1.1")
 
     def test_regex_check(self):
         """

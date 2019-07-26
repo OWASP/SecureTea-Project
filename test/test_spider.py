@@ -35,14 +35,16 @@ class TestSpiderDetect(unittest.TestCase):
             }
         }
 
+    @patch("securetea.lib.log_monitor.server_log.detect.recon.spider.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.recon.spider.utils")
     @patch.object(SpiderDetect, "payload_match")
     @patch.object(ServerLogger, "log")
-    def test_detect_spider(self, mock_log, mck_pm, mck_utils, mck_osint):
+    def test_detect_spider(self, mock_log, mck_pm, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_spider.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
         mck_utils.write_ip.return_value = True
@@ -57,6 +59,7 @@ class TestSpiderDetect(unittest.TestCase):
         self.spider_obj.detect_spider(self.data)
         mock_log.assert_called_with("Possible web crawler / spider / bad user agent detected from: 1.1.1.1",
                                     logtype="warning")
+        mck_wmip.assert_called_with("1.1.1.1")
 
     def test_payload_match(self):
         """

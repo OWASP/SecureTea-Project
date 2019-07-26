@@ -35,15 +35,17 @@ class TestSQLi(unittest.TestCase):
             }
         }
 
+    @patch("securetea.lib.log_monitor.server_log.detect.attacks.sqli.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.sqli.utils")
     @patch.object(ServerLogger, "log")
     @patch.object(SQLi, "regex_check")
     @patch.object(SQLi, "payload_match")
-    def test_detect_sqli(self, mck_pm, mck_rc, mock_log, mck_utils, mck_osint):
+    def test_detect_sqli(self, mck_pm, mck_rc, mock_log, mck_utils, mck_osint, mck_wmip):
         """
         Test detect_sqli.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mck_utils.write_ip.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
@@ -59,6 +61,7 @@ class TestSQLi(unittest.TestCase):
         self.sqli_obj.detect_sqli(self.data)
         mock_log.assert_called_with('Possible SQL injection (sqli) detected from: 1.1.1.1 on: random_date',
                                     logtype='warning')
+        mck_wmip.assert_called_with("1.1.1.1")
 
     def test_regex_check(self):
         """
