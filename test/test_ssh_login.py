@@ -56,14 +56,16 @@ class TestSSHLogin(unittest.TestCase):
         }
         self.assertEqual(temp_dict, self.ssh_login_obj.username_dict[hashed_username])
 
+    @patch("securetea.lib.log_monitor.system_log.ssh_login.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.utils')
     @patch.object(SecureTeaLogger, "log")
     @patch('securetea.lib.log_monitor.system_log.ssh_login.time')
-    def test_check_ssh_bruteforce(self, mock_time, mock_log, mock_utils, mck_osint):
+    def test_check_ssh_bruteforce(self, mock_time, mock_log, mock_utils, mck_osint, mck_wmip):
         """
         Test check_ssh_bruteforce.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mock_utils.categorize_os.return_value = self.os
         # Create SSHLogin object
@@ -74,3 +76,4 @@ class TestSSHLogin(unittest.TestCase):
         self.ssh_login_obj.check_ssh_bruteforce()
         mock_log.assert_called_with('Possible SSH brute force detected for the user: ubnt from: 179.39.2.133 on: Jun 1',
                                     logtype='warning')
+        mck_wmip.assert_called_with("179.39.2.133")

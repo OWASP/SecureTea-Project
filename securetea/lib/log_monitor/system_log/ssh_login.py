@@ -16,6 +16,7 @@ import re
 from securetea import logger
 from securetea.lib.log_monitor.system_log import utils
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 import time
 
 
@@ -184,6 +185,8 @@ class SSHLogin(object):
                     )
                     # Generate CSV report using OSINT tools
                     self.osint_obj.perform_osint_scan(self.username_dict[user]["ip"][0].strip(" "))
+                    # Write malicious IP to file, to teach Firewall about the IP
+                    write_mal_ip(self.username_dict[user]["ip"][0].strip(" "))
                 else:
                     for ip in self.username_dict[user]["ip"]:
                         msg = "Possible SSH brute force detected for the user: " + \
@@ -195,6 +198,8 @@ class SSHLogin(object):
                         )
                         # Generate CSV report using OSINT tools
                         self.osint_obj.perform_osint_scan(ip.strip(" "))
+                        # Write malicious IP to file, to teach Firewall about the IP
+                        write_mal_ip(ip.strip(" "))
 
     def run(self):
         """
