@@ -43,25 +43,35 @@ Read user guide [here](/doc/en-US/user_guide.md).
        - [Using xnor decorator](#using-xnor-decorator)
       
    - [Intrusion Detection System](#intrusion-detection-system)
+
         - [Adding new rules](#adding-new-rules)
 	
    - [System Log Monitor](#system-log-monitor)
+   
         - [Extending support for distributions](#extending-support-for-distributions)
 
    - [Server Log Monitor](#server-log-monitor)
+   
       - [Extending support for more server log files (writing a parser)](#extending-support-for-more-server-log-files)
+      
       - [Extending server log support for more distributions](#extending-server-log-support-for-more-distributions)
+      
       - [Adding new rules](#adding-new-rules)
 
    - [AntiVirus](#antivirus)
+   
       - [Integrating new scanner into ours](#integrating-new-scanner-into-ours)
+      
       - [Extending AntiVirus support for more OS](#extending-antivirus-support-for-more-os)
 	
    - [Auto Server Patcher](#auto-server-patcher)
+   
         - [Adding new patching commands](#adding-new-patching-commands)
+	
         - [Editing patcher configurations](#editing-patcher-configurations)
 
    - [Web Deface Detection](#web-deface-detection)
+   
       - [Extending deface detection support for more OS and servers](#extending-deface-detection-support-for-more-os-and-servers)
    
    - [Running tests](#running-tests)
