@@ -16,6 +16,7 @@ import platform
 from securetea import logger
 import sys
 import json
+from securetea.configurations import SecureTeaConf
 
 
 def iterate_dict(config_dict, default):
@@ -143,6 +144,9 @@ class ArgsHelper(object):
         else:
             self.cred['debug'] = False
 
+        # Initialize SecureTeaConf
+        self.securetea_conf = SecureTeaConf()
+
         self.cred_provided = False
         self.twitter_provided = False
         self.telegram_provided = False
@@ -159,6 +163,7 @@ class ArgsHelper(object):
         self.web_deface_provided = False
         self.antivirus_provided = False
         self.iot_checker_provided = False
+        self.server_mode = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -630,6 +635,53 @@ class ArgsHelper(object):
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
 
+        if self.args.server_mode and not self.server_mode:
+            self.server_mode = True
+            config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): "))
+            if (config_decision.lower() == "Y" or
+                config_decision.lower() == "y"):
+                # Fetch credentials
+                creds = self.securetea_conf.get_creds(self.args)
+
+                if creds.get("firewall"):
+                    self.cred["firewall"] = creds["firewall"]
+                if creds.get("ids"):
+                    self.cred["ids"] = creds["ids"]
+                if creds.get("server_log"):
+                    self.cred["server_log"] = creds["server_log"]
+                if creds.get("auto_server_patcher"):
+                    self.cred["auto_server_patcher"] = creds["auto_server_patcher"]
+                if creds.get("web_deface"):
+                    self.cred["web_deface"] = creds["web_deface"]
+                if creds.get("antivirus"):
+                    self.cred["antivirus"] = creds["antivirus"]
+            else:
+                # Start interactive setup for Firewall
+                firewall = self.configureFirewall()
+                # Start interactive setup for IDS
+                ids = self.configureIDS()
+                # Start interactive setup for Server Log Monitor
+                server_log = self.configureServerLogMonitor()
+                # Start interactive setup for Auto Server Patcher
+                auto_server_patcher = self.configureAutoServerPatcher()
+                # Start interactive setup for Web Deface
+                web_deface = self.configureWebDeface()
+                # Start interactive setup for AntiVirus
+                antivirus = self.configureAntiVirus()
+
+                if firewall:
+                    self.cred["firewall"] = firewall
+                if ids:
+                    self.cred["ids"] = ids
+                if server_log:
+                    self.cred["server_log"] = server_log
+                if auto_server_patcher:
+                    self.cred["auto_server_patcher"] = auto_server_patcher
+                if web_deface:
+                    self.cred["web_deface"] = web_deface
+                if antivirus:
+                    self.cred["antivirus"] = antivirus
+
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
                 self.args.twitter_api_secret_key and
@@ -857,7 +909,8 @@ class ArgsHelper(object):
             self.auto_server_patcher_provided or
             self.web_deface_provided or
             self.antivirus_provided or
-            self.iot_checker_provided):
+            self.iot_checker_provided or
+            self.server_mode):
             self.cred_provided = True
 
         return {
@@ -877,5 +930,6 @@ class ArgsHelper(object):
             'auto_server_patcher_provided': self.auto_server_patcher_provided,
             'web_deface_provided': self.web_deface_provided,
             'antivirus_provided': self.antivirus_provided,
-            'iot_checker_provided': self.iot_checker_provided
+            'iot_checker_provided': self.iot_checker_provided,
+            'server_mode': self.server_mode
         }

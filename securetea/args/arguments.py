@@ -576,5 +576,12 @@ def get_args():
         help="IP address on which to perform operation"
     )
 
+    parser.add_argument(
+        '--server-mode',
+        required=False,
+        action="store_true",
+        help="Start SecureTea in server mode"
+    )
+
     args = parser.parse_args()
     return args
