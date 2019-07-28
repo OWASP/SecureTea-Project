@@ -16,6 +16,7 @@ import re
 from securetea import logger
 from securetea.lib.log_monitor.system_log import utils
 from securetea.lib.osint.osint import OSINT
+from securetea.common import write_mal_ip
 import time
 
 
@@ -171,6 +172,8 @@ class PortScan(object):
                 )
                 # Generate CSV report using OSINT tools
                 self.osint_obj.perform_osint_scan(ip.split(self.SALT)[0].strip(" "))
+                # Write malicious IP to file, to teach Firewall about the IP
+                write_mal_ip(ip.split(self.SALT)[0].strip(" "))
 
     def run(self):
         """

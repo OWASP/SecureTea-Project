@@ -56,14 +56,16 @@ class TestPortScan(unittest.TestCase):
         self.assertEqual(self.port_scan_obj.ip_dict[hashed_ip],
                          temp_dict)
 
+    @patch("securetea.lib.log_monitor.system_log.port_scan.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch('securetea.lib.log_monitor.system_log.port_scan.utils')
     @patch("securetea.lib.log_monitor.system_log.port_scan.time")
     @patch.object(SecureTeaLogger, "log")
-    def test_detect_port_scan(self, mock_log, mock_time, mock_utils, mck_osint):
+    def test_detect_port_scan(self, mock_log, mock_time, mock_utils, mck_osint, mck_wmip):
         """
         Test detect_port_scan.
         """
+        mck_wmip.return_value = True
         mck_osint.return_value = True
         mock_utils.categorize_os.return_value = self.os
         # Create PortScan object
@@ -74,3 +76,4 @@ class TestPortScan(unittest.TestCase):
         self.port_scan_obj.detect_port_scan()
         mock_log.assert_called_with('Possible port scan detected from: 121.18.238.114 on Jan 11',
                                     logtype='warning')
+        mck_wmip.assert_called_with("121.18.238.114")
