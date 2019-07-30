@@ -583,5 +583,12 @@ def get_args():
         help="Start SecureTea in server mode"
     )
 
+    parser.add_argument(
+        '--system-mode',
+        required=False,
+        action="store_true",
+        help="Start SecureTea in system mode"
+    )
+
     args = parser.parse_args()
     return args

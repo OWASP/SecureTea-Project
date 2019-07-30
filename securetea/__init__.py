@@ -82,3 +82,4 @@ from .lib.antivirus.cleaner import cleaner
 from .lib.iot import iot_checker
 from .lib.iot import iot_logger
 from .modes import server_mode
+from .modes import system_mode
