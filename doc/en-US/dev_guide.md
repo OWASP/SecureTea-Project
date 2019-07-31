@@ -73,6 +73,11 @@ Read user guide [here](/doc/en-US/user_guide.md).
    - [Web Deface Detection](#web-deface-detection)
    
       - [Extending deface detection support for more OS and servers](#extending-deface-detection-support-for-more-os-and-servers)
+      
+   - [Server Mode](#server-mode)
+      - [Server mode summary](#server-mode-summary)
+      
+      - [Server mode refrence diagram](#server-mode-refrence-diagram)
    
    - [Running tests](#running-tests)
 
@@ -754,6 +759,23 @@ The following servers and the OS are supported, to add new servers and OS, exten
 	}
 }
 ```
+
+#### Server Mode
+##### Server mode summary
+SecureTea **Server mode** includes the running of the following modules:
+
+- Firewall
+- Server Log Monitor
+- AntiVirus
+- System Log Monitor
+- Intrusion Detection System (IDS)
+- Auto Server Patcher
+- Web Deface Detection
+
+This mode is designed for an easy option to set up complete server protection using a single argument i.e. `--server-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 7 modules.
+
+##### Server mode refrence diagram
+![Server mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/server-mode-dev-docs/img/server_mode.png)
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
