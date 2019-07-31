@@ -37,6 +37,7 @@ from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
 from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 from securetea.lib.iot import iot_checker
 from securetea.modes import server_mode
+from securetea.modes import system_mode
 
 pynput_status = True
 
@@ -93,6 +94,7 @@ class SecureTea(object):
         self.antivirus_provided = args_dict['antivirus_provided']
         self.iot_checker_provided = args_dict['iot_checker_provided']
         self.server_mode = args_dict["server_mode"]
+        self.system_mode = args_dict["system_mode"]
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -284,6 +286,21 @@ class SecureTea(object):
             self.web_deface_provided = False
             self.system_log_provided = False
             self.auto_server_patcher_provided = False
+            self.ids_provided = False
+
+        # Check for System mode
+        if self.system_mode:
+            self.logger.log(
+                "Starting SecureTea in system mode",
+                logtype="info"
+            )
+            # Initialize System Mode object
+            self.system_mode_obj = system_mode.SystemMode(cred=self.cred, debug=self.cred["debug"])
+            self.system_mode_obj.start_system_mode()
+            # Avoid multiple process of the objects created by the system mode, set their credentials to False
+            self.firewall_provided = False
+            self.antivirus_provided = False
+            self.system_log_provided = False
             self.ids_provided = False
 
         if self.twitter_provided:
