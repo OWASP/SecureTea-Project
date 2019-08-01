@@ -590,5 +590,12 @@ def get_args():
         help="Start SecureTea in system mode"
     )
 
+    parser.add_argument(
+        '--iot-mode',
+        required=False,
+        action="store_true",
+        help="Start SecureTea in IoT mode"
+    )
+
     args = parser.parse_args()
     return args

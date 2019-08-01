@@ -38,6 +38,7 @@ from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 from securetea.lib.iot import iot_checker
 from securetea.modes import server_mode
 from securetea.modes import system_mode
+from securetea.modes import iot_mode
 
 pynput_status = True
 
@@ -95,6 +96,7 @@ class SecureTea(object):
         self.iot_checker_provided = args_dict['iot_checker_provided']
         self.server_mode = args_dict["server_mode"]
         self.system_mode = args_dict["system_mode"]
+        self.iot_mode = args_dict["iot_mode"]
 
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
@@ -302,6 +304,20 @@ class SecureTea(object):
             self.antivirus_provided = False
             self.system_log_provided = False
             self.ids_provided = False
+
+        # Check for IoT mode
+        if self.iot_mode:
+            self.logger.log(
+                "Starting SecureTea in IoT mode",
+                logtype="info"
+            )
+            # Initialize IoT Mode object
+            self.iot_mode_obj = iot_mode.IoTMode(cred=self.cred, debug=self.cred["debug"])
+            self.iot_mode_obj.start_iot_mode()
+            # Avoid multiple process of the objects created by the IoT mode, set their credentials to False
+            self.firewall_provided = False
+            self.ids_provided = False
+            self.iot_checker_provided = False
 
         if self.twitter_provided:
             self.twitter = secureTeaTwitter.SecureTeaTwitter(

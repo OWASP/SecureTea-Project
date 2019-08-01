@@ -165,6 +165,7 @@ class ArgsHelper(object):
         self.iot_checker_provided = False
         self.server_mode = False
         self.system_mode = False
+        self.iot_mode = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -712,6 +713,35 @@ class ArgsHelper(object):
                 if antivirus:
                     self.cred["antivirus"] = antivirus
 
+        if self.args.iot_mode and not self.iot_mode:
+            self.iot_mode = True
+            config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): "))
+            if (config_decision.lower() == "Y" or
+                config_decision.lower() == "y"):
+                # Fetch credentials
+                creds = self.securetea_conf.get_creds(self.args)
+
+                if creds.get("firewall"):
+                    self.cred["firewall"] = creds["firewall"]
+                if creds.get("ids"):
+                    self.cred["ids"] = creds["ids"]
+                if creds.get("iot-check"):
+                    self.cred["iot-check"] = creds["iot-check"]
+            else:
+                # Start interactive setup for Firewall
+                firewall = self.configureFirewall()
+                # Start interactive setup for IDS
+                ids = self.configureIDS()
+                # Start interactive setup for IoT Checker
+                iot_check = self.configureIoTChecker()
+
+                if firewall:
+                    self.cred["firewall"] = firewall
+                if ids:
+                    self.cred["ids"] = ids
+                if iot_check:
+                    self.cred["iot-check"] = iot_check
+
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
                 self.args.twitter_api_secret_key and
@@ -941,7 +971,8 @@ class ArgsHelper(object):
             self.antivirus_provided or
             self.iot_checker_provided or
             self.server_mode or
-            self.system_mode):
+            self.system_mode or
+            self.iot_mode):
             self.cred_provided = True
 
         return {
@@ -963,5 +994,6 @@ class ArgsHelper(object):
             'antivirus_provided': self.antivirus_provided,
             'iot_checker_provided': self.iot_checker_provided,
             'server_mode': self.server_mode,
-            'system_mode': self.system_mode
+            'system_mode': self.system_mode,
+            'iot_mode': self.iot_mode
         }
