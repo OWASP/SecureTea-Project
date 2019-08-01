@@ -38,6 +38,8 @@ class IoTChecker(object):
             __name__,
             debug=debug
         )
+        # Initialize API Key to None
+        self._API_KEY = None
 
         # Initialize Shodan API Key
         if api_key and api_key != "XXXX":
