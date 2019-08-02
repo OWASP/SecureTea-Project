@@ -879,6 +879,7 @@ sudo SecureTea.py -ic
 - Intrusion Detection System (IDS)
 - Auto Server Patcher
 - Web Deface Detection
+
 Example usgae: <br>
 ###### 1. Non-debug mode
 ```argument
