@@ -78,7 +78,12 @@ Read user guide [here](/doc/en-US/user_guide.md).
       - [Server mode summary](#server-mode-summary)
       
       - [Server mode refrence diagram](#server-mode-refrence-diagram)
-   
+  
+   - [System Mode](#system-mode)
+      - [System mode summary](#system-mode-summary)
+      
+      - [System mode refrence diagram](#system-mode-refrence-diagram)
+      
    - [Running tests](#running-tests)
 
      - [Using unittest](#running-using-unittest)
@@ -776,6 +781,20 @@ This mode is designed for an easy option to set up complete server protection us
 
 ##### Server mode refrence diagram
 ![Server mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/server-mode-dev-docs/img/server_mode.png)
+
+#### System Mode
+##### System mode summary
+SecureTea **System mode** includes the running of the following modules:
+
+- Firewall
+- AntiVirus
+- System Log Monitor
+- Intrusion Detection System (IDS)
+
+This mode is designed for an easy option to set up complete system (PC / laptop) protection using a single argument i.e. `--system-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 4 modules.
+
+##### System mode refrence diagram
+![system mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/dev-docs-system-mode/img/system_mode.png)
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
