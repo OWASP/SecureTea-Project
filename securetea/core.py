@@ -223,7 +223,7 @@ class SecureTea(object):
                 )
 
             try:
-                if self.cred['web_deface_provided']:
+                if self.cred['web-deface']:
                     self.web_deface_provided = True
                     self.cred_provided = True
             except KeyError:
@@ -233,7 +233,7 @@ class SecureTea(object):
                 )
 
             try:
-                if self.cred['antivirus_provided']:
+                if self.cred['antivirus']:
                     self.antivirus_provided = True
                     self.cred_provided = True
             except KeyError:
