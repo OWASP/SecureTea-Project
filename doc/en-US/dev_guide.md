@@ -83,6 +83,11 @@ Read user guide [here](/doc/en-US/user_guide.md).
       - [System mode summary](#system-mode-summary)
       
       - [System mode refrence diagram](#system-mode-refrence-diagram)
+
+   - [IoT Mode](#iot-mode)
+      - [IoT mode summary](#iot-mode-summary)
+      
+      - [IoT mode refrence diagram](#iot-mode-refrence-diagram)
       
    - [Running tests](#running-tests)
 
@@ -795,6 +800,19 @@ This mode is designed for an easy option to set up complete system (PC / laptop)
 
 ##### System mode refrence diagram
 ![system mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/dev-docs-system-mode/img/system_mode.png)
+
+#### IoT Mode
+##### IoT mode summary
+SecureTea **IoT mode** includes the running of the following modules:
+
+- Firewall
+- Intrusion Detection System (IDS)
+- IoT Anonymity Checker
+
+This mode is designed for an easy option to set up complete IoT device protection using a single argument i.e. `--iot-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 3 modules.
+
+##### IoT mode refrence diagram
+![iot mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/dev-docs-iot-mode/img/iot_mode.png)
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
