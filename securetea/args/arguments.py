@@ -21,6 +21,7 @@ def get_args():
         Args: total arguments
     """
     parser = argparse.ArgumentParser(description='Arguments of SecureTea')
+    mode_group = parser.add_mutually_exclusive_group()
 
     parser.add_argument(
         '--conf',
@@ -576,21 +577,21 @@ def get_args():
         help="IP address on which to perform operation"
     )
 
-    parser.add_argument(
+    mode_group.add_argument(
         '--server-mode',
         required=False,
         action="store_true",
         help="Start SecureTea in server mode"
     )
 
-    parser.add_argument(
+    mode_group.add_argument(
         '--system-mode',
         required=False,
         action="store_true",
         help="Start SecureTea in system mode"
     )
 
-    parser.add_argument(
+    mode_group.add_argument(
         '--iot-mode',
         required=False,
         action="store_true",
