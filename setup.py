@@ -32,6 +32,7 @@ if not os_name:
 
 files_definition = [
     ('/etc/securetea', ['securetea.conf']),
+    ('', ['securetea.conf'])
 ]
 
 # dependency-name to command mapping dict
