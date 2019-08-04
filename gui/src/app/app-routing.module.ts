@@ -8,6 +8,7 @@ import { ProcessComponent } from './process/process.component';
 import { NetworkComponent } from './network/network.component';
 import { SecurityComponent } from './security/security.component';
 import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -15,12 +16,12 @@ const routes: Routes = [
   { path: 'storage', component: StorageComponent },
   { path: 'processes', component: ProcessComponent },
   { path: 'network', component: NetworkComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'security', component: SecurityComponent},
   { path: 'logout', component: LogoutComponent },
   { path: 'error', component: ErrorComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: ErrorComponent },
-
 ];
 
 @NgModule({

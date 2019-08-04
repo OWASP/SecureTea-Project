@@ -20,6 +20,7 @@ import { TableComponent } from './process/table/table.component';
 import { NetworkComponent } from './network/network.component';
 import { SecurityComponent } from './security/security.component';
 import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LogoutComponent } from './logout/logout.component';
     ProcessComponent,
     ConfigurationComponent,
     SecurityComponent,
-    LogoutComponent
+    LogoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

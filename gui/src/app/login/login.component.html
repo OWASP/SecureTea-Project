@@ -1,0 +1,47 @@
+<div id="main-wrapper">
+  <div class="header">
+      <app-header></app-header>
+  </div>
+  <app-sidebar></app-sidebar>
+  <div class="page-wrapper">
+      <div class="row page-titles pt-2 pb-1 mb-1">
+          <div class="col-md-5 align-self-center">
+        <h1 class="text-primary head-1">Last Login</h1>
+    </div>
+          <div class="col-md-7 align-self-center">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href='/dashboard'>Home</a></li>
+                  <li class="breadcrumb-item active">Last Login</li>
+              </ol>
+          </div>
+      </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Last Login</h2>
+            <h3 class="card-subtitle">List of last logins</h3>
+            <table id="myTable" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let adapter of login">
+                    <td class="py-0">{{ adapter['name'] }}</td>
+                    <td class="py-0">{{ adapter['date'] }}</td>
+                    <td class="py-0">{{ adapter['status'] }}</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+</div>

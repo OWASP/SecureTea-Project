@@ -5,6 +5,7 @@ import psutil
 import signal
 import subprocess
 import time
+import re
 
 from datetime import datetime
 from datetime import timedelta
@@ -470,6 +471,39 @@ def findpid():
             if 'SecureTea.py' in cmds:
                 return res['pid']
     return None
+
+@app.route('/login', methods=['GET'])
+def get_login():
+    """Get last login details.
+
+    Returns:
+        TYPE: JSON
+    """
+    try:
+        data = []
+
+        details_regex = r"([a-zA-Z]+\s[a-zA-Z]+\s+[0-9]+\s[0-9]+:[0-9]+)\s+(.*)"
+        username_regex = r"^[a-zA-Z0-9]+\s"
+
+        output = subprocess.check_output("last")
+        output = output.decode("utf-8").split("\n")
+
+        for line in output:
+            username = re.findall(username_regex, line)
+            if username != []:
+                username = username[0].strip(" ")
+                if username != "reboot":
+                    details = re.findall(details_regex, line)
+                    if details != []:
+                        date = details[0][0]
+                        status = details[0][1].strip("-")
+                        status = status.strip(" ")
+                        login_row = {"name": username, "date": date, "status": status}
+                        data.append(login_row)
+        return jsonify(data=data), 200
+    except Exception as e:
+        print(e)
+    return "404", 404
 
 
 if __name__ == '__main__':
