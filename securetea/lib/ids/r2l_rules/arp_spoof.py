@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""ARP Cache Poisoning / MiTM detection module for SecureTea IDS.
 
 Project:

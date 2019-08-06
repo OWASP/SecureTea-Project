@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""DHCP exhaustion attack detection module for SecureTea IDS.
 
 Project:

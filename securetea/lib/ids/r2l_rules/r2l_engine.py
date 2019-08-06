@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""R2LEngine module for SecureTea IDS.
 
 Project:

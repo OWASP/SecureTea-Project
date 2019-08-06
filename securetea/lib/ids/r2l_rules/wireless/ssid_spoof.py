@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""SSID spoofing (Evil Twin Attack) detection module for SecureTea IDS.
 
 Project:

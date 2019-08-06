@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""Ping of death attack detection module for SecureTea IDS.
 
 Project:

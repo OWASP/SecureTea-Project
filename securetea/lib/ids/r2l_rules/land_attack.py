@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""Land attack detection module for SecureTea IDS.
 
 Project:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""Hidden node attack detection module for SecureTea IDS.
 
 Project:
