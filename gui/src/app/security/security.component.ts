@@ -30,7 +30,10 @@ export class SecurityComponent implements OnInit {
     slack_userId: new FormControl(''),
     aws_email: new FormControl(''),
     aws_secretKey: new FormControl(''),
-    aws_accessKey: new FormControl('')
+    aws_accessKey: new FormControl(''),
+    sender_email: new FormControl(' '),
+    to_email: new FormControl(' '),
+    password: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -49,7 +52,8 @@ export class SecurityComponent implements OnInit {
               (this.notificationsForm.value.telegram_token!=""  && this.notificationsForm.value.telegram_userId!="" ) ||
               (this.notificationsForm.value.twilio_sid!=""  && this.notificationsForm.value.twilio_token!=""  && this.notificationsForm.value.twilio_to!=""  && this.notificationsForm.value.twilio_from!="" ) ||
               (this.notificationsForm.value.slack_token!=""  && this.notificationsForm.value.slack_userId!="" ) ||
-              (this.notificationsForm.value.aws_email!=""  && this.notificationsForm.value.aws_accessKey!=""  && this.notificationsForm.value.aws_secretKey!="" )
+              (this.notificationsForm.value.aws_email!=""  && this.notificationsForm.value.aws_accessKey!="" && this.notificationsForm.value.aws_secretKey!="" ) ||
+              (this.notificationsForm.value.sender_email != "" && this.notificationsForm.value.to_email != "" && this.notificationsForm.value.password != "")
            )
   }
   Submit() {
@@ -71,7 +75,10 @@ export class SecurityComponent implements OnInit {
         'slack_user_id': this.notificationsForm.value.slack_userId,
         'aws_email': this.notificationsForm.value.aws_email,
         'aws_access_key': this.notificationsForm.value.aws_accessKey,
-        'aws_secret_key': this.notificationsForm.value.aws_secretKey
+        'aws_secret_key': this.notificationsForm.value.aws_secretKey,
+        'sender_email': this.notificationsForm.value.sender_email,
+        'to_email': this.notificationsForm.value.to_email,
+        'password': this.notificationsForm.value.password
       };
       swal({
         title: 'Are you sure?',

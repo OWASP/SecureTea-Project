@@ -399,6 +399,8 @@ def sleep():
 
     creds = request.get_json()
     args_str = ""
+
+    # Twitter parsing
     if ("twitter_api_key" in creds and
         "twitter_access_token" in creds and
         "twitter_access_token_secret" in creds and
@@ -411,12 +413,16 @@ def sleep():
             args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
             args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
             args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
+
+    # Telegram parsing
     if ("telegram_token" in creds and
         "telegram_user_id" in creds):
         if (bool(creds['telegram_token']) and
             bool(creds['telegram_user_id'])):
             args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
             args_str += ' --telegram_user_id="' + creds['telegram_user_id'] + '"'
+
+    # Twilio SMS parsing
     if ("twilio_sid" in creds and
         "twilio_token" in creds and
         "twilio_from" in creds and
@@ -429,12 +435,16 @@ def sleep():
             args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
             args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
             args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
+
+    # Slack parsing
     if ("slack_token" in creds and
         "slack_user_id" in creds):
         if (bool(creds['slack_token']) and
             bool(creds['slack_user_id'])):
             args_str += ' --slack_token="' + creds['slack_token'] + '"'
             args_str += ' --slack_user_id="' + creds['slack_user_id'] + '"'
+
+    # AWS parsing
     if ("aws_access_key" in creds and
         "aws_email" in creds and
         "aws_secret_key" in creds):
@@ -444,6 +454,18 @@ def sleep():
             args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
             args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
             args_str += ' --aws_email="' + creds['aws_email'] + '"'
+
+    # Gmail parsing
+    if ("sender_email" in creds and
+        "to_email" in creds and
+        "password" in creds):
+        if (bool(creds["sender_email"] and
+            bool(creds["to_email"]) and
+            bool(creds["password"]))):
+            args_str += ' --sender_email="' + creds['sender_email'] + '"'
+            args_str += ' --to_email="' + creds['to_email'] + '"'
+            args_str += ' --password="' + creds['password'] + '"'
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
