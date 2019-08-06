@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""DDoS Attack detection module for SecureTea IDS.
 
 Project:

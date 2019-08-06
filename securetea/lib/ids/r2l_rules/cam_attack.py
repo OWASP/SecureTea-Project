@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""CAM Attack detection module for SecureTea IDS.
 
 Project:

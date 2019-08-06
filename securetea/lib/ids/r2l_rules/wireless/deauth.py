@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""Wireless De-authentication attack detection module for SecureTea IDS.
 
 Project:

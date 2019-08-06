@@ -1,3 +1,4 @@
+# -*- coding: utf-8
 u"""Fake access point detection module for SecureTea IDS.
 
 Project:
