@@ -40,7 +40,7 @@
                             <label>Access token secret</label>
                             <input type="text" class="form-control" formControlName="twitter_tokenSecret" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                         </div>
-                    <hr style="border-width:5px">
+                    <hr style="border-width:2px">
                     <h1 class="card-title">Telegram Notification</h1>
                     <h3 class="card-subtitle">Notification to telegram</h3>
                         <div class="form-group">
@@ -51,7 +51,7 @@
                             <label>User Id</label>
                             <input type="text" class="form-control" formControlName="telegram_userId" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                         </div>
-                    <hr style="border-width:5px">
+                    <hr style="border-width:2px">
                     <h1 class="card-title">Twilio Notification</h1>
                     <h3 class="card-subtitle">Notification to twilio</h3>
                         <div class="form-group">
@@ -70,7 +70,7 @@
                             <label>To</label>
                             <input type="text" class="form-control" formControlName="twilio_to" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                         </div>
-                    <hr style="border-width:5px">
+                    <hr style="border-width:2px">
                     <h1 class="card-title">Slack Notification</h1>
                     <h3 class="card-subtitle">Notification to slack</h3>
                         <div class="form-group">
@@ -81,7 +81,7 @@
                             <label>User Id</label>
                             <input type="text" class="form-control" formControlName="slack_userId" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                         </div>
-                    <hr style="border-width:5px">
+                    <hr style="border-width:2px">
                     <h1 class="card-title">AWS SES Notification</h1>
                     <h3 class="card-subtitle">Notification to mail</h3>
                         <div class="form-group">
@@ -96,6 +96,21 @@
                             <label>SES Secret Key</label>
                             <input type="text" class="form-control" formControlName="aws_secretKey" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                         </div>
+                        <hr style="border-width:2px">
+                        <h1 class="card-title">Gmail Notification</h1>
+                        <h3 class="card-subtitle">Notification to Gmail account</h3>
+                            <div class="form-group">
+                                <label>Sender E-mail</label>
+                                <input type="text" class="form-control" formControlName="sender_email" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                            </div>
+                            <div class="form-group">
+                                <label>To E-mail</label>
+                                <input type="text" class="form-control" formControlName="to_email" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" formControlName="password" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                            </div>
                     <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>
