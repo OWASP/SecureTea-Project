@@ -200,7 +200,7 @@ SecureTea Auto Server Patcher| Yes
 Web Defacement Detection     | Yes
 SecureTea OSINT		     | Yes
 IoT Anonymity checker	     | Yes
-GUI Last login               | No
+GUI Last login               | Yes
 Detection of malcious device | Yes
 
 <br>
