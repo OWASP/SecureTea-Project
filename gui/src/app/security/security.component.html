@@ -111,6 +111,78 @@
                                 <label>Password</label>
                                 <input type="password" class="form-control" formControlName="password" placeholder="xxxx-xxxx-xxxx-xxxx"/>
                             </div>
+                    <!-- AntiVirus -->
+                    <hr style="border-width:2px">
+                    <div class="form-group">
+                        <div class="col-12">
+                          <div class="row">
+                            <h1 class="card-title">AntiVirus</h1>
+                          <label class="switch">
+                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="antivirus" checked/>
+                            <span class="slider round"></span>
+                          </label>
+                          </div>
+                        </div>
+                      </div>
+                      <h3 class="card-subtitle">Configure AntiVirus</h3>
+
+                      <div class="form-group">
+                          <label>Custom scan path</label>
+                          <input type="text" class="form-control" formControlName="custom_scan" placeholder="Leave blank for full scan"/>
+                      </div>
+
+                      <div class="form-group">
+                          <label>Virus Total API key</label>
+                          <input type="text" class="form-control" formControlName="virustotal_api_key" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="col-12">
+                            <div class="row">
+                            <label>Automatic updates</label>
+                            <label class="switch">
+                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="update" checked/>
+                              <span class="slider round"></span>
+                            </label>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-12">
+                            <div class="row">
+                            <label>Automatically clean malicious files</label>
+                            <label class="switch">
+                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="auto_delete" checked/>
+                              <span class="slider round"></span>
+                            </label>
+                            </div>
+                          </div>
+                      </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                          <div class="row">
+                          <label>Monitor USB devices</label>
+                          <label class="switch">
+                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="monitor_usb" checked/>
+                            <span class="slider round"></span>
+                          </label>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                          <div class="row">
+                          <label>Monitor file modifications real-time (CPU intensive)</label>
+                          <label class="switch">
+                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="monitor_file_changes" checked/>
+                            <span class="slider round"></span>
+                          </label>
+                          </div>
+                        </div>
+                    </div>
                     <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>

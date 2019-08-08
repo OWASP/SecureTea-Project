@@ -466,6 +466,39 @@ def sleep():
             args_str += ' --to_email="' + creds['to_email'] + '"'
             args_str += ' --password="' + creds['password'] + '"'
 
+    # AntiVirus parsing
+    antivirus = creds['antivirus']
+    custom_scan = creds['custom_scan']
+    virustotal_api_key = creds['virustotal_api_key']
+    update = creds['update']
+    auto_delete = creds['auto_delete']
+    monitor_usb = creds['monitor_usb']
+    monitor_file_changes = creds['monitor_file_changes']
+
+    if antivirus:
+        if custom_scan:
+            args_str += ' --custom-scan=' + custom_scan
+        if virustotal_api_key:
+            args_str += ' --virustotal_api_key=' + virustotal_api_key
+        if update:
+            args_str += ' --update=1'
+        else:
+            args_str += ' --update=0'
+        if auto_delete:
+            args_str += ' --auto-delete=1'
+        else:
+            args_str += ' --auto-delete=0'
+        if monitor_usb:
+            args_str += ' --monitor-usb=1'
+        else:
+            args_str += ' --monitor-usb=0'
+        if monitor_file_changes:
+            args_str += ' --monitor-file-changes=1'
+        else:
+            args_str += ' --monitor-file-changes=0'
+
+        print(args_str)
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',

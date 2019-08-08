@@ -874,11 +874,10 @@ class ArgsHelper(object):
                 self.web_deface_provided = True
 
         if not self.antivirus_provided:
-            if (self.args.update and
-                self.args.auto_delete and
-                self.args.monitor_usb and
-                self.args.monitor_file_changes and
-                self.args.virustotal_api_key):
+            if ((isinstance(self.args.update, int)) and
+                (isinstance(self.args.auto_delete, int)) and
+                (isinstance(self.args.monitor_usb, int)) and
+                (isinstance(self.args.monitor_file_changes, int))):
                 antivirus = {}
                 antivirus['update'] = self.args.update
                 antivirus['custom-scan'] = self.args.custom_scan
@@ -886,6 +885,8 @@ class ArgsHelper(object):
                 antivirus['monitor-usb'] = self.args.monitor_usb
                 antivirus['monitor-file-changes'] = self.args.monitor_file_changes
                 antivirus['virustotal-api-key'] = self.args.virustotal_api_key
+                self.cred['antivirus'] = antivirus
+                self.antivirus_provided = True
 
         if not self.firewall_provided:
             if (self.args.interface and
