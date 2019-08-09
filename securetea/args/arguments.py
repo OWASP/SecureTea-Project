@@ -529,21 +529,21 @@ def get_args():
     parser.add_argument(
         '--auto-delete',
         required=False,
-        action="store_true",
+        type=int,
         help="Auto delete malicious files or manually (1: auto, 0: manual)"
     )
 
     parser.add_argument(
         '--monitor-usb',
         required=False,
-        action="store_true",
+        type=int,
         help="Monitor USB devices or not (1: yes, 0: no)"
     )
 
     parser.add_argument(
         '--monitor-file-changes',
         required=False,
-        action="store_true",
+        type=int,
         help="Monitor file changes or not (1:yes, 0:no)"
     )
 

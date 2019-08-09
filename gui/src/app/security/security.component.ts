@@ -33,7 +33,14 @@ export class SecurityComponent implements OnInit {
     aws_accessKey: new FormControl(''),
     sender_email: new FormControl(' '),
     to_email: new FormControl(' '),
-    password: new FormControl(' ')
+    password: new FormControl(' '),
+    antivirus: new FormControl(''),
+    custom_scan: new FormControl(''),
+    virustotal_api_key: new FormControl(''),
+    update: new FormControl(''),
+    auto_delete: new FormControl(''),
+    monitor_usb: new FormControl(''),
+    monitor_file_changes: new FormControl('')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -78,7 +85,14 @@ export class SecurityComponent implements OnInit {
         'aws_secret_key': this.notificationsForm.value.aws_secretKey,
         'sender_email': this.notificationsForm.value.sender_email,
         'to_email': this.notificationsForm.value.to_email,
-        'password': this.notificationsForm.value.password
+        'password': this.notificationsForm.value.password,
+        'custom_scan': this.notificationsForm.value.custom_scan,
+        'virustotal_api_key': this.notificationsForm.value.virustotal_api_key,
+        'update': this.notificationsForm.value.update,
+        'auto_delete': this.notificationsForm.value.auto_delete,
+        'monitor_usb': this.notificationsForm.value.monitor_usb,
+        'monitor_file_changes': this.notificationsForm.value.monitor_file_changes,
+        'antivirus': this.notificationsForm.value.antivirus
       };
       swal({
         title: 'Are you sure?',
