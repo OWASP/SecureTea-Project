@@ -525,6 +525,12 @@ def sleep():
 
     if asp_state:
         args_str += ' --auto-server-patcher'
+
+    # System Log Parsing
+    sys_log = creds['sys_log']
+    if sys_log:
+        args_str += ' --system_log'
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',

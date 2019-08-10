@@ -250,6 +250,20 @@
                           </div>
                         </div>
                     </div>
+                    <!-- System Log Monitor -->
+                    <hr style="border-width:2px">
+                    <div class="form-group">
+                        <div class="col-12">
+                          <div class="row">
+                            <h1 class="card-title">System Log Monitor</h1>
+                          <label class="switch">
+                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="sys_log" checked/>
+                            <span class="slider round"></span>
+                          </label>
+                          </div>
+                        </div>
+                      </div>
+                      <h3 class="card-subtitle">System Log Monitor needs no configuration, toggle right to start</h3>
                     <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>
