@@ -796,6 +796,26 @@ Upon this, it will ask whether to load the previously saved configurations or en
 
 It makes a lot easier to configure SecureTea, with server mode they can easily secure their servers. You need to bother about the various arguments or the toughness of setting up SecureTea individual modules. Also, since you can skip any module among the above 7, it is not necessary to configure them all.
 
+##### Starting up in system mode
+###### Integrations (features) of system mode
+- Firewall
+- AntiVirus
+- System Log Monitor
+- Intrusion Detection System (IDS)
+
+Example usgae: <br>
+###### 1. Non-debug mode
+```argument
+sudo SecureTea.py --system-mode
+```
+###### 1. Debug mode
+```argument
+sudo SecureTea.py --system-mode --debug
+```
+Upon this, it will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 4 modules.
+
+It makes a lot easier to configure SecureTea, with system mode they can easily secure their systems (PC / laptops). You need to bother about the various arguments or the toughness of setting up SecureTea individual modules. Also, since you can skip any module among the above 4, it is not necessary to configure them all.
+
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
 <br><br>
