@@ -40,7 +40,13 @@ export class SecurityComponent implements OnInit {
     update: new FormControl(''),
     auto_delete: new FormControl(''),
     monitor_usb: new FormControl(''),
-    monitor_file_changes: new FormControl('')
+    monitor_file_changes: new FormControl(''),
+    asp: new FormControl(' '),
+    apache: new FormControl(' '),
+    sysctl: new FormControl(' '),
+    login: new FormControl(' '),
+    ssh: new FormControl(' '),
+    sslvuln: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -92,7 +98,13 @@ export class SecurityComponent implements OnInit {
         'auto_delete': this.notificationsForm.value.auto_delete,
         'monitor_usb': this.notificationsForm.value.monitor_usb,
         'monitor_file_changes': this.notificationsForm.value.monitor_file_changes,
-        'antivirus': this.notificationsForm.value.antivirus
+        'antivirus': this.notificationsForm.value.antivirus,
+        'asp': this.notificationsForm.value.asp,
+        'apache': this.notificationsForm.value.apache,
+        'login': this.notificationsForm.value.login,
+        'sysctl': this.notificationsForm.value.sysctl,
+        'ssh': this.notificationsForm.value.ssh,
+        'sslvuln': this.notificationsForm.value.sslvuln
       };
       swal({
         title: 'Are you sure?',

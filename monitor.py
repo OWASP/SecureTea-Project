@@ -497,6 +497,35 @@ def sleep():
         else:
             args_str += ' --monitor-file-changes=0'
 
+    # Auto Server Patcher parsing
+    asp = creds['asp']
+    sslvuln = creds['sslvuln']
+    apache = creds['apache']
+    login = creds['login']
+    ssh = creds['ssh']
+    sysctl = creds['sysctl']
+    asp_state = False
+
+    if asp:
+        if sslvuln:
+            args_str += ' --ssl --url=' + sslvuln
+            asp_state = True
+        if apache:
+            args_str += ' --apache'
+            asp_state = True
+        if login:
+            args_str += ' --login'
+            asp_state = True
+        if ssh:
+            args_str += ' --ssh'
+            asp_state = True
+        if sysctl:
+            args_str += ' --sysctl'
+            asp_state = True
+
+    if asp_state:
+        args_str += ' --auto-server-patcher'
+    
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
