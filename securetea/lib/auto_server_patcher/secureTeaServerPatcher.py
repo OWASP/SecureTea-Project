@@ -58,11 +58,24 @@ class SecureTeaAutoServerPatcher(object):
         # List of files to patch
         self.to_patch = list()
 
+        # Parse arguments
         url = cred['url']
-        apache = int(cred['apache'])
-        ssh = int(cred['ssh'])
-        login = int(cred['login'])
-        sysctl = int(cred['sysctl'])
+        if cred['apache']:
+            apache = 1
+        else:
+            apache = 0
+        if cred['ssh']:
+            ssh = 1
+        else:
+            ssh = 0
+        if cred['login']:
+            login = 1
+        else:
+            login = 0
+        if cred['sysctl']:
+            sysctl = 1
+        else:
+            sysctl = 0
 
         # Determine which file to patch
         if apache == 1:
