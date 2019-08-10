@@ -71,7 +71,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
     - [Starting up modes](#starting-up-modes)
         - [Starting up in server mode](#starting-up-in-server-mode)
         - [Starting up in system mode](#starting-up-in-system-mode)
-        - [Starting up in IoT mode](#setting-up-in-iot-mode)
+        - [Starting up in IoT mode](#starting-up-in-iot-mode)
 
 -  [Firewall](#firewall)
 
@@ -932,7 +932,7 @@ sudo SecureTea.py --iot-mode --debug
 ```
 Upon this, it will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 3 modules.
 
-It makes a lot easier to configure SecureTea, with system mode they can easily secure their IoT devices. You need to bother about the various arguments or the toughness of setting up SecureTea individual modules. Also, since you can skip any module among the above 3, it is not necessary to configure them all.
+It makes a lot easier to configure SecureTea, with IoT mode they can easily secure their IoT devices. You need to bother about the various arguments or the toughness of setting up SecureTea individual modules. Also, since you can skip any module among the above 3, it is not necessary to configure them all.
 
 ## Firewall
 SecureTea Firewall currently uses the following rules to filter the incoming traffic:
