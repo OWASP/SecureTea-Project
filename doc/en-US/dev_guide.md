@@ -785,7 +785,7 @@ SecureTea **Server mode** includes the running of the following modules:
 This mode is designed for an easy option to set up complete server protection using a single argument i.e. `--server-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 7 modules.
 
 ##### Server mode refrence diagram
-![Server mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/server-mode-dev-docs/img/server_mode.png)
+![Server mode](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/server_mode.png)
 
 #### System Mode
 ##### System mode summary
@@ -799,7 +799,7 @@ SecureTea **System mode** includes the running of the following modules:
 This mode is designed for an easy option to set up complete system (PC / laptop) protection using a single argument i.e. `--system-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 4 modules.
 
 ##### System mode refrence diagram
-![system mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/dev-docs-system-mode/img/system_mode.png)
+![system mode](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/system_mode.png)
 
 #### IoT Mode
 ##### IoT mode summary
@@ -812,7 +812,7 @@ SecureTea **IoT mode** includes the running of the following modules:
 This mode is designed for an easy option to set up complete IoT device protection using a single argument i.e. `--iot-mode`. It will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 3 modules.
 
 ##### IoT mode refrence diagram
-![iot mode](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/dev-docs-iot-mode/img/iot_mode.png)
+![iot mode](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/iot_mode.png)
 
 #### Running tests
 -  [Running using unittest](#running-using-unittest)
