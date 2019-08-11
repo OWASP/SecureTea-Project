@@ -46,7 +46,8 @@ export class SecurityComponent implements OnInit {
     sysctl: new FormControl(' '),
     login: new FormControl(' '),
     ssh: new FormControl(' '),
-    sslvuln: new FormControl(' ')
+    sslvuln: new FormControl(' '),
+    sys_log: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -104,7 +105,8 @@ export class SecurityComponent implements OnInit {
         'login': this.notificationsForm.value.login,
         'sysctl': this.notificationsForm.value.sysctl,
         'ssh': this.notificationsForm.value.ssh,
-        'sslvuln': this.notificationsForm.value.sslvuln
+        'sslvuln': this.notificationsForm.value.sslvuln,
+        'sys_log': this.notificationsForm.value.sys_log
       };
       swal({
         title: 'Are you sure?',
