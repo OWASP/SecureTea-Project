@@ -47,7 +47,27 @@ export class SecurityComponent implements OnInit {
     login: new FormControl(' '),
     ssh: new FormControl(' '),
     sslvuln: new FormControl(' '),
-    sys_log: new FormControl(' ')
+    sys_log: new FormControl(' '),
+    interface: new FormControl(' '),
+    firewall: new FormControl(' '),
+    ip_inbound: new FormControl(' '),
+    inbound_action: new FormControl(' '),
+    ip_outbound: new FormControl(' '),
+    outbound_action: new FormControl(' '),
+    protocols: new FormControl(' '),
+    protocol_action: new FormControl(' '),
+    extensions: new FormControl(' '),
+    scan_load_action: new FormControl(' '),
+    sports: new FormControl(' '),
+    sports_action: new FormControl(' '),
+    dest_ports: new FormControl(' '),
+    dest_ports_action: new FormControl(' '),
+    dns: new FormControl(' '),
+    dns_action: new FormControl(' '),
+    time_ub: new FormControl(' '),
+    time_lb: new FormControl(' '),
+    http_req: new FormControl(' '),
+    http_resp: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -106,7 +126,27 @@ export class SecurityComponent implements OnInit {
         'sysctl': this.notificationsForm.value.sysctl,
         'ssh': this.notificationsForm.value.ssh,
         'sslvuln': this.notificationsForm.value.sslvuln,
-        'sys_log': this.notificationsForm.value.sys_log
+        'sys_log': this.notificationsForm.value.sys_log,
+        'firewall': this.notificationsForm.value.firewall,
+        'interface': this.notificationsForm.value.interface,
+        'ip_inbound': this.notificationsForm.value.ip_inbound,
+        'inbound_action': this.notificationsForm.value.inbound_action,
+        'ip_outbound': this.notificationsForm.value.ip_outbound,
+        'outbound_action': this.notificationsForm.value.outbound_action,
+        'protocols': this.notificationsForm.value.protocols,
+        'protocol_action': this.notificationsForm.value.protocol_action,
+        'extensions': this.notificationsForm.value.extensions,
+        'scan_load_action': this.notificationsForm.value.scan_load_action,
+        'sports': this.notificationsForm.value.sports,
+        'sports_action': this.notificationsForm.value.sports_action,
+        'dest_ports': this.notificationsForm.value.dest_ports,
+        'dest_ports_action': this.notificationsForm.value.dest_ports_action,
+        'dns': this.notificationsForm.value.dns,
+        'dns_action': this.notificationsForm.value.dns_action,
+        'time_ub': this.notificationsForm.value.time_ub,
+        'time_lb': this.notificationsForm.value.time_lb,
+        'http_req': this.notificationsForm.value.http_req,
+        'http_resp': this.notificationsForm.value.http_resp
       };
       swal({
         title: 'Are you sure?',
