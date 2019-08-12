@@ -774,6 +774,7 @@ sudo SecureTea.py --ids
 | `--interface` | None |Name of the [interface](https://www.computerhope.com/unix/uifconfi.htm)|
 
 What are **thresholds**?
+<br>
 It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
 
 #### Setting up Insecure Headers
