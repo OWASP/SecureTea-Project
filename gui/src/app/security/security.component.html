@@ -434,6 +434,40 @@
                               </div>
                             </div>
                         </div>
+                        <!-- Server Log Monjtor -->
+                        <hr style="border-width:2px">
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                                <h1 class="card-title">Server Log Monitor</h1>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="server_log" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                          </div>
+                          <h3 class="card-subtitle">Configure Server Log Monitor</h3>
+                          <div class="form-group">
+                              <label>Web server type</label>
+                              <input type="text" class="form-control" formControlName="log_type" placeholder="Server name e.g. apache, nginx"/>
+                          </div>
+                          <div class="form-group">
+                              <label>Log file path</label>
+                              <input type="text" class="form-control" formControlName="log_file" placeholder="Path of the log file, leave blank to auto-detect"/>
+                          </div>
+                          <div class="form-group">
+                              <label>Monitor window</label>
+                              <input type="text" class="form-control" formControlName="window" placeholder="Days old log to process e.g. 30"/>
+                          </div>
+                          <div class="form-group">
+                              <label>List of IPs to look for</label>
+                              <input type="text" class="form-control" formControlName="ip_list" placeholder="Specific IPs in log file to generate report for e.g. 1.1.1.1, 2.2.2.2"/>
+                          </div>
+                          <div class="form-group">
+                              <label>List of status code to look for</label>
+                              <input type="text" class="form-control" formControlName="status_code" placeholder="List of status code to grab from log file e.g. 200, 404"/>
+                          </div>
                       <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>

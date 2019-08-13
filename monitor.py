@@ -598,6 +598,21 @@ def sleep():
         args_str += " --HTTP_request_action=" + http_req
         args_str += " --HTTP_response_action=" + http_resp
 
+    # Server Log Parsing
+    server_log = creds['server_log']
+    if server_log:
+        log_type = get_list(creds['log_type'])
+        log_file = get_list(creds['log_file'])
+        window = get_list(creds['window'])
+        ip_list = get_list(creds['ip_list'])
+        status_code = get_list(creds['status_code'])
+
+        args_str += " --log-type=" + log_type
+        args_str += " --log-file=" + log_file
+        args_str += " --window=" + window
+        args_str += " --ip-list=" + ip_list
+        args_str += " --status-code=" + status_code
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
