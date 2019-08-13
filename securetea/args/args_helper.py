@@ -889,25 +889,25 @@ class ArgsHelper(object):
                 self.antivirus_provided = True
 
         if not self.firewall_provided:
-            if (self.args.interface and
-                self.args.inbound_IP_action and
-                self.args.inbound_IP_list and
-                self.args.outbound_IP_action and
-                self.args.outbound_IP_list and
-                self.args.protocol_action and
-                self.args.protocol_list and
-                self.args.scan_action and
-                self.args.scan_list and
-                self.args.dest_port_action and
-                self.args.dest_port_list and
-                self.args.source_port_action and
-                self.args.source_port_list and
-                self.args.dns_action and
-                self.args.dns_list and
-                self.args.HTTP_request_action and
-                self.args.HTTP_response_action and
-                self.args.time_lb and
-                self.args.time_ub):
+            if (self.args.interface or
+                isinstance(self.args.inbound_IP_action, int) or
+                isinstance(self.args.inbound_IP_list, str) or
+                isinstance(self.args.outbound_IP_action, int) or
+                isinstance(self.args.outbound_IP_list, str) or
+                isinstance(self.args.protocol_action, int) or
+                isinstance(self.args.protocol_list, str) or
+                isinstance(self.args.scan_action, int) or
+                isinstance(self.args.scan_list, str) or
+                isinstance(self.args.dest_port_action, int) or
+                isinstance(self.args.dest_port_list, str) or
+                isinstance(self.args.source_port_action, int) or
+                isinstance(self.args.source_port_list, str) or
+                isinstance(self.args.dns_action, int) or
+                isinstance(self.args.dns_list, str) or
+                isinstance(self.args.HTTP_request_action, int) or
+                isinstance(self.args.HTTP_response_action, int) or
+                isinstance(self.args.time_lb, str) or
+                isinstance(self.args.time_ub, str)):
 
                 # Initialize empty firewall configuraton dictionary
                 firewall = {}

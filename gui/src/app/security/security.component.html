@@ -264,7 +264,177 @@
                         </div>
                       </div>
                       <h3 class="card-subtitle">System Log Monitor needs no configuration, toggle right to start</h3>
-                    <br>
+                      <!-- Firewall -->
+                      <hr style="border-width:2px">
+                      <div class="form-group">
+                          <div class="col-12">
+                            <div class="row">
+                              <h1 class="card-title">Firewall</h1>
+                            <label class="switch">
+                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="firewall" checked/>
+                              <span class="slider round"></span>
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 class="card-subtitle">Configure Firewall</h3>
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Name of the interface</label>
+                            <input type="text" class="form-control" formControlName="interface" placeholder="Leave blank to auto-detect"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Inbound IPs</label>
+                            <input type="text" class="form-control" formControlName="ip_inbound" placeholder="List of inbound IPs to allow or filter, e.g. 1.1.1.1, 2.2.2.2"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="inbound_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Outbound IPs</label>
+                            <input type="text" class="form-control" formControlName="ip_outbound" placeholder="List of outbound IPs to allow or filter, e.g. 1.1.1.1, 2.2.2.2"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="outbound_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Protocols</label>
+                            <input type="text" class="form-control" formControlName="protocols" placeholder="List of protocols to allow or filter, e.g. ICMP, UDP"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="protocol_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Downloaded file extensions to scan for</label>
+                            <input type="text" class="form-control" formControlName="extensions" placeholder="Files extensions to allow or filter, e.g. .exe, .mp3"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="scan_load_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Source ports</label>
+                            <input type="text" class="form-control" formControlName="sports" placeholder="List of source ports to allow or filter e.g. 80, 443"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="sports_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Destination ports</label>
+                            <input type="text" class="form-control" formControlName="dest_ports" placeholder="List of destination ports to allow or filter e.g. 80, 443"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="dest_ports_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Domain Name System (DNS)</label>
+                            <input type="text" class="form-control" formControlName="dns" placeholder="List of DNS to allow or filter e.g. mail.google.com"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="dns_action" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <!-- Firewall configuration box -->
+                        <div class="form-group">
+                            <label>Time upper bound</label>
+                            <input type="text" class="form-control" formControlName="time_ub" placeholder="Upper bound time limit to allow connection e.g. 23:59"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Time lower bound</label>
+                            <input type="text" class="form-control" formControlName="time_lb" placeholder="Lower bound time limit to allow network connection e.g. 00:00"/>
+                        </div>
+                        <hr style="border-width:1px">
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow HTTP requests</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="http_req" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                        <hr style="border-width:1px">
+                        <div class="form-group">
+                            <div class="col-12">
+                              <div class="row">
+                              <label>Allow HTTP response</label>
+                              <label class="switch">
+                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="http_resp" checked/>
+                                <span class="slider round"></span>
+                              </label>
+                              </div>
+                            </div>
+                        </div>
+                      <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>
                 <div class="error">

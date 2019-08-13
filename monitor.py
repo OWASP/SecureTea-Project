@@ -381,6 +381,22 @@ def stop():
     return "404", 404
 
 
+def get_list(list_var):
+    """Returns empty string if variable is None."""
+    if list_var:
+        return list_var
+    else:
+        return ""
+
+
+def get_integer(bool_var):
+    """Returns string value for the bool variable."""
+    if bool_var:
+        return "1"
+    else:
+        return "0"
+
+
 @app.route('/sleep', methods=['POST', 'GET'])
 def sleep():
     """Docstring."""
@@ -530,6 +546,57 @@ def sleep():
     sys_log = creds['sys_log']
     if sys_log:
         args_str += ' --system_log'
+
+    # Firewall parsing
+    firewall = creds['firewall']
+    if firewall:
+        interface = creds['interface']
+        ip_inbound = get_list(creds['ip_inbound'])
+        inbound_action = get_integer(creds['inbound_action'])
+        ip_outbound = get_list(creds['ip_outbound'])
+        outbound_action = get_integer(creds['outbound_action'])
+        protocols = get_list(creds['protocols'])
+        protocol_action = get_integer(creds['protocol_action'])
+        extensions = get_list(creds['extensions'])
+        scan_load_action = get_integer(creds['scan_load_action'])
+        sports = get_list(creds['sports'])
+        sports_action = get_integer(creds['sports_action'])
+        dest_ports = get_list(creds['dest_ports'])
+        dest_ports_action = get_integer(creds['dest_ports_action'])
+        dns = get_list(creds['dns'])
+        dns_action = get_integer(creds['dns_action'])
+        time_lb = creds['time_lb']
+        time_ub = creds['time_ub']
+        http_req = get_integer(creds['http_req'])
+        http_resp = get_integer(creds['http_resp'])
+
+        # Set default values for time
+        if not time_lb:
+            time_lb = "00:00"
+        if not time_ub:
+            time_ub = "23:59"
+
+        if interface:
+            args_str += " --interface=" + interface
+
+        args_str += " --inbound_IP_list=" + ip_inbound
+        args_str += " --inbound_IP_action=" + inbound_action
+        args_str += " --outbound_IP_list=" + ip_outbound
+        args_str += " --outbound_IP_action=" + outbound_action
+        args_str += " --protocol_list=" + protocols
+        args_str += " --protocol_action=" + protocol_action
+        args_str += " --scan_list=" + extensions
+        args_str += " --scan_action=" + scan_load_action
+        args_str += " --source_port_list=" + sports
+        args_str += " --source_port_action=" + sports_action
+        args_str += " --dest_port_list=" + dest_ports
+        args_str += " --dest_port_action=" + dest_ports_action
+        args_str += " --dns_list=" + dns
+        args_str += " --dns_action=" + dns_action
+        args_str += " --time_lb=" + time_lb
+        args_str += " --time_ub=" + time_ub
+        args_str += " --HTTP_request_action=" + http_req
+        args_str += " --HTTP_response_action=" + http_resp
 
     try:
         if not processid:
