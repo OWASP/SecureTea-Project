@@ -15,60 +15,123 @@
 [![Follow Us](https://img.shields.io/twitter/url/https/secureteatool.svg?label=SecureTea%20Project&style=social)](https://twitter.com/secureteatool)
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 
-**The OWASP SecureTea Project** is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows).<br>
-The software is still under development, and will eventually have it's own IDS(Intrusion Detection System) / IPS(Instrusion Prevention System), firewall, anti-virus, intelligent log monitoring capabilities with web defacement detection, and support for much more communication medium.
+**The OWASP SecureTea Project** provides a one-stop security solution for various devices (personal computers / servers / IoT devices).<br>
+The **core** feature includes the following:
+- [x] Intrusion Detection System
+- [x] Firewall
+- [x] AntiVirus
+- [x] Server Log Monitor
+- [x] System Log Monitor
+- [x] Local Web Deface Detection & Prevention System
+- [x] Auto Web Server Patcher
+- [x] IoT Anonymity checker
+- [x] Auto report generation using OSINT
+- [x] Notifying suspicious activities using various mediums (Twitter, Telegram, Slack, Gmail, SMS, AWS & more)
+- [x] Interactive GUI for ease of setting up
 
 ![Setup Intro][Setup-help-animation]
 
 ## Table Of Contents
--   [Target User](#target-user)
--   [Objective](#objective)
 -   [Pre-requisites](#pre-requisites)
 -   [Installation Procedure](#installation-procedure)
+-   [Quick Start](#quick-start)
 -   [Suggestions and Contribution](#suggestions-and-contributing)
 -   [Code Of Conduct](/CODE_OF_CONDUCT.md)
--   [Chat Group](#chat-group)
 -   [User guide](/doc/en-US/user_guide.md)
 -   [Developer guide](/doc/en-US/dev_guide.md)
 -   [Translation-Japanese](/doc/ja-JP/README.md)
 -   [Translation-Hindi](/doc/hi-IN/README.md)
+-   [License](#license)
 
-## Target User
+## Pre-requisites
+#### Supported Platforms
+OWASP SecureTea Tool project runs on Linux operating systems.
 
-It was written to be used by anyone who is interested in IoT Security (Internet of Things) and still needs further development.
+#### Hardware
+-  Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
+-  Mouse / Wireless Mouse / Touchpad congenital laptop
 
-### How it functions:
+#### Software
+-  Python 2.x or 3.x
+-  Angular
+-  Twitter account (optional)
+-  Telegram account (optional)
+-  Slack account (optional)
+-  Twilio SMS account (optional)
+-  Amazon Web Services account (optional)
+-  Libnetfilter
+-  Yara
+-  Clam AV
 
--   Keep track of the movement of the mouse/touchpad
--   Detect who accesses your device(laptop/server/other iot device) with mouse/touchpad installed.
--   Send warning messages on Twitter/Twilio-SMS/Slack/Telegram. More features on the way.
+#### Installing pre-requisites
+Python:<br>
+https://www.python.org/
 
-## Objective
+Angular:<br>
+https://angular.io/
 
-To alert the user via various communication mechanism, whenever The Computer / Server had been accessed by someone / attacker.
-And also it can be used to monitor your system & SecureTea firewall as Defense.
+Libnetfilter:<br>
+https://www.netfilter.org/projects/libnetfilter_queue/
+```command
+sudo apt-get update
+sudo apt-get install build-essential python-dev libnetfilter-queue-dev
+```
+
+Yara:<br>
+https://yara.readthedocs.io/en/v3.7.0/gettingstarted.html
+1. Download the latest Yara release at: https://github.com/VirusTotal/yara/releases
+2. Execute the following instructions in the order:
+```command
+tar -zxf yara-3.10.0.tar.gz
+cd yara-3.10.0
+./bootstrap.sh
+sudo apt-get install automake libtool make gcc
+sudo apt-get install flex bison
+./configure
+make
+sudo make install
+make check
+```
+
+Clam AV:<br>
+https://www.clamav.net/
+1. Execute the following instructions in the order:
+```command
+sudo apt-get install clamav
+sudo freshclam
+```
 
 ## Installation Procedure
 
-You can install SecureTea from PyPi package manager
+You can install SecureTea from PyPi package manager using the following command:
 
 `pip install securetea`
 
-Please make sure all dependencies are installed if this fails.
+Please make sure all dependencies are installed if this fails.<br>
+For more detailed information, refer to the [installation guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#installation)
+
+## Quick Start
+
+1. Start SecureTea in [**server mode**](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#starting-up-in-server-mode):<br>
+`sudo SecureTea.py --server-mode`
+
+2. Start SecureTea in [**system mode**](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#starting-up-in-system-mode):<br>
+`sudo SecureTea.py --system-mode
+`
+3. Start SecureTea in [**IoT mode**](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#starting-up-in-iot-mode):<br>
+`sudo SecureTea.py --iot-mode`
 
 ### User Guide
 
-See more at [User Guide](/doc/en-US/user_guide.md)
-for translated user guides
+Read detailed [user guide](/doc/en-US/user_guide.md).
 
 ### Developer Guide
 
-See more at [Developer guide](/doc/en-US/dev_guide.md)
-for translated developer guides
+Read detailed [developer guide](/doc/en-US/dev_guide.md).
 
-## [Suggestions and Contributing](/CONTRIBUTING.md)
+## Suggestions and Contributing
 
-See more at [Contributing Guide](/CONTRIBUTING.md)
+See more at [Contributing Guide](/CONTRIBUTING.md).
 
 ## Project Leaders
 
@@ -128,3 +191,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## License
+MIT License
