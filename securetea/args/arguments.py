@@ -386,7 +386,7 @@ def get_args():
     parser.add_argument(
         '--threshold',
         '-th',
-        type=int,
+        type=str,
         required=False,
         help="Intrusion Detection System (IDS) threshold"
     )

@@ -613,6 +613,17 @@ def sleep():
         args_str += " --ip-list=" + ip_list
         args_str += " --status-code=" + status_code
 
+    # Intrusion Detection System
+    ids = creds['ids']
+    if ids:
+        interface = get_list(creds['ids_interface'])
+        threshold = get_list(creds['threshold'])
+
+        args_str += " --interface=" + interface
+        args_str += " --threshold=" + threshold
+
+    print(">>>", args_str)
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',

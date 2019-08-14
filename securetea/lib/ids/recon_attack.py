@@ -55,7 +55,7 @@ class DetectRecon(object):
         )
 
         # Set threshold
-        if threshold is None:
+        if not threshold:
             self._THRESHOLD = 100
         else:
             try:
