@@ -622,8 +622,6 @@ def sleep():
         args_str += " --interface=" + interface
         args_str += " --threshold=" + threshold
 
-    print(">>>", args_str)
-
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
