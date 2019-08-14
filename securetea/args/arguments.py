@@ -422,7 +422,7 @@ def get_args():
 
     parser.add_argument(
         '--window',
-        type=int,
+        type=str,
         required=False,
         help="Days old log to process"
     )

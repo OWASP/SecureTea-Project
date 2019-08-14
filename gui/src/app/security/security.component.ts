@@ -67,7 +67,13 @@ export class SecurityComponent implements OnInit {
     time_ub: new FormControl(' '),
     time_lb: new FormControl(' '),
     http_req: new FormControl(' '),
-    http_resp: new FormControl(' ')
+    http_resp: new FormControl(' '),
+    server_log: new FormControl(' '),
+    log_type: new FormControl(' '),
+    log_file: new FormControl(' '),
+    window: new FormControl(' '),
+    ip_list: new FormControl(' '),
+    status_code: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -146,7 +152,13 @@ export class SecurityComponent implements OnInit {
         'time_ub': this.notificationsForm.value.time_ub,
         'time_lb': this.notificationsForm.value.time_lb,
         'http_req': this.notificationsForm.value.http_req,
-        'http_resp': this.notificationsForm.value.http_resp
+        'http_resp': this.notificationsForm.value.http_resp,
+        'server_log': this.notificationsForm.value.server_log,
+        'log_type': this.notificationsForm.value.log_type,
+        'log_file': this.notificationsForm.value.log_file,
+        'window': this.notificationsForm.value.window,
+        'ip_list': this.notificationsForm.value.ip_list,
+        'status_code': this.notificationsForm.value.status_code
       };
       swal({
         title: 'Are you sure?',

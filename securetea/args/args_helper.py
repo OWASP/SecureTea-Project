@@ -824,19 +824,19 @@ class ArgsHelper(object):
                 self.ids_provided = True
 
         if not self.server_log_provided:
-            if (self.args.server_log and
-                self.args.log_file and
-                self.args.log_type and
-                self.args.window and
-                self.args.ip_list and
-                self.args.status_code):
+            if (isinstance(self.args.server_log, str) or
+                isinstance(self.args.log_file, str) or
+                isinstance(self.args.log_type, str) or
+                isinstance(self.args.window, str) or
+                isinstance(self.args.ip_list, str) or
+                isinstance(self.args.status_code, str)):
                 server_log = {}
                 server_log["log-file"] = self.args.log_file
                 server_log["log-type"] = self.args.log_type
                 server_log["window"] = self.args.window
                 server_log["ip-list"] = self.args.ip_list
                 server_log["status-code"] = self.args.status_code
-                self.cred["server-log"] = server_log
+                self.cred["server_log"] = server_log
                 self.server_log_provided = True
 
         if not self.auto_server_patcher_provided:
