@@ -76,7 +76,10 @@ export class SecurityComponent implements OnInit {
     status_code: new FormControl(' '),
     ids: new FormControl(' '),
     ids_interface: new FormControl(' '),
-    threshold: new FormControl(' ')
+    threshold: new FormControl(' '),
+    web_deface: new FormControl(' '),
+    server_name: new FormControl(' '),
+    path: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -164,7 +167,10 @@ export class SecurityComponent implements OnInit {
         'status_code': this.notificationsForm.value.status_code,
         'ids': this.notificationsForm.value.ids,
         'ids_interface': this.notificationsForm.value.ids_interface,
-        'threshold': this.notificationsForm.value.threshold
+        'threshold': this.notificationsForm.value.threshold,
+        'web_deface': this.notificationsForm.value.web_deface,
+        'server_name': this.notificationsForm.value.server_name,
+        'path': this.notificationsForm.value.path
       };
       swal({
         title: 'Are you sure?',
