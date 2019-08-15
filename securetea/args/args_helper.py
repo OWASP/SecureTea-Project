@@ -17,6 +17,7 @@ from securetea import logger
 import sys
 import json
 from securetea.configurations import SecureTeaConf
+from securetea.lib.firewall.utils import get_interface
 
 
 def iterate_dict(config_dict, default):
@@ -647,8 +648,18 @@ class ArgsHelper(object):
 
                 if creds.get("firewall"):
                     self.cred["firewall"] = creds["firewall"]
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if creds.get("ids"):
                     self.cred["ids"] = creds["ids"]
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if creds.get("server_log"):
                     self.cred["server_log"] = creds["server_log"]
                 if creds.get("auto_server_patcher"):
@@ -673,8 +684,18 @@ class ArgsHelper(object):
 
                 if firewall:
                     self.cred["firewall"] = firewall
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if ids:
                     self.cred["ids"] = ids
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if server_log:
                     self.cred["server_log"] = server_log
                 if auto_server_patcher:
@@ -694,8 +715,18 @@ class ArgsHelper(object):
 
                 if creds.get("firewall"):
                     self.cred["firewall"] = creds["firewall"]
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if creds.get("ids"):
                     self.cred["ids"] = creds["ids"]
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if creds.get("antivirus"):
                     self.cred["antivirus"] = creds["antivirus"]
             else:
@@ -708,8 +739,18 @@ class ArgsHelper(object):
 
                 if firewall:
                     self.cred["firewall"] = firewall
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if ids:
                     self.cred["ids"] = ids
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if antivirus:
                     self.cred["antivirus"] = antivirus
 
@@ -723,8 +764,18 @@ class ArgsHelper(object):
 
                 if creds.get("firewall"):
                     self.cred["firewall"] = creds["firewall"]
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if creds.get("ids"):
                     self.cred["ids"] = creds["ids"]
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if creds.get("iot-check"):
                     self.cred["iot-check"] = creds["iot-check"]
             else:
@@ -737,8 +788,18 @@ class ArgsHelper(object):
 
                 if firewall:
                     self.cred["firewall"] = firewall
+                    interface = self.cred["firewall"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Firewall")
+                        interface = get_interface()
+                        self.cred["firewall"]["interface"] = interface
                 if ids:
                     self.cred["ids"] = ids
+                    interface = self.cred["ids"]["interface"]
+                    if not interface or interface == "XXXX":
+                        print("\n[!] Select network interface for Intrusion Detection System")
+                        interface = get_interface()
+                        self.cred["ids"]["interface"] = interface
                 if iot_check:
                     self.cred["iot-check"] = iot_check
 
