@@ -816,7 +816,8 @@ class ArgsHelper(object):
                 self.insecure_headers_provided = True
 
         if not self.ids_provided:
-            if (self.args.threshold and self.args.interface):
+            if (isinstance(self.args.threshold, str) and
+                isinstance(self.args.interface, str)):
                 ids = {}
                 ids["threshold"] = self.args.threshold
                 ids["interface"] = self.args.interface

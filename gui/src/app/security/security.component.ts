@@ -73,7 +73,10 @@ export class SecurityComponent implements OnInit {
     log_file: new FormControl(' '),
     window: new FormControl(' '),
     ip_list: new FormControl(' '),
-    status_code: new FormControl(' ')
+    status_code: new FormControl(' '),
+    ids: new FormControl(' '),
+    ids_interface: new FormControl(' '),
+    threshold: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -158,7 +161,10 @@ export class SecurityComponent implements OnInit {
         'log_file': this.notificationsForm.value.log_file,
         'window': this.notificationsForm.value.window,
         'ip_list': this.notificationsForm.value.ip_list,
-        'status_code': this.notificationsForm.value.status_code
+        'status_code': this.notificationsForm.value.status_code,
+        'ids': this.notificationsForm.value.ids,
+        'ids_interface': this.notificationsForm.value.ids_interface,
+        'threshold': this.notificationsForm.value.threshold
       };
       swal({
         title: 'Are you sure?',

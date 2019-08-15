@@ -50,7 +50,7 @@ class SecureTeaIDS(object):
                                          debug=debug)
 
             interface = self.cred["interface"]
-            if interface is not None and interface != "XXXX":
+            if interface and interface != "XXXX":
                 self.interface = interface
             else:
                 self.logger.log(
