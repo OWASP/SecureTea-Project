@@ -15,8 +15,10 @@
 [![Follow Us](https://img.shields.io/twitter/url/https/secureteatool.svg?label=SecureTea%20Project&style=social)](https://twitter.com/secureteatool)
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 
-**The OWASP SecureTea Project** provides a one-stop security solution for various devices (personal computers / servers / IoT devices).<br>
+**The OWASP SecureTea Project** provides a one-stop security solution for various devices (personal computers / servers / IoT devices).
+
 The **core** feature includes the following:
+
 - [x] Intrusion Detection System
 - [x] Firewall
 - [x] AntiVirus
@@ -32,7 +34,7 @@ The **core** feature includes the following:
 ![Setup Intro][Setup-help-animation]
 
 ## Table Of Contents
--   [Pre-requisites](#pre-requisites)
+-   [Pre-requisites](/doc/en-US/user_guide.md#pre-requisites)
 -   [Installation Procedure](#installation-procedure)
 -   [Quick Start](#quick-start)
 -   [Suggestions and Contribution](#suggestions-and-contributing)
@@ -43,64 +45,6 @@ The **core** feature includes the following:
 -   [Translation-Hindi](/doc/hi-IN/README.md)
 -   [License](#license)
 
-## Pre-requisites
-#### Supported Platforms
-OWASP SecureTea Tool project runs on Linux operating systems.
-
-#### Hardware
--  Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
--  Mouse / Wireless Mouse / Touchpad congenital laptop
-
-#### Software
--  Python 2.x or 3.x
--  Angular
--  Twitter account (optional)
--  Telegram account (optional)
--  Slack account (optional)
--  Twilio SMS account (optional)
--  Amazon Web Services account (optional)
--  Libnetfilter
--  Yara
--  Clam AV
-
-#### Installing pre-requisites
-Python:<br>
-https://www.python.org/
-
-Angular:<br>
-https://angular.io/
-
-Libnetfilter:<br>
-https://www.netfilter.org/projects/libnetfilter_queue/
-```command
-sudo apt-get update
-sudo apt-get install build-essential python-dev libnetfilter-queue-dev
-```
-
-Yara:<br>
-https://yara.readthedocs.io/en/v3.7.0/gettingstarted.html
-1. Download the latest Yara release at: https://github.com/VirusTotal/yara/releases
-2. Execute the following instructions in the order:
-```command
-tar -zxf yara-3.10.0.tar.gz
-cd yara-3.10.0
-./bootstrap.sh
-sudo apt-get install automake libtool make gcc
-sudo apt-get install flex bison
-./configure
-make
-sudo make install
-make check
-```
-
-Clam AV:<br>
-https://www.clamav.net/
-1. Execute the following instructions in the order:
-```command
-sudo apt-get install clamav
-sudo freshclam
-```
-
 ## Installation Procedure
 
 You can install SecureTea from PyPi package manager using the following command:
@@ -108,7 +52,7 @@ You can install SecureTea from PyPi package manager using the following command:
 `pip install securetea`
 
 Please make sure all dependencies are installed if this fails.<br>
-For more detailed information, refer to the [installation guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#installation)
+For more detailed information, refer to the [installation guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#installation).
 
 ## Quick Start
 
@@ -121,13 +65,7 @@ For more detailed information, refer to the [installation guide](https://github.
 3. Start SecureTea in [**IoT mode**](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#starting-up-in-iot-mode):<br>
 `sudo SecureTea.py --iot-mode`
 
-### User Guide
-
-Read detailed [user guide](/doc/en-US/user_guide.md).
-
-### Developer Guide
-
-Read detailed [developer guide](/doc/en-US/dev_guide.md).
+For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
 ## Suggestions and Contributing
 
