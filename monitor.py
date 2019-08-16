@@ -622,6 +622,16 @@ def sleep():
         args_str += " --interface=" + interface
         args_str += " --threshold=" + threshold
 
+    # Local Web Deface Detection Parsing
+    web_deface = creds['web_deface']
+    if web_deface:
+        server_name = get_list(creds["server_name"])
+        path = get_list(creds["path"])
+
+        args_str += " --web-deface"
+        args_str += " --server-name=" + server_name
+        args_str += " --path=" + path
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
