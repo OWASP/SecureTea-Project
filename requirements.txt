@@ -20,3 +20,4 @@ pyudev
 lxml
 ipwhois
 shodan
+future

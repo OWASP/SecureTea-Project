@@ -11,11 +11,13 @@ Project:
 
 """
 
+from __future__ import print_function
 from securetea.lib.firewall.mapping import *
 import subprocess
 import re
 import os
 from securetea import logger
+import platform
 
 
 # Initialize logger with debug=False
@@ -316,8 +318,11 @@ def get_interface():
 
     intf = -1
     while intf > total_index or intf < 0:
-        intf = int(input('\n>> Enter the index of the interface: ')
-                   .strip())
+        if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+            intf = raw_input(">> Enter the index of the interface: ").strip(" ")
+        else:
+            intf = str(input(">> Enter the index of the interface: ")).strip(" ")
+        intf = int(intf)
 
     utils_logger.log(
         "Selected interface is : {}".format(interfaces[intf]),
