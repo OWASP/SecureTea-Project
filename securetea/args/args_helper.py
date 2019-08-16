@@ -640,7 +640,10 @@ class ArgsHelper(object):
 
         if self.args.server_mode and not self.server_mode:
             self.server_mode = True
-            config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): "))
+            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+            else:
+                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
             if (config_decision.lower() == "Y" or
                 config_decision.lower() == "y"):
                 # Fetch credentials
@@ -707,7 +710,10 @@ class ArgsHelper(object):
 
         if self.args.system_mode and not self.system_mode:
             self.system_mode = True
-            config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): "))
+            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+            else:
+                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
             if (config_decision.lower() == "Y" or
                 config_decision.lower() == "y"):
                 # Fetch credentials
@@ -756,7 +762,10 @@ class ArgsHelper(object):
 
         if self.args.iot_mode and not self.iot_mode:
             self.iot_mode = True
-            config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): "))
+            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+            else:
+                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
             if (config_decision.lower() == "Y" or
                 config_decision.lower() == "y"):
                 # Fetch credentials
