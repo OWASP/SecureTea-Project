@@ -534,6 +534,24 @@
                                   <label>Public IP address of the device</label>
                                   <input type="text" class="form-control" formControlName="ip_addr_iot" placeholder="Leave blank to auto-detect"/>
                               </div>
+                              <!-- Insecure Headers -->
+                              <hr style="border-width:2px">
+                              <div class="form-group">
+                                  <div class="col-12">
+                                    <div class="row">
+                                      <h1 class="card-title">Insecure Headers</h1>
+                                    <label class="switch">
+                                      <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="insecure_headers" checked/>
+                                      <span class="slider round"></span>
+                                    </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h3 class="card-subtitle">Configure Insecure Headers</h3>
+                                <div class="form-group">
+                                    <label>URL of the website</label>
+                                    <input type="text" class="form-control" formControlName="url_ih" placeholder="Enter the URL of the website to check insecure headers for"/>
+                                </div>
                       <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>

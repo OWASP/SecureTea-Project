@@ -642,6 +642,14 @@ def sleep():
         args_str += " --shodan-api-key=" + shodan_api_key
         args_str += " --ip=" + ip_addr_iot
 
+    # Insecure Headers Parsing
+    insecure_headers = creds['insecure_headers']
+    if insecure_headers:
+        url = get_list(creds["url_ih"])
+
+        args_str += " --insecure_headers"
+        args_str += " --url=" + url
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
