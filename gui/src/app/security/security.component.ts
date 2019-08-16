@@ -79,7 +79,10 @@ export class SecurityComponent implements OnInit {
     threshold: new FormControl(' '),
     web_deface: new FormControl(' '),
     server_name: new FormControl(' '),
-    path: new FormControl(' ')
+    path: new FormControl(' '),
+    iot_ano: new FormControl(' '),
+    shodan_api: new FormControl(' '),
+    ip_addr_iot: new FormControl(' ')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -170,7 +173,10 @@ export class SecurityComponent implements OnInit {
         'threshold': this.notificationsForm.value.threshold,
         'web_deface': this.notificationsForm.value.web_deface,
         'server_name': this.notificationsForm.value.server_name,
-        'path': this.notificationsForm.value.path
+        'path': this.notificationsForm.value.path,
+        'iot_ano': this.notificationsForm.value.iot_ano,
+        'shodan_api': this.notificationsForm.value.shodan_api,
+        'ip_addr_iot': this.notificationsForm.value.ip_addr_iot
       };
       swal({
         title: 'Are you sure?',

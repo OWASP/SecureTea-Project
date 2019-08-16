@@ -512,6 +512,28 @@
                                 <label>Path of the web files</label>
                                 <input type="text" class="form-control" formControlName="path" placeholder="Path of the web directory, leave blank to auto-detect"/>
                             </div>
+                            <!-- IoT Anonymity Checker -->
+                            <hr style="border-width:2px">
+                            <div class="form-group">
+                                <div class="col-12">
+                                  <div class="row">
+                                    <h1 class="card-title">IoT Anonymity Checker</h1>
+                                  <label class="switch">
+                                    <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="iot_ano" checked/>
+                                    <span class="slider round"></span>
+                                  </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <h3 class="card-subtitle">Configure IoT Anonymity Checker</h3>
+                              <div class="form-group">
+                                  <label>Shodan API key</label>
+                                  <input type="text" class="form-control" formControlName="shodan_api" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                              </div>
+                              <div class="form-group">
+                                  <label>Public IP address of the device</label>
+                                  <input type="text" class="form-control" formControlName="ip_addr_iot" placeholder="Leave blank to auto-detect"/>
+                              </div>
                       <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>

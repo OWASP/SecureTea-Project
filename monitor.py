@@ -632,6 +632,16 @@ def sleep():
         args_str += " --server-name=" + server_name
         args_str += " --path=" + path
 
+    # IoT Anonymity Checker Parsing
+    iot_ano = creds['iot_ano']
+    if iot_ano:
+        shodan_api_key = get_list(creds["shodan_api"])
+        ip_addr_iot = get_list(creds["ip_addr_iot"])
+
+        args_str += " --iot-checker"
+        args_str += " --shodan-api-key=" + shodan_api_key
+        args_str += " --ip=" + ip_addr_iot
+
     try:
         if not processid:
             processid = subprocess.Popen('python SecureTea.py' + args_str + ' &',
