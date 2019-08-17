@@ -70,10 +70,18 @@ class SSIDSpoof(object):
                                    output)
                 self.detect_spoof(found)
         except Exception as e:
-            self.logger.log(
-                "Error occurred: " + str(e),
-                logtype="error"
-            )
+            error = str(e)
+            if "returned non-zero exit status 1" in error:
+                self.logger.log(
+                    "Scanning not supported by the interface: " + self.interface,
+                    logtype="warning"
+                )
+                self.interface = None  # Quit scanning
+            else:
+                self.logger.log(
+                    "Error occurred: " + error,
+                    logtype="error"
+                )
 
     def detect_spoof(self, found):
         """
