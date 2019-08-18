@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.5.1
+    Version: 1.6
     Module: SecureTea
 
 Attributes:
@@ -239,7 +239,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.5.1',
+    version='1.6',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
@@ -275,7 +275,8 @@ setup(
         "pyudev",
         "lxml",
         "ipwhois",
-        "shodan"
+        "shodan",
+        "future"
     ],
     python_requires='>=2.7',
     classifiers=[
