@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.6
+    Version: 2.0
     Module: SecureTea
 
 Attributes:
@@ -239,7 +239,7 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
 
 setup(
     name='securetea',
-    version='1.6',
+    version='2.0',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
