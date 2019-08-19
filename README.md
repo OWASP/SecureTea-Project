@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">one stop security solution for your device<a href="https://github.com/OWASP/SecureTea-Project" target="_blank"></a></h4>
+<h4 align="center">One stop security solution for your device<a href="https://github.com/OWASP/SecureTea-Project" target="_blank"></a></h4>
 
 <p align="center">
   <a href="#features">Features</a> •
