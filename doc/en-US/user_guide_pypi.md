@@ -5,9 +5,7 @@
 Read developer guide [here](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/dev_guide.md).
 
 ## Introduction
-The OWASP SecureTea Project is an application designed to help secure a person's laptop or computer / server with IoT (Internet Of Things) and notify users (via various communication mechanisms), whenever someone accesses their computer / server. This application uses the touchpad/mouse/wireless mouse to determine activity and is developed in Python and tested on various machines (Linux, Mac & Windows).<br>
-The software is still under development, and will eventually have it's own IDS(Intrusion Detection System) / IPS(Instrusion Prevention System), firewall, anti-virus, intelligent log monitoring capabilities with web defacement detection, and support for much more communication medium.
-<br>
+The OWASP SecureTea Project provides a one-stop security solution for various devices (personal computers / servers / IoT devices).
 
 ## Installation
 **Contents:**
@@ -43,33 +41,33 @@ https://angular.io/
 
 Libnetfilter:<br>
 https://www.netfilter.org/projects/libnetfilter_queue/
-```command
-sudo apt-get update
-sudo apt-get install build-essential python-dev libnetfilter-queue-dev
+```shell
+$ sudo apt-get update
+$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev
 ```
 
 Yara:<br>
 https://yara.readthedocs.io/en/v3.7.0/gettingstarted.html
 1. Download the latest Yara release at: https://github.com/VirusTotal/yara/releases
 2. Execute the following instructions in the order:
-```command
-tar -zxf yara-3.10.0.tar.gz
-cd yara-3.10.0
-./bootstrap.sh
-sudo apt-get install automake libtool make gcc
-sudo apt-get install flex bison
-./configure
-make
-sudo make install
-make check
+```shell
+$ tar -zxf yara-3.10.0.tar.gz
+$ cd yara-3.10.0
+$ ./bootstrap.sh
+$ sudo apt-get install automake libtool make gcc
+$ sudo apt-get install flex bison
+$ ./configure
+$ make
+$ sudo make install
+$ make check
 ```
 
 Clam AV:<br>
 https://www.clamav.net/
 1. Execute the following instructions in the order:
-```command
-sudo apt-get install clamav
-sudo freshclam
+```shell
+$ sudo apt-get install clamav
+$ sudo freshclam
 ```
 
 ### Procedure for installing
@@ -79,31 +77,36 @@ You can install OWASP SecureTea Tool using the following methods:
 -  Zip
 
 #### Setting up a virtual environment
-1.  Install virtualenv<br>
-`pip install virtualenv`<br>
-2.  Create a virtual environment named `venv1`<br>
-`virtualenv venv1`<br>
-3.  Activate virtual environment `venv1`<br>
-`source venv1/bin/activate`<br>
+1.  Install virtualenv: 
+`$ pip install virtualenv`
+
+2.  Create a virtual environment named `venv1`:
+`$ virtualenv venv1`
+
+3.  Activate virtual environment `venv1`:
+`$ source venv1/bin/activate`
 
 #### PyPi
-You can install SecureTea from PyPi package manager
+You can install SecureTea from PyPi package manager using the following command:
 
-`pip install securetea`
+`$ sudo python3 -m pip install securetea`
 
 Please make sure all dependencies are installed if this fails.
 
 #### GitHub
 Installing from GitHub involves the following steps:
 
-1.  Clone the repository<br>
-`git clone https://github.com/OWASP/SecureTea-Project.git`<br>
-2.  Navigate into the project directory<br>
-`cd SecureTea-Project`<br>
-3.  Install SecureTea package<br>
-`sudo python setup.py install`<br>
-4.  Install python dependencies<br>
-`pip install -r requirements.txt`<br>
+1.  Clone the repository:
+`$ git clone https://github.com/OWASP/SecureTea-Project.git`
+
+2.  Navigate into the project directory:
+`$ cd SecureTea-Project`
+
+3.  Install Python dependencies:
+`$ sudo python3 -m pip install -r requirements.txt`
+
+4.  Install SecureTea package:
+`$ sudo python3 setup.py install`
 
 If done, proceed to After installation.
 
@@ -111,16 +114,19 @@ If done, proceed to After installation.
 Installing from Zip involves the following steps:
 
 1.  Download the [zip](https://github.com/OWASP/SecureTea-Project/archive/master.zip).
-2.  Unzip using: `unzip master.zip`
-3.  Navigate into the project directory<br>
-`cd SecureTea-Project`<br>
-4.  Install SecureTea package<br>
-`sudo python setup.py install`<br>
-5.  Install python dependencies<br>
-`pip install -r requirements.txt`<br>
-or 
-`pip3 install -r requirements.txt`<br>
-tip: Incase of any error during installation, try using `apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
+
+2.  Unzip using: `$ unzip master.zip`
+
+3.  Navigate into the project directory:
+`$ cd SecureTea-Project`
+
+4.  Install python dependencies:
+`$ sudo python3 -m pip install -r requirements.txt`
+
+5.  Install SecureTea package:
+`$ sudo python3 setup.py install`
+
+Tip: Incase of any error during installation related to NetfilterQueue, try using `$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
 
 If done, proceed to After installation.
 
@@ -281,16 +287,18 @@ Examples:<br>
 
 ##### Configuring using Web UI
 
-This is still under development.
+- [Using local web server over HTTPS](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/web_https.md)
 
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/securetea%20gui.PNG "Secure Tea Dashboard")
+###### Previews
+![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh1.png "Secure Tea Dashboard")
 <br><br>
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/securetea%20security%20gui.PNG "Secure Tea Security Dashboard")
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/aws.png "AWS Email")
+![Disk usage](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh2.png "Secure Tea Disk Dashboard")
+![Process](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh3.png "Process")
 <br><br>
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/tele-gui.png "Telegram")
+![Last Login](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh4.png "Last Login")
 <br><br>
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/slack-twilio.png "Slack SMS Dashboard")
+![Network](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh5.png "Networks")
+![Security](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh7.png "Security")
 
 ##### Configuring using CLI arguments
 ```argument
