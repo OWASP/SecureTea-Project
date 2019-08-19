@@ -15,7 +15,7 @@
   <a href="#quick-start">Quick Start</a> •
   <a href="#project-leaders">Project Leaders</a> •
   <a href="#contributors">Contributors</a> •
-  <a href="/doc/en-US/user_guide.md">User guide</a> •
+  <a href="/doc/en-US/user_guide.md">User Guide</a> •
   <a href="/doc/en-US/dev_guide.md">Developer Guide</a>
 </p>
 
@@ -47,10 +47,10 @@
 - [x] [Local Web Deface Detection & Prevention System](/doc/en-US/user_guide.md#web-deface-detection)
 - [x] [Auto Web Server Patcher](/doc/en-US/user_guide.md#auto-server-patcher)
 - [x] [Insecure Headers Detection](/doc/en-US/user_guide.md#insecure-headers)
-- [x] [IoT Anonymity checker](/doc/en-US/user_guide.md#iot-anonymity-checker)
-- [x] [Auto report generation using OSINT](/doc/en-US/user_guide.md)
-- [x] [Notifying suspicious activities using various mediums (Twitter, Telegram, Slack, Gmail, SMS, AWS & more)](doc/en-US/user_guide.md#setting-up-notifiers)
-- [x] [Interactive GUI for ease of setting up](/doc/en-US/user_guide.md#configuring-using-web-ui)
+- [x] [IoT Anonymity Checker](/doc/en-US/user_guide.md#iot-anonymity-checker)
+- [x] [Auto Report Generation Using OSINT](/doc/en-US/user_guide.md)
+- [x] [Notifying Suspicious Activities Using Various Mediums (Twitter, Telegram, Slack, Gmail, SMS, AWS)](doc/en-US/user_guide.md#setting-up-notifiers)
+- [x] [Interactive GUI For Ease Of Setting Up](/doc/en-US/user_guide.md#configuring-using-web-ui)
 
 ## Installation
 
