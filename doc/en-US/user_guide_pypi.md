@@ -290,15 +290,15 @@ Examples:<br>
 - [Using local web server over HTTPS](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/web_https.md)
 
 ###### Previews
-![Network graph](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh1.png "Secure Tea Dashboard")
+![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh1.png "Secure Tea Dashboard")
 <br><br>
-![Disk usage](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh2.png "Secure Tea Disk Dashboard")
-![Process](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh3.png "Process")
+![Disk usage](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh2.png "Secure Tea Disk Dashboard")
+![Process](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh3.png "Process")
 <br><br>
-![Last Login](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh4.png "Last Login")
+![Last Login](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh4.png "Last Login")
 <br><br>
-![Network](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh5.png "Networks")
-![Security](https://raw.githubusercontent.com/abhisharma404/SecureTea-Project/user-guide/img/dsh7.png "Security")
+![Network](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh5.png "Networks")
+![Security](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh7.png "Security")
 
 ##### Configuring using CLI arguments
 ```argument
