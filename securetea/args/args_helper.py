@@ -80,9 +80,14 @@ def load_default(key):
         cred (dict): Default configuration
     """
     path = 'securetea.conf'
-    with open(path) as f:
-        creds = json.load(f)
-        return creds[key]
+    try:
+        with open(path) as f:
+            creds = json.load(f)
+            return creds[key]
+    except FileNotFoundError:
+        with open("/etc/securetea/securetea.conf") as f:
+            creds = json.load(f)
+            return creds[key]
 
 
 def takeInput(func):
