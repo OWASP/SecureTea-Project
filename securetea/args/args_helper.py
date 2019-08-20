@@ -18,6 +18,7 @@ import sys
 import json
 from securetea.configurations import SecureTeaConf
 from securetea.lib.firewall.utils import get_interface
+from securetea.args.config import get_config
 
 
 def iterate_dict(config_dict, default):
@@ -66,6 +67,13 @@ def iterate_dict(config_dict, default):
     return config_dict
 
 
+def read_creds(path):
+    """Returns JSON creds as dict."""
+    with open(path) as f:
+        creds = json.load(f)
+        return creds
+
+
 def load_default(key):
     """
     Load default configuration.
@@ -81,13 +89,11 @@ def load_default(key):
     """
     path = 'securetea.conf'
     try:
-        with open(path) as f:
-            creds = json.load(f)
-            return creds[key]
+        creds = read_creds(path)
+        return creds[key]
     except FileNotFoundError:
-        with open("/etc/securetea/securetea.conf") as f:
-            creds = json.load(f)
-            return creds[key]
+        creds = get_config()
+        return creds[key]
 
 
 def takeInput(func):
