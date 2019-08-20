@@ -11,7 +11,6 @@ Project:
 
 """
 
-from securetea.configurations import SecureTeaConf
 from securetea.args import args_helper
 from securetea.modes import iot_mode
 from securetea.lib.firewall.utils import get_interface
@@ -30,7 +29,6 @@ def get_args():
         Args: total arguments
     """
     parser = argparse.ArgumentParser(description='Arguments of SecureTea')
-    mode_group = parser.add_mutually_exclusive_group()
 
     parser.add_argument(
         '--conf',

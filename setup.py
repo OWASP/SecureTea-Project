@@ -276,7 +276,7 @@ setup(
                                     "*.test.*",
                                     "test.*"]),
     data_files=files_definition,
-    entry_points = entry_points,
+    entry_points=entry_points,
     license='MIT',
     description='SecureTea',
     long_description=open('doc/en-US/user_guide_pypi.md').read(),
