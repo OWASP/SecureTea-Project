@@ -40,7 +40,7 @@ class WebShell(object):
         )
 
         # Path of file containing web_shell payloads
-        self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt"
+        self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/web_shell.txt"
 
         # Load web_shell payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

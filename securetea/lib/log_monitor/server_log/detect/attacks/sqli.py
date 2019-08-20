@@ -42,9 +42,9 @@ class SQLi(object):
         )
 
         # Path of file containing sqli payloads
-        self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/sqli.txt"
+        self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/sqli.txt"
         # Path of file containing sqli regex rules
-        self.REGEX_FILE = "securetea/lib/log_monitor/server_log/rules/regex/sqli.txt"
+        self.REGEX_FILE = "/etc/securetea/log_monitor/server_log/regex/sqli.txt"
 
         # Load sqli payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

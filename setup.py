@@ -32,7 +32,20 @@ if not os_name:
 
 files_definition = [
     ('/etc/securetea', ['securetea.conf']),
-    ('', ['securetea.conf'])
+    ('', ['securetea.conf']),
+    ('/etc/securetea/asp', ['securetea/lib/auto_server_patcher/configs/commands.json',
+                            'securetea/lib/auto_server_patcher/configs/config.json']),
+    ('/etc/securetea/log_monitor/server_log/payloads', ['securetea/lib/log_monitor/server_log/rules/payloads/bad_ua.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/lfi.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/port_scan_ua.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/sqli.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/xss.txt']),
+    ('/etc/securetea/log_monitor/server_log/regex', ['securetea/lib/log_monitor/server_log/rules/regex/sqli.txt',
+                                                     'securetea/lib/log_monitor/server_log/rules/regex/xss.txt']),
+    ('/etc/securetea/log_monitor/system_log', ['securetea/lib/log_monitor/system_log/harmful_command.txt']),
+    ('/etc/securetea/web_deface', ['securetea/lib/web_deface/config/path_map.json']),
+    ('/etc/securetea/antivirus', ['securetea/lib/antivirus/config/config.json'])
 ]
 
 # dependency-name to command mapping dict

@@ -39,7 +39,7 @@ class ConfigPatcher(object):
         )
 
         # Configuration file path
-        self._CONFIG_PATH = "securetea/lib/auto_server_patcher/configs/config.json"
+        self._CONFIG_PATH = "/etc/securetea/asp/config.json"
         # Load configuration
         self.config_data = self.open_json(self._CONFIG_PATH)
         # Categorize OS

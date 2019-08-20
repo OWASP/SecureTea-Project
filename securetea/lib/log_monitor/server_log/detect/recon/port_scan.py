@@ -40,7 +40,7 @@ class PortScan(object):
         )
 
         # Path of file containing port_scan payloads
-        self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/port_scan_ua.txt"
+        self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/port_scan_ua.txt"
 
         # Load port_scan payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

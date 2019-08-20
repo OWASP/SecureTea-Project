@@ -40,7 +40,7 @@ class Installer(object):
         )
 
         # Command configuraton path
-        self._COMMAND_PATH = "securetea/lib/auto_server_patcher/configs/commands.json"
+        self._COMMAND_PATH = "/etc/securetea/asp/commands.json"
         # Load configuraton data
         self.config_data = self.open_json(self._COMMAND_PATH)
 

@@ -40,7 +40,7 @@ class SpiderDetect(object):
         )
 
         # Path of file containing spider user agents payloads
-        self._PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/bad_ua.txt"
+        self._PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/bad_ua.txt"
 
         # Load spider user agents payloads
         self.payloads = utils.open_file(self._PAYLOAD_FILE)
