@@ -237,6 +237,37 @@ if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
             ['bin/systemd/securetea.service']
         ))
 
+entry_points = {
+    'console_scripts': ['securetea=securetea.entry_points.securetea_core_ep:run_core',
+                        'securetea-server=securetea.entry_points.server_ep:start_server_process [server_req]',
+                        'securetea-system=securetea.entry_points.system_ep:start_system_process [system_req]',
+                        'securetea-iot=securetea.entry_points.iot_ep:start_iot_process [iot_req]']
+}
+
+server_requirements = ["scapy",
+                       "NetfilterQueue",
+                       "pathlib",
+                       "wget",
+                       "yara-python",
+                       "clamd",
+                       "beautifulsoup4",
+                       "lxml",
+                       "clamd"]
+
+system_requirements = ["scapy",
+                       "NetfilterQueue",
+                       "pathlib",
+                       "wget",
+                       "yara-python",
+                       "clamd",
+                       "beautifulsoup4",
+                       "lxml",
+                       "clamd"]
+
+iot_requirements = ["scapy",
+                    "NetfilterQueue",
+                    "shodan"]
+
 setup(
     name='securetea',
     version='2.0',
@@ -245,7 +276,7 @@ setup(
                                     "*.test.*",
                                     "test.*"]),
     data_files=files_definition,
-    scripts=['SecureTea.py'],
+    entry_points = entry_points,
     license='MIT',
     description='SecureTea',
     long_description=open('doc/en-US/user_guide_pypi.md').read(),
@@ -263,21 +294,17 @@ setup(
         "pynput",
         "python-telegram-bot",
         "twilio",
-        "scapy",
-        "NetfilterQueue",
         "boto3",
         "geocoder",
-        "pathlib",
-        "wget",
-        "yara-python",
-        "clamd",
-        "beautifulsoup4",
         "pyudev",
-        "lxml",
         "ipwhois",
-        "shodan",
         "future"
     ],
+    extras_require={
+        'server_req': server_requirements,
+        'system_req': system_requirements,
+        'iot_req': iot_requirements
+    },
     python_requires='>=2.7',
     classifiers=[
         'Development Status :: 4 - Beta',
