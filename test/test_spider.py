@@ -21,7 +21,7 @@ class TestSpiderDetect(unittest.TestCase):
         Setup class for TestSpiderDetect.
         """
         # Initialize SpiderDetect object
-        self.spider_obj = SpiderDetect()
+        self.spider_obj = SpiderDetect(test=True)
 
         # Mock parsed log file data
         self.data = {

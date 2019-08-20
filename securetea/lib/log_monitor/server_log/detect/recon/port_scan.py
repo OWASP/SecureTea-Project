@@ -20,7 +20,7 @@ from securetea.common import write_mal_ip
 class PortScan(object):
     """PortScan Class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, test=False):
         """
         Initialize PortScan.
 
@@ -39,8 +39,12 @@ class PortScan(object):
             debug=debug
         )
 
-        # Path of file containing port_scan payloads
-        self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/port_scan_ua.txt"
+        if test:
+            # Path of file containing port_scan payloads
+            self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/port_scan_ua.txt"
+        else:
+            # Path of file containing port_scan payloads
+            self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/port_scan_ua.txt"
 
         # Load port_scan payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

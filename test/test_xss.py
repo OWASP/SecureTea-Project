@@ -21,7 +21,7 @@ class TestCrossSite(unittest.TestCase):
         Setup class for TestCrossSite.
         """
         # Initialize CrossSite object
-        self.xss_obj = CrossSite()
+        self.xss_obj = CrossSite(test=True)
 
         # Mock parsed log file data
         self.data = {

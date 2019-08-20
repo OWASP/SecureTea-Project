@@ -20,7 +20,7 @@ from securetea.common import write_mal_ip
 class SpiderDetect(object):
     """SpiderDetect Class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, test=False):
         """
         Initialize SpiderDetect.
 
@@ -39,8 +39,12 @@ class SpiderDetect(object):
             debug=debug
         )
 
-        # Path of file containing spider user agents payloads
-        self._PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/bad_ua.txt"
+        if test:
+            # Path of file containing spider user agents payloads
+            self._PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/bad_ua.txt"
+        else:
+            # Path of file containing spider user agents payloads
+            self._PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/bad_ua.txt"
 
         # Load spider user agents payloads
         self.payloads = utils.open_file(self._PAYLOAD_FILE)

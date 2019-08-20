@@ -22,7 +22,7 @@ import re
 class CrossSite(object):
     """CrossSite Class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, test=False):
         """
         Initialize CrossSite.
 
@@ -41,10 +41,16 @@ class CrossSite(object):
             debug=debug
         )
 
-        # Path of file containing XSS payloads
-        self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/xss.txt"
-        # Path of file containing XSS regex rules
-        self.REGEX_FILE = "/etc/securetea/log_monitor/server_log/regex/xss.txt"
+        if test:
+            # Path of file containing XSS payloads
+            self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/xss.txt"
+            # Path of file containing XSS regex rules
+            self.REGEX_FILE = "securetea/lib/log_monitor/server_log/rules/regex/xss.txt"
+        else:
+            # Path of file containing XSS payloads
+            self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/xss.txt"
+            # Path of file containing XSS regex rules
+            self.REGEX_FILE = "/etc/securetea/log_monitor/server_log/regex/xss.txt"
 
         # Load XSS payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

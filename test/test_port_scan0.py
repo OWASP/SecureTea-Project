@@ -21,7 +21,7 @@ class TestPortScan(unittest.TestCase):
         Setup class for TestPortScan.
         """
         # Initialize PortScan object
-        self.port_scan_obj = PortScan()
+        self.port_scan_obj = PortScan(test=True)
 
         # Mock parsed log file data
         self.data = {

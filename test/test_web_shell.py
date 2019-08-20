@@ -21,7 +21,7 @@ class TestWebShell(unittest.TestCase):
         Setup class for TestWebShell.
         """
         # Initialize CrossSite object
-        self.web_shell_obj = WebShell()
+        self.web_shell_obj = WebShell(test=True)
 
         # Mock parsed log file data
         self.data = {
