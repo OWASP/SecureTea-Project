@@ -1,0 +1,12 @@
+include README.md
+include doc/en-US/dev_guide.md
+include doc/en-US/user_guide.md
+include doc/en-US/user_guide_pypi.md
+include doc/en-US/web_https.md
+include doc/en-US/Telegram_userguide/telegram_securetea_guide.md
+include doc/en-US/Twilio_userguide/twilio_securetea_guide.md
+include doc/hi-IN/code-of-conduct-hi.md
+include doc/hi-IN/README.md
+include doc/Integration_list/List_integration.md
+include doc/ja-JP/code-of-conduct-jp.md
+include doc/ja-JP/README.md
