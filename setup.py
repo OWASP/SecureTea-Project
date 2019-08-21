@@ -25,7 +25,6 @@ import re
 
 
 os_name = platform.dist()[0]
-os_major_version = platform.dist()[1].split('.')[0]
 if not os_name:
     if 'amzn' in platform.uname()[2]:
         os_name = 'centos'
@@ -232,23 +231,6 @@ def check_dependency():
 
 file_rename()
 check_dependency()
-
-if os_name == 'Ubuntu':
-    if int(os_major_version) >= 16:
-        files_definition.append((
-            '/usr/lib/systemd/system',
-            ['bin/systemd/securetea.service']
-        ))
-if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
-    files_definition.append((
-        '/etc/init.d',
-        ['bin/init.d/securetea']
-    ))
-    if not os_name == 'debian' and int(os_major_version) >= 7:
-        files_definition.append((
-            '/usr/lib/systemd/system',
-            ['bin/systemd/securetea.service']
-        ))
 
 entry_points = {
     'console_scripts': ['securetea=securetea.entry_points.securetea_core_ep:run_core',
