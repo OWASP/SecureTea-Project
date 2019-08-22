@@ -20,7 +20,7 @@ from securetea.common import write_mal_ip
 class WebShell(object):
     """WebShell Class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, test=False):
         """
         Initialize WebShell.
 
@@ -39,8 +39,12 @@ class WebShell(object):
             debug=debug
         )
 
-        # Path of file containing web_shell payloads
-        self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt"
+        if test:
+            # Path of file containing web_shell payloads
+            self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt"
+        else:
+            # Path of file containing web_shell payloads
+            self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/web_shell.txt"
 
         # Load web_shell payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

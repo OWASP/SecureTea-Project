@@ -21,7 +21,7 @@ class TestSQLi(unittest.TestCase):
         Setup class for SQLi.
         """
         # Initialize SQLi object
-        self.sqli_obj = SQLi()
+        self.sqli_obj = SQLi(test=True)
 
         # Mock parsed log file data
         self.data = {

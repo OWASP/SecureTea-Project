@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 1.5.1
+    Version: 2.0
     Module: SecureTea
 
 Attributes:
@@ -25,14 +25,26 @@ import re
 
 
 os_name = platform.dist()[0]
-os_major_version = platform.dist()[1].split('.')[0]
 if not os_name:
     if 'amzn' in platform.uname()[2]:
         os_name = 'centos'
 
 files_definition = [
     ('/etc/securetea', ['securetea.conf']),
-    ('', ['securetea.conf'])
+    ('', ['securetea.conf']),
+    ('/etc/securetea/asp', ['securetea/lib/auto_server_patcher/configs/commands.json',
+                            'securetea/lib/auto_server_patcher/configs/config.json']),
+    ('/etc/securetea/log_monitor/server_log/payloads', ['securetea/lib/log_monitor/server_log/rules/payloads/bad_ua.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/lfi.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/port_scan_ua.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/sqli.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt',
+                                                        'securetea/lib/log_monitor/server_log/rules/payloads/xss.txt']),
+    ('/etc/securetea/log_monitor/server_log/regex', ['securetea/lib/log_monitor/server_log/rules/regex/sqli.txt',
+                                                     'securetea/lib/log_monitor/server_log/rules/regex/xss.txt']),
+    ('/etc/securetea/log_monitor/system_log', ['securetea/lib/log_monitor/system_log/harmful_command.txt']),
+    ('/etc/securetea/web_deface', ['securetea/lib/web_deface/config/path_map.json']),
+    ('/etc/securetea/antivirus', ['securetea/lib/antivirus/config/config.json'])
 ]
 
 # dependency-name to command mapping dict
@@ -220,32 +232,46 @@ def check_dependency():
 file_rename()
 check_dependency()
 
-if os_name == 'Ubuntu':
-    if int(os_major_version) >= 16:
-        files_definition.append((
-            '/usr/lib/systemd/system',
-            ['bin/systemd/securetea.service']
-        ))
-if os_name in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
-    files_definition.append((
-        '/etc/init.d',
-        ['bin/init.d/securetea']
-    ))
-    if not os_name == 'debian' and int(os_major_version) >= 7:
-        files_definition.append((
-            '/usr/lib/systemd/system',
-            ['bin/systemd/securetea.service']
-        ))
+entry_points = {
+    'console_scripts': ['securetea=securetea.entry_points.securetea_core_ep:run_core',
+                        'securetea-server=securetea.entry_points.server_ep:start_server_process [server_req]',
+                        'securetea-system=securetea.entry_points.system_ep:start_system_process [system_req]',
+                        'securetea-iot=securetea.entry_points.iot_ep:start_iot_process [iot_req]']
+}
+
+server_requirements = ["scapy",
+                       "NetfilterQueue",
+                       "pathlib",
+                       "wget",
+                       "yara-python",
+                       "clamd",
+                       "beautifulsoup4",
+                       "lxml",
+                       "clamd"]
+
+system_requirements = ["scapy",
+                       "NetfilterQueue",
+                       "pathlib",
+                       "wget",
+                       "yara-python",
+                       "clamd",
+                       "beautifulsoup4",
+                       "lxml",
+                       "clamd"]
+
+iot_requirements = ["scapy",
+                    "NetfilterQueue",
+                    "shodan"]
 
 setup(
     name='securetea',
-    version='1.5.1',
+    version='2.0',
     packages=find_packages(exclude=["test",
                                     "*.test",
                                     "*.test.*",
                                     "test.*"]),
     data_files=files_definition,
-    scripts=['SecureTea.py'],
+    entry_points=entry_points,
     license='MIT',
     description='SecureTea',
     long_description=open('doc/en-US/user_guide_pypi.md').read(),
@@ -263,20 +289,17 @@ setup(
         "pynput",
         "python-telegram-bot",
         "twilio",
-        "scapy",
-        "NetfilterQueue",
         "boto3",
         "geocoder",
-        "pathlib",
-        "wget",
-        "yara-python",
-        "clamd",
-        "beautifulsoup4",
         "pyudev",
-        "lxml",
         "ipwhois",
-        "shodan"
+        "future"
     ],
+    extras_require={
+        'server_req': server_requirements,
+        'system_req': system_requirements,
+        'iot_req': iot_requirements
+    },
     python_requires='>=2.7',
     classifiers=[
         'Development Status :: 4 - Beta',

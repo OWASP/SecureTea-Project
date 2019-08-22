@@ -299,7 +299,7 @@ class ServerMode(object):
             self.process_pool.append(system_log_process)
 
         if self.server_log:  # if Server Log Monitor object is initialized
-            server_log_process = multiprocessing.Process(target=self.server_ob.run)
+            server_log_process = multiprocessing.Process(target=self.server_log_obj.run)
             self.process_pool.append(server_log_process)
 
     def start_process(self):
