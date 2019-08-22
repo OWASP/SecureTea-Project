@@ -79,14 +79,17 @@ For more detailed information, refer to the [installation guide](/doc/en-US/user
 
 ## Quick Start
 
-1. Start SecureTea in [**server mode**](/doc/en-US/user_guide.md#starting-up-in-server-mode):<br>
-`$ sudo SecureTea.py --server-mode`
+1. Start SecureTea using one or more [**integrations**](/doc/en-US/user_guide.md#usage):<br>
+For example, running Intrusion Detection System only: `$ sudo securetea --ids`
 
-2. Start SecureTea in [**system mode**](/doc/en-US/user_guide.md#starting-up-in-system-mode):<br>
-`$ sudo SecureTea.py --system-mode
-`
-3. Start SecureTea in [**IoT mode**](/doc/en-US/user_guide.md#starting-up-in-iot-mode):<br>
-`$ sudo SecureTea.py --iot-mode`
+2. Start SecureTea in [**server mode**](/doc/en-US/user_guide.md#starting-up-in-server-mode):<br>
+`$ sudo securetea-server`
+
+3. Start SecureTea in [**system mode**](/doc/en-US/user_guide.md#starting-up-in-system-mode):<br>
+`$ sudo securetea-system`
+
+4. Start SecureTea in [**IoT mode**](/doc/en-US/user_guide.md#starting-up-in-iot-mode):<br>
+`$ sudo securetea-iot`
 
 For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
