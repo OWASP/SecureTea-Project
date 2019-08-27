@@ -1017,7 +1017,11 @@ The report will contain the following fields:
 2. Geo lookup
 3. WHOIS lookup
 4. Other important details
-    
+**Running Intrusion Detection System**
+
+![Running IDS Recon](/img/ids_demo.gif)
+
+![Running IDS R2L](/img/using_ids_mitm.gif)    
 ## Insecure Headers
 Check/monitor the website for the followings:
   - X-XSS-Protection
