@@ -1017,6 +1017,7 @@ The report will contain the following fields:
 2. Geo lookup
 3. WHOIS lookup
 4. Other important details
+<br>
 **Running Intrusion Detection System**
 
 ![Running IDS Recon](/img/ids_demo.gif)
