@@ -1,5 +1,5 @@
 FROM python:3.8.0b3-buster
-WORKDIR ~/
+WORKDIR /root/
 RUN apt update && \
 		apt upgrade -y && \
 		apt install -y apt-utils
@@ -15,11 +15,9 @@ RUN apt install -y build-essential python-dev libnetfilter-queue-dev
 RUN apt -y install clamav 
 RUN freshclam
 RUN npm i -g @angular/cli typescript tslib tslint serve webpack parcel ts-node
-RUN cd securetea && \
-	pip install virtualenv && \
-	virtualenv .env && \
-	pip install -r requirements.txt
 WORKDIR /root/securetea
+RUN pip install virtualenv && \
+	virtualenv .env #pip install -r requirements.txt
 EXPOSE 7171
 RUN ~/code-server ./ --port 7171 --host 0.0.0.0
 CMD zsh -l
