@@ -90,22 +90,6 @@ For more detailed information, refer to the [installation guide](/doc/en-US/user
 
 For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
-## Quick Start Developer
-This image contains VSCode server to develop directly within the container
-
-#### From the ukjp repo:
-1. `$ docker pull ukjpco/securetea:dev`
-2. `$ docker run -d --name securetea -P ukjpco/securetea:dev`
-### From this repo:
-1. `$ git pull https://github.com/OWASP/SecureTea-Project/ securetea`
-2. `$ cd securetea`
-3. `$ docker build . --tag securetea:latest`
-4. `$ docker run -d --name securetea -P securetea:latest`
-### Developing in the container
-Run `$ docker ps` to see which port the container is exposing for development
-its recommended to have a firewall rule blocking external or unauthorized access to
-this.
-
 ## Project Leaders
 
 -   [Ade Yoseman][Ade]
@@ -160,7 +144,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://sunn-e.github.io"><img src="https://avatars3.githubusercontent.com/u/30065288?v=4" width="100px;" alt="Sunny Dhoke"/><br /><sub><b>Sunny Dhoke</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/issues?q=author%3Asunn-e" title="Bug reports">🐛</a> <a href="https://github.com/OWASP/SecureTea-Project/commits?author=sunn-e" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/kUSHAL0601"><img src="https://avatars3.githubusercontent.com/u/29600964?v=4" width="100px;" alt="MajAK"/><br /><sub><b>MajAK</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=kUSHAL0601" title="Code">💻</a></td>
     <td align="center"><a href="https://mishal23.github.io/"><img src="https://avatars3.githubusercontent.com/u/21958074?v=4" width="100px;" alt="Mishal Shah"/><br /><sub><b>Mishal Shah</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=mishal23" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/sam-aldis/"><img src="https://avatars2.githubusercontent.com/u/26642976?s=460&v=4" width="100px;" alt="Samuel Aldis"/><br /><sub><b>Samuel Aldis</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=sam-aldis" title="Code">💻</a></td>
   </tr>
 </table>
 
