@@ -90,22 +90,6 @@ For more detailed information, refer to the [installation guide](/doc/en-US/user
 
 For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
-## Quick Start Developer
-This image contains VSCode server to develop directly within the container
-
-#### From the ukjp repo:
-1. `$ docker pull ukjpco/securetea:dev`
-2. `$ docker run -d --name securetea -P ukjpco/securetea:dev`
-### From this repo:
-1. `$ git pull https://github.com/OWASP/SecureTea-Project/ securetea`
-2. `$ cd securetea`
-3. `$ docker build . --tag securetea:latest`
-4. `$ docker run -d --name securetea -P securetea:latest`
-### Developing in the container
-Run `$ docker ps` to see which port the container is exposing for development
-its recommended to have a firewall rule blocking external or unauthorized access to
-this.
-
 ## Project Leaders
 
 -   [Ade Yoseman][Ade]
