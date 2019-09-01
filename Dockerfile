@@ -9,6 +9,6 @@ RUN wget https://github.com/cdr/code-server/releases/download/2.preview.11-vsc1.
 	mv -f code-server2.preview.11-vsc1.37.0-linux-x86_64/* ~/ && \
 	chmod +x ~/code-server
 RUN apt install zsh -y
-WORKDIR securetea
+WORKDIR /root/securetea
 EXPOSE 7171
 CMD ~/code-server ./ --port 7171 --host 0.0.0.0
