@@ -67,10 +67,10 @@ You can install SecureTea from PyPi package manager using the following command:
 You can install SecureTea using the latest repository:
 
 ```shell
-$ git clone https://github.com/OWASP/SecureTea-Project.git
-$ cd SecureTea-Project/
-$ sudo python3 -m pip install -r requirements.txt
-$ sudo python3 setup.py install
+git clone https://github.com/OWASP/SecureTea-Project.git
+cd SecureTea-Project/
+sudo python3 -m pip install -r requirements.txt
+sudo python3 setup.py install
 ```
 
 Please make sure all dependencies are installed if anyone of the above fails.
@@ -79,26 +79,28 @@ For more detailed information, refer to the [installation guide](/doc/en-US/user
 
 ## Quick Start
 
-1. Start SecureTea in [**server mode**](/doc/en-US/user_guide.md#starting-up-in-server-mode):<br>
+1. Start SecureTea in [**server mode**](/doc/en-US/user_guide.md#starting-up-in-server-mode)
+
 `$ sudo SecureTea.py --server-mode`
 
-2. Start SecureTea in [**system mode**](/doc/en-US/user_guide.md#starting-up-in-system-mode):<br>
-`$ sudo SecureTea.py --system-mode
-`
-3. Start SecureTea in [**IoT mode**](/doc/en-US/user_guide.md#starting-up-in-iot-mode):<br>
+2. Start SecureTea in [**system mode**](/doc/en-US/user_guide.md#starting-up-in-system-mode)
+
+`$ sudo SecureTea.py --system-mode`
+
+3. Start SecureTea in [**IoT mode**](/doc/en-US/user_guide.md#starting-up-in-iot-mode)
+
 `$ sudo SecureTea.py --iot-mode`
 
 For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
 ## Project Leaders
 
--   [Ade Yoseman][Ade]
--   [Rejah Rehim][Rejah]
-
+- [Ade Yoseman][Ade]
+- [Rejah Rehim][Rejah]
 
 | **Chat Group** | **Google Summer of Code** | **YouTube** |
 | -------------- | ------------------------- |---------------------|
-| [<img src="/img/telegram.png" width="50" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png" width="90" title="YouTube">][YouTube] | 
+| [<img src="/img/telegram.png" width="50" title="Telegram">][Telegram]  | [<img src="/img/GSoC-logo.jpg" width="100"></img>][GSOC-OWASP]  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1024px-YouTube_Logo_2017.svg.png" width="90" title="YouTube">][YouTube] |
 
 [YouTube]: https://www.youtube.com/channel/UCGdl9tpc1qZYcM3WRRFRPPA
 [OWASP-logo]: https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png
