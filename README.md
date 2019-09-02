@@ -81,19 +81,19 @@ For more detailed information, refer to the [installation guide](/doc/en-US/user
 
 1. Start SecureTea using one or more [**integrations**](/doc/en-US/user_guide.md#usage):
 
-For example, running Intrusion Detection System only: `$ sudo securetea --ids`
+    For example, running Intrusion Detection System only: `$ sudo securetea --ids`
 
 2. Start SecureTea in [**server mode**](/doc/en-US/user_guide.md#starting-up-in-server-mode):
 
-`$ sudo securetea-server`
+    `$ sudo securetea-server`
 
 3. Start SecureTea in [**system mode**](/doc/en-US/user_guide.md#starting-up-in-system-mode):
 
-`$ sudo securetea-system`
+    `$ sudo securetea-system`
 
 4. Start SecureTea in [**IoT mode**](/doc/en-US/user_guide.md#starting-up-in-iot-mode):
 
-`$ sudo securetea-iot`
+    `$ sudo securetea-iot`
 
 For more detailed information, refer to the [usage guide](https://github.com/OWASP/SecureTea-Project/blob/master/doc/en-US/user_guide.md#usage).
 
