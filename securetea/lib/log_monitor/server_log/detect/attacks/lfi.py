@@ -20,7 +20,7 @@ from securetea.common import write_mal_ip
 class LFI(object):
     """LFI Class."""
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, test=False):
         """
         Initialize LFI.
 
@@ -39,8 +39,12 @@ class LFI(object):
             debug=debug
         )
 
-        # Path of file containing lfi payloads
-        self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/lfi.txt"
+        if test:
+            # Path of file containing lfi payloads
+            self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/lfi.txt"
+        else:
+            # Path of file containing lfi payloads
+            self.PAYLOAD_FILE = "/etc/securetea/log_monitor/server_log/payloads/lfi.txt"
 
         # Load lfi payloads
         self.payloads = utils.open_file(self.PAYLOAD_FILE)

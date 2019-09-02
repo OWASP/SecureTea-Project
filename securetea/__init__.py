@@ -84,3 +84,7 @@ from .lib.iot import iot_logger
 from .modes import server_mode
 from .modes import system_mode
 from .modes import iot_mode
+from .entry_points import server_ep
+from .entry_points import system_ep
+from .entry_points import iot_ep
+from .entry_points import securetea_core_ep

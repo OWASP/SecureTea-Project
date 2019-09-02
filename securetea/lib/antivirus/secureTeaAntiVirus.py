@@ -57,7 +57,7 @@ class SecureTeaAntiVirus(object):
             sys.exit(0)
 
         # JSON configuration file path
-        self._CONFIG_PATH = "securetea/lib/antivirus/config/config.json"
+        self._CONFIG_PATH = "/etc/securetea/antivirus/config.json"
 
         # Initialize required parameters from the credentials passed
         self.vt_api_key = self.cred["virustotal-api-key"]

@@ -21,7 +21,7 @@ class TestLFI(unittest.TestCase):
         Setup class for TestLFI.
         """
         # Initialize LFI object
-        self.lfi_obj = LFI()
+        self.lfi_obj = LFI(test=True)
 
         # Mock parsed log file data
         self.data = {
