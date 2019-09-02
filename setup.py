@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 2.0
+    Version: 2.1
     Module: SecureTea
 
 Attributes:
@@ -184,9 +184,7 @@ server_requirements = [
     "clamd",
     "beautifulsoup4",
     "lxml",
-    "clamd",
-    "scapy",
-    "NetfilterQueue"
+    "clamd"
 ]
 
 system_requirements = [
@@ -196,15 +194,11 @@ system_requirements = [
     "clamd",
     "beautifulsoup4",
     "lxml",
-    "clamd",
-    "scapy",
-    "NetfilterQueue"
+    "clamd"
 ]
 
 iot_requirements = [
-    "shodan",
-    "scapy",
-    "NetfilterQueue"
+    "shodan"
 ]
 
 setup(
@@ -239,7 +233,9 @@ setup(
         "geocoder",
         "pyudev",
         "ipwhois",
-        "future"
+        "future",
+        "scapy",
+        "NetfilterQueue"
     ],
     extras_require={
         'server': server_requirements,
