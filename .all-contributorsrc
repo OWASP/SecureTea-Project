@@ -71,6 +71,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sam-aldis",
+      "name": "sam@ukjp",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/26642976?v=4",
+      "profile": "https://sam.ukjp.app",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
