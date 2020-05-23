@@ -128,6 +128,10 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+For apt package manager based systems:
+  + $ sudo bash install install_dependencies_apt.sh
+For yum package manager based systems:
+  + $ sudo bash install install_dependencies_yum.sh
 Python:<br>
 https://www.python.org/
 
