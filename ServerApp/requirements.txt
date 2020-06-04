@@ -1,0 +1,5 @@
+py_cpuinfo
+psutil
+flask
+flask_cors
+flask_sqlalchemy
