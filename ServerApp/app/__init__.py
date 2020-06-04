@@ -30,15 +30,15 @@ diskWriteNew = 0
 diskWriteOld = 0
 processid = False
 
-from app.user.controllers import mod_user,is_logged_in
+from app.user.controllers import mod_user, is_logged_in
 app.register_blueprint(mod_user)
 
 def check_auth(request):
     try:
-        uname=json.loads(request.args['updates'])['value']
+        uname = json.loads(request.args['updates'])['value']
     except:
         try:
-            uname=request.json['username']
+            uname = request.json['username']
         except:
             return False
     try:
@@ -64,7 +64,7 @@ def get_uptime():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
         uptime = str(timedelta(seconds=uptime.seconds))
@@ -101,7 +101,7 @@ def get_processor():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         info = cpuinfo.get_cpu_info()
         data = {
@@ -133,7 +133,7 @@ def get_cpu():
     """
     # print(request.data)
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         percent = psutil.cpu_percent()
         count = psutil.cpu_count()
@@ -157,7 +157,7 @@ def get_username():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         username = os.getlogin()
         data = {
@@ -177,7 +177,7 @@ def get_ram():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         ram = psutil.virtual_memory()
         total = float(ram.total / 1073741824)
@@ -204,7 +204,7 @@ def get_swap():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         swap = psutil.swap_memory()
         total = float(swap.total / 1073741824)
@@ -231,7 +231,7 @@ def get_hdd():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         hdd = psutil.disk_partitions()
         data = []
@@ -326,7 +326,7 @@ def getdiskio():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         diskiocounters = psutil.disk_io_counters()
         diskreadold = diskiocounters.read_bytes
@@ -355,7 +355,7 @@ def getnetworks():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         data = []
         oldnetio = psutil.net_io_counters(pernic=True)
@@ -396,7 +396,7 @@ def checkstatus():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     global processid
     if processid:
         return '200', 200
@@ -411,7 +411,7 @@ def stop():
         TYPE: Description
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     global processid
     try:
         if processid:
@@ -446,7 +446,7 @@ def get_integer(bool_var):
 def sleep():
     """Docstring."""
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     global processid
     if request.method == 'GET':
         try:
@@ -733,7 +733,7 @@ def get_login():
         TYPE: JSON
     """
     if not check_auth(request):
-        return "404",404
+        return "404", 404
     try:
         data = []
 

@@ -2,7 +2,6 @@ from flask import *
 from sqlalchemy.exc import IntegrityError
 from app import *
 from .models import User
-from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 mod_user = Blueprint('user', __name__)
@@ -10,7 +9,7 @@ mod_user = Blueprint('user', __name__)
 NETWORK_SECRET = 'PASSWD'
 
 try:
-    logged_in = pickle.load(open('logged_in','rb'))
+    logged_in = pickle.load(open('logged_in', 'rb'))
 except:
     logged_in = []
 
@@ -23,19 +22,19 @@ def login():
         username = request.json['username']
         password = request.json['password']
         ns = request.json['ns']
-        if ns!=NETWORK_SECRET:
-            return 'Wrong secret',402
+        if ns != NETWORK_SECRET:
+            return 'Wrong secret', 402
     except KeyError as e:
-        return "400", 400
+        return jsonify(success=False, message="%s not sent in the request" % e.args), 400
     user = User.query.filter(User.username == username).first()
     if user is None or not user.check_password(password):
         return "401", 401
     try:
         session['logged_in'].append(username)
     except:
-        session['logged_in']=[username]
+        session['logged_in'] = [username]
     logged_in.append(username)
-    pickle.dump(logged_in,open('logged_in','wb'))
+    pickle.dump(logged_in, open('logged_in', 'wb'))
     session['logged_in']=logged_in
     return "200", 200
 
@@ -50,7 +49,7 @@ def logout():
             logged_in.remove(username)
     except:
         pass
-    pickle.dump(logged_in,open('logged_in','wb'))
+    pickle.dump(logged_in, open('logged_in', 'wb'))
     return jsonify(success=True)
 
 @mod_user.route('/register', methods=['POST'])
@@ -59,8 +58,8 @@ def create_user():
         username = request.json['username']
         password = request.json['password']
         ns = request.json['ns']
-        if ns!=NETWORK_SECRET:
-            return 'Wrong secret',402
+        if ns != NETWORK_SECRET:
+            return 'Wrong secret', 402
     except KeyError as e:
         return jsonify(success=False, message="%s not sent in the request" % e.args), 400
 
