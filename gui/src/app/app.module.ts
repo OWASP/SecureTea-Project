@@ -21,6 +21,7 @@ import { NetworkComponent } from './network/network.component';
 import { SecurityComponent } from './security/security.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginComponent } from './login/login.component';
     ConfigurationComponent,
     SecurityComponent,
     LogoutComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

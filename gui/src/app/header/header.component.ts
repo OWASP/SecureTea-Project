@@ -10,7 +10,7 @@ import { Router} from '@angular/router';
 
 export class HeaderComponent implements OnInit {
 
-  username = 'username';
+  username = localStorage.getItem('user_name');
   apiRoot =  '';
 
   constructor(private http: Http, private router: Router) {
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     const geturl = `${this.apiRoot}username`;
     this.http.get(geturl).subscribe((res) => {
       if (res.status === 200) {
-        this.username = res.json().username;
+        res.json().username;
       }
     });
   }

@@ -5,7 +5,7 @@
               	<div class="col-lg-4">
                   	<div class="login-content card">
                       	<div class="login-form">
-							<h1 class="ml-4">Login</h1>
+							<h1 class="ml-4">Register</h1>
 							<br/>
                           	<form [formGroup]="myform" (ngSubmit)="Submit()">
 								<div class="form-group">
@@ -13,15 +13,16 @@
 									<input formControlName="uname" class="form-control" required>
 									<label>Password</label>
 									<input formControlName="pass" type="password" class="form-control" required>
-                  <label>End-Point Secret</label>
-                  <input formControlName="sec" type="password" class="form-control" required>
+									<label>Confirm Password</label>
+									<input formControlName="cpass" type="password" class="form-control" required>
+									<label>End-point Secret</label>
+									<input formControlName="sec" type="password" class="form-control" required>
 									<label>End-point</label>
 									<input formControlName="endpoint" class="form-control" placeholder="http://192.168.1.123:5000" required>
 								</div>
 								<h5 class="text-danger">{{error}}</h5>
-                <button type="submit" class="btn btn-primary btn-flat m-b-30">Sign in</button>
+                				<button type="submit" class="btn btn-primary btn-flat m-b-30">Register</button>
 							</form>
-                <button class="btn btn-primary btn-flat m-b-30" (click)="Register()">Register</button>
                       	</div>
                   	</div>
               	</div>

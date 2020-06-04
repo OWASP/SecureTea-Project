@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 
 @Component({
@@ -24,7 +25,7 @@ export class StorageComponent implements OnInit {
 
   getStorage() {
     const geturl = `${this.apiRoot}hdd`;
-    this.http.get(geturl).subscribe((res) => {
+    this.http.post(geturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.storage = res.json()['data'];
       }

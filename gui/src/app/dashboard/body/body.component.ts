@@ -60,8 +60,8 @@ export class BodyComponent implements OnInit {
   }
 
   getProcessor() {
-    const geturl = `${this.apiRoot}processor`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}processor`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.brand = res.json().brand;
         this.vendor_id = res.json().vendor_id;
@@ -104,8 +104,8 @@ export class BodyComponent implements OnInit {
 
   getNetworkSpeed() {
     try {
-      const geturl = `${this.apiRoot}diskio`;
-      this.http.get(geturl).subscribe((res) => {
+      const posturl = `${this.apiRoot}diskio`;
+      this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
         if (res.status === 200) {
           this.read = res.json().read;
           this.write = res.json().write;
