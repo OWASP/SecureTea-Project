@@ -1207,6 +1207,14 @@ yes, immediate action needs to be taken or else we are all fine!
 
 1. Use public IP address of the device to check (if provided) else auto-collect the public IP address of the device and perform the check.
 
+## Server App
+
+The server app is available at ServerApp. Run it using simply python3 run.py
+
+1. Login module available
+2. Communicates with GUI
+3. An enterprise level app possible
+
 ## License
 **MIT License**
 
