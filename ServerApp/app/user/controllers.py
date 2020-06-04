@@ -35,7 +35,7 @@ def login():
         session['logged_in'] = [username]
     logged_in.append(username)
     pickle.dump(logged_in, open('logged_in', 'wb'))
-    session['logged_in']=logged_in
+    session['logged_in'] = logged_in
     return "200", 200
 
 @mod_user.route('/userlogout', methods=['POST'])
