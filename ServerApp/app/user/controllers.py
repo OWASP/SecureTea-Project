@@ -1,4 +1,3 @@
-from flask import *
 from sqlalchemy.exc import IntegrityError
 from app import *
 from .models import User
@@ -14,10 +13,18 @@ except:
     logged_in = []
 
 def is_logged_in(username):
+    """Check if the user with given username is logged in or not
+
+    Parameters:
+        username: username of the user
+    Returns:
+        Boolean variable whether the username is logged in or not
+    """
     return username in logged_in
 
 @mod_user.route('/userlogin', methods=['POST'])
 def login():
+    """Endpoint to manage user login"""
     try:
         username = request.json['username']
         password = request.json['password']
@@ -40,6 +47,7 @@ def login():
 
 @mod_user.route('/userlogout', methods=['POST'])
 def logout():
+    """Endpoint to manage user logout"""
     try:
         username = request.json['username']
     except KeyError as e:
@@ -54,6 +62,7 @@ def logout():
 
 @mod_user.route('/register', methods=['POST'])
 def create_user():
+    """Endpoint to create anew user"""
     try:
         username = request.json['username']
         password = request.json['password']

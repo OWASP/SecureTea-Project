@@ -11,9 +11,7 @@ import pickle
 
 from datetime import datetime
 from datetime import timedelta
-from flask import *
-from flask import jsonify
-from flask import request
+from flask import Flask, Blueprint, jsonify, request, session
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
@@ -34,6 +32,13 @@ from app.user.controllers import mod_user, is_logged_in
 app.register_blueprint(mod_user)
 
 def check_auth(request):
+    """Check if the request is an authorized request
+
+    Parameters:
+        request : request to check
+    Returns:
+        Boolean variable whether the request was authorized or not
+    """
     try:
         uname = json.loads(request.args['updates'])['value']
     except:
@@ -48,20 +53,15 @@ def check_auth(request):
 
 @app.route('/', methods=['GET'])
 def test_api():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
-    """
+    """Endpoint to check if the endpoint works or not"""
     return '', 200
 
 
 @app.route('/uptime', methods=['POST'])
 def get_uptime():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get the uptime of the system
+        Returns:
+            json object of "uptime" mapped to uptime in seconds
     """
     if not check_auth(request):
         return "404", 404
@@ -78,14 +78,14 @@ def get_uptime():
 
 
 def get_value(data, key):
-    """Docstring.
+    """Get value of data
 
     Args:
-        data (TYPE): Description
-        key (TYPE): Description
+        data : Description
+        key : Description
 
     Returns:
-        TYPE: Description
+        value mapped to key in the data
     """
     try:
         return data[key]
@@ -95,10 +95,9 @@ def get_value(data, key):
 
 @app.route('/processor', methods=['POST'])
 def get_processor():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get the uptime of the system
+        Returns:
+            json object of information containing bits,count, brand, frequency, l3 cache size, l2 cache size, l1 cache size, l1 instruction cache size and vendor
     """
     if not check_auth(request):
         return "404", 404
@@ -123,15 +122,10 @@ def get_processor():
 
 @app.route('/cpu', methods=['POST'])
 def get_cpu():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
-
-    Raises:
-        e: Description
+    """Endpoint to get information regarding cpu
+        Returns:
+            json object of information containing percentage usage, number of cpus, percentage usage per cpu
     """
-    # print(request.data)
     if not check_auth(request):
         return "404", 404
     try:
@@ -151,10 +145,9 @@ def get_cpu():
 
 @app.route('/username', methods=['GET'])
 def get_username():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information of user logged in
+        Returns:
+            username of logged in user
     """
     if not check_auth(request):
         return "404", 404
@@ -171,10 +164,9 @@ def get_username():
 
 @app.route('/ram', methods=['POST'])
 def get_ram():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding ram
+        Returns:
+            json object of information containing total ram of the system, percentage used, amount used and amount free
     """
     if not check_auth(request):
         return "404", 404
@@ -198,10 +190,9 @@ def get_ram():
 
 @app.route('/swap', methods=['POST'])
 def get_swap():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding swap
+        Returns:
+            json object of information containing total swap memory of the system, percentage used, amount used and amount free
     """
     if not check_auth(request):
         return "404", 404
@@ -225,10 +216,9 @@ def get_swap():
 
 @app.route('/hdd', methods=['POST'])
 def get_hdd():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding ram
+        Returns:
+            json object of information containing hdd device, path, type of formatting, total hdd available, percentage used, amount used and amount free
     """
     if not check_auth(request):
         return "404", 404
@@ -268,10 +258,9 @@ def get_hdd():
 
 @app.route('/process', methods=['GET'])
 def process():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding processes running in the system
+        Returns:
+            json object of information containing pids and details of the processes runnung in the system
     """
     try:
         pids = psutil.pids()
@@ -284,13 +273,12 @@ def process():
 
 
 def get_process_details(pids):
-    """Docstring.
+    """Get information regarding a process
 
-    Args:
-        pids (TYPE): Description
-
+    Parameters:
+        pid (list) : list of pid of the process
     Returns:
-        TYPE: Description
+        Dictionary containing pid, command, cpu, name, start time, status, user running it and memory consumed for each process
     """
     processes = []
     for pid in pids:
@@ -320,10 +308,9 @@ def get_process_details(pids):
 
 @app.route('/diskio', methods=['POST'])
 def getdiskio():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding diskios
+        Returns:
+            json object of information containing reads and writes happening
     """
     if not check_auth(request):
         return "404", 404
@@ -349,10 +336,9 @@ def getdiskio():
 
 @app.route('/netio', methods=['POST'])
 def getnetworks():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding netios
+        Returns:
+            json object of information containing packet transfers happening over the network
     """
     if not check_auth(request):
         return "404", 404
@@ -390,10 +376,9 @@ def getnetworks():
 
 @app.route('/status', methods=['POST'])
 def checkstatus():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to get information regarding securetea app running
+        Returns:
+            get status of securetea app running
     """
     if not check_auth(request):
         return "404", 404
@@ -405,11 +390,7 @@ def checkstatus():
 
 @app.route('/stop', methods=['POST'])
 def stop():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
-    """
+    """Endpoint to stop running securetea app"""
     if not check_auth(request):
         return "404", 404
     global processid
@@ -442,9 +423,9 @@ def get_integer(bool_var):
         return "0"
 
 
-@app.route('/sleep', methods=['POST'])
+@app.route('/sleep', methods=['GET','POST'])
 def sleep():
-    """Docstring."""
+    """Endpoint to get start running securetea app with given configuration"""
     if not check_auth(request):
         return "404", 404
     global processid
@@ -711,10 +692,9 @@ def sleep():
 
 
 def findpid():
-    """Docstring.
-
-    Returns:
-        TYPE: Description
+    """Endpoint to find pid of securetea app
+        Returns:
+            pid of securetea app
     """
     proce = process()
     if proce[0] == 200:
@@ -730,7 +710,7 @@ def get_login():
     """Get last login details.
 
     Returns:
-        TYPE: JSON
+        login details of a user
     """
     if not check_auth(request):
         return "404", 404
