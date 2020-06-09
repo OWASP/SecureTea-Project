@@ -423,7 +423,7 @@ def get_integer(bool_var):
         return "0"
 
 
-@app.route('/sleep', methods=['GET','POST'])
+@app.route('/sleep', methods=['GET', 'POST'])
 def sleep():
     """Endpoint to get start running securetea app with given configuration"""
     if not check_auth(request):

@@ -1,7 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 from app import *
 from .models import User
-import json
 
 mod_user = Blueprint('user', __name__)
 
