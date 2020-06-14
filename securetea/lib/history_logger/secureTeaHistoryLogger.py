@@ -128,7 +128,7 @@ class SecureTeaHistoryLogger(object):
         f_bash = open("/etc/bash.bashrc", "r")
         f_bash_content = f_bash.read()
         f_bash.close()
-        # f_bash_content = f_bash_content.replace(bash_export, '')
+        f_bash_content = f_bash_content.replace(bash_export, '')
         f_bash = open("/etc/bash.bashrc", "w")
         f_bash.write(f_bash_content)
         f_bash.close()
