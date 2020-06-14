@@ -81,6 +81,8 @@ from .lib.antivirus.monitor import usb_monitor
 from .lib.antivirus.cleaner import cleaner
 from .lib.iot import iot_checker
 from .lib.iot import iot_logger
+from .lib.history_logger import historylogger_logger
+from .lib.history_logger import secureTeaHistoryLogger
 from .modes import server_mode
 from .modes import system_mode
 from .modes import iot_mode

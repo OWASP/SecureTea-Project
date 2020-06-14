@@ -156,6 +156,11 @@ class ArgsHelper(object):
         else:
             self.cred['debug'] = False
 
+        if self.args.hist:
+            self.cred['history_logger'] = self.args.hist
+        else:
+            self.cred['history_logger'] = True
+
         # Initialize SecureTeaConf
         self.securetea_conf = SecureTeaConf()
 
@@ -465,7 +470,8 @@ class ArgsHelper(object):
         dict:
         """
         if ((len(sys.argv) == 1) or
-           (len(sys.argv) == 2 and self.args.debug)):  # Peform all integration
+           (len(sys.argv) == 3 and self.args.debug and self.args.hist) or
+           (len(sys.argv) == 2 and (self.args.debug or self.args.hist))):  # Peform all integration
 
             # Start the twitter configuration setup
             twitter = self.configureTwitter()
