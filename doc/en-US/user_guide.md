@@ -1215,6 +1215,14 @@ The server app is available at ServerApp. Run it using simply python3 run.py
 2. Communicates with GUI
 3. An enterprise level app possible
 
+## History Logger
+### 1. Using interactive setup
+```argument
+sudo python3 SecureTea.py --hist
+```
+### 2. Log file
+	+ Commands are logged at "/var/log/securetea_history_logger.log"
+
 ## License
 **MIT License**
 
