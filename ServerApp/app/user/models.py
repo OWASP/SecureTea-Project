@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class User(db.Model):
     """
     This is a class for building user model
-      
+
     Attributes:
         id (int): Id of the user (autoincremental)
         username (string): Username for a user

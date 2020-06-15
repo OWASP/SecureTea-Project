@@ -179,5 +179,5 @@ class SecureTeaHistoryLogger(object):
         except Exception as e:
             self.logger.log(
                 "Error occurred: " + str(e),
-                logtype = "error"
+                logtype="error"
             )
