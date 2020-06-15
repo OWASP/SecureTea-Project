@@ -4,7 +4,8 @@ from .models import User
 
 mod_user = Blueprint('user', __name__)
 
-NETWORK_SECRET = 'PASSWD'
+NET_SEC_PASSWD = 'PASSWD'
+NETWORK_SECRET = NET_SEC_PASSWD
 
 try:
     logged_in = pickle.load(open('logged_in', 'rb'))
