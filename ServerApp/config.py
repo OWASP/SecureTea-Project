@@ -21,7 +21,7 @@ THREADS_PER_PAGE = 2
 CSRF_ENABLED = True
 
 # Use a secure, unique and absolutely secret key for
-# signing the data. 
+# signing the data.
 SESS_KEY = "kUSHAL1234"
 SEC_KEY = "MajAK"
 
