@@ -15,13 +15,12 @@ import sys
 import signal
 import os
 from .utils import check_root
-from .historylogger_logger import HistoryLogger 
-
+from .historylogger_logger import HistoryLogger
 
 class SecureTeaHistoryLogger(object):
     """SecureTeaHistoryLogger class."""
 
-    def __init__(self, debug = False):
+    def __init__(self, debug=False):
         """
         Initialize SecureTeaHistoryLogger
 
@@ -36,18 +35,18 @@ class SecureTeaHistoryLogger(object):
         """
         # Initialize logger
         self.debug = debug
-        self.logger  =  HistoryLogger(
+        self.logger = HistoryLogger(
                 __name__,
-                debug = debug
+                debug=debug
         )
         if not check_root():
             self.logger.log(
                 "Please run as root exiting.",
-                logtype = "error"
+                logtype="error"
             )
             sys.exit(0)
 
-    def init_logger(self, debug = False):
+    def init_logger(self, debug=False):
         """
         Initialize SecureTeaHistoryLogger Files
 

@@ -22,7 +22,10 @@ CSRF_ENABLED = True
 
 # Use a secure, unique and absolutely secret key for
 # signing the data. 
-CSRF_SESSION_KEY = "kUSHAL1234"
+SESS_KEY = "kUSHAL1234"
+SEC_KEY = "MajAK"
+
+CSRF_SESSION_KEY = SESS_KEY
 
 # Secret key for signing cookies
-SECRET_KEY = "MajAK"
+SECRET_KEY = SEC_KEY
