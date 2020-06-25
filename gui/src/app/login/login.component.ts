@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   getLogin() {
-    const geturl = `${this.apiRoot}login`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}login`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.login = res.json()['data'];
         console.log(this.login);

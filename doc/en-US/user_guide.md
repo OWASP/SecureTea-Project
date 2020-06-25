@@ -128,6 +128,10 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+For apt package manager based systems:
+  + $ sudo bash install install_dependencies_apt.sh
+For yum package manager based systems:
+  + $ sudo bash install install_dependencies_yum.sh
 Python:<br>
 https://www.python.org/
 
@@ -1202,6 +1206,14 @@ yes, immediate action needs to be taken or else we are all fine!
 **Features:**
 
 1. Use public IP address of the device to check (if provided) else auto-collect the public IP address of the device and perform the check.
+
+## Server App
+
+The server app is available at ServerApp. Run it using simply python3 run.py
+
+1. Login module available
+2. Communicates with GUI
+3. An enterprise level app possible
 
 ## License
 **MIT License**

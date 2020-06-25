@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Http } from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 import $ from 'jquery';
 import swal from 'sweetalert';
@@ -112,6 +113,7 @@ export class SecurityComponent implements OnInit {
     if (this.notificationsForm.valid) {
       this.error = '';
       const data = {
+        'username': localStorage.getItem('user_name'),
         'twitter_api_key': this.notificationsForm.value.twitter_apikey,
         'twitter_api_secret_key': this.notificationsForm.value.twitter_apiSecret,
         'twitter_access_token': this.notificationsForm.value.twitter_token,
@@ -250,7 +252,7 @@ export class SecurityComponent implements OnInit {
 
   Stop() {
     const posturl = `${this.apiRoot}stop`;
-    this.http.get(posturl).subscribe((res) => {
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         $('#stopForm').hide();
         $('#startForm').show();
@@ -263,7 +265,7 @@ export class SecurityComponent implements OnInit {
 
   checkStatus() {
     const geturl = `${this.apiRoot}status`;
-    this.http.get(geturl).subscribe((res) => {
+    this.http.post(geturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         $('#startForm').hide();
         $('#stopForm').show();

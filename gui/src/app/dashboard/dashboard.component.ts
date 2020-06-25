@@ -45,8 +45,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getRam() {
-    const geturl = `${this.apiRoot}ram`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}ram`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.ram = res.json().percent;
         this.ExRam = res.json();
@@ -60,8 +60,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getCpu() {
-    const geturl = `${this.apiRoot}cpu`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}cpu`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.cpu = res.json().percentage;
         this.ExCpu = res.json();
@@ -75,8 +75,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getSwap() {
-    const geturl = `${this.apiRoot}swap`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}swap`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.swap = res.json().percent;
         this.ExSwap = res.json();
@@ -90,8 +90,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getUptime() {
-    const geturl = `${this.apiRoot}uptime`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}uptime`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.uptime = res.json().uptime;
       } else {

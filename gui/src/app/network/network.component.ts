@@ -27,8 +27,8 @@ export class NetworkComponent implements OnInit {
   }
 
   getNetwork() {
-    const geturl = `${this.apiRoot}netio`;
-    this.http.get(geturl).subscribe((res) => {
+    const posturl = `${this.apiRoot}netio`;
+    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
       if (res.status === 200) {
         this.network = res.json()['data'];
         console.log(this.network);
