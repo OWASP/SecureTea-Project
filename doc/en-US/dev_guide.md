@@ -759,6 +759,21 @@ The following is the current patcher configuration. To modify a command and it's
 }
 ```
 
+#### History Logger
+
+Uses bash to log history
+
+**Features:**
+1. Log commands run across terminals
+
+2. At a terminal level. Hence indepenedent of method of login
+
+3. Uses inbuilt system logger service : rsyslog
+
+4. Writes logs at /var/log/securetea_history_logger.log
+
+SecureTea History Logger would detect vommands executed on the system along with the ip address and mac address. This helps detecting commands run my malicious users so they can be reverted.
+
 #### Web Deface Detection
 
 - [Extending deface detection support for more OS and servers](#extending-deface-detection-support-for-more-os-and-servers)
