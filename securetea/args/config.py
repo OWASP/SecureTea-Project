@@ -111,6 +111,6 @@ def get_config():
     		"shodan-api-key": "XXXX",
     		"ip": ""
     	},
-        "history_logger": 1,
+        "history_logger": 0,
     	"debug": 0
     }

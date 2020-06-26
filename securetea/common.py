@@ -81,13 +81,16 @@ def get_current_location():
     Returns:
         msg (str): Location & IP address
     """
-    geocode_data = geocoder.ip('me')
-    dict_data = geocode_data.json
+    try:
+        geocode_data = geocoder.ip('me')
+        dict_data = geocode_data.json
 
-    # Parse the required details
-    address = dict_data['address']
-    ip = dict_data['ip']
-
+        # Parse the required details
+        address = dict_data['address']
+        ip = dict_data['ip']
+    except:
+        address = "Unknown"
+        ip = "127.0.0.1"
     # Generate message
     msg = "Location: " + address + " (IP: " + ip + " )"
     return msg

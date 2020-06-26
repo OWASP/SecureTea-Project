@@ -109,9 +109,9 @@ class SecureTea(object):
         # Setup logger for utils
         setup_logger(debug=self.cred['debug'])
 
-        if self.cred_provided:
+        if self.cred_provided and  not self.cred['skip_config_file']:
             credentials.save_creds(self.cred)
-        else:
+        elif not self.cred['skip_config_file']:
             self.cred = credentials.get_creds(args)
 
             try:

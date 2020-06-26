@@ -442,7 +442,7 @@ def sleep():
         return "404", 404
 
     creds = request.get_json()
-    args_str = ""
+    args_str = " --debug --skip_input --skip_config_file "
 
     # Twitter parsing
     if ("twitter_api_key" in creds and
@@ -677,7 +677,7 @@ def sleep():
 
         args_str += " --insecure_headers"
         args_str += " --url=" + url
-
+    print(args_str)
     try:
         if not processid:
             processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',

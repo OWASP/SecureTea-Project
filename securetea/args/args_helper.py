@@ -159,7 +159,12 @@ class ArgsHelper(object):
         if self.args.hist:
             self.cred['history_logger'] = self.args.hist
         else:
-            self.cred['history_logger'] = True
+            self.cred['history_logger'] = False
+
+        if self.args.skip_config_file:
+            self.cred['skip_config_file'] = self.args.skip_config_file
+        else:
+            self.cred['skip_config_file'] = False
 
         # Initialize SecureTeaConf
         self.securetea_conf = SecureTeaConf()
@@ -469,9 +474,9 @@ class ArgsHelper(object):
         --------
         dict:
         """
-        if ((len(sys.argv) == 1) or
-           (len(sys.argv) == 3 and self.args.debug and self.args.hist) or
-           (len(sys.argv) == 2 and (self.args.debug or self.args.hist))):  # Peform all integration
+        if (not self.args.skip_input and ((len(sys.argv) == 1) or
+           (len(sys.argv) == 3 + int(self.args.skip_input) + int(self.cred['skip_config_file']) and self.args.debug and self.args.hist) or
+           (len(sys.argv) == 2 + int(self.args.skip_input) + int(self.cred['skip_config_file']) and (self.args.debug or self.args.hist)))):  # Peform all integration
 
             # Start the twitter configuration setup
             twitter = self.configureTwitter()
@@ -1043,7 +1048,6 @@ class ArgsHelper(object):
 
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
-
         if (self.twitter_provided or
             self.telegram_provided or
             self.twilio_provided or
@@ -1084,5 +1088,5 @@ class ArgsHelper(object):
             'iot_checker_provided': self.iot_checker_provided,
             'server_mode': self.server_mode,
             'system_mode': self.system_mode,
-            'iot_mode': self.iot_mode
+            'iot_mode': self.iot_mode,
         }
