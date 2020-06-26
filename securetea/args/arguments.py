@@ -34,7 +34,14 @@ def get_args():
         '--debug',
         default=False,
         action="store_true",
-        help='Degug true or false'
+        help='Debug true or false'
+    )
+
+    parser.add_argument(
+        '--hist',
+        default=True,
+        action="store_true",
+        help='Log history true or false'
     )
 
     parser.add_argument(

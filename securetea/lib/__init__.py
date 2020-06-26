@@ -78,3 +78,5 @@ from .antivirus.monitor import usb_monitor
 from .antivirus.cleaner import cleaner
 from .iot import iot_checker
 from .iot import iot_logger
+from .history_logger import historylogger_logger
+from .history_logger import secureTeaHistoryLogger

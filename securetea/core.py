@@ -36,6 +36,7 @@ from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAu
 from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
 from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 from securetea.lib.iot import iot_checker
+from securetea.lib.history_logger.secureTeaHistoryLogger import SecureTeaHistoryLogger
 from securetea.modes import server_mode
 from securetea.modes import system_mode
 from securetea.modes import iot_mode
@@ -78,6 +79,7 @@ class SecureTea(object):
         credentials = configurations.SecureTeaConf()
 
         self.cred = args_dict['cred']
+        self.history_logger = self.cred['history_logger']
         self.cred_provided = args_dict['cred_provided']
         self.twitter_provided = args_dict['twitter_provided']
         self.telegram_provided = args_dict['telegram_provided']
@@ -306,6 +308,14 @@ class SecureTea(object):
             self.ids_provided = False
 
         # Check for IoT mode
+        if self.history_logger:
+            self.logger.log(
+                "Starting SecureTea History Logger",
+                logtype="info"
+            )
+            self.history_logger_obj = SecureTeaHistoryLogger(debug=self.cred["debug"])
+            self.history_logger_obj.start()
+
         if self.iot_mode:
             self.logger.log(
                 "Starting SecureTea in IoT mode",
