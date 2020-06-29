@@ -444,6 +444,9 @@ def sleep():
     creds = request.get_json()
     args_str = " --debug --skip_input --skip_config_file "
 
+    if "hist_logger" in creds and creds["hist_logger"]:
+        args_str+="--hist "
+
     # Twitter parsing
     if ("twitter_api_key" in creds and
         "twitter_access_token" in creds and

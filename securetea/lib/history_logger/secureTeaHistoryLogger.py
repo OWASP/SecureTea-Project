@@ -101,7 +101,7 @@ class SecureTeaHistoryLogger(object):
         self.logger.printinfo("Logs available at : "+log_rotation)
 
         os.system("exec bash")
-        os.system("source /etc/bash.bashrc")
+        os.popen("source /etc/bash.bashrc")
         self.logger.printinfo("bash configurations loaded")
 
     def signal_handler(self, sig, frame):
@@ -155,7 +155,7 @@ class SecureTeaHistoryLogger(object):
         self.logger.printinfo("rsyslog service restarted")
 
         os.system("exec bash")
-        os.system("source /etc/bash.bashrc")
+        os.popen("source /etc/bash.bashrc")
 
 
     def start(self):
