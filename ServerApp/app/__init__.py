@@ -15,12 +15,16 @@ from flask import Flask, Blueprint, jsonify, request, session
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
-CORS(app)
 app.config.from_object('config')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+cors = CORS(app,resources={r"*":{"origins":"*"}})
+async_mode = None
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins="*")
+
 
 diskReadNew = 0
 diskReadOld = 0
@@ -56,6 +60,11 @@ def test_api():
     """Endpoint to check if the endpoint works or not"""
     return '', 200
 
+@app.route('/notifs',methods=['GET'])
+def notifs():
+    if request.remote_addr=="127.0.0.1":
+        socketio.emit('newmessage', {'message': request.args.get("msg")})
+    return 'Notif sent'
 
 @app.route('/uptime', methods=['POST'])
 def get_uptime():
