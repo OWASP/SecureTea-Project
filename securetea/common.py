@@ -88,7 +88,7 @@ def get_current_location():
         # Parse the required details
         address = dict_data['address']
         ip = dict_data['ip']
-    except:
+    except Exception:
         address = "Unknown"
         ip = "127.0.0.1"
     # Generate message
