@@ -62,6 +62,10 @@ def test_api():
 
 @app.route('/notifs',methods=['GET'])
 def notifs():
+    """Endpoint to handle notifications to frontend
+        Returns:
+            String : Notif sent
+    """
     if request.remote_addr=="127.0.0.1":
         socketio.emit('newmessage', {'message': request.args.get("msg")})
     return 'Notif sent'
@@ -701,7 +705,6 @@ def sleep():
     except Exception as e:
         print(e)
     return "404", 404
-
 
 def findpid():
     """Endpoint to find pid of securetea app
