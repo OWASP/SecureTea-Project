@@ -109,7 +109,7 @@ class SecureTea(object):
         # Setup logger for utils
         setup_logger(debug=self.cred['debug'])
 
-        if self.cred_provided and  not self.cred['skip_config_file']:
+        if self.cred_provided and not self.cred['skip_config_file']:
             credentials.save_creds(self.cred)
         elif not self.cred['skip_config_file']:
             self.cred = credentials.get_creds(args)
@@ -205,9 +205,9 @@ class SecureTea(object):
                 )
 
             try:
-                 if self.cred['server_log']:
-                     self.server_log_provided = True
-                     self.cred_provided = True
+                if self.cred['server_log']:
+                    self.server_log_provided = True
+                    self.cred_provided = True
             except KeyError:
                 self.logger.log(
                     "Server Log configuraton parameter not set.",
