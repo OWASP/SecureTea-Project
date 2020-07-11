@@ -39,10 +39,10 @@ class Hash(object):
     @staticmethod
     def extractBytes(file_path):
         """
-        Extracts and returns bytes of the file.
+        Extracts and returns bytes of the file described by file path.
 
         Args:
-            data (str): String data to encode
+            file_path (str): Path to file
 
         Returns:
             bytes: Encoded data
@@ -53,12 +53,29 @@ class Hash(object):
         with open(file_path, "rb") as rf:
             return rf.read()
 
+    @staticmethod
+    def extractFileContent(file_path):
+        """
+        Extracts and returns contents of the file.
+
+        Args:
+            data (str): Path to file
+
+        Returns:
+            string: File data
+
+        Raises:
+            None
+        """
+        with open(file_path, "r") as rf:
+            return rf.read()
+
     def hash_value(self, files_list):
         """
         Calculate SHA256 hash value of the passed bytes.
 
         Args:
-            data (bytes): Data to calculate SHA256 hash for
+            files_list (list): A list of files
 
         Returns:
             SHA256 Hash value
@@ -84,3 +101,36 @@ class Hash(object):
 
         # Return path to hash value dictionary
         return hash_dict
+
+    def get_sets(self, files_list):
+        """
+        Get set of data that files contain.
+
+        Args:
+            files_list (list): A list of files
+
+        Returns:
+            Dictionary of sets
+
+        Raises:
+            None
+        """
+        # Initialize empty path to set value dictionary
+        set_dict = dict()
+
+        for file_path in files_list:
+            try:
+                extracted_content = self.extractFileContent(file_path)
+                # Convert to list so that it is json serializable
+                set_content = list(set(extracted_content.split()))
+                hash_dict[file_path] = set_content
+            except FileNotFoundError:
+                pass
+            except Exception as e:
+                self.logger.log(
+                    "Error occurred: " + str(e),
+                    logtype="error"
+                )
+
+        # Return path to hash value dictionary
+        return set_dict

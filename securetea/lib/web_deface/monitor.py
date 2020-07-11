@@ -22,7 +22,7 @@ import os
 class Monitor(object):
     """Monitor class."""
 
-    def __init__(self, debug=False, path=None, hash_path=None, backup_path=None):
+    def __init__(self, debug=False, path=None, hash_path=None, set_path=None, backup_path=None):
         """
         Initialize Monitor class.
 
@@ -53,6 +53,8 @@ class Monitor(object):
         self.hash_gen_obj = Hash(debug=self.debug)
         # Load original hash config of files
         self.cache_hash = json_to_dict(hash_path)
+        # Load original hash config of files
+        self.cache_set = json_to_dict(set_path)
         # Load backup mapping config
         self.back_up_dict = json_to_dict(backup_path)
 
@@ -93,6 +95,8 @@ class Monitor(object):
         file_list = self.gather_file_obj.scan_dir()
         # Get the hash values of the files
         hash_dict = self.hash_gen_obj.hash_value(file_list)
+        # Get the set values of the files
+        set_dict = self.hash_gen_obj.get_sets(file_list)
 
         # Iterate through the hash values
         for path, hash_val in hash_dict.items():
@@ -101,6 +105,14 @@ class Monitor(object):
                     msg = "Web Deface detected, attempt to modify file: " + path
                     self.logger.log(
                         msg,
+                        logtype="warning"
+                    )
+                    set1 = set(self.cache_set[path])
+                    set2 = set(set_dict[path])
+                    changed_content = ' '.join(list((set1-set2).union(set2-set1)))
+                    changed_content_msg = "File " + path + "Changed content includes : " + changed_content
+                    self.logger.log(
+                        changed_content_msg,
                         logtype="warning"
                     )
                     self.copy_file(path)  # hash value not equal, file modified, copy file

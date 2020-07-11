@@ -317,3 +317,8 @@ API
 
 blocked.pcap
 /.vs
+
+
+## ServerApp file
+ServerApp/app.db
+ServerApp/logged_in
