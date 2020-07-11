@@ -1201,7 +1201,10 @@ Monitor server files to detect any changes, roll back to default in case of defa
 
 4. Generate SHA 256 hashes of each file and use them for comparison.
 
-SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
+5. Generate sets of each file and use them for comparison.
+
+
+SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files. It would also tell what content was modified.
 
 ## IoT Anonymity Checker
 
