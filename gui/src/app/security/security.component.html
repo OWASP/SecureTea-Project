@@ -118,7 +118,7 @@
                           <div class="row">
                             <h1 class="card-title">AntiVirus</h1>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="antivirus" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="antivirus" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -141,7 +141,7 @@
                             <div class="row">
                             <label>Automatic updates</label>
                             <label class="switch">
-                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="update" checked/>
+                              <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="update" checked/>
                               <span class="slider round"></span>
                             </label>
                             </div>
@@ -153,7 +153,7 @@
                             <div class="row">
                             <label>Automatically clean malicious files</label>
                             <label class="switch">
-                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="auto_delete" checked/>
+                              <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="auto_delete" checked/>
                               <span class="slider round"></span>
                             </label>
                             </div>
@@ -165,7 +165,7 @@
                           <div class="row">
                           <label>Monitor USB devices</label>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="monitor_usb" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="monitor_usb" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -177,7 +177,7 @@
                           <div class="row">
                           <label>Monitor file modifications real-time (CPU intensive)</label>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="monitor_file_changes" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="monitor_file_changes" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -190,7 +190,7 @@
                           <div class="row">
                             <h1 class="card-title">Auto Server Patcher</h1>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="asp" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="asp" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -208,7 +208,7 @@
                             <div class="row">
                             <label>Patch apache configuration</label>
                             <label class="switch">
-                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="apache" checked/>
+                              <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="apache" checked/>
                               <span class="slider round"></span>
                             </label>
                             </div>
@@ -220,7 +220,7 @@
                             <div class="row">
                             <label>Patch system configuration</label>
                             <label class="switch">
-                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="sysctl" checked/>
+                              <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="sysctl" checked/>
                               <span class="slider round"></span>
                             </label>
                             </div>
@@ -232,7 +232,7 @@
                           <div class="row">
                           <label>Patch login configuration</label>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="login" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="login" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -244,7 +244,7 @@
                           <div class="row">
                           <label>Patch SSH configuration</label>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="ssh" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="ssh" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -257,7 +257,7 @@
                           <div class="row">
                             <h1 class="card-title">System Log Monitor</h1>
                           <label class="switch">
-                            <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="sys_log" checked/>
+                            <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="sys_log" checked/>
                             <span class="slider round"></span>
                           </label>
                           </div>
@@ -271,7 +271,7 @@
                             <div class="row">
                               <h1 class="card-title">Firewall</h1>
                             <label class="switch">
-                              <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="firewall" checked/>
+                              <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="firewall" checked/>
                               <span class="slider round"></span>
                             </label>
                             </div>
@@ -292,7 +292,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="inbound_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="inbound_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -309,7 +309,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="outbound_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="outbound_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -326,7 +326,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="protocol_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="protocol_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -343,7 +343,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="scan_load_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="scan_load_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -360,7 +360,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="sports_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="sports_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -377,7 +377,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="dest_ports_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="dest_ports_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -394,7 +394,7 @@
                               <div class="row">
                               <label>Allow</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="dns_action" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="dns_action" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -416,7 +416,7 @@
                               <div class="row">
                               <label>Allow HTTP requests</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="http_req" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="http_req" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -428,7 +428,7 @@
                               <div class="row">
                               <label>Allow HTTP response</label>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="http_resp" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="http_resp" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -441,7 +441,7 @@
                               <div class="row">
                                 <h1 class="card-title">Server Log Monitor</h1>
                               <label class="switch">
-                                <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="server_log" checked/>
+                                <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="server_log" checked/>
                                 <span class="slider round"></span>
                               </label>
                               </div>
@@ -475,7 +475,7 @@
                                 <div class="row">
                                   <h1 class="card-title">Intrusion Detection System</h1>
                                 <label class="switch">
-                                  <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="ids" checked/>
+                                  <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="ids" checked/>
                                   <span class="slider round"></span>
                                 </label>
                                 </div>
@@ -497,7 +497,7 @@
                                 <div class="row">
                                   <h1 class="card-title">Local Web Deface Detection & Prevention System</h1>
                                 <label class="switch">
-                                  <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="web_deface" checked/>
+                                  <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="web_deface" checked/>
                                   <span class="slider round"></span>
                                 </label>
                                 </div>
@@ -519,7 +519,7 @@
                                   <div class="row">
                                     <h1 class="card-title">IoT Anonymity Checker</h1>
                                   <label class="switch">
-                                    <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="iot_ano" checked/>
+                                    <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="iot_ano" checked/>
                                     <span class="slider round"></span>
                                   </label>
                                   </div>
@@ -541,7 +541,7 @@
                                     <div class="row">
                                       <h1 class="card-title">Insecure Headers</h1>
                                     <label class="switch">
-                                      <input type="checkbox" (change)="toggleVisibility($event)" class="form-control" formControlName="insecure_headers" checked/>
+                                      <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="insecure_headers" checked/>
                                       <span class="slider round"></span>
                                     </label>
                                     </div>
@@ -552,6 +552,20 @@
                                     <label>URL of the website</label>
                                     <input type="text" class="form-control" formControlName="url_ih" placeholder="Enter the URL of the website to check insecure headers for"/>
                                 </div>
+                              <!-- Insecure Headers -->
+                              <hr style="border-width:2px">
+                              <div class="form-group">
+                                <h3 class="card-subtitle">Configure History Logger</h3>
+                                  <div class="col-12">
+                                    <div class="row">
+                                      <h1 class="card-title">History Logger</h1>
+                                    <label class="switch">
+                                    <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="hist_logger"/>
+                                    <span class="slider round"></span>
+                                  </label>
+                                  </div>
+                                </div>
+                              </div>
                       <br>
                     <button type="submit" class="btn btn-primary m-b-10 pull-right" >Secure</button>
                 </form>

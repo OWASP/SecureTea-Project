@@ -15,7 +15,6 @@ export class BodyComponent implements OnInit {
 
   interval;
   apiRoot = '';
-
   brand = '_';
   vendor_id = '_';
   bits = '_';

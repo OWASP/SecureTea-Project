@@ -39,9 +39,23 @@ def get_args():
 
     parser.add_argument(
         '--hist',
-        default=True,
+        default=False,
         action="store_true",
         help='Log history true or false'
+    )
+
+    parser.add_argument(
+        '--skip_input',
+        default=False,
+        action="store_true",
+        help='Skip taking input from gui and run with provided arguments'
+    )
+
+    parser.add_argument(
+        '--skip_config_file',
+        default=False,
+        action="store_true",
+        help='Skip taking configuration from config file'
     )
 
     parser.add_argument(
