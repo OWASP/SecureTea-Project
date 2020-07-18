@@ -109,9 +109,9 @@ class SecureTea(object):
         # Setup logger for utils
         setup_logger(debug=self.cred['debug'])
 
-        if self.cred_provided:
+        if self.cred_provided and not self.cred['skip_config_file']:
             credentials.save_creds(self.cred)
-        else:
+        elif not self.cred['skip_config_file']:
             self.cred = credentials.get_creds(args)
 
             try:
@@ -205,9 +205,9 @@ class SecureTea(object):
                 )
 
             try:
-                 if self.cred['server_log']:
-                     self.server_log_provided = True
-                     self.cred_provided = True
+                if self.cred['server_log']:
+                    self.server_log_provided = True
+                    self.cred_provided = True
             except KeyError:
                 self.logger.log(
                     "Server Log configuraton parameter not set.",
@@ -261,7 +261,7 @@ class SecureTea(object):
             )
             sys.exit(0)
 
-        if not self.cred_provided:
+        if not self.cred_provided and not self.cred['history_logger']:
             self.logger.log(
                 "None of the notifications configured. Exiting...",
                 logtype="error"
@@ -307,7 +307,7 @@ class SecureTea(object):
             self.system_log_provided = False
             self.ids_provided = False
 
-        # Check for IoT mode
+        # Check for History Logger
         if self.history_logger:
             self.logger.log(
                 "Starting SecureTea History Logger",

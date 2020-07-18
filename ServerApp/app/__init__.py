@@ -15,12 +15,16 @@ from flask import Flask, Blueprint, jsonify, request, session
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
-CORS(app)
 app.config.from_object('config')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+cors = CORS(app,resources={r"*":{"origins":"*"}})
+async_mode = None
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins="*")
+
 
 diskReadNew = 0
 diskReadOld = 0
@@ -56,6 +60,15 @@ def test_api():
     """Endpoint to check if the endpoint works or not"""
     return '', 200
 
+@app.route('/notifs',methods=['GET'])
+def notifs():
+    """Endpoint to handle notifications to frontend
+        Returns:
+            String : Notif sent
+    """
+    if request.remote_addr=="127.0.0.1":
+        socketio.emit('newmessage', {'message': request.args.get("msg")})
+    return 'Notif sent'
 
 @app.route('/uptime', methods=['POST'])
 def get_uptime():
@@ -442,7 +455,10 @@ def sleep():
         return "404", 404
 
     creds = request.get_json()
-    args_str = ""
+    args_str = " --debug --skip_input --skip_config_file "
+
+    if "hist_logger" in creds and creds["hist_logger"]:
+        args_str+="--hist "
 
     # Twitter parsing
     if ("twitter_api_key" in creds and
@@ -677,7 +693,7 @@ def sleep():
 
         args_str += " --insecure_headers"
         args_str += " --url=" + url
-
+    print(args_str)
     try:
         if not processid:
             processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
@@ -689,7 +705,6 @@ def sleep():
     except Exception as e:
         print(e)
     return "404", 404
-
 
 def findpid():
     """Endpoint to find pid of securetea app

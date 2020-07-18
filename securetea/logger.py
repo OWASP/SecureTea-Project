@@ -12,6 +12,7 @@ Project:
 
 """
 import time
+import requests as req
 
 
 class SecureTeaLogger():
@@ -60,6 +61,11 @@ class SecureTeaLogger():
             message (str): Message to log as info
         """
         print(self.LEGEND + self.OKGREEN + message + self.ENDC)
+        param = {"msg": "S" + message}
+        try:
+            resp = req.get("http://127.0.0.1:5000/notifs", params=param)
+        except req.exceptions.ConnectionError:
+            pass
 
     def printerror(self, message):
         """Print error.
@@ -68,6 +74,11 @@ class SecureTeaLogger():
             message (str): Message to log as error
         """
         print(self.LEGEND + self.ERROR + message + self.ENDC)
+        param = {"msg": "E" + message}
+        try:
+            resp = req.get("http://127.0.0.1:5000/notifs", params=param)
+        except req.exceptions.ConnectionError:
+            pass
 
     def printwarning(self, message):
         """Print warning.
@@ -76,6 +87,11 @@ class SecureTeaLogger():
             message (str): Message to log as warning
         """
         print(self.LEGEND + self.WARNING + message + self.ENDC)
+        param = {"msg": "W" + message}
+        try:
+            resp = req.get("http://127.0.0.1:5000/notifs", params=param)
+        except req.exceptions.ConnectionError:
+            pass
 
     def log(self, message, logtype="info"):
         """For loging.

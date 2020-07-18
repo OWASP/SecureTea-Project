@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router} from '@angular/router';
+import * as toastr from 'toastr';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,8 @@ export class HeaderComponent implements OnInit {
 
   username = localStorage.getItem('user_name');
   apiRoot =  '';
+  socket: any;
+
 
   constructor(private http: Http, private router: Router) {
   }
@@ -21,6 +25,24 @@ export class HeaderComponent implements OnInit {
     if (!this.apiRoot) {
       this.router.navigate(['/config']);
     }
+    toastr.options ={
+      "progressBar": true
+    }
+    this.socket = io(this.apiRoot);
+    this.socket.on('newmessage', (msg) => {
+      if(msg.message.charAt(0) === "W")
+      {
+        toastr.warning(msg.message.substring(1));
+      }
+      else if(msg.message.charAt(0) === "S")
+      {
+        toastr.success(msg.message.substring(1));
+      }
+      else
+      {
+        toastr.error(msg.message.substring(1));
+      }
+    });
     this.getUsername();
   }
 

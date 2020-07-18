@@ -66,6 +66,8 @@ class Engine(object):
         self._BACKUP_MAP = "/etc/securetea/web_deface/backup.json"
         # Server file hash map path
         self._HASH_MAP = "/etc/securetea/web_deface/hash.json"
+        # Server file set map path
+        self._SET_MAP = "/etc/securetea/web_deface/set.json"
 
         # Load the path map JSON configuration
         self.path_mapping_dict = json_to_dict(self._MAP_PATH)
@@ -128,6 +130,8 @@ class Engine(object):
         files_list = self.gather_file_obj.scan_dir()
         # Find SHA 256 hash values for the file and return dict mapping of files to hash value
         hash_dict = self.hash_gen_obj.hash_value(files_list)
+        # Find set values for the file and return dict mapping of files to sets
+        set_dict = self.hash_gen_obj.get_sets(files_list)
         # Back-up the files and return dict mapping of original to back-up path
         backup_dict = self.backup_obj.gen_backup(files_list)
 
@@ -135,11 +139,14 @@ class Engine(object):
         dump_dict_to_json(path=self._BACKUP_MAP, py_dict=backup_dict)
         # Dump hash mapping dict to JSON
         dump_dict_to_json(path=self._HASH_MAP, py_dict=hash_dict)
+        # Dump hash mapping dict to JSON
+        dump_dict_to_json(path=self._SET_MAP, py_dict=set_dict)
 
         # Create monitor object
         self.monitor = Monitor(debug=self.debug,
                                path=self._PATH,
                                hash_path=self._HASH_MAP,
+                               set_path=self._SET_MAP,
                                backup_path=self._BACKUP_MAP)
 
         while True:  # Run in an endless monitor loop

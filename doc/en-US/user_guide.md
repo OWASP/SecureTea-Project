@@ -348,6 +348,7 @@ Default configuration:
 		"shodan-api-key": "XXXX",
 		"ip": ""
 	},
+	"history_logger": false,
 	"debug": false
 }
 ```
@@ -401,7 +402,8 @@ Examples:<br>
 
 ##### Configuring using CLI arguments
 ```argument
-usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
+usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--skip_input]
+                    [--skip_config_file] [--twitter] [--twilio_sms]
                     [--telegram] [--gmail] [--slack] [--aws_ses]
                     [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
@@ -434,17 +436,19 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--twitter] [--twilio_sms]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
                     [--insecure_headers] [--url URL] [--ids]
-                    [--threshold THRESHOLD] [--system_log] [--server_log]
-                    [--log_file LOG_FILE] [--log_type LOG_TYPE]
-                    [--window WINDOW] [--ip_list IP_LIST]
+                    [--threshold THRESHOLD] [--system_log] [--server-log]
+                    [--log-file LOG_FILE] [--log-type LOG_TYPE]
+                    [--window WINDOW] [--ip-list IP_LIST]
                     [--status-code STATUS_CODE] [--auto-server-patcher]
                     [--ssh] [--sysctl] [--login] [--apache] [--ssl]
-		    [--antivirus] [--update UPDATE]
-                    [--custom-scan CUSTOM_SCAN] [--auto-delete]
-                    [--monitor-usb] [--monitor-file-changes]
-                    [--virustotal-api-key] 		    
-                    [--web-deface] [--path PATH] [--server-name SERVER_NAME]	
-		    [--iot-checker][--shodan-api-key SHODAN_API_KEY] [--ip IP]
+                    [--web-deface] [--path PATH] [--server-name SERVER_NAME]
+                    [--antivirus] [--update UPDATE]
+                    [--custom-scan CUSTOM_SCAN] [--auto-delete AUTO_DELETE]
+                    [--monitor-usb MONITOR_USB]
+                    [--monitor-file-changes MONITOR_FILE_CHANGES]
+                    [--virustotal-api-key] [--iot-checker]
+                    [--shodan-api-key SHODAN_API_KEY] [--ip IP]
+                    [--server-mode | --system-mode | --iot-mode]
 ```
 
 Example usage:
@@ -509,7 +513,10 @@ The following argument options are currently available:
   -h, --help            show this help message and exit
   --conf CONF           Path of config file. default:-
                         "~/.securetea/securetea.conf"
-  --debug               Degug true or false
+  --debug               Debug true or false
+  --hist                Enable history logger
+  --skip_input          Skip taking input
+  --skip_config_file    Skip taking configuration from config file
   --twitter             Setup twitter credentials
   --twilio_sms          Setup twilio SMS credentials
   --telegram            Setup telegram SMS credentials
@@ -1194,7 +1201,10 @@ Monitor server files to detect any changes, roll back to default in case of defa
 
 4. Generate SHA 256 hashes of each file and use them for comparison.
 
-SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
+5. Generate sets of each file and use them for comparison.
+
+
+SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files. It would also tell what content was modified.
 
 ## IoT Anonymity Checker
 
@@ -1221,7 +1231,7 @@ The server app is available at ServerApp. Run it using simply python3 run.py
 sudo python3 SecureTea.py --hist
 ```
 ### 2. Log file
-	+ Commands are logged at "/var/log/securetea_history_logger.log"
+    + Commands are logged at "/var/log/securetea_history_logger.log"
 
 ## License
 **MIT License**
