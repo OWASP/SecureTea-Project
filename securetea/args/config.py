@@ -112,5 +112,7 @@ def get_config():
     		"ip": ""
     	},
         "history_logger": 0,
+        "clamav": 0,
+        "yara": 0,
     	"debug": 0
     }

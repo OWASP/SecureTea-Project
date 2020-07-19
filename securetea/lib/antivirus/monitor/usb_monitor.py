@@ -24,7 +24,7 @@ from securetea.lib.antivirus.tools import file_gather
 class USBMonitor(object):
     """USBMonitor class."""
 
-    def __init__(self, debug=False, config_path=None, vt_api_key=None):
+    def __init__(self, debug=False, config_path=None, vt_api_key=None, use_clamav=False, use_yara=False):
         """
         Initialize USBMonitor.
 
@@ -58,6 +58,10 @@ class USBMonitor(object):
 
         # Initialize Virus Total API key
         self.vt_api_key = vt_api_key
+
+        # Store whether to use clamav and yara
+        self.use_clamav = use_clamav
+        self.use_yara = use_yara
 
         # Create Pyudev Context
         self.context = Context()
@@ -224,6 +228,8 @@ class USBMonitor(object):
                             self.scanner_engine_obj = scanner_engine.ScannerEngine(debug=self.debug,
                                                                                    config_path=self._CONFIG_PATH,
                                                                                    vt_api_key=self.vt_api_key,
+                                                                                   use_clamav=self.use_clamav,
+                                                                                   use_yara=self.use_yara,
                                                                                    file_list=file_list)
                             # Start scanning the files
                             self.scanner_engine_obj.start_scanner_engine()

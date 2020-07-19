@@ -161,6 +161,16 @@ class ArgsHelper(object):
         else:
             self.cred['history_logger'] = False
 
+        if self.args.clamav:
+            self.cred['clamav'] = self.args.clamav
+        else:
+            self.cred['clamav'] = False
+
+        if self.args.yara:
+            self.cred['yara'] = self.args.yara
+        else:
+            self.cred['yara'] = False
+
         if self.args.skip_config_file:
             self.cred['skip_config_file'] = self.args.skip_config_file
         else:

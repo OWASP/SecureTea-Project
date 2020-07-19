@@ -29,6 +29,8 @@ class MonitorEngine(object):
                  debug=False,
                  config_path=None,
                  vt_api_key=None,
+                 use_clamav=False,
+                 use_yara=False,
                  monitor_changes=1,
                  monitor_usb=1):
         """
@@ -79,6 +81,9 @@ class MonitorEngine(object):
         self.process_pool = []
         # Initialize VirusTotal API key
         self.vt_api_key = vt_api_key
+        # Store whether to use clamav and yara
+        self.use_clamav = use_clamav
+        self.use_yara = use_yara
 
     def kill_process(self):
         """
@@ -115,7 +120,9 @@ class MonitorEngine(object):
             self.monitor_changes_obj = MonitorChanges(debug=self.debug,
                                                       config_path=self._CONFIG_PATH,
                                                       min_time=self.changes_min_time,
-                                                      vt_api_key=self.vt_api_key)
+                                                      vt_api_key=self.vt_api_key,
+                                                      use_clamav=self.use_clamav,
+                                                      use_yara=self.use_yara)
             monitor_changes_process = multiprocessing.Process(target=self.monitor_changes_obj.monitor)
             # Add to process pool
             self.process_pool.append(monitor_changes_process)
@@ -124,7 +131,9 @@ class MonitorEngine(object):
             # Create USBMonitor object
             self.monitor_usb_obj = USBMonitor(debug=self.debug,
                                               config_path=self._CONFIG_PATH,
-                                              vt_api_key=self.vt_api_key)
+                                              vt_api_key=self.vt_api_key,
+                                              use_clamav=self.use_clamav,
+                                              use_yara=self.use_yara)
             monitor_usb_process = multiprocessing.Process(target=self.monitor_usb_obj.monitor_usb_device)
             # Add to process pool
             self.process_pool.append(monitor_usb_process)

@@ -349,6 +349,8 @@ Default configuration:
 		"ip": ""
 	},
 	"history_logger": false,
+	"clamav": false,
+	"yara": false,
 	"debug": false
 }
 ```
@@ -402,10 +404,10 @@ Examples:<br>
 
 ##### Configuring using CLI arguments
 ```argument
-usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--skip_input]
-                    [--skip_config_file] [--twitter] [--twilio_sms]
-                    [--telegram] [--gmail] [--slack] [--aws_ses]
-                    [--twitter_api_key TWITTER_API_KEY]
+usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--clamav] [--yara]
+                    [--skip_input] [--skip_config_file] [--twitter]
+                    [--twilio_sms] [--telegram] [--gmail] [--slack]
+                    [--aws_ses] [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
                     [--twitter_access_token TWITTER_ACCESS_TOKEN]
                     [--twitter_access_token_secret TWITTER_ACCESS_TOKEN_SECRET]
@@ -616,6 +618,8 @@ The following argument options are currently available:
   --apache              Patch apache configuration
   --ssl                 Scan for SSL vulnerability
   --antivirus           Start AntiVirus
+  --clamav              Enable ClamAV scanner for antivirys
+  --yara                Enable Yara scanner for Antivirus
   --update UPDATE       Auto-update AntiVirus or not (1: yes, 0: no)
   --custom-scan CUSTOM_SCAN
 			Path to custom scan
@@ -856,7 +860,7 @@ sudo SecureTea.py -asp
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --antivirus
+sudo SecureTea.py --antivirus --clamav --yara
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -867,6 +871,8 @@ sudo SecureTea.py --antivirus
 | `--monitor-usb` | 1 |Monitor USB devices or not (1:yes, 0:no)|
 | `--monitor-file-changes` | 1 |Monitor files changes or addition (1:yes, 0:no)|
 | `--virustotal-api-key` | XXXX |VirusTotal API key|
+| `--clamav` | 0 |Use clamav AV scanner|
+| `--yara` | 0 |Use yara AV scanner|
 
 #### Setting up Web Deface Detection
 Example usage: <br>

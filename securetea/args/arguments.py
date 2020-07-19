@@ -45,6 +45,20 @@ def get_args():
     )
 
     parser.add_argument(
+        '--clamav',
+        default=False,
+        action="store_true",
+        help='Use clamav for AV search true or false'
+    )
+
+    parser.add_argument(
+        '--yara',
+        default=False,
+        action="store_true",
+        help='Use yara for AV search true or false'
+    )
+
+    parser.add_argument(
         '--skip_input',
         default=False,
         action="store_true",
