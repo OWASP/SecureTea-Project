@@ -819,9 +819,9 @@ What are **thresholds**?
 It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
 <br>
 
-What is eligibility traces?
+What is **eligibility traces**?
 <br>
-ligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
+Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
 
 There are two ways to view eligibility traces. The more theoretical view, which we emphasize here, is that they are a bridge from TD to Monte Carlo methods. When TD methods are augmented with eligibility traces, they produce a family of methods spanning a spectrum that has Monte Carlo methods at one end and one-step TD methods at the other. In between are intermediate methods that are often better than either extreme method. In this sense eligibility traces unify TD and Monte Carlo methods in a valuable and revealing way.
 
