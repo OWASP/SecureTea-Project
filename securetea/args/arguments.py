@@ -427,6 +427,20 @@ def get_args():
     )
 
     parser.add_argument(
+        '--eligibility_threshold',
+        type=str,
+        required=False,
+        help="Intrusion Detection System (IDS) eligibility threshold"
+    )
+
+    parser.add_argument(
+        '--severity_factor',
+        type=str,
+        required=False,
+        help="Intrusion Detection System (IDS) eligibility traces severity factor"
+    )
+
+    parser.add_argument(
         '--system_log',
         '-sys_log',
         action="store_true",

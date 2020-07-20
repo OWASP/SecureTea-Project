@@ -47,6 +47,8 @@ class SecureTeaIDS(object):
         if check_root():
             # Create DetectRecon object
             self.recon_obj = DetectRecon(threshold=self.cred["threshold"],
+                                         eligibility_threshold=self.cred["eligibility_threshold"],
+                                         severity_factor=self.cred["severity_factor"],
                                          debug=debug)
 
             interface = self.cred["interface"]

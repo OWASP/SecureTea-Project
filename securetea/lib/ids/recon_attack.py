@@ -14,15 +14,17 @@ Project:
 import sys
 import scapy.all as scapy
 import time
+from collections import defaultdict
 from securetea import logger
 from securetea.lib.osint.osint import OSINT
 from securetea.common import write_mal_ip
+from securetea.lib.ids import utils
 
 
 class DetectRecon(object):
     """Class for DetectRecon."""
 
-    def __init__(self, threshold=None, debug=False):
+    def __init__(self, threshold=None, debug=False, eligibility_threshold=None, severity_factor=None):
         """Initialize DetectRecon class.
 
         Args:
@@ -55,6 +57,30 @@ class DetectRecon(object):
         )
 
         # Set threshold
+        if not eligibility_threshold:
+            self._ELIGIBILITY_THRESHOLD = 0.5
+        else:
+            try:
+                self._ELIGIBILITY_THRESHOLD = float(eligibility_threshold)
+            except ValueError:
+                self.logger.log(
+                    "Incorrent eligibility threshold, need a float value.",
+                    logtype="error"
+                )
+                sys.exit(0)
+
+        if not severity_factor:
+            self._SEVERITY_FACTOR = 0.9
+        else:
+            try:
+                self._SEVERITY_FACTOR = float(severity_factor)
+            except ValueError:
+                self.logger.log(
+                    "Incorrent severity factor, need a float value.",
+                    logtype="error"
+                )
+                sys.exit(0)
+
         if not threshold:
             self._THRESHOLD = 100
         else:
@@ -78,6 +104,7 @@ class DetectRecon(object):
         self.xmas_scan = dict()
         self.null_scan = dict()
         self.os_scan = dict()
+        self.eligibility_trace = defaultdict(lambda: 1)
 
         # Initialize OSINT object
         self.osint_obj = OSINT(debug=debug)
@@ -109,6 +136,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict or not
                             count = self.tcp_ack[packet_ip]["count"]
@@ -158,6 +192,13 @@ class DetectRecon(object):
                         logtype="error"
                     )
                 if packet_ip:
+                    self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                    if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                        utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                        utils.excecute_command("iptables-save")
+                    else:
+                        utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                        utils.excecute_command("iptables-save")
                     try:
                         # Check if the IP exists in the dict or not
                         count = self.udp_scan[packet_ip]["count"]
@@ -212,6 +253,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict ot not
                             count = self.icmp_scan[packet_ip]["count"]
@@ -273,6 +321,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict or not
                             count = self.os_scan[packet_ip]["count"]
@@ -324,6 +379,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict or not
                             count = self.fin_scan[packet_ip]["count"]
@@ -375,6 +437,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict or not
                             count = self.xmas_scan[packet_ip]["count"]
@@ -426,6 +495,13 @@ class DetectRecon(object):
                             logtype="error"
                         )
                     if packet_ip:
+                        self.eligibility_trace[packet_ip] = (1 - self._SEVERITY_FACTOR) * self.eligibility_trace[packet_ip] + self._SEVERITY_FACTOR
+                        if self.eligibility_trace[packet_ip] <= self._ELIGIBILITY_THRESHOLD:
+                            utils.excecute_command("iptables -A INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
+                        else:
+                            utils.excecute_command("iptables -D INPUT -s " + packet_ip + " -j DROP")
+                            utils.excecute_command("iptables-save")
                         try:
                             # Check if the IP exists in the dict or not
                             count = self.null_scan[packet_ip]["count"]
