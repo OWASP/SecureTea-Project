@@ -161,6 +161,16 @@ class ArgsHelper(object):
         else:
             self.cred['history_logger'] = False
 
+        if self.args.clamav:
+            self.cred['clamav'] = self.args.clamav
+        else:
+            self.cred['clamav'] = False
+
+        if self.args.yara:
+            self.cred['yara'] = self.args.yara
+        else:
+            self.cred['yara'] = False
+
         if self.args.skip_config_file:
             self.cred['skip_config_file'] = self.args.skip_config_file
         else:
@@ -301,44 +311,44 @@ class ArgsHelper(object):
         return {
             'input': {
                 "interface": "interface name",
-            	"inbound_IPRule": {
-            		"action": "inbound IP action (0: BLOCK, 1: ALLOW)",
-            		"ip_inbound": "list of inbound IPs to look for"
-            	},
-            	"outbound_IPRule": {
-            		"action": "outbound IP action (0: BLOCK, 1: ALLOW)",
-            		"ip_outbound": "list of outbound IPs to look for"
-            	},
-            	"protocolRule": {
-            		"action": "protocol action (0: BLOCK, 1: ALLOW)",
-            		"protocols": "list of protocols to look for"
-            	},
-            	"scanLoad": {
-            		"action": "scan download action (0: BLOCK, 1: ALLOW)",
-            		"extensions": "list of extensions to scan for"
-            	},
-            	"source_portRule": {
-            		"action": "source port action (0: BLOCK, 1: ALLOW)",
-            		"sports": "list of source ports"
-            	},
-            	"dest_portRule": {
-            		"action": "destination port action (0: BLOCK, 1: ALLOW)",
-            		"dports": "list of destination ports"
-            	},
-            	"HTTPRequest": {
-            		"action": "HTTP request action (0: BLOCK, 1: ALLOW)"
-            	},
-            	"HTTPResponse": {
-            		"action": "HTTP response action (0: BLOCK, 1: ALLOW)"
-            	},
-            	"DNSRule": {
-            		"action": "DNS action (0: BLOCK, 1: ALLOW)",
-            		"dns": "list of dns to look for"
-            	},
-            	"time": {
-            		"time_lb": "time lower bound (eg. 00:00)",
-            		"time_ub": "time upper bound (eg. 23:59)"
-            	}
+                "inbound_IPRule": {
+                    "action": "inbound IP action (0: BLOCK, 1: ALLOW)",
+                    "ip_inbound": "list of inbound IPs to look for"
+                },
+                "outbound_IPRule": {
+                    "action": "outbound IP action (0: BLOCK, 1: ALLOW)",
+                    "ip_outbound": "list of outbound IPs to look for"
+                },
+                "protocolRule": {
+                    "action": "protocol action (0: BLOCK, 1: ALLOW)",
+                    "protocols": "list of protocols to look for"
+                },
+                "scanLoad": {
+                    "action": "scan download action (0: BLOCK, 1: ALLOW)",
+                    "extensions": "list of extensions to scan for"
+                },
+                "source_portRule": {
+                    "action": "source port action (0: BLOCK, 1: ALLOW)",
+                    "sports": "list of source ports"
+                },
+                "dest_portRule": {
+                    "action": "destination port action (0: BLOCK, 1: ALLOW)",
+                    "dports": "list of destination ports"
+                },
+                "HTTPRequest": {
+                    "action": "HTTP request action (0: BLOCK, 1: ALLOW)"
+                },
+                "HTTPResponse": {
+                    "action": "HTTP response action (0: BLOCK, 1: ALLOW)"
+                },
+                "DNSRule": {
+                    "action": "DNS action (0: BLOCK, 1: ALLOW)",
+                    "dns": "list of dns to look for"
+                },
+                "time": {
+                    "time_lb": "time lower bound (eg. 00:00)",
+                    "time_ub": "time upper bound (eg. 23:59)"
+                }
             },
             'default': default
         }
@@ -353,6 +363,8 @@ class ArgsHelper(object):
         return {
             "input": {
                 "threshold": "threshold settings (integer value: 10 - 1000)",
+                "eligibility_threshold": "eligibility threshold settings (float value: 0 - 1)",
+                "severity_factor": "severity factor settings (float value: 0 - 1)",
                 "interface": "interface on which to monitor"
                 },
                 "default": default
@@ -398,7 +410,7 @@ class ArgsHelper(object):
         self.logger.log("Auto Server Patcher setup")
         default = load_default("auto-server-patcher")
         return {
-            "input":{
+            "input": {
                 "url": "url to scan for SSL vulnerability, else leave blank",
                 "apache": "whether to patch Apache config (0/1)?",
                 "sysctl": "whether to patch sysctl (0/1)?",
@@ -909,9 +921,13 @@ class ArgsHelper(object):
 
         if not self.ids_provided:
             if (isinstance(self.args.threshold, str) and
+                isinstance(self.args.eligibility_threshold, str) and
+                isinstance(self.args.severity_threshold, str) and
                 isinstance(self.args.interface, str)):
                 ids = {}
                 ids["threshold"] = self.args.threshold
+                ids["eligibility_threshold"] = self.args.eligibility_threshold
+                ids["severity_threshold"] = self.args.severity_threshold
                 ids["interface"] = self.args.interface
                 self.cred["ids"] = ids
                 self.ids_provided = True

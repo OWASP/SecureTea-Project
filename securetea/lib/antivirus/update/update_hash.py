@@ -127,7 +127,7 @@ class UpdateHash(object):
                     last_file_num = file_num
 
         if last_file_num < self._MAX:
-             # Start downloading the hashes from the last index number
+            # Start downloading the hashes from the last index number
             self.download(last_file_num + 1, self._MAX)
         elif last_file_num >= self._MAX:
             print("[!] Hash Signatures upto date")

@@ -36,6 +36,8 @@ class CoreEngine(object):
                  debug=False,
                  config_path="securetea/lib/antivirus/config/config.json",
                  vt_api_key=None,
+                 use_clamav=False,
+                 use_yara=False,
                  monitor_changes=1,
                  monitor_usb=1,
                  update=1,
@@ -95,16 +97,24 @@ class CoreEngine(object):
         else:
             self.vt_api_key = None
 
+        self.use_clamav = use_clamav
+        self.use_yara = use_yara
+
         # Create ScannerEngine object
         self.scanner_engine_obj = ScannerEngine(debug=debug,
                                                 config_path=self._CONFIG_PATH,
                                                 file_list=self.file_list,
-                                                vt_api_key=self.vt_api_key)
+                                                vt_api_key=self.vt_api_key,
+                                                use_clamav=self.use_clamav,
+                                                use_yara=self.use_yara)
         # Create MonitorEngine object
         self.monitor_engine_obj = MonitorEngine(debug=debug,
                                                 config_path=self._CONFIG_PATH,
                                                 monitor_changes=self.monitor_changes,
-                                                monitor_usb=self.monitor_usb)
+                                                monitor_usb=self.monitor_usb,
+                                                vt_api_key=self.vt_api_key,
+                                                use_clamav=self.use_clamav,
+                                                use_yara=self.use_yara)
         # Create Cleaner object
         self.cleaner_obj = Cleaner(debug=debug, config_path=self._CONFIG_PATH)
 
