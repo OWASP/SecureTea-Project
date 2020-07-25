@@ -21,7 +21,7 @@ import sys
 class SecureTeaAntiVirus(object):
     """SecureTeaAntiVirus class."""
 
-    def __init__(self, debug=False, cred=None):
+    def __init__(self, debug=False, cred=None, use_clamav=False, use_yara=False):
         """
         Initialize SecureTeaAntiVirus.
 
@@ -65,6 +65,8 @@ class SecureTeaAntiVirus(object):
         self.monitor_changes = int(self.cred["monitor-file-changes"])
         self.monitor_usb = int(self.cred["monitor-usb"])
         self.custom_scan = self.cred["custom-scan"]
+        self.use_yara = use_yara
+        self.use_clamav = use_clamav
         if self.custom_scan == "":
             self.custom_scan = None
         self.auto_delete = int(self.cred["auto-delete"])
@@ -73,6 +75,8 @@ class SecureTeaAntiVirus(object):
         self.core_engine_obj = core_engine.CoreEngine(debug=debug,
                                                       config_path=self._CONFIG_PATH,
                                                       vt_api_key=self.vt_api_key,
+                                                      use_clamav=use_clamav,
+                                                      use_yara=use_yara,
                                                       monitor_changes=self.monitor_changes,
                                                       monitor_usb=self.monitor_usb,
                                                       update=self.update,
@@ -94,6 +98,10 @@ class SecureTeaAntiVirus(object):
         """
         try:
             # Start the core engine
+            self.logger.log(
+                "Antivirus started.",
+                logtype="info"
+            )
             self.core_engine_obj.start_engine()
         except Exception as e:
             self.logger.log(

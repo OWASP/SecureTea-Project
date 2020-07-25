@@ -23,7 +23,7 @@ import sys
 class ScannerEngine(object):
     """ScannerEngine class."""
 
-    def __init__(self, debug=False, config_path=None, vt_api_key=None, file_list=None):
+    def __init__(self, debug=False, config_path=None, file_list=None, vt_api_key=None, use_clamav=False, use_yara=False):
         """
         Initialize ScannerEngine.
 
@@ -80,6 +80,10 @@ class ScannerEngine(object):
         # List of process in action
         self.process_pool = []
 
+        # Store whether to use clamav and yara
+        self.use_clamav = use_clamav
+        self.use_yara = use_yara
+
     def start_scanner_engine(self):
         """
         Start the scanner engine and stat scanning
@@ -101,35 +105,38 @@ class ScannerEngine(object):
         try:
             # Create Hash Scanner process
             hash_scanner_process = multiprocessing.Process(target=self.hash_scanner.start_scan)
-            # Create Yara Scanner process
-            yara_scanner_process = multiprocessing.Process(target=self.yara_scanner.start_scan)
-            # Create Clam AV Scanner process
-            clamd_scanner_process = multiprocessing.Process(target=self.clamd_scanner.start_scan)
-
             # Add Hash Scanner process to process list
             self.process_pool.append(hash_scanner_process)
-            # Add Yara Scanner process to process list
-            self.process_pool.append(yara_scanner_process)
-            # Add Clamd AV process to process list
-            self.process_pool.append(clamd_scanner_process)
-
             # Start Hash Scanner process
             hash_scanner_process.start()
             self.logger.log(
                 "Hash Scanner engine started",
                 logtype="info"
             )
-            # Start Yara Scanner process
-            yara_scanner_process.start()
-            self.logger.log(
-                "Yara Scanner engine started",
-                logtype="info"
-            )
-            clamd_scanner_process.start()
-            self.logger.log(
-                "Clam AV Scanner engine started",
-                logtype="info"
-            )
+
+            # Create Yara Scanner process
+            if self.use_yara:
+                yara_scanner_process = multiprocessing.Process(target=self.yara_scanner.start_scan)
+                # Add Yara Scanner process to process list
+                self.process_pool.append(yara_scanner_process)
+                # Start Yara Scanner process
+                yara_scanner_process.start()
+                self.logger.log(
+                    "Yara Scanner engine started",
+                    logtype="info"
+                )
+
+            # Create Clam AV Scanner process
+            if self.use_clamav:
+                clamd_scanner_process = multiprocessing.Process(target=self.clamd_scanner.start_scan)
+                # Add Clamd AV process to process list
+                self.process_pool.append(clamd_scanner_process)
+                # Start Clam AV Scanner process
+                clamd_scanner_process.start()
+                self.logger.log(
+                    "Clam AV Scanner engine started",
+                    logtype="info"
+                )
             # Complete the process
             for process in self.process_pool:
                 process.join()

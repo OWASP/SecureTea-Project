@@ -23,7 +23,7 @@ from securetea.lib.antivirus.antivirus_logger import AntiVirusLogger
 class MonitorChanges(object):
     """MonitorChanges class."""
 
-    def __init__(self, debug=False, config_path=None, min_time=20, vt_api_key=None):
+    def __init__(self, debug=False, config_path=None, min_time=20, vt_api_key=None, use_clamav=False, use_yara=False):
         """
         Initialize MonitorChanges class.
 
@@ -85,6 +85,10 @@ class MonitorChanges(object):
         self.vt_api_key = vt_api_key
         # UID list
         self.verified_uid_list = self.get_initial_uid()
+        # Store whether to use clamav and yara
+        self.use_clamav = use_clamav
+        self.use_yara = use_yara
+
 
     def get_initial_uid(self):
         """
@@ -202,7 +206,9 @@ class MonitorChanges(object):
             self.scanner_engine_obj = ScannerEngine(debug=self.debug,
                                                     config_path=self._CONFIG_PATH,
                                                     file_list=extracted_list,
-                                                    vt_api_key=self.vt_api_key)
+                                                    vt_api_key=self.vt_api_key,
+                                                    use_clamav=self.use_clamav,
+                                                    use_yara=self.use_yara)
             # Extend list of scanned files
             self.done_scanning.extend(self.modified_files)
             # Empty list of modified files for the next round of monitoring

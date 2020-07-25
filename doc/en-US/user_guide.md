@@ -316,6 +316,8 @@ Default configuration:
 	},
 	"ids": {
 		"threshold": 10,
+		"eligibility_threshold": 0.5,
+		"severity_factor": 0.9,
 		"interface": "XXXX"
 	},
 	"server_log": {
@@ -349,6 +351,8 @@ Default configuration:
 		"ip": ""
 	},
 	"history_logger": false,
+	"clamav": false,
+	"yara": false,
 	"debug": false
 }
 ```
@@ -402,10 +406,10 @@ Examples:<br>
 
 ##### Configuring using CLI arguments
 ```argument
-usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--skip_input]
-                    [--skip_config_file] [--twitter] [--twilio_sms]
-                    [--telegram] [--gmail] [--slack] [--aws_ses]
-                    [--twitter_api_key TWITTER_API_KEY]
+usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--clamav] [--yara]
+                    [--skip_input] [--skip_config_file] [--twitter]
+                    [--twilio_sms] [--telegram] [--gmail] [--slack]
+                    [--aws_ses] [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
                     [--twitter_access_token TWITTER_ACCESS_TOKEN]
                     [--twitter_access_token_secret TWITTER_ACCESS_TOKEN_SECRET]
@@ -436,8 +440,10 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--skip_input]
                     [--dns_action DNS_ACTION] [--dns_list DNS_LIST]
                     [--time_lb TIME_LB] [--time_ub TIME_UB]
                     [--insecure_headers] [--url URL] [--ids]
-                    [--threshold THRESHOLD] [--system_log] [--server-log]
-                    [--log-file LOG_FILE] [--log-type LOG_TYPE]
+                    [--threshold THRESHOLD]
+                    [--eligibility_threshold ELIGIBILITY_THRESHOLD]
+                    [--severity_factor SEVERITY_FACTOR] [--system_log]
+                    [--server-log] [--log-file LOG_FILE] [--log-type LOG_TYPE]
                     [--window WINDOW] [--ip-list IP_LIST]
                     [--status-code STATUS_CODE] [--auto-server-patcher]
                     [--ssh] [--sysctl] [--login] [--apache] [--ssl]
@@ -514,8 +520,11 @@ The following argument options are currently available:
   --conf CONF           Path of config file. default:-
                         "~/.securetea/securetea.conf"
   --debug               Debug true or false
-  --hist                Enable history logger
-  --skip_input          Skip taking input
+  --hist                Log history true or false
+  --clamav              Use clamav for AV search true or false
+  --yara                Use yara for AV search true or false
+  --skip_input          Skip taking input from gui and run with provided
+                        arguments
   --skip_config_file    Skip taking configuration from config file
   --twitter             Setup twitter credentials
   --twilio_sms          Setup twilio SMS credentials
@@ -599,14 +608,19 @@ The following argument options are currently available:
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
                         Intrusion Detection System (IDS) threshold
+  --eligibility_threshold ELIGIBILITY_THRESHOLD
+                        Intrusion Detection System (IDS) eligibility threshold
+  --severity_factor SEVERITY_FACTOR
+                        Intrusion Detection System (IDS) eligibility traces
+                        severity factor
   --system_log, -sys_log
                         Start system log monitoring process
-  --server_log          Start server log monitoring process
-  --log_file LOG_FILE   Path of the log file
-  --log_type LOG_TYPE   Type of the log file (Apache/Nginx)
+  --server-log          Start server log monitoring process
+  --log-file LOG_FILE   Path of the log file
+  --log-type LOG_TYPE   Type of the log file (Apache/Nginx)
   --window WINDOW       Days old log to process
-  --ip_list IP_LIST     List of IPs to grab from log file
-  --status_code STATUS_CODE
+  --ip-list IP_LIST     List of IPs to grab from log file
+  --status-code STATUS_CODE
                         List of status code to grab from log file
   --auto-server-patcher, -asp
                         Start auto server patcher
@@ -615,24 +629,29 @@ The following argument options are currently available:
   --login               Patch login configuration
   --apache              Patch apache configuration
   --ssl                 Scan for SSL vulnerability
-  --antivirus           Start AntiVirus
-  --update UPDATE       Auto-update AntiVirus or not (1: yes, 0: no)
-  --custom-scan CUSTOM_SCAN
-			Path to custom scan
-  --auto-delete         Auto delete malicious files or manually (1: auto, 0:
-			manual)
-  --monitor-usb         Monitor USB devices or not (1: yes, 0: no)
-  --monitor-file-changes
-			Monitor file changes or not (1:yes, 0:no)
-  --virustotal-api-key  Virus Total API key
   --web-deface          Start Web Deface Detection
   --path PATH           Path of the directory
   --server-name SERVER_NAME
                         Name of the server (apache/nginx/etc.)
+  --antivirus           Start AntiVirus
+  --update UPDATE       Auto-update AntiVirus or not (1: yes, 0: no)
+  --custom-scan CUSTOM_SCAN
+                        Path to custom scan
+  --auto-delete AUTO_DELETE
+                        Auto delete malicious files or manually (1: auto, 0:
+                        manual)
+  --monitor-usb MONITOR_USB
+                        Monitor USB devices or not (1: yes, 0: no)
+  --monitor-file-changes MONITOR_FILE_CHANGES
+                        Monitor file changes or not (1:yes, 0:no)
+  --virustotal-api-key  Virus Total API key
   --iot-checker, -ic    Start IoT Anonymity Checker
   --shodan-api-key SHODAN_API_KEY, -sak SHODAN_API_KEY
                         Shodan API Key
   --ip IP               IP address on which to perform operation
+  --server-mode         Start SecureTea in server mode
+  --system-mode         Start SecureTea in system mode
+  --iot-mode            Start SecureTea in IoT mode
  ```
  
 ### Example usages
@@ -791,11 +810,30 @@ sudo SecureTea.py --ids
 | Argument      | Default value | Description |
 | ------------- | ------------- |--------------
 | `--threshold` | 10 | Intrusion Detection System (IDS) threshold |
+| `--eligibilty_threshold` | 0.5 | Intrusion Detection System (IDS) eligibility threshold |
+| `--severity_factor` | 0.9 | Intrusion Detection System (IDS) severity factor |
 | `--interface` | None |Name of the [interface](https://www.computerhope.com/unix/uifconfi.htm)|
 
 What are **thresholds**?
 <br>
 It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
+<br>
+
+What is **eligibility traces**?
+<br>
+Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
+
+There are two ways to view eligibility traces. The more theoretical view, which we emphasize here, is that they are a bridge from TD to Monte Carlo methods. When TD methods are augmented with eligibility traces, they produce a family of methods spanning a spectrum that has Monte Carlo methods at one end and one-step TD methods at the other. In between are intermediate methods that are often better than either extreme method. In this sense eligibility traces unify TD and Monte Carlo methods in a valuable and revealing way.
+
+The other way to view eligibility traces is more mechanistic. From this perspective, an eligibility trace is a temporary record of the occurrence of an event, such as the visiting of a state or the taking of an action. The trace marks the memory parameters associated with the event as eligible for undergoing learning changes. When a TD error occurs, only the eligible states or actions are assigned credit or blame for the error. Thus, eligibility traces help bridge the gap between events and training information. Like TD methods themselves, eligibility traces are a basic mechanism for temporal credit assignment.
+
+For reasons that will become apparent shortly, the more theoretical view of eligibility traces is called the forward view, and the more mechanistic view is called the backward view. The forward view is most useful for understanding what is computed by methods using eligibility traces, whereas the backward view is more appropriate for developing intuition about the algorithms themselves. In this chapter we present both views and then establish the senses in which they are equivalent, that is, in which they describe the same algorithms from two points of view. As usual, we first consider the prediction problem and then the control problem. That is, we first consider how eligibility traces are used to help in predicting returns as a function of state for a fixed policy (i.e., in estimating ). Only after exploring the two views of eligibility traces within this prediction setting do we extend the ideas to action values and control methods. 
+
+We use a variant of forward TD based eligibility traces given by : x = (1-l)\*x+l\*y
+
+For us here x is eligibility trace for each ip initialized to 1, l is severity factor and y is one(severity of attack uniformly taken as 1). If the value of x is lower than the eligibility threshold i.e. many attacks, it is blacklisted.
+
+Find more information [here](http://www.incompleteideas.net/book/ebook/node72.html)
 
 #### Setting up Insecure Headers
 Example usage:<br>
@@ -856,7 +894,7 @@ sudo SecureTea.py -asp
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --antivirus
+sudo SecureTea.py --antivirus --clamav --yara
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -867,6 +905,8 @@ sudo SecureTea.py --antivirus
 | `--monitor-usb` | 1 |Monitor USB devices or not (1:yes, 0:no)|
 | `--monitor-file-changes` | 1 |Monitor files changes or addition (1:yes, 0:no)|
 | `--virustotal-api-key` | XXXX |VirusTotal API key|
+| `--clamav` | 0 |Use clamav AV scanner|
+| `--yara` | 0 |Use yara AV scanner|
 
 #### Setting up Web Deface Detection
 Example usage: <br>
@@ -1000,7 +1040,7 @@ The report will contain the following fields:
 4. Other important details 
 
 ## Intrusion Detection System
-SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities:
+SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities. It blacklists and whitelists attackers based on eligibility based RL method:
 
 **Detect probe (reconnaissance) attacks (performed for information gathering)**
 

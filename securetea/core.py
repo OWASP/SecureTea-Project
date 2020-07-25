@@ -261,7 +261,7 @@ class SecureTea(object):
             )
             sys.exit(0)
 
-        if not self.cred_provided and not self.cred['history_logger']:
+        if not self.cred_provided and not (self.cred['history_logger'] or self.cred['clamav'] or self.cred['yara']):
             self.logger.log(
                 "None of the notifications configured. Exiting...",
                 logtype="error"
@@ -516,10 +516,20 @@ class SecureTea(object):
                     logtype="error"
                 )
 
-        if self.antivirus_provided:
-            antivirus = self.cred['antivirus']
+        if self.antivirus_provided or self.cred['clamav'] or self.cred['yara']:
+            if self.cred.get('antivirus',0):
+                antivirus = self.cred['antivirus']
+            else:
+                antivirus = {}
+                antivirus['update'] = False
+                antivirus['custom-scan'] = False
+                antivirus['auto-delete'] = False
+                antivirus['monitor-usb'] = False
+                antivirus['monitor-file-changes'] = False
+                antivirus['virustotal-api-key'] = ''
+
             try:
-                antivirus_obj = SecureTeaAntiVirus(debug=self.cred['debug'], cred=antivirus)
+                antivirus_obj = SecureTeaAntiVirus(debug=self.cred['debug'], cred=antivirus, use_clamav=self.cred['clamav'], use_yara=self.cred['yara'])
                 antivirus_obj.start()
             except KeyError:
                 self.logger.log(

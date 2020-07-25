@@ -45,6 +45,20 @@ def get_args():
     )
 
     parser.add_argument(
+        '--clamav',
+        default=False,
+        action="store_true",
+        help='Use clamav for AV search true or false'
+    )
+
+    parser.add_argument(
+        '--yara',
+        default=False,
+        action="store_true",
+        help='Use yara for AV search true or false'
+    )
+
+    parser.add_argument(
         '--skip_input',
         default=False,
         action="store_true",
@@ -410,6 +424,20 @@ def get_args():
         type=str,
         required=False,
         help="Intrusion Detection System (IDS) threshold"
+    )
+
+    parser.add_argument(
+        '--eligibility_threshold',
+        type=str,
+        required=False,
+        help="Intrusion Detection System (IDS) eligibility threshold"
+    )
+
+    parser.add_argument(
+        '--severity_factor',
+        type=str,
+        required=False,
+        help="Intrusion Detection System (IDS) eligibility traces severity factor"
     )
 
     parser.add_argument(
