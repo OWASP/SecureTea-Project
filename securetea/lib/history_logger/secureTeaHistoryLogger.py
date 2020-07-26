@@ -66,6 +66,9 @@ class SecureTeaHistoryLogger(object):
         f_create = open("/etc/bash.bashrc", "a+")
         f_create.close()
 
+        f_create = open("/etc/bashrc", "a+")
+        f_create.close()
+
         f_create = open("/etc/rsyslog.d/bash.conf", "a+")
         f_create.close()
         
@@ -81,6 +84,16 @@ class SecureTeaHistoryLogger(object):
         else:
             f_bash.close()
             f_bash = open("/etc/bash.bashrc", "a")
+            f_bash.write('\n')
+            f_bash.write(bash_export)
+            f_bash.close()
+
+        f_bash = open("/etc/bashrc", "r")
+        if bash_export in f_bash.read():
+            f_bash.close()
+        else:
+            f_bash.close()
+            f_bash = open("/etc/bashrc", "a")
             f_bash.write('\n')
             f_bash.write(bash_export)
             f_bash.close()
@@ -124,6 +137,7 @@ class SecureTeaHistoryLogger(object):
 
         os.system("exec bash")
         os.popen("source /etc/bash.bashrc")
+        os.popen("source /etc/bashrc")
         os.popen("sudo service rsyslog restart")
         os.system("sudo service rsyslog restart")
         self.logger.printinfo("bash configurations loaded")
@@ -153,6 +167,14 @@ class SecureTeaHistoryLogger(object):
         f_bash.close()
         f_bash_content = f_bash_content.replace(bash_export, '')
         f_bash = open("/etc/bash.bashrc", "w")
+        f_bash.write(f_bash_content)
+        f_bash.close()
+
+        f_bash = open("/etc/bashrc", "r")
+        f_bash_content = f_bash.read()
+        f_bash.close()
+        f_bash_content = f_bash_content.replace(bash_export, '')
+        f_bash = open("/etc/bashrc", "w")
         f_bash.write(f_bash_content)
         f_bash.close()
         self.logger.printinfo("Bash config removed")
@@ -188,6 +210,7 @@ class SecureTeaHistoryLogger(object):
 
         os.system("exec bash")
         os.popen("source /etc/bash.bashrc")
+        os.popen("source /etc/bashrc")
 
 
     def start(self):
