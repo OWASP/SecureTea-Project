@@ -12,7 +12,7 @@
 
 yum check-update
 yum groupinstall -y "Development Tools" "Development Libraries"
-yum install -y python3-setuptools python3-devel libnetfilter_queue libnfnetlink-devel libnetfilter_queue-devel
+yum install -y python3-setuptools python3-devel libnetfilter_queue libnfnetlink-devel libnetfilter_queue-devel rsyslog
 yum install -y epel-release
 yum install -y clamav clamav-update
 yum install -y clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
