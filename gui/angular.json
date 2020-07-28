@@ -27,8 +27,8 @@
               "src/assets/css/style.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js" ,
-              "src/assets/js/lib/bootstrap/js/popper.min.js" ,
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/lib/bootstrap/js/popper.min.js",
               "src/assets/js/custom.min.js",
               "src/assets/js/sidebarmenu.js",
               "src/assets/js/lib/sticky-kit-master/dist/sticky-kit.min.js",
@@ -140,5 +140,8 @@
       }
     }
   },
-  "defaultProject": "Monitor"
+  "defaultProject": "Monitor",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -3,3 +3,4 @@ psutil
 flask
 flask_cors
 flask_sqlalchemy
+flask_socketio
