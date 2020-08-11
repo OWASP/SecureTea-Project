@@ -113,6 +113,9 @@ def get_config():
             "shodan-api-key": "XXXX",
             "ip": ""
         },
+        "social_eng": {
+            "email": "XXXX"
+        },
         "history_logger": 0,
         "clamav": 0,
         "yara": 0,

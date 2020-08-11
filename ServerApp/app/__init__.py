@@ -662,9 +662,17 @@ def sleep():
     if ids:
         interface = get_list(creds['ids_interface'])
         threshold = get_list(creds['threshold'])
+        ethreshold = get_list(creds['ethreshold'])
+        sfactor = get_list(creds['sfactor'])
 
         args_str += " --interface=" + interface
         args_str += " --threshold=" + threshold
+        args_str += " --eligibility_threshold=" + ethreshold
+        args_str += " --severity_factor=" + sfactor
+
+    se_mail_id = get_list(creds["se_mail_id"])
+    if se_mail_id:
+        args_str += " --social_eng_email=" + se_mail_id
 
     # Local Web Deface Detection Parsing
     web_deface = creds['web_deface']

@@ -198,6 +198,7 @@ class ArgsHelper(object):
         self.server_mode = False
         self.system_mode = False
         self.iot_mode = False
+        self.social_eng_provided = False
 
         # Setup logger
         self.logger = logger.SecureTeaLogger(
@@ -297,6 +298,20 @@ class ArgsHelper(object):
                 'sender_email': 'email of the sender',
                 'password': 'password',
                 'to_email': 'mail to send to'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureSocialEngineering(self):
+        """
+        Returns the format to configure AWS SES
+        """
+        self.logger.log('Social Engineering configuraton setup')
+        default = load_default('social_eng')
+        return {
+            'input': {
+                'email': 'Email to check social eng.',
             },
             'default': default
         }
@@ -526,6 +541,12 @@ class ArgsHelper(object):
                 self.cred['gmail'] = gmail
                 self.gmail_provided = True
 
+            # Configure Social Engineering
+            social_eng = self.configureSocialEngineering()
+            if social_eng:
+                self.cred['social_eng'] = social_eng
+                self.social_eng_provided = True
+
             # Start the firewall configuration setup
             firewall = self.configureFirewall()
             if firewall:
@@ -574,277 +595,286 @@ class ArgsHelper(object):
                 self.cred['iot-check'] = iot_checker
                 self.iot_checker_provided = True
 
-        if self.args.twitter and not self.twitter_provided:
-            twitter = self.configureTwitter()
-            if twitter:
-                self.cred['twitter'] = twitter
-                self.twitter_provided = True
+        if not self.args.skip_input or not self.args.skip_config_file:
+            # Not skipping either of them
+            if self.args.social_eng_email and not self.social_eng_provided:
+                social_eng = self.configureSocialEngineering()
+                if social_eng:
+                    self.cred['social_eng'] = social_eng
+                    self.social_eng_provided = True
 
-        if self.args.telegram and not self.telegram_provided:
-            telegram = self.configureTelegram()
-            if telegram:
-                self.cred['telegram'] = telegram
-                self.telegram_provided = True
 
-        if self.args.twilio_sms and not self.twilio_provided:
-            twilio_sms = self.configureTwilioSMS()
-            if twilio_sms:
-                self.cred['twilio'] = twilio_sms
-                self.twilio_provided = True
+            if self.args.twitter and not self.twitter_provided:
+                twitter = self.configureTwitter()
+                if twitter:
+                    self.cred['twitter'] = twitter
+                    self.twitter_provided = True
 
-        if self.args.slack and not self.slack_provided:
-            slack = self.configureSlack()
-            if slack:
-                self.cred['slack'] = slack
-                self.slack_provided = True
+            if self.args.telegram and not self.telegram_provided:
+                telegram = self.configureTelegram()
+                if telegram:
+                    self.cred['telegram'] = telegram
+                    self.telegram_provided = True
 
-        if self.args.aws_ses and not self.aws_ses_provided:
-            aws_ses = self.configureAwsSES()
-            if aws_ses:
-                self.cred['aws_ses'] = aws_ses
-                self.aws_ses_provided = True
+            if self.args.twilio_sms and not self.twilio_provided:
+                twilio_sms = self.configureTwilioSMS()
+                if twilio_sms:
+                    self.cred['twilio'] = twilio_sms
+                    self.twilio_provided = True
 
-        if self.args.gmail and not self.gmail_provided:
-            gmail = self.configureGmail()
-            if gmail:
-                self.cred['gmail'] = gmail
-                self.gmail_provided = True
+            if self.args.slack and not self.slack_provided:
+                slack = self.configureSlack()
+                if slack:
+                    self.cred['slack'] = slack
+                    self.slack_provided = True
 
-        if self.args.firewall and not self.firewall_provided:
-            firewall = self.configureFirewall()
-            if firewall:
-                self.cred['firewall'] = firewall
-                self.firewall_provided = True
+            if self.args.aws_ses and not self.aws_ses_provided:
+                aws_ses = self.configureAwsSES()
+                if aws_ses:
+                    self.cred['aws_ses'] = aws_ses
+                    self.aws_ses_provided = True
 
-        if self.args.ids and not self.ids_provided:
-            ids = self.configureIDS()
-            if ids:
-                self.cred["ids"] = ids
-                self.ids_provided = True
+            if self.args.gmail and not self.gmail_provided:
+                gmail = self.configureGmail()
+                if gmail:
+                    self.cred['gmail'] = gmail
+                    self.gmail_provided = True
 
-        if (self.args.iot_checker and
-            not self.iot_checker_provided and
-            not self.args.shodan_api_key):
-            iot_checker = self.configureIoTChecker()
-            if iot_checker:
-                self.cred["iot-check"] = iot_checker
-                self.iot_checker_provided = True
-
-        if self.args.system_log and not self.system_log_provided:
-            self.system_log_provided = True
-
-        if self.args.server_log and not self.server_log_provided:
-            server_log = self.configureServerLogMonitor()
-            if server_log:
-                self.cred["server_log"] = server_log
-                self.server_log_provided = True
-
-        if self.args.antivirus:
-            antivirus = self.configureAntiVirus()
-            if antivirus:
-                self.cred["antivirus"] = antivirus
-                self.antivirus_provided = True
-
-        if (self.args.auto_server_patcher and
-            not self.auto_server_patcher_provided and
-            not self.args.url and not self.args.apache and
-            not self.args.ssh and not self.args.login and
-            not self.args.sysctl):
-            auto_server_patcher = self.configureAutoServerPatcher()
-            if auto_server_patcher:
-                self.cred['auto_server_patcher'] = auto_server_patcher
-                self.auto_server_patcher_provided = True
-
-        if (self.args.web_deface and
-            not self.web_deface_provided and
-            not self.args.path and
-            not self.args.server_name):
-            web_deface = self.configureWebDeface()
-            if web_deface:
-                self.cred['web_deface'] = web_deface
-                self.web_deface_provided = True
-
-        if (self.args.insecure_headers and
-            not self.insecure_headers_provided and
-            not self.args.url):
-            insecure_headers = self.configureHeaders()
-            if insecure_headers:
-                self.cred['insecure_headers'] = insecure_headers
-                self.insecure_headers_provided = True
-
-        if self.args.server_mode and not self.server_mode:
-            self.server_mode = True
-            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
-            else:
-                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-            if (config_decision.lower() == "Y" or
-                config_decision.lower() == "y"):
-                # Fetch credentials
-                creds = self.securetea_conf.get_creds(self.args)
-
-                if creds.get("firewall"):
-                    self.cred["firewall"] = creds["firewall"]
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
-                if creds.get("ids"):
-                    self.cred["ids"] = creds["ids"]
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
-                if creds.get("server_log"):
-                    self.cred["server_log"] = creds["server_log"]
-                if creds.get("auto_server_patcher"):
-                    self.cred["auto_server_patcher"] = creds["auto_server_patcher"]
-                if creds.get("web_deface"):
-                    self.cred["web_deface"] = creds["web_deface"]
-                if creds.get("antivirus"):
-                    self.cred["antivirus"] = creds["antivirus"]
-            else:
-                # Start interactive setup for Firewall
+            if self.args.firewall and not self.firewall_provided:
                 firewall = self.configureFirewall()
-                # Start interactive setup for IDS
-                ids = self.configureIDS()
-                # Start interactive setup for Server Log Monitor
-                server_log = self.configureServerLogMonitor()
-                # Start interactive setup for Auto Server Patcher
-                auto_server_patcher = self.configureAutoServerPatcher()
-                # Start interactive setup for Web Deface
-                web_deface = self.configureWebDeface()
-                # Start interactive setup for AntiVirus
-                antivirus = self.configureAntiVirus()
-
                 if firewall:
-                    self.cred["firewall"] = firewall
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
+                    self.cred['firewall'] = firewall
+                    self.firewall_provided = True
+
+            if self.args.ids and not self.ids_provided:
+                ids = self.configureIDS()
                 if ids:
                     self.cred["ids"] = ids
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
+                    self.ids_provided = True
+
+            if (self.args.iot_checker and
+                not self.iot_checker_provided and
+                not self.args.shodan_api_key):
+                iot_checker = self.configureIoTChecker()
+                if iot_checker:
+                    self.cred["iot-check"] = iot_checker
+                    self.iot_checker_provided = True
+
+            if self.args.system_log and not self.system_log_provided:
+                self.system_log_provided = True
+
+            if self.args.server_log and not self.server_log_provided:
+                server_log = self.configureServerLogMonitor()
                 if server_log:
                     self.cred["server_log"] = server_log
-                if auto_server_patcher:
-                    self.cred["auto_server_patcher"] = auto_server_patcher
-                if web_deface:
-                    self.cred["web_deface"] = web_deface
-                if antivirus:
-                    self.cred["antivirus"] = antivirus
+                    self.server_log_provided = True
 
-        if self.args.system_mode and not self.system_mode:
-            self.system_mode = True
-            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
-            else:
-                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-            if (config_decision.lower() == "Y" or
-                config_decision.lower() == "y"):
-                # Fetch credentials
-                creds = self.securetea_conf.get_creds(self.args)
-
-                if creds.get("firewall"):
-                    self.cred["firewall"] = creds["firewall"]
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
-                if creds.get("ids"):
-                    self.cred["ids"] = creds["ids"]
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
-                if creds.get("antivirus"):
-                    self.cred["antivirus"] = creds["antivirus"]
-            else:
-                # Start interactive setup for Firewall
-                firewall = self.configureFirewall()
-                # Start interactive setup for IDS
-                ids = self.configureIDS()
-                # Start interactive setup for AntiVirus
+            if self.args.antivirus:
                 antivirus = self.configureAntiVirus()
-
-                if firewall:
-                    self.cred["firewall"] = firewall
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
-                if ids:
-                    self.cred["ids"] = ids
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
                 if antivirus:
                     self.cred["antivirus"] = antivirus
+                    self.antivirus_provided = True
 
-        if self.args.iot_mode and not self.iot_mode:
-            self.iot_mode = True
-            if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
-            else:
-                config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-            if (config_decision.lower() == "Y" or
-                config_decision.lower() == "y"):
-                # Fetch credentials
-                creds = self.securetea_conf.get_creds(self.args)
+            if (self.args.auto_server_patcher and
+                not self.auto_server_patcher_provided and
+                not self.args.url and not self.args.apache and
+                not self.args.ssh and not self.args.login and
+                not self.args.sysctl):
+                auto_server_patcher = self.configureAutoServerPatcher()
+                if auto_server_patcher:
+                    self.cred['auto_server_patcher'] = auto_server_patcher
+                    self.auto_server_patcher_provided = True
 
-                if creds.get("firewall"):
-                    self.cred["firewall"] = creds["firewall"]
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
-                if creds.get("ids"):
-                    self.cred["ids"] = creds["ids"]
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
-                if creds.get("iot-check"):
-                    self.cred["iot-check"] = creds["iot-check"]
-            else:
-                # Start interactive setup for Firewall
-                firewall = self.configureFirewall()
-                # Start interactive setup for IDS
-                ids = self.configureIDS()
-                # Start interactive setup for IoT Checker
-                iot_check = self.configureIoTChecker()
+            if (self.args.web_deface and
+                not self.web_deface_provided and
+                not self.args.path and
+                not self.args.server_name):
+                web_deface = self.configureWebDeface()
+                if web_deface:
+                    self.cred['web_deface'] = web_deface
+                    self.web_deface_provided = True
 
-                if firewall:
-                    self.cred["firewall"] = firewall
-                    interface = self.cred["firewall"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Firewall")
-                        interface = get_interface()
-                        self.cred["firewall"]["interface"] = interface
-                if ids:
-                    self.cred["ids"] = ids
-                    interface = self.cred["ids"]["interface"]
-                    if not interface or interface == "XXXX":
-                        print("\n[!] Select network interface for Intrusion Detection System")
-                        interface = get_interface()
-                        self.cred["ids"]["interface"] = interface
-                if iot_check:
-                    self.cred["iot-check"] = iot_check
+            if (self.args.insecure_headers and
+                not self.insecure_headers_provided and
+                not self.args.url):
+                insecure_headers = self.configureHeaders()
+                if insecure_headers:
+                    self.cred['insecure_headers'] = insecure_headers
+                    self.insecure_headers_provided = True
+
+            if self.args.server_mode and not self.server_mode:
+                self.server_mode = True
+                if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                else:
+                    config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
+                if (config_decision.lower() == "Y" or
+                    config_decision.lower() == "y"):
+                    # Fetch credentials
+                    creds = self.securetea_conf.get_creds(self.args)
+
+                    if creds.get("firewall"):
+                        self.cred["firewall"] = creds["firewall"]
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if creds.get("ids"):
+                        self.cred["ids"] = creds["ids"]
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if creds.get("server_log"):
+                        self.cred["server_log"] = creds["server_log"]
+                    if creds.get("auto_server_patcher"):
+                        self.cred["auto_server_patcher"] = creds["auto_server_patcher"]
+                    if creds.get("web_deface"):
+                        self.cred["web_deface"] = creds["web_deface"]
+                    if creds.get("antivirus"):
+                        self.cred["antivirus"] = creds["antivirus"]
+                else:
+                    # Start interactive setup for Firewall
+                    firewall = self.configureFirewall()
+                    # Start interactive setup for IDS
+                    ids = self.configureIDS()
+                    # Start interactive setup for Server Log Monitor
+                    server_log = self.configureServerLogMonitor()
+                    # Start interactive setup for Auto Server Patcher
+                    auto_server_patcher = self.configureAutoServerPatcher()
+                    # Start interactive setup for Web Deface
+                    web_deface = self.configureWebDeface()
+                    # Start interactive setup for AntiVirus
+                    antivirus = self.configureAntiVirus()
+
+                    if firewall:
+                        self.cred["firewall"] = firewall
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if ids:
+                        self.cred["ids"] = ids
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if server_log:
+                        self.cred["server_log"] = server_log
+                    if auto_server_patcher:
+                        self.cred["auto_server_patcher"] = auto_server_patcher
+                    if web_deface:
+                        self.cred["web_deface"] = web_deface
+                    if antivirus:
+                        self.cred["antivirus"] = antivirus
+
+            if self.args.system_mode and not self.system_mode:
+                self.system_mode = True
+                if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                else:
+                    config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
+                if (config_decision.lower() == "Y" or
+                    config_decision.lower() == "y"):
+                    # Fetch credentials
+                    creds = self.securetea_conf.get_creds(self.args)
+
+                    if creds.get("firewall"):
+                        self.cred["firewall"] = creds["firewall"]
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if creds.get("ids"):
+                        self.cred["ids"] = creds["ids"]
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if creds.get("antivirus"):
+                        self.cred["antivirus"] = creds["antivirus"]
+                else:
+                    # Start interactive setup for Firewall
+                    firewall = self.configureFirewall()
+                    # Start interactive setup for IDS
+                    ids = self.configureIDS()
+                    # Start interactive setup for AntiVirus
+                    antivirus = self.configureAntiVirus()
+
+                    if firewall:
+                        self.cred["firewall"] = firewall
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if ids:
+                        self.cred["ids"] = ids
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if antivirus:
+                        self.cred["antivirus"] = antivirus
+
+            if self.args.iot_mode and not self.iot_mode:
+                self.iot_mode = True
+                if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
+                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                else:
+                    config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
+                if (config_decision.lower() == "Y" or
+                    config_decision.lower() == "y"):
+                    # Fetch credentials
+                    creds = self.securetea_conf.get_creds(self.args)
+
+                    if creds.get("firewall"):
+                        self.cred["firewall"] = creds["firewall"]
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if creds.get("ids"):
+                        self.cred["ids"] = creds["ids"]
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if creds.get("iot-check"):
+                        self.cred["iot-check"] = creds["iot-check"]
+                else:
+                    # Start interactive setup for Firewall
+                    firewall = self.configureFirewall()
+                    # Start interactive setup for IDS
+                    ids = self.configureIDS()
+                    # Start interactive setup for IoT Checker
+                    iot_check = self.configureIoTChecker()
+
+                    if firewall:
+                        self.cred["firewall"] = firewall
+                        interface = self.cred["firewall"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Firewall")
+                            interface = get_interface()
+                            self.cred["firewall"]["interface"] = interface
+                    if ids:
+                        self.cred["ids"] = ids
+                        interface = self.cred["ids"]["interface"]
+                        if not interface or interface == "XXXX":
+                            print("\n[!] Select network interface for Intrusion Detection System")
+                            interface = get_interface()
+                            self.cred["ids"]["interface"] = interface
+                    if iot_check:
+                        self.cred["iot-check"] = iot_check
 
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
@@ -858,6 +888,13 @@ class ArgsHelper(object):
                 twitter['access_token_secret'] = self.args.twitter_access_token_secret
                 self.cred['twitter'] = twitter
                 self.twitter_provided = True
+
+        if not self.social_eng_provided:
+            if self.args.social_eng_email:
+                social_eng = {}
+                social_eng["email"] = self.args.social_eng_email
+                self.cred["social_eng"] = social_eng
+                self.social_eng_provided = True
 
         if not self.telegram_provided:
             if (self.args.telegram_bot_token and
@@ -922,12 +959,12 @@ class ArgsHelper(object):
         if not self.ids_provided:
             if (isinstance(self.args.threshold, str) and
                 isinstance(self.args.eligibility_threshold, str) and
-                isinstance(self.args.severity_threshold, str) and
+                isinstance(self.args.severity_factor, str) and
                 isinstance(self.args.interface, str)):
                 ids = {}
                 ids["threshold"] = self.args.threshold
                 ids["eligibility_threshold"] = self.args.eligibility_threshold
-                ids["severity_threshold"] = self.args.severity_threshold
+                ids["severity_factor"] = self.args.severity_factor
                 ids["interface"] = self.args.interface
                 self.cred["ids"] = ids
                 self.ids_provided = True
@@ -1081,6 +1118,7 @@ class ArgsHelper(object):
             self.iot_checker_provided or
             self.server_mode or
             self.system_mode or
+            self.social_eng_provided or
             self.iot_mode):
             self.cred_provided = True
 
@@ -1093,6 +1131,7 @@ class ArgsHelper(object):
             'slack_provided': self.slack_provided,
             'aws_ses_provided': self.aws_ses_provided,
             'gmail_provided': self.gmail_provided,
+            'social_eng_provided': self.social_eng_provided,
             'firewall_provided': self.firewall_provided,
             'insecure_headers_provided': self.insecure_headers_provided,
             'ids_provided': self.ids_provided,
