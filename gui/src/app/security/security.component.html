@@ -490,6 +490,14 @@
                                 <label>Threshold</label>
                                 <input type="text" class="form-control" formControlName="threshold" placeholder="Number of times to ignore attack possibilities"/>
                             </div>
+                            <div class="form-group">
+                                <label>Eligibility Threshold</label>
+                                <input type="text" class="form-control" formControlName="ethreshold" placeholder="Threshold for eligibility traces"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Severity Factor</label>
+                                <input type="text" class="form-control" formControlName="sfactor" placeholder="Severity of each attack"/>
+                            </div>
                           <!-- Local Web Deface Detection -->
                           <hr style="border-width:2px">
                           <div class="form-group">
@@ -552,7 +560,21 @@
                                     <label>URL of the website</label>
                                     <input type="text" class="form-control" formControlName="url_ih" placeholder="Enter the URL of the website to check insecure headers for"/>
                                 </div>
-                              <!-- Insecure Headers -->
+                              <!-- Social Engineering -->
+                              <hr style="border-width:2px">
+                              <div class="form-group">
+                                  <div class="col-12">
+                                    <div class="row">
+                                      <h1 class="card-title">Social Engineering</h1>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h3 class="card-subtitle">Configure Social Engineering</h3>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="text" class="form-control" formControlName="se_mail_id" placeholder="Enter the mail id you want to check"/>
+                                </div>
+                              <!-- History Logger -->
                               <hr style="border-width:2px">
                               <div class="form-group">
                                 <h3 class="card-subtitle">Configure History Logger</h3>

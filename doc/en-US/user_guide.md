@@ -320,12 +320,12 @@ Default configuration:
 		"severity_factor": 0.9,
 		"interface": "XXXX"
 	},
-	"server_log": {
-		"log_type": "",
-		"log_file": "",
+	"server-log": {
+		"log-type": "",
+		"log-file": "",
 		"window": "30",
-		"ip_list": "",
-		"status_code": ""
+		"ip-list": "",
+		"status-code": ""
 	},
 	"auto-server-patcher": {
 		"url": "XXXX",
@@ -333,6 +333,10 @@ Default configuration:
 		"sysctl": "1",
 		"login": "1",
 		"ssh": "1"
+	},
+	"web-deface": {
+		"path": "",
+		"server-name": ""
 	},
 	"antivirus": {
 		"update": "1",
@@ -342,14 +346,13 @@ Default configuration:
 		"monitor-file-changes": "1",
 		"virustotal-api-key": "XXXX"
 	},
-	"web-deface": {
-		"path": "",
-		"server-name": ""
-	},	
 	"iot-check": {
 		"shodan-api-key": "XXXX",
 		"ip": ""
 	},
+        "social_eng": {
+            "email": "XXXX"
+        },
 	"history_logger": false,
 	"clamav": false,
 	"yara": false,
@@ -367,7 +370,7 @@ Default configuration:
 
 ##### Setup all the features
 1.  Start SecureTea without any parameters:<br>
-`sudo SecureTea.py`<br>
+`sudo python3 SecureTea.py`<br>
 This will start an interactive setup mode, to skip a particular setup, enter s or S.<br><br>
 ![](/img/setup_all.gif)<br>
 
@@ -384,9 +387,9 @@ Arguments list
 ```
 
 Examples:<br>
--  Starting SecureTea-Firewall interactive setup: `sudo SecureTea.py --firewall`<br><br>
+-  Starting SecureTea-Firewall interactive setup: `sudo python3 SecureTea.py --firewall`<br><br>
 ![Firewall](/img/setup_firewall.gif)<br>
--  Starting Telegram & Twitter interactive setup: `sudo SecureTea.py --telegram --twitter`<br><br>
+-  Starting Telegram & Twitter interactive setup: `sudo python3 SecureTea.py --telegram --twitter`<br><br>
 ![TelegramTwitter](/img/tele_twi.gif)<br>
 
 ##### Configuring using Web UI
@@ -406,8 +409,9 @@ Examples:<br>
 
 ##### Configuring using CLI arguments
 ```argument
-usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--clamav] [--yara]
-                    [--skip_input] [--skip_config_file] [--twitter]
+usage: SecureTea.py [-h] [--conf CONF] [--debug]
+                    [--social_eng_email SOCIAL_ENG_EMAIL] [--hist] [--clamav]
+                    [--yara] [--skip_input] [--skip_config_file] [--twitter]
                     [--twilio_sms] [--telegram] [--gmail] [--slack]
                     [--aws_ses] [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
@@ -458,7 +462,7 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug] [--hist] [--clamav] [--yara]
 ```
 
 Example usage:
--  Configuring Slack: `sudo SecureTea.py --slack_user_id <your data> --slack_token <your data>`<br><br>
+-  Configuring Slack: `sudo python3 SecureTea.py --slack_user_id <your data> --slack_token <your data>`<br><br>
 ![Slack](/img/slack_cli.gif)<br>
 
 #### Setting up Web UI
@@ -520,6 +524,8 @@ The following argument options are currently available:
   --conf CONF           Path of config file. default:-
                         "~/.securetea/securetea.conf"
   --debug               Debug true or false
+  --social_eng_email SOCIAL_ENG_EMAIL
+                        Social Engineering Email
   --hist                Log history true or false
   --clamav              Use clamav for AV search true or false
   --yara                Use yara for AV search true or false
@@ -658,37 +664,37 @@ The following argument options are currently available:
 #### Starting Twitter notifier
 Usage:<br>
 ```argument
-sudo SecureTea.py --twitter_api_key <data> --twitter_api_secret_key <data> --twitter_access_token <data> --twitter_access_token_secret <data>
+sudo python3 SecureTea.py --twitter_api_key <data> --twitter_api_secret_key <data> --twitter_access_token <data> --twitter_access_token_secret <data>
 ```
 
 #### Starting Slack notifier
 Usage:<br>
 ```argument
-sudo SecureTea.py --slack_token <data> --slack_user_id <data>
+sudo python3 SecureTea.py --slack_token <data> --slack_user_id <data>
 ```
 
 #### Starting Telegram notifier
 Usage:<br>
 ```argument
-sudo SecureTea.py --telegram_bot_token <data> --telegram_user_id <data>
+sudo python3 SecureTea.py --telegram_bot_token <data> --telegram_user_id <data>
 ```
 
 #### Starting Twilio notifier
 Usage:<br>
 ```argument
-sudo SecureTea.py --twilio_sid <data> --twilio_token <data> --twilio_from <data> --twilio_to <data>
+sudo python3 SecureTea.py --twilio_sid <data> --twilio_token <data> --twilio_from <data> --twilio_to <data>
 ```
 
 #### Starting Firewall
 Usage:<br>
 ```argument
-sudo SecureTea.py --interface <data> --inbound_IP_action <data> --inbound_IP_list <data> --outbound_IP_action <data> --outbound_IP_list <data> --protocol_action <data> --protocol_list <data> --scan_action <data> --scan_list <data> --dest_port_action <data> --dest_port_list <data> --source_port_action <data> --source_port_list <data> --HTTP_request_action <data> --HTTP_response_action <data> --dns_action <data> --dns_list <data> --time_lb <data> --time_ub <data> 
+sudo python3 SecureTea.py --interface <data> --inbound_IP_action <data> --inbound_IP_list <data> --outbound_IP_action <data> --outbound_IP_list <data> --protocol_action <data> --protocol_list <data> --scan_action <data> --scan_list <data> --dest_port_action <data> --dest_port_list <data> --source_port_action <data> --source_port_list <data> --HTTP_request_action <data> --HTTP_response_action <data> --dns_action <data> --dns_list <data> --time_lb <data> --time_ub <data> 
 ```
 
 #### Starting AWS-SES
 Usage:<br>
 ```argument
-sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
+sudo python3 SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --aws_secret_key <data>
 ```
 
 ### Setting up notifiers
@@ -697,7 +703,7 @@ sudo SecureTea.py --aws_ses <data> --aws_email <data> --aws_access_key <data> --
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --twitter
+sudo python3 SecureTea.py --twitter
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -711,7 +717,7 @@ sudo SecureTea.py --twitter
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --slack
+sudo python3 SecureTea.py --slack
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -723,7 +729,7 @@ sudo SecureTea.py --slack
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --aws_ses
+sudo python3 SecureTea.py --aws_ses
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -736,7 +742,7 @@ sudo SecureTea.py --aws_ses
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --gmail
+sudo python3 SecureTea.py --gmail
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -749,7 +755,7 @@ sudo SecureTea.py --gmail
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --telegram
+sudo python3 SecureTea.py --telegram
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -761,7 +767,7 @@ sudo SecureTea.py --telegram
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --twilio_sms
+sudo python3 SecureTea.py --twilio_sms
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -775,7 +781,7 @@ sudo SecureTea.py --twilio_sms
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --firewall
+sudo python3 SecureTea.py --firewall
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -804,7 +810,7 @@ sudo SecureTea.py --firewall
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --ids
+sudo python3 SecureTea.py --ids
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -839,7 +845,7 @@ Find more information [here](http://www.incompleteideas.net/book/ebook/node72.ht
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --insecure_headers
+sudo python3 SecureTea.py --insecure_headers
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -850,7 +856,7 @@ sudo SecureTea.py --insecure_headers
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --server-log
+sudo python3 SecureTea.py --server-log
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -861,11 +867,48 @@ sudo SecureTea.py --server-log
 | `--ip-list` | XXXX | List of IPs to grab from log file|
 | `--status-code` | XXXX |List of status code to grab from log file|
 
+#### Setting up Social Engineering
+Example usage:<br>
+#### 1. Using interactive setup of SecureTea.py
+```argument
+sudo python3 SecureTea.py --social_eng_email=SampleEmail@SampleDomain.XyZ
+```
+
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--social_eng_email` | None | Emaild id whose reputation needs to be checked |
+
+#### 3. Using SocialEngineering.py
+```argument
+sudo python3 SocialEngineering.py
+```
+For checking multiple mail ids for their reputation, SocialEngineering.py is available. It can run for multiple mail ids, dynamically given, unlike SecureTea.py
+
+#### 4. Log file
+    + Debugger logs at "/etc/securetea/social_eng_log.log"
+
+#### Setting up Server Log Monitor
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo python3 SecureTea.py --server-log
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--log-file` | XXXX |Path of the log file|
+| `--log-type` | XXXX |Type of the log file (Apache/Nginx)|
+| `--window` | XXXX |Days old log to process|
+| `--ip-list` | XXXX | List of IPs to grab from log file|
+| `--status-code` | XXXX |List of status code to grab from log file|
+
+
 #### Setting up System Log Monitor
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --system_log
+sudo python3 SecureTea.py --system_log
 ```
 #### 2. Argument list
 No optional arguments.
@@ -874,11 +917,11 @@ No optional arguments.
 Example usage:<br>
 #### 1. Using interactive setup
 ```argumnent
-sudo SecureTea.py --auto-server-patcher
+sudo python3 SecureTea.py --auto-server-patcher
 ```
 **or:**
 ```argumnent
-sudo SecureTea.py -asp
+sudo python3 SecureTea.py -asp
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -894,7 +937,7 @@ sudo SecureTea.py -asp
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --antivirus --clamav --yara
+sudo python3 SecureTea.py --antivirus --clamav --yara
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -912,7 +955,7 @@ sudo SecureTea.py --antivirus --clamav --yara
 Example usage: <br>
 ##### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --web-deface
+sudo python3 SecureTea.py --web-deface
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -924,10 +967,10 @@ sudo SecureTea.py --web-deface
 Example usage: <br>
 #### 1. Using interactive setup
 ```argument
-sudo SecureTea.py --iot-checker
+sudo python3 SecureTea.py --iot-checker
 ```
 ```argument
-sudo SecureTea.py -ic
+sudo python3 SecureTea.py -ic
 ```
 #### 2. Argument list
 | Argument      | Default value | Description |
@@ -949,11 +992,11 @@ sudo SecureTea.py -ic
 Example usgae: <br>
 ###### 1. Non-debug mode
 ```argument
-sudo SecureTea.py --server-mode
+sudo python3 SecureTea.py --server-mode
 ```
 ###### 1. Debug mode
 ```argument
-sudo SecureTea.py --server-mode --debug
+sudo python3 SecureTea.py --server-mode --debug
 ```
 Upon this, it will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 7 modules.
 
@@ -969,11 +1012,11 @@ It makes a lot easier to configure SecureTea, with server mode they can easily s
 Example usgae: <br>
 ###### 1. Non-debug mode
 ```argument
-sudo SecureTea.py --system-mode
+sudo python3 SecureTea.py --system-mode
 ```
 ###### 1. Debug mode
 ```argument
-sudo SecureTea.py --system-mode --debug
+sudo python3 SecureTea.py --system-mode --debug
 ```
 Upon this, it will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 4 modules.
 
@@ -988,11 +1031,11 @@ It makes a lot easier to configure SecureTea, with system mode they can easily s
 Example usgae: <br>
 ###### 1. Non-debug mode
 ```argument
-sudo SecureTea.py --iot-mode
+sudo python3 SecureTea.py --iot-mode
 ```
 ###### 1. Debug mode
 ```argument
-sudo SecureTea.py --iot-mode --debug
+sudo python3 SecureTea.py --iot-mode --debug
 ```
 Upon this, it will ask whether to load the previously saved configurations or enter a new one. Choosing to go with a new configuration will start an interactive setup of the respected modules. Also, user can skip any module among the above 3 modules.
 
@@ -1272,6 +1315,7 @@ sudo python3 SecureTea.py --hist
 ```
 ### 2. Log file
     + Commands are logged at "/var/log/securetea_history_logger.log"
+    + Debugger logs at "/etc/securetea/history_logger_log.log"
 
 ## License
 **MIT License**
