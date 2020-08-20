@@ -123,7 +123,7 @@ class Hash(object):
                 extracted_content = self.extractFileContent(file_path)
                 # Convert to list so that it is json serializable
                 set_content = list(set(extracted_content.split()))
-                hash_dict[file_path] = set_content
+                set_dict[file_path] = set_content
             except FileNotFoundError:
                 pass
             except Exception as e:
