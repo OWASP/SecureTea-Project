@@ -235,9 +235,6 @@ setup(
         "ipwhois",
         "future",
         "scapy",
-        "wget",
-        "bs4",
-        "shodan",
         "NetfilterQueue"
     ],
     extras_require={

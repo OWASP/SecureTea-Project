@@ -34,10 +34,9 @@ class TestDefaceMonitor(unittest.TestCase):
     @patch.object(Monitor, "copy_file")
     @patch.object(DefaceLogger, "log")
     @patch.object(Hash, "hash_value")
-    @patch.object(Hash, "get_sets")
     @patch.object(GatherFile, "scan_dir")
     @patch("securetea.lib.web_deface.monitor.json_to_dict")
-    def test_monitor(self, mck_json_to_dict, mck_gthr, mck_hash, mck_set, mck_log, mck_copy):
+    def test_monitor(self, mck_json_to_dict, mck_gthr, mck_hash, mck_log, mck_copy):
         """
         Test monitor.
         """
@@ -48,13 +47,9 @@ class TestDefaceMonitor(unittest.TestCase):
 
         # Case 1: File modification
         mck_hash.return_value = {"random_path": "random_hash"}
-        mck_set.return_value = {"random_path": "random_hash"}
         # Create monitor object
         self.monitor_obj = Monitor()
         self.monitor_obj.cache_hash = {
-            "random_path": "random_hash_new"
-        }
-        self.monitor_obj.cache_set = {
             "random_path": "random_hash_new"
         }
         self.monitor_obj.monitor()
@@ -64,12 +59,7 @@ class TestDefaceMonitor(unittest.TestCase):
         # Case 2: File addition
         mck_hash.return_value = {"random_path": "random_hash",
                                  "random_path_new": "random_hash_new"}
-        mck_set.return_value = {"random_path": "random_hash",
-                                 "random_path_new": "random_hash_new"}
         self.monitor_obj.cache_hash = {
-            "random_path_new": "random_hash_new"
-        }
-        self.monitor_obj.cache_set = {
             "random_path_new": "random_hash_new"
         }
         self.monitor_obj.monitor()
@@ -78,7 +68,6 @@ class TestDefaceMonitor(unittest.TestCase):
 
         # Case 3: File deletion
         mck_hash.return_value = {"random_path": "random_hash"}
-        mck_set.return_value = {"random_path": "random_hash"}
         self.monitor_obj.cache_hash = {
             "random_path_new": "random_hash_new"
         }
