@@ -102,17 +102,17 @@ class Monitor(object):
         for path, hash_val in hash_dict.items():
             if self.cache_hash.get(path):  # if file exists in cache hash mapping
                 if self.cache_hash[path] != hash_val:  # check if they are equal or not
-                    msg = "Web Deface detected, attempt to modify file: " + path
-                    self.logger.log(
-                        msg,
-                        logtype="warning"
-                    )
                     set1 = set(self.cache_set[path])
                     set2 = set(set_dict[path])
                     changed_content = ' '.join(list((set1-set2).union(set2-set1)))
                     changed_content_msg = "File " + path + "Changed content includes : " + changed_content
                     self.logger.log(
                         changed_content_msg,
+                        logtype="warning"
+                    )
+                    msg = "Web Deface detected, attempt to modify file: " + path
+                    self.logger.log(
+                        msg,
                         logtype="warning"
                     )
                     self.copy_file(path)  # hash value not equal, file modified, copy file
