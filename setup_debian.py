@@ -49,16 +49,6 @@ files_definition = [
     ])
 ]
 
-# dependency-name to command mapping dict
-DEPENDENCY_COMMAND_MAP = {
-    "libnetfilter-queue-dev": "apt-get install -y "
-                             "build-essential python3-setuptools python3-dev "
-                             "libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 ",
-    "clamav": "apt-get install clamav"
-}
-
-
-
 entry_points = {
     'console_scripts': [
         'securetea=securetea.entry_points.securetea_core_ep:run_core',

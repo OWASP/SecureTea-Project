@@ -17,7 +17,7 @@ jobs:
           sudo rm -rf deb_dist
           sudo apt-get install -y debhelper
           sudo python3 -m pip install pip setuptools wheel 
-          sudo apt install -y build-essential python3-dev
+          sudo apt install -y build-essential python3-dev python3-setuptools
           sudo -H python3 -m pip install stdeb
           sudo apt-get install -y fakeroot python3-all git
           cp setup.py setup1.py
@@ -25,18 +25,22 @@ jobs:
           sudo python3 setup.py --command-packages=stdeb.command bdist_deb
           cp setup1.py setup.py
           echo "done!"
-      - name: Rollback Release
+      - name: Check if pre-release exists
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: checkTag
+        with:
+          tag: 'pre-release'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Delete current pre-release
+        if: steps.checkTag.outputs.exists == 'true'
         uses: author/action-rollback@stable
         with:
-          # Using a known release ID
-          # id: ${{ steps.create_release.id }}
-          # Using a tag name
           tag: "pre-release"
-          # Always delete the tag, even if a release is not associated with it.
           always_delete_tag: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload debian to release
+      - name: Upload debian to pre-release
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
