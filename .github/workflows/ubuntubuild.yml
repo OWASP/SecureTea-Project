@@ -1,0 +1,46 @@
+name: "pre-release"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Build & test"
+        run: |
+          sudo rm -rf deb_dist
+          sudo apt-get install -y debhelper
+          sudo python3 -m pip install pip setuptools wheel 
+          sudo apt install -y build-essential python3-dev
+          sudo -H python3 -m pip install stdeb
+          sudo apt-get install -y fakeroot python3-all git
+          cp setup.py setup1.py
+          cp setup_debian.py setup.py
+          sudo python3 setup.py --command-packages=stdeb.command bdist_deb
+          cp setup1.py setup.py
+          echo "done!"
+      - name: Rollback Release
+        uses: author/action-rollback@stable
+        with:
+          # Using a known release ID
+          # id: ${{ steps.create_release.id }}
+          # Using a tag name
+          tag: "pre-release"
+          # Always delete the tag, even if a release is not associated with it.
+          always_delete_tag: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload debian to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: deb_dist/*.deb
+          tag: "pre-release"
+          overwrite: true
+          file_glob: true
