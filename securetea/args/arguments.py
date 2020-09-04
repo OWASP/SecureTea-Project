@@ -38,6 +38,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--social_eng_email',
+        required=False,
+        type=str,
+        help="Social Engineering Email"
+    )
+
+    parser.add_argument(
         '--hist',
         default=False,
         action="store_true",

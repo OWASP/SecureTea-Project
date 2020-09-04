@@ -78,6 +78,8 @@ export class SecurityComponent implements OnInit {
     ids: new FormControl(''),
     ids_interface: new FormControl(''),
     threshold: new FormControl(''),
+    ethreshold: new FormControl(''),
+    sfactor: new FormControl(''),
     web_deface: new FormControl(''),
     server_name: new FormControl(''),
     path: new FormControl(''),
@@ -86,7 +88,8 @@ export class SecurityComponent implements OnInit {
     ip_addr_iot: new FormControl(''),
     insecure_headers: new FormControl(''),
     url_ih: new FormControl(''),
-    hist_logger: new FormControl('')
+    hist_logger: new FormControl(''),
+    se_mail_id: new FormControl('')
   });
 
   constructor(private http: Http, private router: Router) { }
@@ -403,6 +406,16 @@ export class SecurityComponent implements OnInit {
     {
       this.notificationsForm.value.threshold = threshold;
     }
+    var ethreshold = localStorage.getItem('ethreshold')
+    if(ethreshold)
+    {
+      this.notificationsForm.value.ethreshold = ethreshold;
+    }
+    var sfactor = localStorage.getItem('sfactor')
+    if(sfactor)
+    {
+      this.notificationsForm.value.sfactor = sfactor;
+    }
     var web_deface = localStorage.getItem('web_deface')
     if(web_deface)
     {
@@ -446,7 +459,12 @@ export class SecurityComponent implements OnInit {
     var hist_logger = localStorage.getItem('hist_logger')
     if(hist_logger)
     {
-      this.notificationsForm.value.hist_logge = hist_logger;
+      this.notificationsForm.value.hist_logger = hist_logger;
+    }
+    var se_mail_id = localStorage.getItem('se_mail_id')
+    if(se_mail_id)
+    {
+      this.notificationsForm.value.se_mail_id = se_mail_id;
     }
   }
   isValid()
@@ -527,6 +545,8 @@ export class SecurityComponent implements OnInit {
         'ids': this.notificationsForm.value.ids,
         'ids_interface': this.notificationsForm.value.ids_interface,
         'threshold': this.notificationsForm.value.threshold,
+        'ethreshold': this.notificationsForm.value.ethreshold,
+        'sfactor': this.notificationsForm.value.sfactor,
         'web_deface': this.notificationsForm.value.web_deface,
         'server_name': this.notificationsForm.value.server_name,
         'path': this.notificationsForm.value.path,
@@ -535,7 +555,8 @@ export class SecurityComponent implements OnInit {
         'ip_addr_iot': this.notificationsForm.value.ip_addr_iot,
         'insecure_headers': this.notificationsForm.value.insecure_headers,
         'url_ih': this.notificationsForm.value.url_ih,
-        'hist_logger' : this.notificationsForm.value.hist_logger
+        'hist_logger' : this.notificationsForm.value.hist_logger,
+        'se_mail_id' : this.notificationsForm.value.se_mail_id
       };
       swal({
         title: 'Are you sure?',
@@ -615,6 +636,8 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('ids', this.notificationsForm.value.ids);
               localStorage.setItem('ids_interface', this.notificationsForm.value.ids_interface);
               localStorage.setItem('threshold', this.notificationsForm.value.threshold);
+              localStorage.setItem('ethreshold', this.notificationsForm.value.ethreshold);
+              localStorage.setItem('sfactor', this.notificationsForm.value.sfactor);
               localStorage.setItem('web_deface', this.notificationsForm.value.web_deface);
               localStorage.setItem('server_name', this.notificationsForm.value.server_name);
               localStorage.setItem('path', this.notificationsForm.value.path);
@@ -624,6 +647,7 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('insecure_headers', this.notificationsForm.value.insecure_headers);
               localStorage.setItem('url_ih', this.notificationsForm.value.url_ih);
               localStorage.setItem('hist_logger', this.notificationsForm.value.hist_logger);
+              localStorage.setItem('se_mail_id', this.notificationsForm.value.se_mail_id);
             } else if (res.status === 200) {
               $('#startForm').hide();
               $('#stopForm').show();

@@ -36,6 +36,7 @@ from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAu
 from securetea.lib.web_deface.secureTeaWebDeface import WebDeface
 from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 from securetea.lib.iot import iot_checker
+from securetea.lib.social_engineering.socialEngineering import SecureTeaSocialEngineering
 from securetea.lib.history_logger.secureTeaHistoryLogger import SecureTeaHistoryLogger
 from securetea.modes import server_mode
 from securetea.modes import system_mode
@@ -84,6 +85,7 @@ class SecureTea(object):
         self.twitter_provided = args_dict['twitter_provided']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
+        self.social_eng_provided = args_dict['social_eng_provided']
         self.slack_provided = args_dict['slack_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
         self.gmail_provided = args_dict['gmail_provided']
@@ -113,6 +115,15 @@ class SecureTea(object):
             credentials.save_creds(self.cred)
         elif not self.cred['skip_config_file']:
             self.cred = credentials.get_creds(args)
+
+            try:
+                if self.cred['social_eng']:
+                    self.social_eng_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Social Engineering configuration parameter not set.",
+                    logtype="error"
+                )
 
             try:
                 if self.cred['twitter']:
@@ -306,6 +317,15 @@ class SecureTea(object):
             self.antivirus_provided = False
             self.system_log_provided = False
             self.ids_provided = False
+
+        # Check for Social Engineering
+        if self.social_eng_provided:
+            self.logger.log(
+                "Starting SecureTea Social Engineering",
+                logtype="info"
+            )
+            self.social_eng_obj = SecureTeaSocialEngineering(debug=self.cred["debug"], email_id=self.cred["social_eng"]["email"])
+            self.social_eng_obj.start()
 
         # Check for History Logger
         if self.history_logger:
