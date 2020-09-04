@@ -5,7 +5,7 @@ Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
-    Version: 2.1
+    Version: 2.2
     Module: SecureTea
 
 Attributes:
@@ -60,7 +60,7 @@ entry_points = {
 
 setup(
     name='securetea',
-    version='2.1',
+    version='2.2',
     packages=find_packages(exclude=[
         "test",
         "*.test",
