@@ -12,6 +12,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
   - [Pre-requisites](#pre-requisites)
   
     - [Supported Platforms](#supported-platforms)
+    - [Platforms tested on](#platforms-tested-on)
     - [Hardware](#hardware)
     - [Software](#software)
     - [Installing pre-requisites](#installing-pre-requisites)
