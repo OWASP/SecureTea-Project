@@ -111,6 +111,15 @@ The OWASP SecureTea Project provides a one-stop security solution for various de
 #### Supported Platforms
 OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems. It is compatible with both Python 2 and Python 3.
 
+#### Platforms tested on
+| Operating System | Status | Video                                                                                                        | Notes                                     |
+|------------------|--------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| Ubuntu 16.04     | Passed | [![Ubuntu 16.04](https://img.youtube.com/vi/EOpSs5Jo2T8/0.jpg)](https://www.youtube.com/watch?v=EOpSs5Jo2T8) | Works perfectly                           |
+| CentOS7          | Passed | [![CentOS7](https://img.youtube.com/vi/pQVG1KJ5Yfg/0.jpg)](https://www.youtube.com/watch?v=pQVG1KJ5Yfg)      | Works perfectly                           |
+| Fedora32         | Passed | [![Fedora32](https://img.youtube.com/vi/8qdZHG8fhe0/0.jpg)](https://www.youtube.com/watch?v=8qdZHG8fhe0)     | Works perfectly                           |
+| ParrotSec4.2     | Passed | [![ParrotSec](https://img.youtube.com/vi/VVKLDCy50qg/0.jpg)](https://www.youtube.com/watch?v=VVKLDCy50qg)    | Install using script, then do pip install |
+| Kali Linux       | Passed | ToDo                                                                                                         | Works perfectly                           |
+
 #### Hardware
 -  Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
 -  Mouse / Wireless Mouse / Touchpad congenital laptop
