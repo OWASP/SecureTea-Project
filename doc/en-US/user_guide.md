@@ -99,7 +99,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Developer Guide](/doc/en-US/dev_guide.md)
 
 ## Introduction
-The OWASP SecureTea Project provides a one-stop security solution for various devices (personal computers / servers / IoT devices).
+The OWASP SecureTea Project provides a one-stop security solution for various devices (personal computers / servers / IoT devices). Find us on [youtube](https://www.youtube.com/channel/UCGdl9tpc1qZYcM3WRRFRPPA) to stay updated with installation and various features.
 
 ## Installation
 **Contents:**
@@ -115,10 +115,10 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 #### Platforms tested on
 | Operating System | Status | Video                                                                                                        | Notes                                     |
 |------------------|--------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------|
-| Ubuntu 16.04     | Passed | [![Ubuntu 16.04](https://img.youtube.com/vi/EOpSs5Jo2T8/0.jpg)](https://www.youtube.com/watch?v=EOpSs5Jo2T8) | Works perfectly                           |
-| CentOS7          | Passed | [![CentOS7](https://img.youtube.com/vi/pQVG1KJ5Yfg/0.jpg)](https://www.youtube.com/watch?v=pQVG1KJ5Yfg)      | Works perfectly                           |
-| Fedora32         | Passed | [![Fedora32](https://img.youtube.com/vi/8qdZHG8fhe0/0.jpg)](https://www.youtube.com/watch?v=8qdZHG8fhe0)     | Works perfectly                           |
-| ParrotSec4.2     | Passed | [![ParrotSec](https://img.youtube.com/vi/VVKLDCy50qg/0.jpg)](https://www.youtube.com/watch?v=VVKLDCy50qg)    | Install using script, then do pip install |
+| Ubuntu 16.04     | Passed | [![Ubuntu 16.04](https://img.youtube.com/vi/636r4LpU29E/0.jpg)](https://www.youtube.com/watch?v=636r4LpU29E) | Works perfectly                           |
+| CentOS7          | Passed | [![CentOS7](https://img.youtube.com/vi/j51U2a3jvJw/0.jpg)](https://www.youtube.com/watch?v=j51U2a3jvJw)      | Works perfectly                           |
+| Fedora32         | Passed | [![Fedora32](https://img.youtube.com/vi/YwZs8pCskSE/0.jpg)](https://www.youtube.com/watch?v=YwZs8pCskSE)     | Works perfectly                           |
+| ParrotSec4.2     | Passed | [![ParrotSec](https://img.youtube.com/vi/0CY0-7Kxgpo/0.jpg)](https://www.youtube.com/watch?v=0CY0-7Kxgpo)    | Install using script, then do pip install |
 | Kali Linux       | Passed | ToDo                                                                                                         | Works perfectly                           |
 
 #### Hardware
