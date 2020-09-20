@@ -12,6 +12,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
   - [Pre-requisites](#pre-requisites)
   
     - [Supported Platforms](#supported-platforms)
+    - [Platforms tested on](#platforms-tested-on)
     - [Hardware](#hardware)
     - [Software](#software)
     - [Installing pre-requisites](#installing-pre-requisites)
@@ -98,7 +99,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Developer Guide](/doc/en-US/dev_guide.md)
 
 ## Introduction
-The OWASP SecureTea Project provides a one-stop security solution for various devices (personal computers / servers / IoT devices).
+The OWASP SecureTea Project provides a one-stop security solution for various devices (personal computers / servers / IoT devices). Find us on [youtube](https://www.youtube.com/channel/UCGdl9tpc1qZYcM3WRRFRPPA) to stay updated with installation and various features.
 
 ## Installation
 **Contents:**
@@ -110,6 +111,15 @@ The OWASP SecureTea Project provides a one-stop security solution for various de
 
 #### Supported Platforms
 OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems. It is compatible with both Python 2 and Python 3.
+
+#### Platforms tested on
+| Operating System | Status | Video                                                                                                        | Notes                                     |
+|------------------|--------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| Ubuntu 16.04     | Passed | [![Ubuntu 16.04](https://img.youtube.com/vi/636r4LpU29E/0.jpg)](https://www.youtube.com/watch?v=636r4LpU29E) | Works perfectly                           |
+| CentOS7          | Passed | [![CentOS7](https://img.youtube.com/vi/j51U2a3jvJw/0.jpg)](https://www.youtube.com/watch?v=j51U2a3jvJw)      | Works perfectly                           |
+| Fedora32         | Passed | [![Fedora32](https://img.youtube.com/vi/YwZs8pCskSE/0.jpg)](https://www.youtube.com/watch?v=YwZs8pCskSE)     | Works perfectly                           |
+| ParrotSec4.2     | Passed | [![ParrotSec](https://img.youtube.com/vi/0CY0-7Kxgpo/0.jpg)](https://www.youtube.com/watch?v=0CY0-7Kxgpo)    | Install using script, then do pip install |
+| Kali Linux       | Passed | ToDo                                                                                                         | Works perfectly                           |
 
 #### Hardware
 -  Linux OS / Raspberry Pi - have `sudo` access on the terminal/console
