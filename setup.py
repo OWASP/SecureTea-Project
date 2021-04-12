@@ -17,12 +17,13 @@ Attributes:
 
 from setuptools import find_packages
 from setuptools import setup
+import distro
 import platform
 import subprocess
 import re
 
 
-os_name = platform.dist()[0]
+os_name = distro.linux_distribution()[0]
 if not os_name:
     if 'amzn' in platform.uname()[2]:
         os_name = 'centos'
@@ -134,7 +135,7 @@ def install_dependency(dependency, command):
 def check_dependency():
     """Check for the dependencies in the system."""
     # categorize OS
-    if os_name.lower() in ["ubuntu", "kali", "debian"]:
+    if os_name.lower() in ["ubuntu", "kali", "debian","kali gnu/linux"]:
         system = "debian"
     # elif some other based OS
     else:  # if OS not in listing
