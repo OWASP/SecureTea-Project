@@ -21,3 +21,4 @@ lxml
 ipwhois
 shodan
 future
+distro
