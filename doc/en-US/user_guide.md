@@ -238,15 +238,6 @@ Installing from Zip involves the following steps:
 
 Tip: Incase of any error during installation related to NetfilterQueue, try using `$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
 
-**Note** If the error with NetfilterQueue still persists try to use Python version <= 3.6.0 .
-In order to use older version of python use these steps.
-* Install brew https://www.digitalocean.com/community/tutorials/how-to-install-and-use-linuxbrew-on-a-linux-vps
-* Install the python versions using pyenv https://opensource.com/article/20/4/pyenv
-* Use pyhton version 3.6.0 locally for the project and install NetfilterQueue
-```
-python3 -m pip install git+https://github.com/kti/python-netfilterqueue
-```
-
 If done, proceed to [After installation](#after-installation)
 
 ### After installation
