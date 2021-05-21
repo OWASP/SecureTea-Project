@@ -4,10 +4,7 @@ import { Http } from '@angular/http';
 import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 import $ from 'jquery';
-
-declare var require: any;
-const swal = require('sweetalert');
-
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-security',
