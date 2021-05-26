@@ -24,6 +24,7 @@ from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
 from securetea.lib.firewall import secureTeaFirewall
 from securetea.lib.notifs import secureTeaTwilio
+from securetea.lib.notifs import secureTeaWhatsapp
 from securetea.lib.notifs import secureTeaGmail
 from securetea.args.arguments import get_args
 from securetea.args.args_helper import ArgsHelper
