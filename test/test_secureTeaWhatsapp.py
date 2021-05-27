@@ -21,9 +21,9 @@ class TestSecureTeaWhatsapp(unittest.TestCase):
 
         # Initilize credentials
         self.cred = {
-            "twilio_sid": "123",
-            "twilio_token": "123",
-            "twilio_from": "123",
+            "whatsapp_sid": "123",
+            "whatsapp_token": "123",
+            "whatsapp_from": "123",
             "whatsapp_to": "123"
         }
         self.debug = False
@@ -41,6 +41,6 @@ class TestSecureTeaWhatsapp(unittest.TestCase):
         mock_time.get_current_location.return_value = "location"
         mock_time.getdatetime.return_value = time
         mock_time.get_platform.return_value = "linux"
-        message = self.twilio_obj.generatemessage("Random")
+        message = self.whatsapp_obj.generatemessage("Random")
         assert_msg = "Random" + " at " + time + " location" + "linux"
         self.assertEqual(message, assert_msg)

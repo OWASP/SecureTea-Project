@@ -86,6 +86,7 @@ class SecureTea(object):
         self.twitter_provided = args_dict['twitter_provided']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
+        self.whatsapp_provided = args_dict['whatsapp_provided']
         self.social_eng_provided = args_dict['social_eng_provided']
         self.slack_provided = args_dict['slack_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
@@ -153,6 +154,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Twilio configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['whatsapp']:
+                    self.whatsapp_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Whatsapp configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -392,6 +403,20 @@ class SecureTea(object):
             else:
                 self.twilio.notify("Welcome to SecureTea..!! Initializing System")
 
+        if self.whatsapp_provided:
+            self.whatsapp = secureTeaWhatsapp.SecureTeaWhatsapp(
+                self.cred['whatsapp'],
+                self.cred['debug']
+            )
+
+            if not self.whatsapp.enabled:
+                self.logger.log(
+                    "Whatsapp not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.whatsapp.notify("Welcome to SecureTea..!! Initializing System")
+
         if self.slack_provided:
             self.slack = secureTeaSlack.SecureTeaSlack(
                 self.cred['slack'],
@@ -604,6 +629,10 @@ class SecureTea(object):
         # Send a warning message via twilio account
         if self.twilio_provided:
             self.twilio.notify(msg)
+
+        # Send a warning message via whatsapp account
+        if self.whatsapp_provided:
+            self.whatsapp.notify(msg)
 
         # Send a warning message via slack bot app
         if self.slack_provided:

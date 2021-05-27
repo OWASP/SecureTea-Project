@@ -496,6 +496,20 @@ def sleep():
             args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
             args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
 
+    # Whatsapp parsing
+    if ("whatsapp_sid" in creds and
+        "whatsapp_token" in creds and
+        "whatsapp_from" in creds and
+        "whatsapp_to" in creds):
+        if (bool(creds['whatsapp_sid']) and
+            bool(creds['whatsapp_token']) and
+            bool(creds['whatsapp_from']) and
+            bool(creds['whatsapp_to'])):
+            args_str += ' --whatsapp_sid="' + creds['whatsapp_sid'] + '"'
+            args_str += ' --whatsapp_token="' + creds['whatsapp_token'] + '"'
+            args_str += ' --whatsapp_from="' + creds['whatsapp_from'] + '"'
+            args_str += ' --whatsapp_to="' + creds['whatsapp_to'] + '"'
+
     # Slack parsing
     if ("slack_token" in creds and
         "slack_user_id" in creds):

@@ -43,9 +43,9 @@ class SecureTeaWhatsapp():
                 logtype="error"
             )
 
-        self.account_sid = cred['twilio_sid']
-        self.account_token = cred['twilio_token']
-        self.whatsapp_from = cred['twilio_from']
+        self.account_sid = cred['whatsapp_sid']
+        self.account_token = cred['whatsapp_token']
+        self.whatsapp_from = cred['whatsapp_from']
         self.whatsapp_to = cred['whatsapp_to']
 
         self.client = Client(self.account_sid, self.account_token)
