@@ -80,11 +80,22 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "prince-7",
+      "name": "Aman Singh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53997924?v=4",
+      "profile": "https://github.com/prince-7",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "SecureTea-Project",
   "projectOwner": "OWASP",
   "repoType": "github",
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
