@@ -4,7 +4,8 @@ import { Http } from '@angular/http';
 import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 import $ from 'jquery';
-import swal from 'sweetalert';
+declare var require: any;
+const swal = require('sweetalert');
 
 @Component({
   selector: 'app-security',
@@ -27,6 +28,10 @@ export class SecurityComponent implements OnInit {
     twilio_token: new FormControl(''),
     twilio_from: new FormControl(''),
     twilio_to: new FormControl(''),
+    whatsapp_sid: new FormControl(''),
+    whatsapp_token: new FormControl(''),
+    whatsapp_from: new FormControl(''),
+    whatsapp_to: new FormControl(''),
     slack_token: new FormControl(''),
     slack_userId: new FormControl(''),
     aws_email: new FormControl(''),
@@ -150,6 +155,26 @@ export class SecurityComponent implements OnInit {
     if(twilio_to)
     {
       this.notificationsForm.value.twilio_to = twilio_to;
+    }
+    var whatsapp_sid = localStorage.getItem('whatsapp_sid')
+    if(whatsapp_sid)
+    {
+      this.notificationsForm.value.whatsapp_sid = whatsapp_sid;
+    }
+    var whatsapp_token = localStorage.getItem('whatsapp_token')
+    if(whatsapp_token)
+    {
+      this.notificationsForm.value.whatsapp_token = whatsapp_token;
+    }
+    var whatsapp_from = localStorage.getItem('whatsapp_from')
+    if(whatsapp_from)
+    {
+      this.notificationsForm.value.whatsapp_from = whatsapp_from;
+    }
+    var whatsapp_to = localStorage.getItem('whatsapp_to')
+    if(whatsapp_to)
+    {
+      this.notificationsForm.value.whatsapp_to = whatsapp_to;
     }
     var slack_token = localStorage.getItem('slack_token')
     if(slack_token)
@@ -473,6 +498,7 @@ export class SecurityComponent implements OnInit {
               (this.notificationsForm.value.twitter_apikey!="" && this.notificationsForm.value.twitter_apiSecret!=""  && this.notificationsForm.value.twitter_token!="" && this.notificationsForm.value.twitter_tokenSecret!="" ) ||
               (this.notificationsForm.value.telegram_token!=""  && this.notificationsForm.value.telegram_userId!="" ) ||
               (this.notificationsForm.value.twilio_sid!=""  && this.notificationsForm.value.twilio_token!=""  && this.notificationsForm.value.twilio_to!=""  && this.notificationsForm.value.twilio_from!="" ) ||
+              (this.notificationsForm.value.whatsapp_sid!=""  && this.notificationsForm.value.whatsapp_token!=""  && this.notificationsForm.value.whatsapp_to!=""  && this.notificationsForm.value.whatsapp_from!="" ) ||
               (this.notificationsForm.value.slack_token!=""  && this.notificationsForm.value.slack_userId!="" ) ||
               (this.notificationsForm.value.aws_email!=""  && this.notificationsForm.value.aws_accessKey!="" && this.notificationsForm.value.aws_secretKey!="" ) ||
               (this.notificationsForm.value.sender_email != "" && this.notificationsForm.value.to_email != "" && this.notificationsForm.value.password != "")
@@ -494,6 +520,10 @@ export class SecurityComponent implements OnInit {
         'twilio_token': this.notificationsForm.value.twilio_token,
         'twilio_from': this.notificationsForm.value.twilio_from,
         'twilio_to': this.notificationsForm.value.twilio_to,
+        'whatsapp_sid': this.notificationsForm.value.whatsapp_sid,
+        'whatsapp_token': this.notificationsForm.value.whatsapp_token,
+        'whatsapp_from': this.notificationsForm.value.whatsapp_from,
+        'whatsapp_to': this.notificationsForm.value.whatsapp_to,
         'slack_token': this.notificationsForm.value.slack_token,
         'slack_user_id': this.notificationsForm.value.slack_userId,
         'aws_email': this.notificationsForm.value.aws_email,
@@ -585,6 +615,10 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('twilio_token', this.notificationsForm.value.twilio_token);
               localStorage.setItem('twilio_from', this.notificationsForm.value.twilio_from);
               localStorage.setItem('twilio_to', this.notificationsForm.value.twilio_to);
+              localStorage.setItem('whatsapp_sid', this.notificationsForm.value.whatsapp_sid);
+              localStorage.setItem('whatsapp_token', this.notificationsForm.value.whatsapp_token);
+              localStorage.setItem('whatsapp_from', this.notificationsForm.value.whatsapp_from);
+              localStorage.setItem('whatsapp_to', this.notificationsForm.value.whatsapp_to);
               localStorage.setItem('slack_token', this.notificationsForm.value.slack_token);
               localStorage.setItem('slack_user_id', this.notificationsForm.value.slack_userId);
               localStorage.setItem('aws_email', this.notificationsForm.value.aws_email);

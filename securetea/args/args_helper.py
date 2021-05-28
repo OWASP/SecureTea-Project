@@ -183,6 +183,7 @@ class ArgsHelper(object):
         self.twitter_provided = False
         self.telegram_provided = False
         self.twilio_provided = False
+        self.whatsapp_provided = False
         self.slack_provided = False
         self.aws_ses_provided = False
         self.gmail_provided = False
@@ -251,6 +252,23 @@ class ArgsHelper(object):
                 'twilio_token': 'twilio token',
                 'twilio_from': 'twilio (from) phone number',
                 'twilio_to': 'twilio (to) phone number'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureWhatsapp(self):
+        """
+        Returns the format to configure Whatsapp
+        """
+        self.logger.log('Whatsapp configuraton setup')
+        default = load_default('whatsapp')
+        return {
+            'input': {
+                'whatsapp_sid': 'twilio_SID',
+                'whatsapp_token': 'twilio token',
+                'whatsapp_from': 'Whatsapp Sandbox number twilio',
+                'whatsapp_to': 'Whatsapp (user) phone number'
             },
             'default': default
         }
@@ -523,6 +541,12 @@ class ArgsHelper(object):
                 self.cred['twilio'] = twilioSMS
                 self.twilio_provided = True
 
+            # Start the Whatsapp configuration setup
+            whatsapp = self.configureWhatsapp()
+            if whatsapp:
+                self.cred['whatsapp'] = whatsapp
+                self.whatsapp_provided = True
+
             # Start the slack configuration setup
             slack = self.configureSlack()
             if slack:
@@ -621,6 +645,12 @@ class ArgsHelper(object):
                 if twilio_sms:
                     self.cred['twilio'] = twilio_sms
                     self.twilio_provided = True
+
+            if self.args.whatsapp and not self.whatsapp_provided:
+                whatsapp = self.configureWhatsapp()
+                if whatsapp:
+                    self.cred['whatsapp'] = whatsapp
+                    self.whatsapp_provided = True
 
             if self.args.slack and not self.slack_provided:
                 slack = self.configureSlack()
@@ -918,6 +948,19 @@ class ArgsHelper(object):
                 self.cred['twilio'] = twilio
                 self.twilio_provided = True
 
+        if not self.whatsapp_provided:
+            if(self.args.twilio_sid and
+                self.args.twilio_token and
+                self.args.whatsapp_from and
+                self.args.whatsapp_to):
+                whatsapp = {}
+                whatsapp['whatsapp_sid'] = self.args.whatsapp_sid
+                whatsapp['whatsapp_token'] = self.args.whatsapp_token
+                whatsapp['whatsapp_from'] = self.args.whatsapp_from
+                whatsapp['whatsapp_to'] = self.args.whatsapp_to
+                self.cred['whatsapp'] = whatsapp
+                self.whatsapp_provided = True
+
         if not self.slack_provided:
             if (self.args.slack_user_id and
                 self.args.slack_token):
@@ -1104,6 +1147,7 @@ class ArgsHelper(object):
         if (self.twitter_provided or
             self.telegram_provided or
             self.twilio_provided or
+            self.whatsapp_provided or
             self.slack_provided or
             self.aws_ses_provided or
             self.firewall_provided or
@@ -1128,6 +1172,7 @@ class ArgsHelper(object):
             'twitter_provided': self.twitter_provided,
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
+            'whatsapp_provided': self.whatsapp_provided,
             'slack_provided': self.slack_provided,
             'aws_ses_provided': self.aws_ses_provided,
             'gmail_provided': self.gmail_provided,

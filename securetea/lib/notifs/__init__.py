@@ -2,6 +2,7 @@
 from . import secureTeaTwitter
 from . import secureTeaSlack
 from . import secureTeaTwilio
+from . import secureTeaWhatsapp
 from . import secureTeaTelegram
 from . import secureTeaGmail
 from .aws import secureTeaAwsSES

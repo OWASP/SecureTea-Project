@@ -1,6 +1,7 @@
 """Summary."""
 from .notifs import secureTeaTwitter
 from .notifs import secureTeaTwilio
+from .notifs import secureTeaWhatsapp
 from .notifs import secureTeaTelegram
 from .notifs import secureTeaSlack
 from .notifs import secureTeaGmail
