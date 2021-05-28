@@ -4,6 +4,7 @@ from . import logger
 from . import configurations
 from .lib.notifs import secureTeaTwitter
 from .lib.notifs import secureTeaTwilio
+from .lib.notifs import secureTeaWhatsapp
 from .lib.notifs import secureTeaTelegram
 from .lib.notifs import secureTeaSlack
 from .lib.notifs import secureTeaGmail

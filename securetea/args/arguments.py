@@ -94,6 +94,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--whatsapp',
+        required=False,
+        action='store_true',
+        help='Setup twilio Whatsapp credentials'
+    )
+
+    parser.add_argument(
         '--telegram',
         required=False,
         action='store_true',
@@ -196,6 +203,38 @@ def get_args():
     parser.add_argument(
         '--twilio_to',
         '-twto',
+        type=str,
+        required=False,
+        help='Twilio (To) phone number'
+    )
+
+    parser.add_argument(
+        '--whatsapp_sid',
+        '-was',
+        type=str,
+        required=False,
+        help='Twilio SID'
+    )
+
+    parser.add_argument(
+        '--whatsapp_token',
+        '-wat',
+        type=str,
+        required=False,
+        help='Twilio authorization token'
+    )
+
+    parser.add_argument(
+        '--whatsapp_from',
+        '-waf',
+        type=str,
+        required=False,
+        help='Twilio (From) phone number'
+    )
+
+    parser.add_argument(
+        '--whatsapp_to',
+        '-wato',
         type=str,
         required=False,
         help='Twilio (To) phone number'
