@@ -20,7 +20,7 @@ if __name__ == '__main__':
             os_name = distro.linux_distribution()[0]
             os_major_version = distro.linux_distribution()[1].split('.')[0]
 
-            if os_name == 'Ubuntu' and int(os_major_version) >= 16:
+            if os_name == 'Ubunntu' and int(os_major_version) >= 16:
                 command = 'systemctl suspend'
             os.system(command)
         if platfom == 'Darwin':

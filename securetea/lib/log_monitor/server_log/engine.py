@@ -26,6 +26,7 @@ from securetea.lib.log_monitor.server_log.detect.attacks import sqli
 from securetea.lib.log_monitor.server_log.detect.attacks import lfi
 from securetea.lib.log_monitor.server_log.detect.attacks import web_shell
 from securetea.lib.log_monitor.server_log.detect.attacks import ddos
+from securetea.lib.log_monitor.server_log.detect.attacks import ssrf
 from securetea.lib.log_monitor.server_log.detect.recon import port_scan
 from securetea.lib.log_monitor.server_log.detect.recon import fuzzer
 from securetea.lib.log_monitor.server_log.detect.recon import spider
@@ -125,6 +126,8 @@ class Engine(object):
             self.sqli_obj = sqli.SQLi(debug=debug)
             # Local File Inclusion (LFI) Detection
             self.lfi_obj = lfi.LFI(debug=debug)
+            # ssrf detection
+            self.ssrf_obj= ssrf.Ssrf(debug=debug)
             # Web Shell Detection
             self.web_shell_obj = web_shell.WebShell(debug=debug)
             # Port Scan Detection
@@ -164,6 +167,8 @@ class Engine(object):
             sqli_thread = threading.Thread(target=self.sqli_obj.detect_sqli, args=(data,))
             lfi_thread = threading.Thread(target=self.lfi_obj.detect_lfi, args=(data,))
             web_shell_thread = threading.Thread(target=self.web_shell_obj.detect_web_shell, args=(data,))
+            ssrf_thread = threading.Thread(target=self.ssrf_obj.detect_ssrf,args=(data,))
+
             port_scan_thread = threading.Thread(target=self.port_scan_obj.detect_port_scan, args=(data,))
             fuzzer_thread = threading.Thread(target=self.fuzzer_obj.detect_fuzzer, args=(data,))
             spider_thread = threading.Thread(target=self.spider_obj.detect_spider, args=(data,))
@@ -175,6 +180,7 @@ class Engine(object):
             thread_pool.append(sqli_thread)
             thread_pool.append(lfi_thread)
             thread_pool.append(web_shell_thread)
+            thread_pool.append(ssrf_thread)
             thread_pool.append(port_scan_thread)
             thread_pool.append(fuzzer_thread)
             thread_pool.append(spider_thread)
@@ -186,6 +192,7 @@ class Engine(object):
             sqli_thread.start()
             lfi_thread.start()
             web_shell_thread.start()
+            ssrf_thread.start()
             port_scan_thread.start()
             fuzzer_thread.start()
             spider_thread.start()
