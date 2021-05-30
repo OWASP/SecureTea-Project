@@ -9,10 +9,10 @@ try:
 except ImportError:  # python 2.x.x
     from mock import patch
 
-class TestSSRF(unittest.TestCase):
+class TestSSRF (unittest.TestCase):
     def setUp(self):
         """
-        Setup class for TestCrossSite.
+        Setup class for TestSSRF.
         """
         # Initialize CrossSite object
         self.ssrf_obj = Ssrf(test=True)
@@ -29,7 +29,7 @@ class TestSSRF(unittest.TestCase):
             }
         }
 
-    @patch("securetea.lib.log_monitor.server_log.detect.attacks.xss.write_mal_ip")
+    @patch("securetea.lib.log_monitor.server_log.detect.attacks.ssrf.write_mal_ip")
     @patch.object(OSINT, "perform_osint_scan")
     @patch("securetea.lib.log_monitor.server_log.detect.attacks.ssrf.utils")
     @patch.object(ServerLogger, "log")

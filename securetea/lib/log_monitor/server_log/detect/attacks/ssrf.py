@@ -104,8 +104,8 @@ class Ssrf (object):
                             self.osint_obj.perform_osint_scan(ip.strip(" "))
                             # Write malicious IP to file, to teach Firewall about the IP
                             write_mal_ip(ip.strip(" "))
-                else:
-                    if(self.payload_match(url) or self.regex_match(get_req)):
+
+                if(self.payload_match(url) or self.regex_match(get_req)):
                         if ip not in self.logged_IP:
                             self.logged_IP.append(ip)
                             msg = "Possible SSRF detected From  " + str(ip) + \
