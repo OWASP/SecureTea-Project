@@ -7,6 +7,7 @@
 |Telegram|https://core.telegram.org/ | Yes | 200 million | |
 |Slack|https://api.slack.com/ |Yes| |
 |Twilio|https://www.twilio.com/docs/usage/api |Yes| |
+|Whatsapp|https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile |Yes| |
 |AWS-services|https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html |Yes| |
 |Disa|https://disa.im/opensource.html|| |
 |VKontakte |https://vk.com/dev/openapi|| |

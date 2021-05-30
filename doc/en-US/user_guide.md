@@ -49,6 +49,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 	   -  [Getting Slack tokens](#getting-slack-tokens)
 	   -  [Getting Telegram tokens](#getting-telegram-tokens)
         -  [Get Twilio SMS tokens](#getting-twilio-sms-tokens)
+        -  [Get Whatsapp Twilio tokens](#getting-whatsapp-twilio-tokens)
 	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
@@ -275,6 +276,12 @@ Default configuration:
 		"twilio_from": "XXXX",
 		"twilio_to": "XXXX"
 	},
+	"whatsapp": {
+		"whatsapp_sid": "XXXX",
+		"whatsapp_token": "XXXX",
+		"whatsapp_from": "XXXX",
+		"whatsapp_to": "XXXX"
+	},
 	"slack": {
 		"token": "XXXX",
 		"user_id": "XXXX"
@@ -400,6 +407,7 @@ Arguments list
 --telegram     Start Telegram interactive setup
 --twitter      Start Twitter interactive setup
 --twilio_sms   Start Twilio SMS interactive setup
+--whatsapp   	 Start Whatsapp Twilio interactive setup
 --firewall     Start Firewall interactive setup
 --aws_ses      Start Amazon Web Services(AWS-Simple Email Services) interactive setup
 --gmail        Start G-Mail interactive setup
@@ -431,7 +439,7 @@ Examples:<br>
 usage: SecureTea.py [-h] [--conf CONF] [--debug]
                     [--social_eng_email SOCIAL_ENG_EMAIL] [--hist] [--clamav]
                     [--yara] [--skip_input] [--skip_config_file] [--twitter]
-                    [--twilio_sms] [--telegram] [--gmail] [--slack]
+                    [--twilio_sms] [--whatsapp] [--telegram] [--gmail] [--slack]
                     [--aws_ses] [--twitter_api_key TWITTER_API_KEY]
                     [--twitter_api_secret_key TWITTER_API_SECRET_KEY]
                     [--twitter_access_token TWITTER_ACCESS_TOKEN]
@@ -440,6 +448,8 @@ usage: SecureTea.py [-h] [--conf CONF] [--debug]
                     [--telegram_user_id TELEGRAM_USER_ID]
                     [--twilio_sid TWILIO_SID] [--twilio_token TWILIO_TOKEN]
                     [--twilio_from TWILIO_FROM] [--twilio_to TWILIO_TO]
+                    [--whatsapp_sid WHATSAPP_SID] [--whatsapp_token WHATSAPP_TOKEN]
+                    [--whatsapp_from WHATSAPP_FROM] [--whatsapp_to WHATSAPP_TO]
                     [--slack_token SLACK_TOKEN]
                     [--slack_user_id SLACK_USER_ID]
                     [--sender_email SENDER_EMAIL] [--to_email TO_EMAIL]
@@ -498,6 +508,7 @@ In order to use the various communication medium you need to get yourself a veri
 -  [Getting Slack tokens](#getting-slack-tokens)
 -  [Getting Telegram tokens](#getting-telegram-tokens)
 -  [Getting Twilio SMS tokens](#getting-twilio-sms-tokens)
+-  [Getting Whatsapp Twilio tokens](#getting-whatsapp-twilio-tokens)
 -  [Getting AWS-SES tokens](#getting-aws-ses-tokens)
 
 ##### Getting Twitter tokens
@@ -516,6 +527,9 @@ In order to use the various communication medium you need to get yourself a veri
  
 ##### Getting Twilio SMS tokens
  -  Visit https://www.twilio.com and click on "Get a free API key".
+
+ ##### Getting Whatsapp Number from Twilio
+ -  Visit https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile and read on how to setup.
 
 ##### Getting AWS-SES tokens
  -  Sign up for AWS https://aws.amazon.com/ (For new users)
@@ -553,6 +567,7 @@ The following argument options are currently available:
   --skip_config_file    Skip taking configuration from config file
   --twitter             Setup twitter credentials
   --twilio_sms          Setup twilio SMS credentials
+  --whatsapp						Setup Whatsapp Twilio credentials
   --telegram            Setup telegram SMS credentials
   --gmail               Setup Gmail credentials
   --slack               Setup Slack credentials
@@ -577,6 +592,14 @@ The following argument options are currently available:
                         Twilio (From) phone number
   --twilio_to TWILIO_TO, -twto TWILIO_TO
                         Twilio (To) phone number
+  --whatsapp_sid WHATSAPP_SID, -tws WHATSAPP_SID
+                        Twilio SID
+  --whatsapp_token WHATSAPP_TOKEN, -twt WHATSAPP_TOKEN
+                        Twilio authorization token
+  --whatsapp_from WHATSAPP_FROM, -twf WHATSAPP_FROM
+                        Whatsapp(TWilio) (From) phone number
+  --whatsapp_to WHATSAPP_TO, -twto WHATSAPP_TO
+                        Whatsapp (To) phone number
   --slack_token SLACK_TOKEN, -st SLACK_TOKEN
                         Slack token
   --slack_user_id SLACK_USER_ID, -suid SLACK_USER_ID
@@ -704,6 +727,12 @@ Usage:<br>
 sudo python3 SecureTea.py --twilio_sid <data> --twilio_token <data> --twilio_from <data> --twilio_to <data>
 ```
 
+#### Starting Whatsapp notifier
+Usage:<br>
+```argument
+sudo SecureTea.py --whatsapp_sid <data> --whatsapp_token <data> --whatsapp_from <data> --whatsapp_to <data>
+```
+
 #### Starting Firewall
 Usage:<br>
 ```argument
@@ -795,6 +824,20 @@ sudo python3 SecureTea.py --twilio_sms
 | `--twilio_token` | XXXX | Twilio Token |
 | `--twilio_from` | XXXX | Twilio From Phone No.|
 | `--twilio_to` | XXXX | Twilio To Phone No.|
+
+#### Setting up Whatsapp
+Example usage:<br>
+#### 1. Using interactive setup
+```argument
+sudo SecureTea.py --whatsapp
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--whatsapp_sid` | XXXX | whatsapp SID (Twilio SID)|
+| `--whatsapp_token` | XXXX | whatsapp Token (Twilio Token)|
+| `--whatsapp_from` | XXXX | whatsapp From Phone No.|
+| `--whatsapp_to` | XXXX | whatsapp To Phone No.|
 
 ### Setting up Firewall
 Example usage:<br>

@@ -189,7 +189,7 @@ Notify by Telegram           | Yes
 Notify by Slack              | Yes
 Notify by Twilio SMS         | Yes
 Notify by Amazon (AWS-SES)   | Yes
-Notify by WhatsApp           | No
+Notify by WhatsApp           | Yes
 Insecure Header Detection    | Yes
 SecureTea Firewall           | Yes
 SecureTea IDS/IPS            | Yes

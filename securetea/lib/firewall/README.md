@@ -23,6 +23,12 @@ Edit the `securetea.conf` file in `etc/securetea/securetea.conf`, with the follo
 		"twilio_from": "XXXX",
 		"twilio_to": "XXXX"
 	},
+	"whatsapp": {
+		"whatsapp_sid": "XXXX",
+		"whatsapp_token": "XXXX",
+		"whatsapp_from": "XXXX",
+		"whatsapp_to": "XXXX"
+	},
 	"slack": {
 		"token": "XXXX",
 		"user_id": "XXXX"
