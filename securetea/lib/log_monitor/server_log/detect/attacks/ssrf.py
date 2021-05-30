@@ -57,20 +57,20 @@ class Ssrf (object):
 
 
 
-            # Load  SSRF payloads
-            self.payloads = utils.open_file(self.PAYLOAD_FILE)
-            # Load SSRF regex rules
-            self.regex = utils.open_file(self.REGEX_FILE)
-            # IPs
-            self.ips = utils.open_file(self.IP_FILE)
+        # Load  SSRF payloads
+        self.payloads = utils.open_file(self.PAYLOAD_FILE)
+        # Load SSRF regex rules
+        self.regex = utils.open_file(self.REGEX_FILE)
+        # IPs
+        self.ips = utils.open_file(self.IP_FILE)
 
-            # Logged IP list
-            self.logged_IP = list()
+        # Logged IP list
+        self.logged_IP = list()
 
-            # Initialize OSINT object
-            self.osint_obj = OSINT(debug=debug)
+        # Initialize OSINT object
+        self.osint_obj = OSINT(debug=debug)
 
-    def detect_ssrf(self,data):
+    def detect_ssrf(self , data):
         """
                     Detects  SSRF
                     Args:
@@ -85,15 +85,15 @@ class Ssrf (object):
         for ip in data.keys():
             get_req = data[ip]["get"]
             last_time = data[ip]["ep_time"][0]
-            #extracting all the urls in path
-            urls=re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', get_req)
+            # extracting all the urls in path
+            urls=re.findall(r"https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+", get_req[0])
             for url in urls:
                 resolved_ip=utils.resolver(url)
                 if resolved_ip:
-                    if (self.rmatch(resolve_ip)):
+                    if (self.rmatch(resolved_ip)):
                         if ip not in self.logged_IP:  # if not logged earlier
                             self.logged_IP.append(ip)
-                            msg = "Possible SSRF detected From  " + str(ip) + \
+                            msg = "Possible SSRF detected From: " + str(ip) + \
                                   " on: " + str(utils.epoch_to_date(last_time))
                             self.logger.log(
                                 msg,
@@ -135,7 +135,8 @@ class Ssrf (object):
                """
         for payloads in self.payloads:
             payload=payloads.strip(" ").strip("\n")
-            if (payload in url or utils.uri_encode(payload) in url):
+            if (payload in url
+                    or utils.uri_encode(payload) in url):
                 return True
 
 
@@ -160,6 +161,7 @@ class Ssrf (object):
                 if re.findall(reg, req) != []:
                     return True
 
+
     def rmatch(self,ip):
         """
                Match resolved  IP  for a
@@ -178,7 +180,7 @@ class Ssrf (object):
         for payload_ip in self.ips:
             payload_ip=payload_ip.strip(" ").strip("\n")
             if payload_ip in ip:
-                return true
+                return True
 
 
 

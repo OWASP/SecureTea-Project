@@ -50,6 +50,7 @@ class TestCrossSite(unittest.TestCase):
         mck_utils.write_ip.return_value = True
         mck_utils.epoch_to_date.return_value = "random_date"
 
+
         # Case 1: No XSS attack
         mck_pm.return_value = False
         mck_rc.return_value = False
@@ -88,3 +89,5 @@ class TestCrossSite(unittest.TestCase):
         # Case 2: Payload does not match
         res = self.xss_obj.payload_match(["/random/req"])
         self.assertFalse(res)
+
+
