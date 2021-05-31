@@ -17,7 +17,7 @@ import datetime
 import platform
 import threading
 from requests.utils import quote
-
+import socket
 
 # Create thread lock
 lock = threading.Lock()
@@ -221,3 +221,30 @@ def get_list(data):
     obtained_list = [ele.strip(" ").strip("\n") \
                      for ele in data.split(",")]
     return obtained_list
+
+
+def resolver(url):
+    """
+        Return list of data from string.
+
+        Args:
+            url (str): url to be resolved to its ip
+
+        Raises:
+            None
+
+        Returns:
+            TYPE: string
+        """
+    if url:
+        domain=url.strip("https://").strip("http://")
+
+        try:
+            ip=socket.gethostbyname(domain)
+            return ip
+        except Exception as e:
+            ip=None
+            return ip
+
+
+

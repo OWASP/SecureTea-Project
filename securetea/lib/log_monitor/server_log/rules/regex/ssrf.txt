@@ -1,0 +1,15 @@
+\burl\b\W*?\bjavascript:
+\.innerhtml\b
+\bonselect\b\W*?\=
+\@import\b
+\blowsrc\b\W*?\bvbscript:
+\bonload\b\W*?\=
+\< ?script\b
+\bonresize\b\W*?\=
+\bonclick\b\W*?\=
+\biframe\b.{0,100}?\bsrc\b
+\bbackground-image:
+\bonkeyup\b\W*?\=
+<input\b.*?\btype\b\W*?\bimage\b
+\burl\b\W*?\bshell:
+\btype\b\W*?\btext\b\W*?\bjavascript\b

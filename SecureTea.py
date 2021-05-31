@@ -3,6 +3,7 @@
 """Docstring."""
 import os
 import platform
+import distro
 import time
 
 from securetea.core import SecureTea
@@ -16,9 +17,10 @@ if __name__ == '__main__':
         platfom = platform.system()
         if platfom == 'Linux':
             command = 'sudo pm-suspend'
-            os_name = platform.dist()[0]
-            os_major_version = platform.dist()[1].split('.')[0]
-            if os_name == 'Ubuntu' and int(os_major_version) >= 16:
+            os_name = distro.linux_distribution()[0]
+            os_major_version = distro.linux_distribution()[1].split('.')[0]
+
+            if os_name == 'Ubunntu' and int(os_major_version) >= 16:
                 command = 'systemctl suspend'
             os.system(command)
         if platfom == 'Darwin':
