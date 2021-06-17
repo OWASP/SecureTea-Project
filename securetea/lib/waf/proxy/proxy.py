@@ -1,7 +1,15 @@
-"""
+# -*- coding: utf-8 -*-
+u"""WAF Proxy module for SecureTea WAF.
+
+Project:
+    ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
+    ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
+    ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
+    Author: Shaik Ajmal R <shaikajmal.r2000@gmail.com>
+    Version:
+    Module: SecureTea
 
 """
-
 
 import asyncio
 from intercept import Http
@@ -31,9 +39,11 @@ class RunProxy:
         self.server = await self.loop.create_server(
             lambda:Http(),host=self.host, port=self.port
         )
-        print(self.server.sockets[0])
+        ip, port = self.server.sockets[0].getsockname()
+        print("Listening on {}:{}".format(ip, port))
 
         await self.server.serve_forever()
+
 
 
 c=RunProxy();

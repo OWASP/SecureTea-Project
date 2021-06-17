@@ -1,8 +1,14 @@
-"""
+u"""WAF Proxy module for SecureTea WAF.
+
+Project:
+    ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
+    ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
+    ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
+    Author: Shaik Ajmal R <shaikajmal.r2000@gmail.com>
+    Version:
+    Module: SecureTea
 
 """
-
-
 
 
 import asyncio
@@ -12,7 +18,8 @@ from requester import Requester
 
 class Http(asyncio.Protocol):
     """
-
+       A class that handles incoming HTTP request
+       Parses the request and sends back the response to the client.
 
 
 
@@ -21,7 +28,10 @@ class Http(asyncio.Protocol):
 
     def connection_made(self, transport):
         """
+          asyncio default method that gets called on every request.
 
+          Args:
+          transport(object): Instance of the current connection.
 
         """
         self.transport = transport
@@ -29,7 +39,9 @@ class Http(asyncio.Protocol):
 
     def data_received(self, data):
         """
-
+         Clients data ie Http/Https
+         Args:
+             data(bytes):Has the request headers and body
 
 
         """
@@ -49,8 +61,8 @@ class Http(asyncio.Protocol):
             print("Error",e)
 
     def close_transport(self):
-       """"
-
+       """
+          Close the current instance of the transport for every successful session.
        """
        self.transport.close();
 
