@@ -19,6 +19,7 @@ from securetea.lib.ids.r2l_rules.ping_of_death import PingOfDeath
 from securetea.lib.ids.r2l_rules.syn_flood import SynFlood
 from securetea.lib.ids.r2l_rules.land_attack import LandAttack
 from securetea.lib.ids.r2l_rules.dns_amp import DNS_Amplification
+from securetea.lib.ids.r2l_rules.bgp_abuse import BGP_Abuse
 from securetea.lib.ids.r2l_rules.wireless.deauth import Deauth
 from securetea.lib.ids.r2l_rules.wireless.fake_access import FakeAccessPoint
 from securetea.lib.ids.r2l_rules.wireless.hidden_node import HiddenNode
@@ -51,6 +52,7 @@ class R2LEngine(object):
         self.ddos = DDoS(debug=debug)
         self.syn_flood = SynFlood(debug=debug)
         self.dns_amp = DNS_Amplification(debug=debug)
+        self.bgp_abuse = BGP_Abuse(debug=debug)
         # Wireless
         self.deauth = Deauth(debug=debug)
         self.fake_access = FakeAccessPoint(debug=debug)
@@ -80,6 +82,7 @@ class R2LEngine(object):
         self.ddos.classify_ddos(pkt)
         self.syn_flood.detect_syn_flood(pkt)
         self.dns_amp.detect_dns_amplification(pkt)
+        self.bgp_abuse.detect_bgp_abuse(pkt)
         # Wireless
         self.deauth.detect_deauth(pkt)
         self.fake_access.detect_fake_ap(pkt)

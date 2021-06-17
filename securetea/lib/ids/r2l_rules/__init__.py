@@ -8,6 +8,7 @@ from . import ping_of_death
 from . import r2l_engine
 from . import syn_flood
 from . import dns_amp
+from . import bgp_abuse
 from .wireless import deauth
 from .wireless import fake_access
 from .wireless import hidden_node

@@ -32,7 +32,7 @@ class TestDNS_Amplification(unittest.TestCase):
                     / scapy.UDP(dport=53) \
                     / scapy.DNS(rd=1, qd=scapy.DNSQR(qname="google.com", qtype="ANY"))
 
-        # Create LandAttack object
+        # Create DNS Amplification object
         self.dns_amp_obj = DNS_Amplification()
 
     @patch.object(SecureTeaLogger, 'log')

@@ -28,6 +28,7 @@ from .lib.ids.r2l_rules import ping_of_death
 from .lib.ids.r2l_rules import r2l_engine
 from .lib.ids.r2l_rules import syn_flood
 from .lib.ids.r2l_rules import dns_amp
+from .lib.ids.r2l_rules import bgp_abuse
 from .lib.ids.r2l_rules.wireless import deauth
 from .lib.ids.r2l_rules.wireless import fake_access
 from .lib.ids.r2l_rules.wireless import hidden_node
