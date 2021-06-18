@@ -483,6 +483,7 @@ Currently, the server log monitor supports the following log file types:
   - Denial of Service (DoS) attacks
   - Cross site scripting (XSS) injection
   - SQL injection (SQLi)
+  - Server Side Request Forgery (SSRF)
   - Local file inclusion (LFI)
   - Web shell injection
   - Reconnaissance attacks
