@@ -39,6 +39,7 @@ from securetea.lib.antivirus.secureTeaAntiVirus import SecureTeaAntiVirus
 from securetea.lib.iot import iot_checker
 from securetea.lib.social_engineering.socialEngineering import SecureTeaSocialEngineering
 from securetea.lib.history_logger.secureTeaHistoryLogger import SecureTeaHistoryLogger
+from securetea.lib.history_logger.historylogger_logger import HistoryLogger
 from securetea.modes import server_mode
 from securetea.modes import system_mode
 from securetea.modes import iot_mode

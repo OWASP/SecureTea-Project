@@ -24,6 +24,7 @@ from .ids.r2l_rules import land_attack
 from .ids.r2l_rules import ping_of_death
 from .ids.r2l_rules import r2l_engine
 from .ids.r2l_rules import syn_flood
+from .ids.r2l_rules import dns_amp
 from .ids.r2l_rules.wireless import deauth
 from .ids.r2l_rules.wireless import fake_access
 from .ids.r2l_rules.wireless import hidden_node
