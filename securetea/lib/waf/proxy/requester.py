@@ -1,4 +1,4 @@
-u"""WAF To Server  module for SecureTea WAF.
+u"""WAF Proxy module for SecureTea WAF.
 
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
@@ -13,51 +13,40 @@ Project:
 import socket
 from utils import RequestParser
 
-
-
-
 class Requester:
     """
     This class is responsible for sending the intercepted data to the requested server
     and sends back the response to the client.
     """
-
-    def __init__(self,timeout=5):
+    def __init__(self,data,timeout=5):
         """
         Args:
             data(bytes): Consists of the raw request.
         """
-
         print("inside requester")
-
         socket.setdefaulttimeout(timeout)
-
         self.socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+        self.data=data
 
-
-    def connect(self,data):
+    def connect(self):
 
         """
         Extracts the host name and connects the socket to the host on port 80
         """
 
-        self.host=(RequestParser(data).headers["HOST"])
+        self.host=(RequestParser(self.data).headers["HOST"])
         print(self.host)
         try :
             {
-                self.socket.connect((self.host,2644))
+                self.socket.connect((self.host,80))
             }
         except Exception as e:
             print(e)
-
-
-
-    def send_data(self,data):
+    def send_data(self):
         """
         Sends the data through the socket to the server
         """
-
-        self.socket.send(data)
+        self.socket.send(self.data)
 
     def receive_data(self):
 
