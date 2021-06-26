@@ -1,0 +1,6 @@
+sleep
+script
+eval
+exec
+alert
+xss

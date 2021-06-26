@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-u"""WAF Proxy module for SecureTea WAF.
+u"""WAF Server module for SecureTea WAF.
 
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
@@ -12,20 +12,21 @@ Project:
 """
 
 import asyncio
-from intercept import Http
+from  reqHandler import HTTP
 
-class RunProxy:
+class SecureteaWAF:
     """
-     A class that starts the proxy server
+     A class that starts the Server server
 
 
     """
-    def __init__(self):
+    def __init__(self,host="127.0.0.1",port=2640):
         """
          Initialize host and port for listening
         """
-        self.host="127.0.0.1"
-        self.port=2345
+        self.host=host
+        self.port=port
+
 
 
     def run_server(self):
@@ -35,9 +36,10 @@ class RunProxy:
     async def start(self):
 
         self.loop=asyncio.get_event_loop()
-        self.server = await self.loop.create_server(
-            lambda:Http(),host=self.host, port=self.port
+        self.server= await self.loop.create_server(
+            lambda:HTTP(),host=self.host, port=self.port
         )
+
         ip, port = self.server.sockets[0].getsockname()
         print("Listening on {}:{}".format(ip, port))
 
@@ -45,5 +47,5 @@ class RunProxy:
 
 
 
-c=RunProxy();
+c=SecureteaWAF();
 c.run_server();
