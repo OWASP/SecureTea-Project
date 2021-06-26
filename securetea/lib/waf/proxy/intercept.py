@@ -1,4 +1,4 @@
-u"""WAF Request Handler module for SecureTea WAF.
+u"""WAF Proxy module for SecureTea WAF.
 
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
@@ -12,14 +12,11 @@ Project:
 
 
 import asyncio
-from features import Features
 
 from requester import Requester
 
-from utils import RequestParser
 
-
-class HTTP(asyncio.Protocol):
+class Http(asyncio.Protocol):
     """
        A class that handles incoming HTTP request
        Parses the request and sends back the response to the client.
@@ -27,7 +24,6 @@ class HTTP(asyncio.Protocol):
 
 
     """
-
 
 
     def connection_made(self, transport):
@@ -50,54 +46,14 @@ class HTTP(asyncio.Protocol):
 
         """
 
-        self.parsed_data=RequestParser(data)
-
-        if self.parsed_data.command=="POST":
-
-            self.body=self.parsed_data.get_body().decode("utf-8")
-
-        else:
-            self.body=None
-
-        #sendind required data for feature extraction
-
-
-        method=self.parsed_data.command
-        headers=self.parsed_data.headers
-        path=self.parsed_data.path
-
-
-        if self.body:
-
-            self.features = Features(body=self.body, method=method, headers=headers, path=path)
-            self.features.extract_body()
-            self.features.extract_path()
-            self.features.extract_headers()
-
-        else:
-            self.features = Features(method=method, headers=headers, path=path)
-            self.features.extract_path()
-            self.features.extract_headers()
-
-        self.feature_value=self.features.get_count()
-
-
-
-
-
-
-
-
-
-
-
+        requester=Requester(data)
 
         try:
-
-            self.requester.send_data(data)
-            response=self.requester.receive_data()
+            requester.connect()
+            requester.send_data()
+            response=requester.receive_data()
             self.transport.write(response)
-            self.requester.close()
+            requester.close()
             self.close_transport()
 
         except Exception as e:
@@ -114,4 +70,5 @@ class HTTP(asyncio.Protocol):
 
 
 
-
+class Https(asyncio.Protocol):
+    pass
