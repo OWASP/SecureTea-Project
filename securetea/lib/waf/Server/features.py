@@ -20,7 +20,12 @@ class Features:
     def __init__(self,method,headers,path,body=None):
         """
 
-
+        Initialize Features and request parts
+        Args:
+            method(string):GET and POST
+            headers(class Object): Header object which contains the headers
+            path(String): Path used in the Request
+            body(String): Post body
 
         """
 
@@ -42,40 +47,67 @@ class Features:
         self.blacklist=0;
 
     def extract_path(self):
+        """
+        Extract all the features from the path
+        Args:None
 
-        self.single_quote = self.path.count("'")
-        self.double_quote = self.path.count('"')
-        self.spaces = self.path.count(" ")
-        self.greaterThan = self.path.count(">")
-        self.lesserThan = self.path.count("<")
-        self.Open_curlyBraces = self.path.count("{")
-        self.Closed_curlyBraces = self.path.count("}")
+        """
+
+        self.single_quote = self.single_quote+self.path.count("'")
+        self.double_quote = self.double_quote+self.path.count('"')
+        self.spaces = self.spaces+self.path.count(" ")
+        self.greaterThan = self.greaterThan+self.path.count(">")
+        self.lesserThan = self.lesserThan+self.path.count("<")
+        self.Open_curlyBraces = self.Open_curlyBraces+self.path.count("{")
+        self.Closed_curlyBraces = self.Closed_curlyBraces+self.path.count("}")
+        self.blacklist=self.blacklist+blacklist_counter(self.path)
 
 
     def extract_headers(self):
+        """
+
+        Extract all the features from the Headers:
+        Args:None
+
+        """
+
+
         for headers in self.headers:
             self.value=parse.unquote(self.headers[headers])
-            self.blacklist=blacklist_counter(self.value)
-
-
-
-
-
-
+            self.blacklist=self.blacklist+blacklist_counter(self.value)
 
 
 
     def extract_body(self):
-        self.single_quote = self.body.count("'")
-        self.double_quote = self.body.count('"')
-        self.spaces = self.body.count(" ")
-        self.greaterThan = self.body.count(">")
-        self.lesserThan =self.body.count("<")
-        self.Open_curlyBraces =self.body.count("{")
-        self.Closed_curlyBraces =self.body.count("}")
+
+        """
+        Extract features from the Body :
+        Args:None
+
+
+        """
+
+        self.single_quote =self.single_quote+self.body.count("'")
+        self.double_quote = self.double_quote+self.body.count('"')
+        self.spaces = self.spaces+self.body.count(" ")
+        self.greaterThan = self.greaterThan+self.body.count(">")
+        self.lesserThan =self.lesserThan+self.body.count("<")
+        self.Open_curlyBraces =self.Open_curlyBraces+self.body.count("{")
+        self.Closed_curlyBraces =self.Closed_curlyBraces+self.body.count("}")
+        self.blacklist=self.blacklist+blacklist_counter(self.body)
 
     def get_count(self):
-        pass
+        """
+
+        Method to get all the final count of all the features present in the request.
+        Args:None
+        Return (list): Count of all the features in the list
+
+
+        """
+
+        livedata=[self.single_quote,self.double_quote,self.spaces,self.greaterThan,self.lesserThan,self.Open_curlyBraces,self.Closed_curlyBraces,self.blacklist]
+        return livedata
 
 
 

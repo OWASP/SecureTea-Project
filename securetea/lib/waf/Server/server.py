@@ -43,7 +43,9 @@ class SecureteaWAF:
         ip, port = self.server.sockets[0].getsockname()
         print("Listening on {}:{}".format(ip, port))
 
+
         await self.server.serve_forever()
+
 
 
 

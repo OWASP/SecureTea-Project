@@ -9,13 +9,10 @@ Project:
     Module: SecureTea
 
 """
-import tempfile
+import re
 from http.server import BaseHTTPRequestHandler
 import io
-
-from socket import gethostname
-import os
-from OpenSSL import crypto
+from certauth import CertificateAuthority
 
 
 class RequestParser(BaseHTTPRequestHandler):
@@ -78,16 +75,29 @@ class GenerateCA:
 
         self.ca = CertificateAuthority("securetea", "securetea.pem", cert_cache="/tmp/cert")
         filename = self.ca.cert_for_host(self.host)
-        return self.filename
+        return filename
 
 
 
 def blacklist_counter(value):
+
+    """
+    A Function to find the count of blacklist present in the given string.
+    Args:
+        value(String):
+    return (int) count
+
+
+    """
     counter=0
+
     try:
        with open("/home/ajmal/GSOC-21/securetea/lib/waf/rules/blacklist.txt","r") as b:
-        word=b.readline()
-        counter=counter+value.count(word)
+           for word in b.readlines():
+
+               print(len(re.findall(word,value)))
+               counter=len(re.findall(word,value))
+
 
     except Exception as e:
        counter=0

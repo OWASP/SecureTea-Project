@@ -43,7 +43,7 @@ class HTTP(asyncio.Protocol):
 
     def data_received(self, data):
         """
-         Clients data ie Http/Https
+         Clients data ie Http/H
          Args:
              data(bytes):Has the request headers and body
 
@@ -79,8 +79,10 @@ class HTTP(asyncio.Protocol):
             self.features.extract_path()
             self.features.extract_headers()
 
+        #Live feature count that has to be comapred with the model
         self.feature_value=self.features.get_count()
 
+        #Model Output
 
 
 
@@ -92,6 +94,10 @@ class HTTP(asyncio.Protocol):
 
 
 
+
+
+
+       #Based on Output Run the Below code
         try:
 
             self.requester.send_data(data)
