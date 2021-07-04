@@ -41,7 +41,7 @@ class BackUp(object):
         # Cache / Back-up directory path
         self._CACHE_DIR = "/etc/securetea/web_deface/cache_dir"
         # Original path to back-up file path mapping
-        self.back_up_mapping = dict()
+        self.back_up_mapping = {}
         # List of file names already mapped
         self.file_names = []
 

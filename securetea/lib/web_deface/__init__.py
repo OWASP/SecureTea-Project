@@ -6,5 +6,6 @@ from . import gather_file
 from . import hash_gen
 from . import monitor
 from . import secureTeaWebDeface
+from . import signature_detection
 from . import utils
 from . import web_deface_engine
