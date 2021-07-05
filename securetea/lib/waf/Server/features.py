@@ -12,7 +12,7 @@ Project:
 """
 from urllib import parse
 from utils import  blacklist_counter
-
+import pandas as pd
 class Features:
 
 
@@ -30,21 +30,37 @@ class Features:
         """
 
         # Request Details
-        self.body=parse.unquote(body)
+        if body:
+            self.body=parse.unquote(body)
         self.method=method
         self.headers=headers
         self.path=parse.unquote(path)
 
+
+        # length based features
+
+        self.path_len=0;
+        self.host_len=0;
+        self.useragent_len=0;
+
+
+
         #features
 
-        self.single_quote=0
-        self.double_quote=0
-        self.spaces=0
-        self.greaterThan=0
-        self.lesserThan=0
-        self.Open_curlyBraces=0
-        self.Closed_curlyBraces=0;
-        self.blacklist=0;
+        self.spaces = 0
+        self.curly_open = 0;
+        self.curly_close = 0;
+        self.brackets_open = 0;
+        self.brackets_close = 0;
+        self.greater_than = 0;
+        self.lesser_than = 0;
+        self.single_quote = 0;
+        self.double_quote = 0;
+        self.directory = 0;
+        self.semi_colon = 0;
+        self.double_dash = 0;
+        self.amp = 0;
+
 
     def extract_path(self):
         """
@@ -53,14 +69,20 @@ class Features:
 
         """
 
-        self.single_quote = self.single_quote+self.path.count("'")
-        self.double_quote = self.double_quote+self.path.count('"')
-        self.spaces = self.spaces+self.path.count(" ")
-        self.greaterThan = self.greaterThan+self.path.count(">")
-        self.lesserThan = self.lesserThan+self.path.count("<")
-        self.Open_curlyBraces = self.Open_curlyBraces+self.path.count("{")
-        self.Closed_curlyBraces = self.Closed_curlyBraces+self.path.count("}")
-        self.blacklist=self.blacklist+blacklist_counter(self.path)
+        self.spaces = self.spaces + self.path.count(" ")
+        self.curly_open = self.curly_open + self.path.count("{")
+        self.curly_close = self.curly_close + self.path.count("}")
+        self.brackets_open = self.brackets_open + self.path.count("(")
+        self.brackets_close = self.brackets_close + self.path.count(")")
+        self.greater_than = self.greater_than + self.path.count(">")
+        self.lesser_than = self.lesser_than + self.path.count("<")
+        self.single_quote = self.single_quote + self.path.count("'")
+        self.double_quote = self.double_quote + self.path.count('"')
+        self.directory = self.directory + self.path.count("../")
+        self.semi_colon = self.semi_colon + self.path.count(":")
+        self.double_dash = self.double_dash + self.path.count("--")
+        self.amp = self.amp + self.path.count("&")
+
 
 
     def extract_headers(self):
@@ -71,10 +93,11 @@ class Features:
 
         """
 
+        self.path_len=len(self.path)
+        self.host_len=len(self.headers["Host"])
+        self.useragent_len=len(self.headers["User-Agent"])
 
-        for headers in self.headers:
-            self.value=parse.unquote(self.headers[headers])
-            self.blacklist=self.blacklist+blacklist_counter(self.value)
+
 
 
 
@@ -86,15 +109,19 @@ class Features:
 
 
         """
-
-        self.single_quote =self.single_quote+self.body.count("'")
-        self.double_quote = self.double_quote+self.body.count('"')
-        self.spaces = self.spaces+self.body.count(" ")
-        self.greaterThan = self.greaterThan+self.body.count(">")
-        self.lesserThan =self.lesserThan+self.body.count("<")
-        self.Open_curlyBraces =self.Open_curlyBraces+self.body.count("{")
-        self.Closed_curlyBraces =self.Closed_curlyBraces+self.body.count("}")
-        self.blacklist=self.blacklist+blacklist_counter(self.body)
+        self.spaces = self.spaces + self.body.count(" ")
+        self.curly_open = self.curly_open + self.body.count("{")
+        self.curly_close = self.curly_close + self.body.count("}")
+        self.brackets_open = self.brackets_open + self.body.count("(")
+        self.brackets_close = self.brackets_close + self.body.count(")")
+        self.greater_than = self.greater_than + self.body.count(">")
+        self.lesser_than = self.lesser_than + self.body.count("<")
+        self.single_quote = self.single_quote + self.body.count("'")
+        self.double_quote = self.double_quote + self.body.count('"')
+        self.directory = self.directory + self.body.count("../")
+        self.semi_colon = self.semi_colon + self.body.count(":")
+        self.double_dash = self.double_dash + self.body.count("--")
+        self.amp = self.amp + self.body.count("&")
 
     def get_count(self):
         """
@@ -106,7 +133,19 @@ class Features:
 
         """
 
-        livedata=[self.single_quote,self.double_quote,self.spaces,self.greaterThan,self.lesserThan,self.Open_curlyBraces,self.Closed_curlyBraces,self.blacklist]
+        livedata=[self.path,self.path_len,self.useragent_len,self.spaces,self.curly_open,
+                self.curly_close,
+                self.brackets_open,
+                self.brackets_close,
+                self.greater_than,
+                self.lesser_than,
+                self.single_quote,
+                self.double_quote,
+                self.directory ,
+                self.semi_colon ,
+                self.double_dash,
+                self.amp]
+
         return livedata
 
 

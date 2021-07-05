@@ -13,6 +13,7 @@ Project:
 
 import asyncio
 from features import Features
+import SecureteaWAF
 
 from requester import Requester
 
@@ -55,6 +56,7 @@ class HTTP(asyncio.Protocol):
         if self.parsed_data.command=="POST":
 
             self.body=self.parsed_data.get_body().decode("utf-8")
+            print(self.body)
 
         else:
             self.body=None
@@ -63,6 +65,7 @@ class HTTP(asyncio.Protocol):
 
 
         method=self.parsed_data.command
+        print(self.parsed_data.headers.keys())
         headers=self.parsed_data.headers
         path=self.parsed_data.path
 
@@ -81,8 +84,30 @@ class HTTP(asyncio.Protocol):
 
         #Live feature count that has to be comapred with the model
         self.feature_value=self.features.get_count()
+        print(self.feature_value)
 
         #Model Output
+        self.model=SecureteaWAF.WAF(self.feature_value)
+        predicted_value=self.model.predict_model()
+
+        self.requester=Requester();
+
+        if predicted_value[0]==0:
+            try:
+
+                self.requester.connect(data)
+                self.requester.send_data(data)
+                response = self.requester.receive_data()
+                self.transport.write(response)
+                self.requester.close()
+                self.close_transport()
+
+            except Exception as e:
+
+                print("Error", e)
+
+        else:
+            self.close_transport()
 
 
 
@@ -98,17 +123,7 @@ class HTTP(asyncio.Protocol):
 
 
        #Based on Output Run the Below code
-        try:
 
-            self.requester.send_data(data)
-            response=self.requester.receive_data()
-            self.transport.write(response)
-            self.requester.close()
-            self.close_transport()
-
-        except Exception as e:
-
-            print("Error",e)
 
     def close_transport(self):
        """

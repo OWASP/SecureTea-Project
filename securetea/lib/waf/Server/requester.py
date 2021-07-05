@@ -40,7 +40,7 @@ class Requester:
         """
         Extracts the host name and connects the socket to the host on port 80
         """
-
+        print("inside connect")
         self.host=(RequestParser(data).headers["HOST"])
         print(self.host)
         try :

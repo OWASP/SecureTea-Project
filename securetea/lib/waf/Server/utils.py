@@ -94,9 +94,13 @@ def blacklist_counter(value):
     try:
        with open("/home/ajmal/GSOC-21/securetea/lib/waf/rules/blacklist.txt","r") as b:
            for word in b.readlines():
+               word2=word.strip("\n")
 
-               print(len(re.findall(word,value)))
-               counter=len(re.findall(word,value))
+               if word2 in value:
+
+                   counter=counter+1
+
+
 
 
     except Exception as e:
