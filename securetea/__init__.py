@@ -65,6 +65,7 @@ from .lib.web_deface import gather_file
 from .lib.web_deface import hash_gen
 from .lib.web_deface import monitor
 from .lib.web_deface import secureTeaWebDeface
+from .lib.web_deface import signature_detection
 from .lib.web_deface import web_deface_engine
 from .lib.antivirus import antivirus_logger
 from .lib.antivirus import core_engine

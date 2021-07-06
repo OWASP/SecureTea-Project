@@ -12,6 +12,7 @@ Project:
 """
 
 from securetea.lib.web_deface.gather_file import GatherFile
+from securetea.lib.web_deface.signature_detection import SigDetect
 from securetea.lib.web_deface.hash_gen import Hash
 from securetea.lib.web_deface.file_handler import *
 from securetea.lib.web_deface.deface_logger import DefaceLogger
@@ -49,6 +50,8 @@ class Monitor(object):
 
         # Create GatherFile object to gather list of files
         self.gather_file_obj = GatherFile(debug=self.debug, path=path)
+        # Create SigDetect object to scan files for attack signatures
+        self.sig_detect_obj = SigDetect(debug=debug, path=path)
         # Create Hash object to get hashes of the files
         self.hash_gen_obj = Hash(debug=self.debug)
         # Load original hash config of files
@@ -97,6 +100,8 @@ class Monitor(object):
         hash_dict = self.hash_gen_obj.hash_value(file_list)
         # Get the set values of the files
         set_dict = self.hash_gen_obj.get_sets(file_list)
+        # Get the defacement status of the files
+        deface_status_dict = self.sig_detect_obj.scan_files(file_list)
 
         # Iterate through the hash values
         for path, hash_val in hash_dict.items():
@@ -141,3 +146,13 @@ class Monitor(object):
                     logtype="warning"
                 )
                 self.copy_file(path)  # copy the deleted file from the backup
+
+        # Iterate through the file content to look for attack signature and defacement status
+        for path, defacement_status in deface_status_dict.items():
+            if defacement_status:
+                msg = "Web Deface detected, attack signature found on file: " + path
+                self.logger.log(
+                    msg,
+                    logtype="warning"
+                )
+                self.copy_file(path)  # hash value not equal, file modified, copy file
