@@ -13,6 +13,8 @@ import re
 from http.server import BaseHTTPRequestHandler
 import io
 from certauth import CertificateAuthority
+from pathlib import Path
+import os
 
 
 class RequestParser(BaseHTTPRequestHandler):
@@ -91,14 +93,15 @@ def blacklist_counter(value):
     """
     counter=0
 
+    blacklistpath = Path(os.path.dirname(__file__)).parent + "/rules/blacklist.txt"
     try:
-       with open("/home/ajmal/GSOC-21/securetea/lib/waf/rules/blacklist.txt","r") as b:
-           for word in b.readlines():
-               word2=word.strip("\n")
+        with open(blacklistpath,"r") as b:
+            for word in b.readlines():
+                word2=word.strip("\n")
 
-               if word2 in value:
+                if word2 in value:
 
-                   counter=counter+1
+                    counter += 1
 
 
 
