@@ -50,7 +50,7 @@ class HTTP(asyncio.Protocol):
 
 
         """
-
+        print(data)
         self.parsed_data=RequestParser(data)
 
         if self.parsed_data.command=="POST":
@@ -68,6 +68,7 @@ class HTTP(asyncio.Protocol):
         print(self.parsed_data.headers.keys())
         headers=self.parsed_data.headers
         path=self.parsed_data.path
+        print(path)
 
 
         if self.body:
@@ -91,8 +92,11 @@ class HTTP(asyncio.Protocol):
         predicted_value=self.model.predict_model()
 
         self.requester=Requester();
+        print(predicted_value)
+
 
         if predicted_value[0]==0:
+
             try:
 
                 self.requester.connect(data)

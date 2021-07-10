@@ -45,7 +45,7 @@ class Requester:
         print(self.host)
         try :
             {
-                self.socket.connect((self.host,2644))
+                self.socket.connect((self.host,80))
             }
         except Exception as e:
             print(e)

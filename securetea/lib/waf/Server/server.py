@@ -47,7 +47,20 @@ class SecureteaWAF:
         await self.server.serve_forever()
 
 
+def get3Grams(path):
+    """
+        Generates 3 Grams of the given path and object before vectorizing it
 
+        Args:
+            path(str): A string path or body that has to converted into n grams
+        return:
+              A list containing the n grams
+    """
+    payload = str(path)
+    ngrams = []
+    for i in range(0, len(payload) - 4):
+        ngrams.append(payload[i:i + 4])
+    return ngrams
 
 c=SecureteaWAF();
 c.run_server();

@@ -35,15 +35,15 @@ class WAF:
 
 
         self.live_data=[live_data]
-        self.data=pd.read_csv("../data/data.csv",encoding="cp1252")
+        self.data=pd.read_csv("../data/data_updated.csv",encoding="cp1252")
         self.target=self.data["label"]
-        self.path_vectorizer=TfidfVectorizer(ngram_range=(1,3),encoding="cp1252")
-        self.body_vectorizer=TfidfVectorizer(ngram_range=(1,3),encoding="cp1252")
+        self.path_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
+        self.body_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
         self.model=GaussianNB()
 
         # Feature selection
 
-        self.X=self.data[['path','path_len','useragent_len','spaces', 'curly_open', 'curly_close', 'brackets_open','brackets_close', 'greater_than', 'lesser_than', 'single_quote','double_quote', 'directory', 'semi_colon', 'double_dash', 'amp']]
+        self.X=self.data[['path','body','path_len','useragent_len','spaces', 'curly_open', 'curly_close', 'brackets_open','brackets_close', 'greater_than', 'lesser_than', 'single_quote','double_quote', 'directory', 'semi_colon', 'double_dash', 'amp']]
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
 
@@ -56,7 +56,7 @@ class WAF:
 
         # Column Transformer
 
-        self.column_transformer = ColumnTransformer([('tf-1', self.path_vectorizer, 'path')], remainder='passthrough', sparse_threshold=0)
+        self.column_transformer = ColumnTransformer([('tf-1', self.path_vectorizer, 'path'),('tf-2',self.body_vectorizer,'body'),], remainder='passthrough', sparse_threshold=0)
 
         # Creating Pipeline
 
@@ -67,26 +67,28 @@ class WAF:
                 ])
 
         # Train Model
-        print("Train completed")
+
         self.pipe.fit(self.X_train,self.Y_train)
-        print("Train completed")
+
+        with open("model", "wb") as f:
+            pickle.dump(self.pipe, f)
+
+
 
 
     def predict_model(self):
 
-        with open("../data/model","rb") as f:
+        with open("../data/model3","rb") as f:
             self.model2=pickle.load(f)
 
 
 
         self.live_df= pd.DataFrame(self.live_data,
-                          columns=['path', 'path_len', 'useragent_len', 'spaces', 'curly_open', 'curly_close',
+                          columns=['path','body', 'path_len', 'useragent_len', 'spaces', 'curly_open', 'curly_close',
                                    'brackets_open',
                                    'brackets_close', 'greater_than', 'lesser_than', 'single_quote',
                                    'double_quote', 'directory', 'semi_colon', 'double_dash', 'amp'])
         return self.model2.predict(self.live_df)
-
-
 
 
 
