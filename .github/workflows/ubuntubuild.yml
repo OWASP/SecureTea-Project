@@ -35,7 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Delete current pre-release
         if: steps.checkTag.outputs.exists == 'true'
-        uses: author/action-rollback@stable
+        uses: author/action-rollback@1.0.0
         with:
           tag: 'pre-release'
           delete_orphan_tag: true
