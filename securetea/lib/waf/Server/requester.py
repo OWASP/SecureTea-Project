@@ -11,7 +11,7 @@ Project:
 """
 
 import socket
-from utils import RequestParser
+from .utils import RequestParser
 
 
 
@@ -28,7 +28,7 @@ class Requester:
             data(bytes): Consists of the raw request.
         """
 
-        print("inside requester")
+
 
         socket.setdefaulttimeout(timeout)
 
@@ -40,9 +40,9 @@ class Requester:
         """
         Extracts the host name and connects the socket to the host on port 80
         """
-        print("inside connect")
+
         self.host=(RequestParser(data).headers["HOST"])
-        print(self.host)
+
         try :
             {
                 self.socket.connect((self.host,80))

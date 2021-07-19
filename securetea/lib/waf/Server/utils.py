@@ -12,7 +12,7 @@ Project:
 import re
 from http.server import BaseHTTPRequestHandler
 import io
-from certauth import CertificateAuthority
+#from certauth import CertificateAuthority
 from pathlib import Path
 import os
 
@@ -72,12 +72,13 @@ class GenerateCA:
 
 
     def genca(self):
+        pass
 
 
 
-        self.ca = CertificateAuthority("securetea", "securetea.pem", cert_cache="/tmp/cert")
-        filename = self.ca.cert_for_host(self.host)
-        return filename
+        #self.ca = CertificateAuthority("securetea", "securetea.pem", cert_cache="/tmp/cert")
+        #filename = self.ca.cert_for_host(self.host)
+        #return filename
 
 
 

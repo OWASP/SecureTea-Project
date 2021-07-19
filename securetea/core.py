@@ -31,6 +31,7 @@ from securetea.args.args_helper import ArgsHelper
 from securetea.lib.firewall.utils import setup_logger
 from securetea.lib.security_header import secureTeaHeaders
 from securetea.lib.ids import secureTeaIDS
+from securetea.lib.waf.Server import  SecureTeaWaf
 from securetea.lib.log_monitor.system_log import engine
 from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
 from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
@@ -43,6 +44,7 @@ from securetea.lib.history_logger.historylogger_logger import HistoryLogger
 from securetea.modes import server_mode
 from securetea.modes import system_mode
 from securetea.modes import iot_mode
+
 
 pynput_status = True
 
@@ -95,6 +97,7 @@ class SecureTea(object):
         self.firewall_provided = args_dict['firewall_provided']
         self.insecure_headers_provided = args_dict['insecure_headers_provided']
         self.ids_provided = args_dict['ids_provided']
+        self.waf_provided=args_dict["waf_provided"]
         self.system_log_provided = args_dict['system_log_provided']
         self.server_log_provided = args_dict['server_log_provided']
         self.auto_server_patcher_provided = args_dict['auto_server_patcher_provided']
@@ -127,6 +130,7 @@ class SecureTea(object):
                     "Social Engineering configuration parameter not set.",
                     logtype="error"
                 )
+
 
             try:
                 if self.cred['twitter']:
@@ -494,6 +498,17 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Intrusion Detection System (IDS) parameter not configured.",
+                    logtype="error"
+                )
+        if self.waf_provided:
+            try:
+                if self.cred['waf']:
+
+                    waf_obj=SecureTeaWaf.SecureTeaWaf(cred=self.cred['waf'],debug=self.cred["debug"])
+                    waf_obj.startWaf()
+            except KeyError:
+                self.logger.log(
+                    "WAF parameter not configured ",
                     logtype="error"
                 )
 

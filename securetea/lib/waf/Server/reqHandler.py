@@ -12,12 +12,12 @@ Project:
 
 
 import asyncio
-from features import Features
-import SecureteaWAF
+from .features import Features
+from .classifier import WAF
 
-from requester import Requester
+from .requester import Requester
 
-from utils import RequestParser
+from .utils import RequestParser
 
 
 class HTTP(asyncio.Protocol):
@@ -28,6 +28,12 @@ class HTTP(asyncio.Protocol):
 
 
     """
+    def __init__(self,mode):
+
+
+        self.mode=mode
+
+
 
 
 
@@ -50,7 +56,7 @@ class HTTP(asyncio.Protocol):
 
 
         """
-        print(data)
+        self.data=data
         self.parsed_data=RequestParser(data)
 
         if self.parsed_data.command=="POST":
@@ -65,10 +71,10 @@ class HTTP(asyncio.Protocol):
 
 
         method=self.parsed_data.command
-        print(self.parsed_data.headers.keys())
+
         headers=self.parsed_data.headers
         path=self.parsed_data.path
-        print(path)
+
 
 
         if self.body:
@@ -85,48 +91,51 @@ class HTTP(asyncio.Protocol):
 
         #Live feature count that has to be comapred with the model
         self.feature_value=self.features.get_count()
-        print(self.feature_value)
+
 
         #Model Output
-        self.model=SecureteaWAF.WAF(self.feature_value)
+        self.model=WAF(self.feature_value)
         predicted_value=self.model.predict_model()
 
-        self.requester=Requester();
-        print(predicted_value)
 
 
-        if predicted_value[0]==0:
 
-            try:
 
-                self.requester.connect(data)
-                self.requester.send_data(data)
-                response = self.requester.receive_data()
-                self.transport.write(response)
-                self.requester.close()
-                self.close_transport()
+        # Based on mode Block or Log Request
 
-            except Exception as e:
+        if self.mode==0 and predicted_value[0]==1:
+            # Log the file and send the Request
+            self.sendRequest()
 
-                print("Error", e)
-
-        else:
+        elif self.mode==1 and predicted_value[0]==1:
+            # Reset the Request
             self.close_transport()
 
+        else:
+            # Send the request
+            self.sendRequest()
 
 
 
 
 
+    def sendRequest(self):
+        """
 
+        """
+        self.requester=Requester()
 
+        try:
 
+            self.requester.connect(self.data)
+            self.requester.send_data(self.data)
+            response = self.requester.receive_data()
+            self.transport.write(response)
+            self.requester.close()
+            self.close_transport()
 
-
-
-
-
-       #Based on Output Run the Below code
+        except Exception as e:
+            pass
 
 
     def close_transport(self):

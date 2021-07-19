@@ -35,7 +35,11 @@ class WAF:
 
 
         self.live_data=[live_data]
-        self.data=pd.read_csv("../data/data_updated.csv",encoding="cp1252")
+        self.DATA_PATH="/home/ajmal/GSOC-21/securetea/lib/waf/data/data_updated.csv"
+        self.MODEL_PATH="/home/ajmal/GSOC-21/securetea/lib/waf/data/model3"
+
+        self.data=pd.read_csv(self.DATA_PATH,encoding="cp1252")
+
         self.target=self.data["label"]
         self.path_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
         self.body_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
@@ -46,6 +50,7 @@ class WAF:
         self.X=self.data[['path','body','path_len','useragent_len','spaces', 'curly_open', 'curly_close', 'brackets_open','brackets_close', 'greater_than', 'lesser_than', 'single_quote','double_quote', 'directory', 'semi_colon', 'double_dash', 'amp']]
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
+
 
 
     def train_model(self):
@@ -78,12 +83,19 @@ class WAF:
 
     def predict_model(self):
 
-        with open("../data/model3","rb") as f:
-            self.model2=pickle.load(f)
+
+
+        try:
+            with open(self.MODEL_PATH,"rb") as f:
+
+                  self.model2=pickle.load(f)
+        except UserWarning:
+            pass
 
 
 
-        self.live_df= pd.DataFrame(self.live_data,
+
+        self.live_df=pd.DataFrame(self.live_data,
                           columns=['path','body', 'path_len', 'useragent_len', 'spaces', 'curly_open', 'curly_close',
                                    'brackets_open',
                                    'brackets_close', 'greater_than', 'lesser_than', 'single_quote',
@@ -91,4 +103,17 @@ class WAF:
         return self.model2.predict(self.live_df)
 
 
+def get3Grams(path):
+    """
+        Generates 3 Grams of the given path and object before vectorizing it
 
+        Args:
+            path(str): A string path or body that has to converted into n grams
+        return:
+              A list containing the n grams
+    """
+    payload = str(path)
+    ngrams = []
+    for i in range(0, len(payload) - 4):
+        ngrams.append(payload[i:i + 4])
+    return ngrams

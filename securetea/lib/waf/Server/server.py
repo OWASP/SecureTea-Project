@@ -12,7 +12,7 @@ Project:
 """
 
 import asyncio
-from  reqHandler import HTTP
+from  .reqHandler import HTTP
 
 class SecureteaWAF:
     """
@@ -20,12 +20,13 @@ class SecureteaWAF:
 
 
     """
-    def __init__(self,host="127.0.0.1",port=2640):
+    def __init__(self,mode=0,host="127.0.0.1",port=2640):
         """
          Initialize host and port for listening
         """
         self.host=host
         self.port=port
+        self.mode=mode
 
 
 
@@ -37,7 +38,7 @@ class SecureteaWAF:
 
         self.loop=asyncio.get_event_loop()
         self.server= await self.loop.create_server(
-            lambda:HTTP(),host=self.host, port=self.port
+            lambda:HTTP(mode=self.mode),host=self.host, port=self.port
         )
 
         ip, port = self.server.sockets[0].getsockname()
@@ -47,20 +48,3 @@ class SecureteaWAF:
         await self.server.serve_forever()
 
 
-def get3Grams(path):
-    """
-        Generates 3 Grams of the given path and object before vectorizing it
-
-        Args:
-            path(str): A string path or body that has to converted into n grams
-        return:
-              A list containing the n grams
-    """
-    payload = str(path)
-    ngrams = []
-    for i in range(0, len(payload) - 4):
-        ngrams.append(payload[i:i + 4])
-    return ngrams
-
-c=SecureteaWAF();
-c.run_server();
