@@ -109,5 +109,3 @@ class SecureTeaLogger():
 
             elif logtype == "warning":
                 self.printwarning(message)
-            else:
-                pass

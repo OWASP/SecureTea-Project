@@ -55,11 +55,11 @@ class BGP_Abuse(object):
         """
 
         # Blind Disruption Detection
-        if (pkt.haslayer(scapy.IP) 
-            and pkt.haslayer(scapy.TCP)):
-            if('RA' in str(pkt[scapy.TCP].flags)):
-                self.logger.log(
-                            "Possible BGP Abuse,Blind Disruption attack detected.",
-                            logtype="warning"
-                        )
+        if (pkt.haslayer(scapy.IP) and pkt.haslayer(scapy.TCP)) and (
+            'RA' in str(pkt[scapy.TCP].flags)
+        ):
+            self.logger.log(
+                        "Possible BGP Abuse,Blind Disruption attack detected.",
+                        logtype="warning"
+                    )
 

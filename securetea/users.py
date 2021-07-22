@@ -80,10 +80,7 @@ class SecureTeaUserLogger():
                            changes in USER table
         """
         message = "USERS UPDATES\n"
-        cur_users = []
-        for user in psutil.users():
-            cur_users.append((user.name, user.host))
-
+        cur_users = [(user.name, user.host) for user in psutil.users()]
         users = list(connection.execute("SELECT NAME,IP FROM USERS"))
         for user in users:
             if user not in cur_users:

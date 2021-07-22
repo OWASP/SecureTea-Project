@@ -70,7 +70,7 @@ class ServerMode(object):
         self.system_log = False
 
         # Initialize empty process pool list
-        self.process_pool = list()
+        self.process_pool = []
 
     def create_objects(self):
         """

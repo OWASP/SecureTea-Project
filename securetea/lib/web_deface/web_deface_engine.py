@@ -79,15 +79,14 @@ class Engine(object):
         try:
             if path is not None and path != "":
                 self._PATH = str(path)
+            elif self.os_name:
+                self._PATH = self.path_mapping_dict[self.os_name][server_name]
             else:
-                if self.os_name:
-                    self._PATH = self.path_mapping_dict[self.os_name][server_name]
-                else:
-                    self.logger.log(
-                        "Could not determine the OS, exiting.",
-                        logtype="error"
-                    )
-                    sys.exit(0)
+                self.logger.log(
+                    "Could not determine the OS, exiting.",
+                    logtype="error"
+                )
+                sys.exit(0)
         except KeyError:
             self.logger.log(
                 "Could not decide the suitable web server files path, exiting.",
@@ -95,11 +94,7 @@ class Engine(object):
             )
             sys.exit(0)
         except Exception as e:
-            self.logger.log(
-                "Error occurred: " + str(e),
-                logtype="error"
-            )
-
+            self.logger.log('Error occurred: ' + str(e), logtype='error')
         if self._PATH:  # if directory path is valid
             # Gather files (create a list of files in the directory)
             self.gather_file_obj = gather_file.GatherFile(debug=self.debug, path=self._PATH)

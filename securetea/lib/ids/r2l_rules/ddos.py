@@ -217,21 +217,22 @@ class DDoS(object):
         Returns:
             None
         """
-        if len(self.simp) != 0:
-            start_ip = [key for key in self.simp.keys()][0]
-            end_ip = [key for key in self.simp.keys()][-1]
+        if len(self.simp) == 0:
+            return
+        start_ip = [key for key in self.simp.keys()][0]
+        end_ip = [key for key in self.simp.keys()][-1]
 
-            start_time = int(self.simp[start_ip]["start_time"])
-            end_time = int(self.simp[end_ip]["start_time"])
-            delta_time = int(end_time - start_time)
+        start_time = int(self.simp[start_ip]["start_time"])
+        end_time = int(self.simp[end_ip]["start_time"])
+        delta_time = int(end_time - start_time)
 
-            try:
-                calc_threshold = len(self.simp) / delta_time
-            except ZeroDivisionError:
-                calc_threshold = len(self.simp)
+        try:
+            calc_threshold = len(self.simp) / delta_time
+        except ZeroDivisionError:
+            calc_threshold = len(self.simp)
 
-            if calc_threshold > self._THRESHOLD:
-                self.logger.log(
-                    "Possible Multiple IP Multiple Port DDoS attack detected",
-                    logtype="warning"
-                )
+        if calc_threshold > self._THRESHOLD:
+            self.logger.log(
+                "Possible Multiple IP Multiple Port DDoS attack detected",
+                logtype="warning"
+            )

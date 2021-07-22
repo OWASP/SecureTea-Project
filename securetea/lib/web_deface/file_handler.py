@@ -49,7 +49,6 @@ def json_to_dict(path):
     """
     try:
         with open(path, "r") as json_data_file:
-            data = json.load(json_data_file)
-            return data
+            return json.load(json_data_file)
     except Exception as e:
         print(e)
