@@ -12,7 +12,7 @@ Project:
 """
 
 import pandas as pd
-import numpy as np
+import warnings
 import pickle
 
 from sklearn.model_selection import train_test_split
@@ -20,6 +20,8 @@ from sklearn.naive_bayes import GaussianNB,MultinomialNB
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
+from .utils import get3Grams
+
 
 
 class WAF:
@@ -50,6 +52,10 @@ class WAF:
         self.X=self.data[['path','body','path_len','useragent_len','spaces', 'curly_open', 'curly_close', 'brackets_open','brackets_close', 'greater_than', 'lesser_than', 'single_quote','double_quote', 'directory', 'semi_colon', 'double_dash', 'amp']]
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
+
+        # Initialize Logger
+
+
 
 
 
@@ -84,36 +90,45 @@ class WAF:
     def predict_model(self):
 
 
+        """
+        Function Responsible for loading the trainned model and predicting
+        the state of the incoming live request.
+
+        Args:None
+
+        return (list): A list containing the predicted output.
+
+
+        """
+
+        warnings.filterwarnings("ignore",category=UserWarning)
 
         try:
             with open(self.MODEL_PATH,"rb") as f:
 
-                  self.model2=pickle.load(f)
-        except UserWarning:
-            pass
-
-
-
+                  self.model=pickle.load(f)
+        except Exception as E:
+            print(E)
 
         self.live_df=pd.DataFrame(self.live_data,
-                          columns=['path','body', 'path_len', 'useragent_len', 'spaces', 'curly_open', 'curly_close',
+
+                          columns=['path',
+                                   'body',
+                                   'path_len',
+                                   'useragent_len',
+                                   'spaces',
+                                   'curly_open',
+                                   'curly_close',
                                    'brackets_open',
-                                   'brackets_close', 'greater_than', 'lesser_than', 'single_quote',
-                                   'double_quote', 'directory', 'semi_colon', 'double_dash', 'amp'])
-        return self.model2.predict(self.live_df)
+                                   'brackets_close',
+                                   'greater_than',
+                                   'lesser_than',
+                                   'single_quote',
+                                   'double_quote',
+                                   'directory',
+                                   'semi_colon',
+                                   'double_dash',
+                                   'amp'])
+        return self.model.predict(self.live_df)
 
 
-def get3Grams(path):
-    """
-        Generates 3 Grams of the given path and object before vectorizing it
-
-        Args:
-            path(str): A string path or body that has to converted into n grams
-        return:
-              A list containing the n grams
-    """
-    payload = str(path)
-    ngrams = []
-    for i in range(0, len(payload) - 4):
-        ngrams.append(payload[i:i + 4])
-    return ngrams

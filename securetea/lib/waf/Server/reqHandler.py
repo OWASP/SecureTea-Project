@@ -14,10 +14,9 @@ Project:
 import asyncio
 from .features import Features
 from .classifier import WAF
-
 from .requester import Requester
-
 from .utils import RequestParser
+from securetea import logger
 
 
 class HTTP(asyncio.Protocol):
@@ -28,10 +27,23 @@ class HTTP(asyncio.Protocol):
 
 
     """
-    def __init__(self,mode):
+    def __init__(self,mode,debug=False):
+        """
+        Initializing the variables
+        """
 
 
         self.mode=mode
+
+        # Initialize Logger
+
+        self.logger=logger.SecureTeaLogger(
+            __name__,
+            debug=True
+        )
+
+
+
 
 
 
@@ -46,6 +58,9 @@ class HTTP(asyncio.Protocol):
 
         """
         self.transport = transport
+        self.rhost,self.rport=self.transport.get_extra_info("peername")
+
+
 
 
     def data_received(self, data):
@@ -62,7 +77,7 @@ class HTTP(asyncio.Protocol):
         if self.parsed_data.command=="POST":
 
             self.body=self.parsed_data.get_body().decode("utf-8")
-            print(self.body)
+
 
         else:
             self.body=None
@@ -90,10 +105,12 @@ class HTTP(asyncio.Protocol):
             self.features.extract_headers()
 
         #Live feature count that has to be comapred with the model
+
         self.feature_value=self.features.get_count()
 
 
         #Model Output
+
         self.model=WAF(self.feature_value)
         predicted_value=self.model.predict_model()
 
@@ -105,6 +122,11 @@ class HTTP(asyncio.Protocol):
 
         if self.mode==0 and predicted_value[0]==1:
             # Log the file and send the Request
+            self.logger.log(
+                "Attack Detected from :{}:{}".format(self.rhost,self.rport),
+                logtype="warning"
+            )
+
             self.sendRequest()
 
         elif self.mode==1 and predicted_value[0]==1:
@@ -113,6 +135,10 @@ class HTTP(asyncio.Protocol):
 
         else:
             # Send the request
+            self.logger.log(
+                "Incoming {} request from :{}:{}".format(method,self.rhost, self.rport),
+                logtype="info"
+            )
             self.sendRequest()
 
 

@@ -57,6 +57,7 @@ class Requester:
         Sends the data through the socket to the server
         """
 
+
         self.socket.send(data)
 
     def receive_data(self):
@@ -75,6 +76,7 @@ class Requester:
                     break
                 else:
                     response += buf
+
             except Exception as e:
                 break
 

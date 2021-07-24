@@ -13,6 +13,7 @@ Project:
 
 import asyncio
 from  .reqHandler import HTTP
+from securetea import logger
 
 class SecureteaWAF:
     """
@@ -20,13 +21,20 @@ class SecureteaWAF:
 
 
     """
-    def __init__(self,mode=0,host="127.0.0.1",port=2640):
+    def __init__(self,mode=0,host="127.0.0.1",port=2640,debug=False):
         """
          Initialize host and port for listening
         """
         self.host=host
         self.port=port
         self.mode=mode
+
+        # Initialize logger
+
+        self.logger=logger.SecureTeaLogger(
+            __name__,
+            debug=debug
+        )
 
 
 
@@ -42,7 +50,10 @@ class SecureteaWAF:
         )
 
         ip, port = self.server.sockets[0].getsockname()
-        print("Listening on {}:{}".format(ip, port))
+        self.logger.log(
+            "Started WAF server on {}:{} ".format(ip,port),
+            logtype="info"
+        )
 
 
         await self.server.serve_forever()
