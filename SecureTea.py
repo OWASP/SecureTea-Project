@@ -7,24 +7,12 @@ import distro
 import time
 
 from securetea.core import SecureTea
+from securetea.lib.waf.Server.utils import get3Grams
 
 
 if __name__ == '__main__':
 
-    def get3Grams(path):
-        """
-            Generates 3 Grams of the given path and object before vectorizing it
 
-            Args:
-                path(str): A string path or body that has to converted into n grams
-            return:
-                  A list containing the n grams
-        """
-        payload = str(path)
-        ngrams = []
-        for i in range(0, len(payload) - 5):
-            ngrams.append(payload[i:i + 5])
-        return ngrams
 
     secT = SecureTea()
     try:

@@ -33,7 +33,7 @@ class HTTP(asyncio.Protocol):
         """
 
 
-        self.mode=mode
+        self.mode=int(mode)
 
         # Initialize Logger
 
@@ -129,8 +129,12 @@ class HTTP(asyncio.Protocol):
 
             self.sendRequest()
 
-        elif self.mode==1 and predicted_value[0]==1:
+        if self.mode==1 and predicted_value[0]==1:
             # Reset the Request
+            self.logger.log(
+                "Attack Detected ! Request Blocked from :{}:{}".format(self.rhost, self.rport),
+                logtype="warning"
+            )
             self.close_transport()
 
         else:
