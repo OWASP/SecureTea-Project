@@ -13,6 +13,7 @@ Project:
 
 # Import all the modules necessary for server mode
 from securetea.lib.ids import secureTeaIDS
+from securetea.lib.waf.Server import SecureTeaWaf
 from securetea.lib.log_monitor.system_log import engine
 from securetea.lib.log_monitor.server_log.secureTeaServerLog import SecureTeaServerLog
 from securetea.lib.auto_server_patcher.secureTeaServerPatcher import SecureTeaAutoServerPatcher
@@ -23,6 +24,7 @@ from securetea import logger
 
 import multiprocessing
 import sys
+
 
 
 class ServerMode(object):
@@ -62,6 +64,7 @@ class ServerMode(object):
 
         # Initialize objects presence as false
         self.firewall = False
+        self.waf=False
         self.ids = False
         self.antivirus = False
         self.auto_server_patcher = False
@@ -111,6 +114,35 @@ class ServerMode(object):
                     "Error occured: " + str(e),
                     logtype="error"
                 )
+        if self.cred.get("waf"):
+            try:
+                self.logger.log(
+                    "Initializing IDS object",
+                    logtype="info"
+                )
+
+                # Initialize WAF object
+                self.waf_obj=SecureTeaWaf.SecureTeaWaf(cred=self.cred["waf"],debug=self.debug)
+
+                self.waf=True
+
+                self.logger.log(
+                "Initialized WAF object",
+                logtype="info"
+                )
+
+            except KeyError :
+                self.logger.log(
+                    "Web Application Firewall (WAF) parameter not configured.",
+                    logtype="error"
+                )
+            except Exception as e:
+                self.logger.log(
+                    "Error occured: " + str(e),
+                    logtype="error"
+                )
+
+
 
         if self.cred.get("ids"):
             try:
@@ -277,6 +309,10 @@ class ServerMode(object):
         if self.firewall:  # if Firewall object is initialized
             firewall_process = multiprocessing.Process(target=self.firewallObj.start_firewall)
             self.process_pool.append(firewall_process)
+
+        if self.waf:
+            waf_process=multiprocessing.Process(target=self.waf_obj.startWaf)
+            self.process_pool.append(waf_process)
 
         if self.ids:  # if IDS object is initialized
             ids_process = multiprocessing.Process(target=self.ids_obj.start_ids)

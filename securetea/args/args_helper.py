@@ -1032,8 +1032,8 @@ class ArgsHelper(object):
                 self.insecure_headers_provided = True
         if not self.waf_provided:
             if(isinstance(self.args.listenIp,str) and
-               isinstance(self.args.listenPort,int) and
-               isinstance(self.args.mode,int)):
+               isinstance(self.args.listenPort,str) and
+               isinstance(self.args.mode,str)):
                 waf={}
                 waf["listen_ip"]=self.args.listenIp
                 waf["listne_port"]=self.args.listenPort

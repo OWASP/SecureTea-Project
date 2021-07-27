@@ -7,6 +7,8 @@ import distro
 import time
 
 from securetea.core import SecureTea
+
+# get3grams required for WAF module
 from securetea.lib.waf.Server.utils import get3Grams
 
 
@@ -23,7 +25,7 @@ if __name__ == '__main__':
             os_name = distro.linux_distribution()[0]
             os_major_version = distro.linux_distribution()[1].split('.')[0]
 
-            if os_name == 'Ubuuntu' and int(os_major_version) >= 16:
+            if os_name == 'Ubuntu' and int(os_major_version) >= 16:
                 command = 'systemctl suspend'
             os.system(command)
         if platfom == 'Darwin':

@@ -16,7 +16,7 @@ import warnings
 import pickle
 
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB,MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
@@ -26,25 +26,33 @@ from .utils import get3Grams
 
 class WAF:
     """
+    Class responsible for training a ML model that uses GaussianNB classifier and also predict
+    the class of live features from the incoming request
 
     """
 
     def __init__(self,live_data):
+
+
         """
+
+        A class that initialise the required variables
 
 
         """
 
 
         self.live_data=[live_data]
-        self.DATA_PATH="/home/ajmal/GSOC-21/securetea/lib/waf/data/data_updated.csv"
-        self.MODEL_PATH="/home/ajmal/GSOC-21/securetea/lib/waf/data/model3"
+
+
+        self.DATA_PATH = "/home/ajmal/GSOC-21/securetea/lib/waf/data/data_updated.csv"
+        self.MODEL_PATH = "/home/ajmal/GSOC-21/securetea/lib/waf/data/model3"
 
         self.data=pd.read_csv(self.DATA_PATH,encoding="cp1252")
 
-        self.target=self.data["label"]
-        self.path_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
-        self.body_vectorizer=TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
+        self.target = self.data["label"]
+        self.path_vectorizer = TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
+        self.body_vectorizer = TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
         self.model=GaussianNB()
 
         # Feature selection
@@ -53,14 +61,18 @@ class WAF:
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
 
-        # Initialize Logger
 
 
 
 
 
     def train_model(self):
+
         """
+        A method that is responsible for training a model from the given dataset and dumping the object file .
+
+        Args: None
+        Returns: None
 
 
         """
@@ -71,7 +83,7 @@ class WAF:
 
         # Creating Pipeline
 
-        self.pipe=Pipeline([
+        self.pipe = Pipeline([
 
                   ('TF_IDF Vectorizer', self.column_transformer),
                   ('run_model', self.model)
@@ -91,6 +103,7 @@ class WAF:
 
 
         """
+
         Function Responsible for loading the trainned model and predicting
         the state of the incoming live request.
 
@@ -110,7 +123,7 @@ class WAF:
         except Exception as E:
             print(E)
 
-        self.live_df=pd.DataFrame(self.live_data,
+        self.live_df = pd.DataFrame(self.live_data,
 
                           columns=['path',
                                    'body',

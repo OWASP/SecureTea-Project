@@ -39,7 +39,7 @@ class HTTP(asyncio.Protocol):
 
         self.logger=logger.SecureTeaLogger(
             __name__,
-            debug=True
+            debug=debug
         )
 
 

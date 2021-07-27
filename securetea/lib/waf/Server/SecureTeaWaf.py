@@ -48,32 +48,35 @@ class SecureTeaWaf:
             if self.cred["listen_ip"]:
                 self.listen_ip=self.cred["listen_ip"]
             if self.cred["listen_port"]:
-                self.port=self.cred["listen_port"]
+                self.port=int(self.cred["listen_port"])
             if self.cred["mode"]:
-                self.mode=self.cred["mode"]
+                self.mode=int(self.cred["mode"])
             self.wafserver_obj=SecureteaWAF(mode=self.mode,port=self.port,host=self.listen_ip,debug=debug)
 
 
     def startWaf(self):
         """
-        A function to start the web application firewall
+        A method  to start the web application firewall
 
         """
         try:
 
             self.wafserver_obj.run_server()
             self.logger.log(
+
             "SecureTea Web Application Firewall  started",
             logtype="info"
                       )
         except KeyboardInterrupt :
             self.logger.log(
+
                 "Web Application Firewall has been Stopped ",
                 logtype="info"
 
             )
         except :
             self.logger.log(
+
                 "Error while running WAF",
                 logtype="error"
             )

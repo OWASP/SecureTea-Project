@@ -318,6 +318,7 @@ class SecureTea(object):
             self.web_deface_provided = False
             self.system_log_provided = False
             self.auto_server_patcher_provided = False
+            self.waf_provided=False
             self.ids_provided = False
 
         # Check for System mode

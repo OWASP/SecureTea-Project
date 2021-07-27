@@ -17,7 +17,7 @@ from securetea import logger
 
 class SecureteaWAF:
     """
-     A class that starts the Server server
+     A class that starts the WAF  server
 
 
     """
@@ -45,12 +45,14 @@ class SecureteaWAF:
     async def start(self):
 
         self.loop=asyncio.get_event_loop()
-        self.server= await self.loop.create_server(
+        self.server = await self.loop.create_server(
+
             lambda:HTTP(mode=self.mode),host=self.host, port=self.port
         )
 
         ip, port = self.server.sockets[0].getsockname()
         self.logger.log(
+           
             "Started WAF server on {}:{} ".format(ip,port),
             logtype="info"
         )
