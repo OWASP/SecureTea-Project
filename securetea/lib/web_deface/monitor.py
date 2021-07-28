@@ -13,6 +13,7 @@ Project:
 
 from securetea.lib.web_deface.gather_file import GatherFile
 from securetea.lib.web_deface.signature_detection import SigDetect
+from securetea.lib.web_deface.defacement_detector import DefaceDetect
 from securetea.lib.web_deface.hash_gen import Hash
 from securetea.lib.web_deface.file_handler import *
 from securetea.lib.web_deface.deface_logger import DefaceLogger
@@ -156,3 +157,12 @@ class Monitor(object):
                     logtype="warning"
                 )
                 self.copy_file(path)  # hash value not equal, file modified, copy file
+
+        for path, defacement_status in ml_deface_prediction.items():
+            if defacement_status:
+                msg = "Web Deface detected,  ML based defacement prediction model detects attack on file: " + path
+                self.logger.log(
+                    msg,
+                    logtype="warning"
+                )
+                self.copy_file(path) # defacement detected copy the file from the backup
