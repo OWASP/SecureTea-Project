@@ -672,6 +672,31 @@ def get_args():
         help="IP address on which to perform operation"
     )
 
+    parser.add_argument(
+        '--waf',
+        required=False,
+        action="store_true",
+        help="Start Web Application Firewall"
+    )
+    parser.add_argument(
+        "--listenIp",
+        required=False,
+        type=str,
+        help="Ip address for the WAF to Listen"
+
+
+    )
+    parser.add_argument(
+        "--listenPort",
+        type=int,
+        help="Port for the WAF Server to listen on"
+    )
+    parser.add_argument(
+        "--mode",
+        type=int,
+        help="Mode for the Waf To work! "
+
+    )
     mode_group.add_argument(
         '--server-mode',
         required=False,
@@ -693,5 +718,4 @@ def get_args():
         help="Start SecureTea in IoT mode"
     )
 
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()

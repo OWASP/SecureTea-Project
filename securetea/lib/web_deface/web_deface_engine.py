@@ -94,11 +94,7 @@ class Engine(object):
             )
             sys.exit(0)
         except Exception as e:
-            self.logger.log(
-                "Error occurred: " + str(e),
-                logtype="error"
-            )
-
+            self.logger.log('Error occurred: ' + str(e), logtype='error')
         if self._PATH:  # if directory path is valid
             # Gather files (create a list of files in the directory)
             self.gather_file_obj = gather_file.GatherFile(debug=self.debug, path=self._PATH)

@@ -135,22 +135,10 @@ class FirewallEngine(object):
             action (int): 0 or 1
         """
         try:
-            action = int(self.cred['inbound_IPRule']['action'])
-            temp_ip_inbound = []
-            if len(self.cred['inbound_IPRule']['ip_inbound']):
-                list_of_IPs = str(self.cred['inbound_IPRule']['ip_inbound'])
-                list_of_IPs = list_of_IPs.split(',')
-                for IP in list_of_IPs:
-                    if '-' in IP:
-                        for new_ip in utils.generate_IPs(IP):
-                            if (new_ip not in temp_ip_inbound and
-                                utils.check_ip(new_ip)):
-                                temp_ip_inbound.append(str(new_ip).strip())
-                    elif (utils.check_ip(IP)):
-                        if IP not in temp_ip_inbound:
-                            temp_ip_inbound.append(str(IP).strip())
+            return self._extracted_from_parse_outbound_IPRule_4(
+                'inbound_IPRule', 'ip_inbound'
+            )
 
-            return temp_ip_inbound, action
         except Exception as e:
             self.logger.log(
                 "Error: " + str(e),
@@ -175,22 +163,10 @@ class FirewallEngine(object):
             action (int): 0 or 1
         """
         try:
-            action = int(self.cred['outbound_IPRule']['action'])
-            temp_ip_outbound = []
-            if len(self.cred['outbound_IPRule']['ip_outbound']):
-                list_of_IPs = str(self.cred['outbound_IPRule']['ip_outbound'])
-                list_of_IPs = list_of_IPs.split(',')
-                for IP in list_of_IPs:
-                    if '-' in IP:
-                        for new_ip in utils.generate_IPs(IP):
-                            if (new_ip not in temp_ip_outbound and
-                                utils.check_ip(new_ip)):
-                                temp_ip_outbound.append(str(new_ip).strip())
-                    elif (utils.check_ip(IP)):
-                        if IP not in temp_ip_outbound:
-                            temp_ip_outbound.append(str(IP).strip())
+            return self._extracted_from_parse_outbound_IPRule_4(
+                'outbound_IPRule', 'ip_outbound'
+            )
 
-            return temp_ip_outbound, action
         except Exception as e:
             self.logger.log(
                 "Error: " + str(e),
@@ -198,6 +174,24 @@ class FirewallEngine(object):
             )
             # Return empty list and block action
             return [], 0
+
+    def _extracted_from_parse_outbound_IPRule_4(self, arg0, arg1):
+        action = int(self.cred[arg0]['action'])
+        temp_ip_inbound = []
+        if len(self.cred[arg0][arg1]):
+            list_of_IPs = str(self.cred[arg0][arg1])
+            list_of_IPs = list_of_IPs.split(',')
+            for IP in list_of_IPs:
+                if '-' in IP:
+                    for new_ip in utils.generate_IPs(IP):
+                        if new_ip not in temp_ip_inbound and utils.check_ip(
+                            new_ip
+                        ):
+                            temp_ip_inbound.append(str(new_ip).strip())
+                elif utils.check_ip(IP):
+                    if IP not in temp_ip_inbound:
+                        temp_ip_inbound.append(str(IP).strip())
+        return temp_ip_inbound, action
 
     def parse_protocolRule(self):
         """
@@ -362,14 +356,9 @@ class FirewallEngine(object):
             action (int): 0 or 1
         """
         try:
-            action = int(self.cred['HTTPResponse']['action'])
-            return action
+            return int(self.cred['HTTPResponse']['action'])
         except Exception as e:
-            self.logger.log(
-                "Error: " + str(e),
-                logtype="error"
-            )
-            # Allow HTTPResponse
+            self.logger.log('Error: ' + str(e), logtype='error')
             return 1
 
     def parse_HTTPRequest(self):
@@ -386,14 +375,9 @@ class FirewallEngine(object):
             action (int): 0 or 1
         """
         try:
-            action = int(self.cred['HTTPRequest']['action'])
-            return action
+            return int(self.cred['HTTPRequest']['action'])
         except Exception as e:
-            self.logger.log(
-                "Error: " + str(e),
-                logtype="error"
-            )
-            # Allow HTTPRequest
+            self.logger.log('Error: ' + str(e), logtype='error')
             return 1
 
     def parse_scanLoad(self):
@@ -453,16 +437,10 @@ class FirewallEngine(object):
             datetime_ub = current_time.replace(hour=int((time_ub).split(':')[0]),
                                                minute=int((time_ub).split(':')[1]))
 
-            if (current_time > datetime_lb and
-                current_time < datetime_ub):
-                return True
-            else:
-                return False
+            return (current_time > datetime_lb and
+                current_time < datetime_ub)
         except Exception as e:
-            self.logger.log(
-                "Error: " + str(e),
-                logtype="error"
-            )
+            self.logger.log('Error: ' + str(e), logtype='error')
 
     def process_packet(self, pkt):
         """

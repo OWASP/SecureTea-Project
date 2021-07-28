@@ -101,16 +101,15 @@ class ARPCache(object):
             None
         """
         try:
-            if pkt.haslayer(scapy.ARP):
-                if int(pkt[scapy.ARP].op) == 2:
-                    ip = pkt[scapy.ARP].psrc
-                    real_mac = str(self.get_mac(ip))
-                    spoofed_mac = str(pkt[scapy.ARP].hwsrc)
-                    if (real_mac != spoofed_mac):
-                        self.logger.log(
-                            "ARP Cache poisioning / MiTM attack detected.",
-                            logtype="warning"
-                        )
+            if pkt.haslayer(scapy.ARP) and int(pkt[scapy.ARP].op) == 2:
+                ip = pkt[scapy.ARP].psrc
+                real_mac = str(self.get_mac(ip))
+                spoofed_mac = str(pkt[scapy.ARP].hwsrc)
+                if (real_mac != spoofed_mac):
+                    self.logger.log(
+                        "ARP Cache poisioning / MiTM attack detected.",
+                        logtype="warning"
+                    )
         except IndexError:
             self.logger.log(
                 "Ignore error: Index",

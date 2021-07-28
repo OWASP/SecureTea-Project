@@ -12,20 +12,29 @@ Project:
 """
 
 import asyncio
-from  reqHandler import HTTP
+from  .reqHandler import HTTP
+from securetea import logger
 
 class SecureteaWAF:
     """
-     A class that starts the Server server
+     A class that starts the WAF  server
 
 
     """
-    def __init__(self,host="127.0.0.1",port=2640):
+    def __init__(self,mode=0,host="127.0.0.1",port=2640,debug=False):
         """
          Initialize host and port for listening
         """
         self.host=host
         self.port=port
+        self.mode=mode
+
+        # Initialize logger
+
+        self.logger=logger.SecureTeaLogger(
+            __name__,
+            debug=debug
+        )
 
 
 
@@ -36,18 +45,19 @@ class SecureteaWAF:
     async def start(self):
 
         self.loop=asyncio.get_event_loop()
-        self.server= await self.loop.create_server(
-            lambda:HTTP(),host=self.host, port=self.port
+        self.server = await self.loop.create_server(
+
+            lambda:HTTP(mode=self.mode),host=self.host, port=self.port
         )
 
         ip, port = self.server.sockets[0].getsockname()
-        print("Listening on {}:{}".format(ip, port))
+        self.logger.log(
+           
+            "Started WAF server on {}:{} ".format(ip,port),
+            logtype="info"
+        )
 
 
         await self.server.serve_forever()
 
 
-
-
-c=SecureteaWAF();
-c.run_server();

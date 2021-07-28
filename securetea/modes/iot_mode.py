@@ -62,7 +62,7 @@ class IoTMode(object):
         self.iot_checker = False
 
         # Initialize empty process pool list
-        self.process_pool = list()
+        self.process_pool = []
 
     def create_objects(self):
         """

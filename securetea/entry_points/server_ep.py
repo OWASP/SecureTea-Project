@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 u"""Server Console Script.
-
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
@@ -8,7 +7,6 @@ Project:
     Author: Abhishek Sharma <abhishek_official@hotmail.com> , Aug 20 2019
     Version: 1.5.1
     Module: SecureTea
-
 """
 
 from securetea.args import args_helper
@@ -21,10 +19,8 @@ import argparse
 def get_args():
     """
     Get arguments.
-
     Raises:
         None
-
     Returns:
         Args: total arguments
     """
@@ -52,13 +48,10 @@ def get_credentials():
     """
     Get credentials either through the saved configurations or
     through interactive setup mode.
-
     Args:
         None
-
     Raises:
         None
-
     Returns:
         final_creds (dict): Collected credentials
     """
@@ -89,6 +82,8 @@ def get_credentials():
                 print("\n[!] Select network interface for Firewall")
                 interface = get_interface()
                 final_creds["firewall"]["interface"] = interface
+        if creds.get("waf"):
+            final_creds["waf"]=creds["waf"]
         if creds.get("ids"):
             final_creds["ids"] = creds["ids"]
             interface = final_creds["ids"]["interface"]
@@ -107,6 +102,9 @@ def get_credentials():
     else:
         # Start interactive setup for Firewall
         firewall = args_helper_obj.configureFirewall()
+
+        # Start interactive Mode for
+        waf=args_helper_obj.configureWaf()
         # Start interactive setup for IDS
         ids = args_helper_obj.configureIDS()
         # Start interactive setup for Server Log Monitor
@@ -124,7 +122,9 @@ def get_credentials():
             if not interface or interface == "XXXX":
                 print("\n[!] Select network interface for Firewall")
                 interface = get_interface()
-                final_creds["firewall"]["interface"] = interface
+                final_creds["firewall"]["interface"] =interface
+        if waf:
+            final_creds["waf"]=waf
         if ids:
             final_creds["ids"] = ids
             interface = final_creds["ids"]["interface"]
@@ -147,13 +147,10 @@ def get_credentials():
 def start_server_process():
     """
     Start SecureTea in server mode.
-
     Args:
         None
-
     Raises:
         None
-
     Returns:
         None
     """

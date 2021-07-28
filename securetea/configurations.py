@@ -69,13 +69,9 @@ class SecureTeaConf():
         """
         try:
             with open(path) as f:
-                creds = json.load(f)
-                return creds
+                return json.load(f)
         except Exception as e:
-            self.logger.log(
-                "Config file loading errored, " + str(e),
-                logtype="error"
-            )
+            self.logger.log('Config file loading errored, ' + str(e), logtype='error')
 
     def save_creds(self, data):
         """Docstring.

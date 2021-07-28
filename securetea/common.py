@@ -61,10 +61,7 @@ def check_config(cred):
     TYPE: Bool
         True if valid else False
     """
-    for key in cred:
-        if cred[key] == "XXXX":
-            return False
-    return True
+    return all(cred[key] != "XXXX" for key in cred)
 
 
 def get_current_location():
@@ -91,9 +88,7 @@ def get_current_location():
     except Exception:
         address = "Unknown"
         ip = "127.0.0.1"
-    # Generate message
-    msg = "Location: " + address + " (IP: " + ip + " )"
-    return msg
+    return "Location: " + address + " (IP: " + ip + " )"
 
 
 def write_mal_ip(ip):

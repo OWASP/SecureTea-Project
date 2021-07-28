@@ -107,6 +107,7 @@ class BackUp(object):
         return self.back_up_mapping
 
     def get_file_name(self, file_path, index=-1):
+        # sourcery skip: remove-unnecessary-else, swap-if-else-branches
         """
         Recursively extract name of the file from the path.
 

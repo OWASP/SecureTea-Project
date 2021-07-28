@@ -34,11 +34,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Delete current pre-release
-        if: steps.checkTag.outputs.exists == 'true'
+        if:  failure() && steps.checkTag.outputs.exists == 'true'
         uses: author/action-rollback@stable
         with:
-          tag: "pre-release"
-          always_delete_tag: true
+          tag: 'pre-release'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload debian to pre-release
