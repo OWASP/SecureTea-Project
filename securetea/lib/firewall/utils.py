@@ -136,10 +136,7 @@ def check_root():
         bool: True if running as root, else False
     """
     user = os.getuid()
-    if user == 0:
-        return True
-    else:
-        return False
+    return user == 0
 
 
 def check_ip(ip):
@@ -156,11 +153,8 @@ def check_ip(ip):
         bool: True if valid, else False
     """
     ip = ip.strip()
-    if re.match(r'^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])'
-                '(\.(?!$)|$)){4}$', ip):
-        return True
-    else:
-        return False
+    return bool(re.match(r'^(?:(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])'
+                '(\.(?!$)|$)){4}$', ip))
 
 
 def check_port(port):
@@ -176,11 +170,8 @@ def check_port(port):
     Returns:
         bool: True if valid, else False
     """
-    if (int(port) >= 0 and
-        int(port) < 65536):
-        return True
-    else:
-        return False
+    return (int(port) >= 0 and
+        int(port) < 65536)
 
 
 def map_protocol(key):
@@ -227,13 +218,13 @@ def generate_IPs(IP):
     base_ip1_start = base_ip1[:3]
     base_ip1_end = base_ip1[3]
 
-    if base_ip0_start == base_ip1_start:
-        if (check_ip(temp_ips[0]) and
-            check_ip(temp_ips[1])):
-            for end in range(int(base_ip0_end),
-                             int(base_ip1_end) + 1):
-                new_ip = ".".join(base_ip0_start) + '.' + str(end)
-                yield new_ip
+    if base_ip0_start == base_ip1_start and (
+        check_ip(temp_ips[0]) and check_ip(temp_ips[1])
+    ):
+        for end in range(int(base_ip0_end),
+                         int(base_ip1_end) + 1):
+            new_ip = ".".join(base_ip0_start) + '.' + str(end)
+            yield new_ip
 
 
 def excecute_command(command):
@@ -277,12 +268,11 @@ def generate_ports(port):
         port (int): Yields ports generated
     """
     temp_ports = port.split('-')
-    if (int(temp_ports[0]) < int(temp_ports[1])):
-        if (check_port(temp_ports[0]) and
-            check_port(temp_ports[1])):
-            for port in range(int(temp_ports[0]),
-                              int(temp_ports[1]) + 1):
-                yield port
+    if (int(temp_ports[0]) < int(temp_ports[1])) and (
+        check_port(temp_ports[0]) and check_port(temp_ports[1])
+    ):
+        yield from range(int(temp_ports[0]),
+                              int(temp_ports[1]) + 1)
 
 
 def get_interface():
@@ -313,7 +303,7 @@ def get_interface():
     print('*' * 25)
     for index, interface in enumerate(interfaces):
         print(index, ' '.ljust(5), ' | ', interface.ljust(11, ' '), '|')
-        total_index = total_index + 1
+        total_index += 1
         print('-' * 25)
 
     intf = -1

@@ -84,7 +84,7 @@ class Hash(object):
             None
         """
         # Initialize empty path to hash value dictionary
-        hash_dict = dict()
+        hash_dict = {}
 
         for file_path in files_list:
             try:
@@ -116,7 +116,7 @@ class Hash(object):
             None
         """
         # Initialize empty path to set value dictionary
-        set_dict = dict()
+        set_dict = {}
 
         for file_path in files_list:
             try:

@@ -15,6 +15,7 @@ Attributes:
 
 """
 
+
 from setuptools import find_packages
 from setuptools import setup
 import distro
@@ -24,9 +25,8 @@ import re
 
 
 os_name = distro.linux_distribution()[0]
-if not os_name:
-    if 'amzn' in platform.uname()[2]:
-        os_name = 'centos'
+if not os_name and 'amzn' in platform.uname()[2]:
+    os_name = 'centos'
 
 files_definition = [
     ('/etc/securetea', ['securetea.conf']),
@@ -153,10 +153,9 @@ def check_dependency():
             command = "dpkg -s " + dependency + " |grep Status"
             output = execute_command(command)
 
-            if output:
-                if "install ok installed" in output:
-                    print("[!] ", dependency, " --already installed")
-                    flag = 1  # installed
+            if output and "install ok installed" in output:
+                print("[!] ", dependency, " --already installed")
+                flag = 1  # installed
 
         # elif some other based OS
         # add logic here to check whether dependency is installed

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 u"""Server Console Script.
-
 Project:
     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
@@ -8,7 +7,6 @@ Project:
     Author: Abhishek Sharma <abhishek_official@hotmail.com> , Aug 20 2019
     Version: 1.5.1
     Module: SecureTea
-
 """
 
 from securetea.args import args_helper
@@ -21,10 +19,8 @@ import argparse
 def get_args():
     """
     Get arguments.
-
     Raises:
         None
-
     Returns:
         Args: total arguments
     """
@@ -52,13 +48,10 @@ def get_credentials():
     """
     Get credentials either through the saved configurations or
     through interactive setup mode.
-
     Args:
         None
-
     Raises:
         None
-
     Returns:
         final_creds (dict): Collected credentials
     """
@@ -154,13 +147,10 @@ def get_credentials():
 def start_server_process():
     """
     Start SecureTea in server mode.
-
     Args:
         None
-
     Raises:
         None
-
     Returns:
         None
     """

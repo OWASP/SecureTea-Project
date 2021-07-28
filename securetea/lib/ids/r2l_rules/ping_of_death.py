@@ -58,22 +58,21 @@ class PingOfDeath(object):
         Returns:
             None
         """
-        if (pkt.haslayer(scapy.IP) and
-            pkt.haslayer(scapy.ICMP)):
-            # If packet has load
-            if pkt.haslayer(scapy.Raw):
+        if (pkt.haslayer(scapy.IP) and pkt.haslayer(scapy.ICMP)) and pkt.haslayer(
+            scapy.Raw
+        ):
 
-                load_len = len(pkt[scapy.Raw].load)
+            load_len = len(pkt[scapy.Raw].load)
 
-                if (load_len >= self._THRESHOLD):
-                    source_ip = pkt[scapy.IP].src
-                    msg = "Possible ping of death attack detected " \
-                          "from: {}".format(source_ip)
-                    self.logger.log(
-                        msg,
-                        logtype="warning"
-                    )
-                    # Generate CSV report using OSINT tools
-                    self.osint_obj.perform_osint_scan(source_ip.strip(" "))
-                    # Write malicious IP to file
-                    write_mal_ip(str(source_ip).strip(" "))
+            if (load_len >= self._THRESHOLD):
+                source_ip = pkt[scapy.IP].src
+                msg = "Possible ping of death attack detected " \
+                      "from: {}".format(source_ip)
+                self.logger.log(
+                    msg,
+                    logtype="warning"
+                )
+                # Generate CSV report using OSINT tools
+                self.osint_obj.perform_osint_scan(source_ip.strip(" "))
+                # Write malicious IP to file
+                write_mal_ip(str(source_ip).strip(" "))

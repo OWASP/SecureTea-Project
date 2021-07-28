@@ -44,8 +44,7 @@ def get_args():
         help='Degug true or false'
     )
 
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 
 def get_credentials():
@@ -63,11 +62,7 @@ def get_credentials():
         final_creds (dict): Collected credentials
     """
     args = get_args()
-    if args.debug:
-        debug = True
-    else:
-        debug = False
-
+    debug = bool(args.debug)
     final_creds = {"debug": debug}
 
     # Create ArgsHelper object for collecting configurations
@@ -77,53 +72,75 @@ def get_credentials():
         config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
     else:
         config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-    if (config_decision.lower() == "Y" or
-        config_decision.lower() == "y"):
+    if config_decision.lower() in ["Y", "y"]:
         # Fetch credentials
         creds = args_helper_obj.securetea_conf.get_creds(args_helper_obj.args)
 
         if creds.get("firewall"):
-            final_creds["firewall"] = creds["firewall"]
-            interface = final_creds["firewall"]["interface"]
-            if not interface or interface == "XXXX":
-                print("\n[!] Select network interface for Firewall")
-                interface = get_interface()
-                final_creds["firewall"]["interface"] = interface
+            _extracted_from_get_credentials_24(
+                final_creds,
+                "firewall",
+                creds,
+                "\n[!] Select network interface for Firewall",
+            )
+
         if creds.get("ids"):
-            final_creds["ids"] = creds["ids"]
-            interface = final_creds["ids"]["interface"]
-            if not interface or interface == "XXXX":
-                print("\n[!] Select network interface for Intrusion Detection System")
-                interface = get_interface()
-                final_creds["ids"]["interface"] = interface
+            _extracted_from_get_credentials_24(
+                final_creds,
+                "ids",
+                creds,
+                "\n[!] Select network interface for Intrusion Detection System",
+            )
+
         if creds.get("iot-check"):
             final_creds["iot-check"] = creds["iot-check"]
     else:
-        # Start interactive setup for Firewall
-        firewall = args_helper_obj.configureFirewall()
-        # Start interactive setup for IDS
-        ids = args_helper_obj.configureIDS()
-        # Start interactive setup for IoT Checker
-        iot_check = args_helper_obj.configureIoTChecker()
-
-        if firewall:
-            final_creds["firewall"] = firewall
-            interface = final_creds["firewall"]["interface"]
-            if not interface or interface == "XXXX":
-                print("\n[!] Select network interface for Firewall")
-                interface = get_interface()
-                final_creds["firewall"]["interface"] = interface
-        if ids:
-            final_creds["ids"] = ids
-            interface = final_creds["ids"]["interface"]
-            if not interface or interface == "XXXX":
-                print("\n[!] Select network interface for Intrusion Detection System")
-                interface = get_interface()
-                final_creds["ids"]["interface"] = interface
-        if iot_check:
-            final_creds["iot-check"] = iot_check
-
+        _extracted_from_get_credentials_41(args_helper_obj, final_creds)
     return final_creds
+
+def _extracted_from_get_credentials_41(args_helper_obj, final_creds):
+    # Start interactive setup for Firewall
+    firewall = args_helper_obj.configureFirewall()
+    # Start interactive setup for IDS
+    ids = args_helper_obj.configureIDS()
+    # Start interactive setup for IoT Checker
+    iot_check = args_helper_obj.configureIoTChecker()
+
+    if firewall:
+        _extracted_from_get_credentials_48(
+            final_creds,
+            "firewall",
+            firewall,
+            "\n[!] Select network interface for Firewall",
+        )
+
+    if ids:
+        _extracted_from_get_credentials_48(
+            final_creds,
+            "ids",
+            ids,
+            "\n[!] Select network interface for Intrusion Detection System",
+        )
+
+    if iot_check:
+        final_creds["iot-check"] = iot_check
+
+def _extracted_from_get_credentials_48(final_creds, arg1, arg2, arg3):
+    final_creds[arg1] = arg2
+    interface = final_creds[arg1]["interface"]
+    if not interface or interface == "XXXX":
+        _extracted_from_get_credentials_27(arg3, final_creds, arg1)
+
+def _extracted_from_get_credentials_24(final_creds, arg1, creds, arg3):
+    final_creds[arg1] = creds[arg1]
+    interface = final_creds[arg1]["interface"]
+    if not interface or interface == "XXXX":
+        _extracted_from_get_credentials_27(arg3, final_creds, arg1)
+
+def _extracted_from_get_credentials_27(arg0, final_creds, arg2):
+    print(arg0)
+    interface = get_interface()
+    final_creds[arg2]["interface"] = interface
 
 
 def start_iot_process():
