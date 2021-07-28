@@ -11,13 +11,13 @@ Project:
 
 """
 from urllib import parse
-from utils import  blacklist_counter
-import pandas as pd
+#from utils import  blacklist_counter
+#import pandas as pd
 class Features:
 
 
 
-    def __init__(self,method,headers,path,body=None):
+    def __init__(self,method,headers,path,body=""):
         """
 
         Initialize Features and request parts
@@ -30,11 +30,12 @@ class Features:
         """
 
         # Request Details
-        if body:
-            self.body=parse.unquote(body)
+
+        self.body=parse.unquote(body)
         self.method=method
         self.headers=headers
         self.path=parse.unquote(path)
+
 
 
         # length based features
@@ -79,7 +80,7 @@ class Features:
         self.single_quote = self.single_quote + self.path.count("'")
         self.double_quote = self.double_quote + self.path.count('"')
         self.directory = self.directory + self.path.count("../")
-        self.semi_colon = self.semi_colon + self.path.count(":")
+        self.semi_colon = self.semi_colon + self.path.count(";")
         self.double_dash = self.double_dash + self.path.count("--")
         self.amp = self.amp + self.path.count("&")
 
@@ -119,7 +120,7 @@ class Features:
         self.single_quote = self.single_quote + self.body.count("'")
         self.double_quote = self.double_quote + self.body.count('"')
         self.directory = self.directory + self.body.count("../")
-        self.semi_colon = self.semi_colon + self.body.count(":")
+        self.semi_colon = self.semi_colon + self.body.count(";")
         self.double_dash = self.double_dash + self.body.count("--")
         self.amp = self.amp + self.body.count("&")
 
@@ -133,7 +134,7 @@ class Features:
 
         """
 
-        livedata=[self.path,self.path_len,self.useragent_len,self.spaces,self.curly_open,
+        livedata=[self.path,self.body,self.path_len,self.useragent_len,self.spaces,self.curly_open,
                 self.curly_close,
                 self.brackets_open,
                 self.brackets_close,

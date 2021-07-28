@@ -89,6 +89,8 @@ def get_credentials():
                 print("\n[!] Select network interface for Firewall")
                 interface = get_interface()
                 final_creds["firewall"]["interface"] = interface
+        if creds.get("waf"):
+            final_creds["waf"]=creds["waf"]
         if creds.get("ids"):
             final_creds["ids"] = creds["ids"]
             interface = final_creds["ids"]["interface"]
@@ -107,6 +109,9 @@ def get_credentials():
     else:
         # Start interactive setup for Firewall
         firewall = args_helper_obj.configureFirewall()
+
+        # Start interactive Mode for
+        waf=args_helper_obj.configureWaf()
         # Start interactive setup for IDS
         ids = args_helper_obj.configureIDS()
         # Start interactive setup for Server Log Monitor
@@ -124,7 +129,9 @@ def get_credentials():
             if not interface or interface == "XXXX":
                 print("\n[!] Select network interface for Firewall")
                 interface = get_interface()
-                final_creds["firewall"]["interface"] = interface
+                final_creds["firewall"]["interface"] =interface
+        if waf:
+            final_creds["waf"]=waf
         if ids:
             final_creds["ids"] = ids
             interface = final_creds["ids"]["interface"]
