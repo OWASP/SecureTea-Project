@@ -188,6 +188,7 @@ class ArgsHelper(object):
         self.aws_ses_provided = False
         self.gmail_provided = False
         self.firewall_provided = False
+        self.waf_provided=False
         self.insecure_headers_provided = False
         self.ids_provided = False
         self.system_log_provided = False
@@ -320,6 +321,22 @@ class ArgsHelper(object):
             'default': default
         }
 
+    @takeInput
+    def configureWaf(self):
+        """
+        Returns the format to Configure WAF
+        """
+
+        self.logger.log("Web Application Firewall Setup")
+        default = load_default("waf")
+        return {
+            'input': {
+                'listen_ip': 'IP address for the server to listen on ',
+                'listen_port': 'Port number the server should listen on',
+                'mode': "1 for Block and 0 for log mode",
+            },
+            "default": default
+        }
     @takeInput
     def configureSocialEngineering(self):
         """
@@ -564,6 +581,10 @@ class ArgsHelper(object):
             if gmail:
                 self.cred['gmail'] = gmail
                 self.gmail_provided = True
+            waf=self.configureWaf()
+            if waf:
+                self.cred['waf']=waf
+                self.waf_provided=True
 
             # Configure Social Engineering
             social_eng = self.configureSocialEngineering()
@@ -675,12 +696,18 @@ class ArgsHelper(object):
                 if firewall:
                     self.cred['firewall'] = firewall
                     self.firewall_provided = True
+            if self.args.waf and not self.waf_provided:
+                waf=self.configureWaf()
+                if waf:
+                    self.cred["waf"]=waf
+                    self.waf_provided=True
 
             if self.args.ids and not self.ids_provided:
                 ids = self.configureIDS()
                 if ids:
                     self.cred["ids"] = ids
                     self.ids_provided = True
+
 
             if (self.args.iot_checker and
                 not self.iot_checker_provided and
@@ -704,6 +731,11 @@ class ArgsHelper(object):
                 if antivirus:
                     self.cred["antivirus"] = antivirus
                     self.antivirus_provided = True
+            if self.args.waf:
+                waf=self.configureWaf()
+                if waf:
+                    self.cred["waf"]=waf
+                    self.waf_provided=True
 
             if (self.args.auto_server_patcher and
                 not self.auto_server_patcher_provided and
@@ -998,7 +1030,16 @@ class ArgsHelper(object):
                 insecure_headers['url'] = self.args.url
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
-
+        if not self.waf_provided:
+            if(isinstance(self.args.listenIp,str) and
+               isinstance(self.args.listenPort,str) and
+               isinstance(self.args.mode,str)):
+                waf={}
+                waf["listen_ip"]=self.args.listenIp
+                waf["listne_port"]=self.args.listenPort
+                waf["mode"]=self.args.mode
+                self.cred["waf"]=waf
+                self.waf_provided=True;
         if not self.ids_provided:
             if (isinstance(self.args.threshold, str) and
                 isinstance(self.args.eligibility_threshold, str) and
@@ -1154,6 +1195,7 @@ class ArgsHelper(object):
             self.insecure_headers_provided or
             self.gmail_provided or
             self.ids_provided or
+            self.waf_provided or
             self.system_log_provided or
             self.server_log_provided or
             self.auto_server_patcher_provided or
@@ -1180,6 +1222,7 @@ class ArgsHelper(object):
             'firewall_provided': self.firewall_provided,
             'insecure_headers_provided': self.insecure_headers_provided,
             'ids_provided': self.ids_provided,
+            'waf_provided':self.waf_provided,
             'system_log_provided': self.system_log_provided,
             'server_log_provided': self.server_log_provided,
             'auto_server_patcher_provided': self.auto_server_patcher_provided,

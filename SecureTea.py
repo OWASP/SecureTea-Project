@@ -8,8 +8,13 @@ import time
 
 from securetea.core import SecureTea
 
+# get3grams required for WAF module
+from securetea.lib.waf.Server.utils import get3Grams
+
 
 if __name__ == '__main__':
+
+
 
     secT = SecureTea()
     try:
