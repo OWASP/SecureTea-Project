@@ -39,7 +39,7 @@ class HTTP(asyncio.Protocol):
 
         self.logger=logger.SecureTeaLogger(
             __name__,
-            debug=debug
+            debug=True
         )
 
 
@@ -118,6 +118,7 @@ class HTTP(asyncio.Protocol):
 
 
 
+
         # Based on mode Block or Log Request
 
         if self.mode==0 and predicted_value[0]==1:
@@ -137,10 +138,10 @@ class HTTP(asyncio.Protocol):
             )
             self.close_transport()
 
-        else:
+        if self.mode==0 and predicted_value[0]==0:
             # Send the request
             self.logger.log(
-                "Incoming {} request from :{}:{}".format(method,self.rhost, self.rport),
+                "Incoming {} request {} from :{}:{}".format(method,path,self.rhost, self.rport),
                 logtype="info"
             )
             self.sendRequest()

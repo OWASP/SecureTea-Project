@@ -40,7 +40,10 @@ class SecureteaWAF:
 
     def run_server(self):
 
-        asyncio.run(self.start())
+        try:
+            asyncio.run(self.start())
+        except Exception as e:
+            print(e)
 
     async def start(self):
 

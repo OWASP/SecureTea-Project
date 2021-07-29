@@ -13,6 +13,7 @@ Project:
 """
 
 import platform
+import distro
 import datetime
 import time
 import os
@@ -31,7 +32,7 @@ def get_system_name():
     Returns:
         os_name (str): Name of the operating system
     """
-    os_name = platform.dist()[0]
+    os_name = distro.name()
     return os_name.lower()
 
 
