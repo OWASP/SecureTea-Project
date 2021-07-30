@@ -117,7 +117,7 @@ class ServerMode(object):
         if self.cred.get("waf"):
             try:
                 self.logger.log(
-                    "Initializing IDS object",
+                    "Initializing WAF object",
                     logtype="info"
                 )
 
