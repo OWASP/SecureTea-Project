@@ -36,8 +36,7 @@ class RequestParser(BaseHTTPRequestHandler):
 
     def get_body(self):
         self.len=int(self.headers.get('Content-Length'))
-        post_body=self.rfile.read(self.len)
-        return post_body
+        return self.rfile.read(self.len)
 
 
 
@@ -123,10 +122,7 @@ def get3Grams(path):
               A list containing the n grams
     """
     payload = str(path)
-    ngrams = []
-    for i in range(0, len(payload) - 4):
-        ngrams.append(payload[i:i + 4])
-    return ngrams
+    return [payload[i:i + 4] for i in range(len(payload) - 4)]
 
 
 
