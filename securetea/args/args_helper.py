@@ -581,8 +581,10 @@ class ArgsHelper(object):
             if gmail:
                 self.cred['gmail'] = gmail
                 self.gmail_provided = True
+
             waf=self.configureWaf()
             if waf:
+
                 self.cred['waf']=waf
                 self.waf_provided=True
 
@@ -731,11 +733,7 @@ class ArgsHelper(object):
                 if antivirus:
                     self.cred["antivirus"] = antivirus
                     self.antivirus_provided = True
-            if self.args.waf:
-                waf=self.configureWaf()
-                if waf:
-                    self.cred["waf"]=waf
-                    self.waf_provided=True
+
 
             if (self.args.auto_server_patcher and
                 not self.auto_server_patcher_provided and
@@ -782,6 +780,9 @@ class ArgsHelper(object):
                             print("\n[!] Select network interface for Firewall")
                             interface = get_interface()
                             self.cred["firewall"]["interface"] = interface
+                    if creds.get("waf"):
+                        self.cred["waf"]=creds["waf"]
+
                     if creds.get("ids"):
                         self.cred["ids"] = creds["ids"]
                         interface = self.cred["ids"]["interface"]
@@ -800,6 +801,10 @@ class ArgsHelper(object):
                 else:
                     # Start interactive setup for Firewall
                     firewall = self.configureFirewall()
+
+                    # Start Setup for WAF
+                    waf=self.configureWaf()
+
                     # Start interactive setup for IDS
                     ids = self.configureIDS()
                     # Start interactive setup for Server Log Monitor
@@ -818,6 +823,8 @@ class ArgsHelper(object):
                             print("\n[!] Select network interface for Firewall")
                             interface = get_interface()
                             self.cred["firewall"]["interface"] = interface
+                    if waf:
+                        self.cred["waf"]=waf
                     if ids:
                         self.cred["ids"] = ids
                         interface = self.cred["ids"]["interface"]
