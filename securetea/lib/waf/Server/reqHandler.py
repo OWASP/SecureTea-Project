@@ -42,13 +42,6 @@ class HTTP(asyncio.Protocol):
             debug=True
         )
 
-
-
-
-
-
-
-
     def connection_made(self, transport):
         """
           asyncio default method that gets called on every request.
@@ -60,16 +53,11 @@ class HTTP(asyncio.Protocol):
         self.transport = transport
         self.rhost,self.rport=self.transport.get_extra_info("peername")
 
-
-
-
     def data_received(self, data):
         """
          Clients data ie Http/H
          Args:
              data(bytes):Has the request headers and body
-
-
         """
         self.data=data
         self.parsed_data=RequestParser(data)
@@ -96,13 +84,10 @@ class HTTP(asyncio.Protocol):
 
             self.features = Features(body=self.body, method=method, headers=headers, path=path)
             self.features.extract_body()
-            self.features.extract_path()
-            self.features.extract_headers()
-
         else:
             self.features = Features(method=method, headers=headers, path=path)
-            self.features.extract_path()
-            self.features.extract_headers()
+        self.features.extract_path()
+        self.features.extract_headers()
 
         #Live feature count that has to be comapred with the model
 

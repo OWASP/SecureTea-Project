@@ -14,6 +14,8 @@ Project:
 import pandas as pd
 import warnings
 import pickle
+from pathlib import Path
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
@@ -44,9 +46,11 @@ class WAF:
 
         self.live_data=[live_data]
 
+        datapath = Path(os.path.dirname(__file__)).parent + "/data/data_update.csv"
+        modelpath = Path(os.path.dirname(__file__)).parent + "/data/model3"
 
-        self.DATA_PATH = "/home/ajmal/GSOC-21/securetea/lib/waf/data/data_updated.csv"
-        self.MODEL_PATH = "/home/ajmal/GSOC-21/securetea/lib/waf/data/model3"
+        self.DATA_PATH = datapath
+        self.MODEL_PATH = modelpath
 
         self.data=pd.read_csv(self.DATA_PATH,encoding="cp1252")
 

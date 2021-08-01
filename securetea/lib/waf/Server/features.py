@@ -11,8 +11,6 @@ Project:
 
 """
 from urllib import parse
-#from utils import  blacklist_counter
-#import pandas as pd
 class Features:
 
 
@@ -134,20 +132,25 @@ class Features:
 
         """
 
-        livedata=[self.path,self.body,self.path_len,self.useragent_len,self.spaces,self.curly_open,
-                self.curly_close,
-                self.brackets_open,
-                self.brackets_close,
-                self.greater_than,
-                self.lesser_than,
-                self.single_quote,
-                self.double_quote,
-                self.directory ,
-                self.semi_colon ,
-                self.double_dash,
-                self.amp]
-
-        return livedata
+        return [
+            self.path,
+            self.body,
+            self.path_len,
+            self.useragent_len,
+            self.spaces,
+            self.curly_open,
+            self.curly_close,
+            self.brackets_open,
+            self.brackets_close,
+            self.greater_than,
+            self.lesser_than,
+            self.single_quote,
+            self.double_quote,
+            self.directory,
+            self.semi_colon,
+            self.double_dash,
+            self.amp,
+        ]
 
 
 
