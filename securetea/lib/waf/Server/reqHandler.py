@@ -39,15 +39,8 @@ class HTTP(asyncio.Protocol):
 
         self.logger=logger.SecureTeaLogger(
             __name__,
-            debug=debug
+            debug=True
         )
-
-
-
-
-
-
-
 
     def connection_made(self, transport):
         """
@@ -60,16 +53,11 @@ class HTTP(asyncio.Protocol):
         self.transport = transport
         self.rhost,self.rport=self.transport.get_extra_info("peername")
 
-
-
-
     def data_received(self, data):
         """
          Clients data ie Http/H
          Args:
              data(bytes):Has the request headers and body
-
-
         """
         self.data=data
         self.parsed_data=RequestParser(data)
@@ -96,13 +84,10 @@ class HTTP(asyncio.Protocol):
 
             self.features = Features(body=self.body, method=method, headers=headers, path=path)
             self.features.extract_body()
-            self.features.extract_path()
-            self.features.extract_headers()
-
         else:
             self.features = Features(method=method, headers=headers, path=path)
-            self.features.extract_path()
-            self.features.extract_headers()
+        self.features.extract_path()
+        self.features.extract_headers()
 
         #Live feature count that has to be comapred with the model
 
@@ -113,6 +98,7 @@ class HTTP(asyncio.Protocol):
 
         self.model=WAF(self.feature_value)
         predicted_value=self.model.predict_model()
+
 
 
 
@@ -137,10 +123,10 @@ class HTTP(asyncio.Protocol):
             )
             self.close_transport()
 
-        else:
+        if self.mode==0 and predicted_value[0]==0:
             # Send the request
             self.logger.log(
-                "Incoming {} request from :{}:{}".format(method,self.rhost, self.rport),
+                "Incoming {} request {} from :{}:{}".format(method,path,self.rhost, self.rport),
                 logtype="info"
             )
             self.sendRequest()

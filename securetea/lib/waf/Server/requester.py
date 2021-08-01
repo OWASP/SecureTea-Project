@@ -71,7 +71,7 @@ class Requester:
 
         while True:
             try:
-                buf = self.socket.recv(64000)
+                buf = self.socket.recv(640000)
                 if not buf:
                     break
                 else:
