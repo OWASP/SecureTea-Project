@@ -16,6 +16,7 @@ from securetea.lib.web_deface import hash_gen
 from securetea.lib.web_deface.backup import BackUp
 from securetea.lib.web_deface.monitor import Monitor
 from securetea.lib.web_deface.deface_logger import DefaceLogger
+from securetea.lib.web_deface import model
 from securetea.lib.web_deface.file_handler import *
 from securetea.lib.web_deface.utils import *
 import sys
@@ -136,6 +137,9 @@ class Engine(object):
         dump_dict_to_json(path=self._HASH_MAP, py_dict=hash_dict)
         # Dump hash mapping dict to JSON
         dump_dict_to_json(path=self._SET_MAP, py_dict=set_dict)
+
+        #Defacment Prediction Model
+        self.model = model.MLModel(debug=self.debug)
 
         # Create monitor object
         self.monitor = Monitor(debug=self.debug,
