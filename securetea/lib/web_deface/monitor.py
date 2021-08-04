@@ -13,6 +13,7 @@ Project:
 
 from securetea.lib.web_deface.gather_file import GatherFile
 from securetea.lib.web_deface.signature_detection import SigDetect
+from securetea.lib.web_deface.defacement_detector import DefaceDetect
 from securetea.lib.web_deface.hash_gen import Hash
 from securetea.lib.web_deface.file_handler import *
 from securetea.lib.web_deface.deface_logger import DefaceLogger
@@ -51,7 +52,9 @@ class Monitor(object):
         # Create GatherFile object to gather list of files
         self.gather_file_obj = GatherFile(debug=self.debug, path=path)
         # Create SigDetect object to scan files for attack signatures
-        self.sig_detect_obj = SigDetect(debug=debug, path=path)
+        self.sig_detect_obj = SigDetect(debug=self.debug, path=path)
+        # Create DefaceDetect object to scan files for defacement attack using ML
+        self.ml_deface_obj = DefaceDetect(debug=self.debug, path=path)
         # Create Hash object to get hashes of the files
         self.hash_gen_obj = Hash(debug=self.debug)
         # Load original hash config of files
@@ -102,6 +105,8 @@ class Monitor(object):
         set_dict = self.hash_gen_obj.get_sets(file_list)
         # Get the defacement status of the files
         deface_status_dict = self.sig_detect_obj.scan_files(file_list)
+        # Get the defacement predictions of the files
+        ml_deface_prediction = self.ml_deface_obj.ml_based_scan(file_list)
 
         # Iterate through the hash values
         for path, hash_val in hash_dict.items():
@@ -156,3 +161,12 @@ class Monitor(object):
                     logtype="warning"
                 )
                 self.copy_file(path)  # hash value not equal, file modified, copy file
+
+        for path, defacement_status in ml_deface_prediction.items():
+            if defacement_status:
+                msg = "Web Deface detected,  ML based defacement prediction model detects attack on file: " + path
+                self.logger.log(
+                    msg,
+                    logtype="warning"
+                )
+                self.copy_file(path) # defacement detected copy the file from the backup

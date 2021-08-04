@@ -123,8 +123,8 @@ class BackUp(object):
         """
         file_name = file_path.split("/")[index:]
         file_name = "/".join(file_name)
-        if file_name not in self.file_names:
-            self.file_names.append(file_name)
-            return file_name.strip("/")
-        else:
+        if file_name in self.file_names:
             return self.get_file_name(file_path, index=index-1)
+
+        self.file_names.append(file_name)
+        return file_name.strip("/")
