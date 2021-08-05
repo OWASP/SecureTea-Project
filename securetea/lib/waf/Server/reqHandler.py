@@ -12,6 +12,7 @@ Project:
 
 
 import asyncio
+
 from .features import Features
 from .classifier import WAF
 from .requester import Requester
@@ -28,12 +29,16 @@ class HTTP(asyncio.Protocol):
 
     """
     def __init__(self,mode,debug=False):
+
         """
         Initializing the variables
         """
 
 
         self.mode=int(mode)
+        self.connect_request=[]
+        self.is_connect=False
+
 
         # Initialize Logger
 
@@ -54,99 +59,144 @@ class HTTP(asyncio.Protocol):
         self.rhost,self.rport=self.transport.get_extra_info("peername")
 
     def data_received(self, data):
+
         """
-         Clients data ie Http/H
+         Incoming client data
          Args:
              data(bytes):Has the request headers and body
         """
+
         self.data=data
-        self.parsed_data=RequestParser(data)
-
-        if self.parsed_data.command=="POST":
-
-            self.body=self.parsed_data.get_body().decode("utf-8")
 
 
-        else:
-            self.body=None
+        try:
+            self.parsed_data=RequestParser(data)
 
-        #sendind required data for feature extraction
+            if self.parsed_data.command=="POST":
 
-
-        method=self.parsed_data.command
-
-        headers=self.parsed_data.headers
-        path=self.parsed_data.path
+                self.body=self.parsed_data.get_body().decode("utf-8")
 
 
+            else:
+                self.body=None
 
-        if self.body:
-
-            self.features = Features(body=self.body, method=method, headers=headers, path=path)
-            self.features.extract_body()
-        else:
-            self.features = Features(method=method, headers=headers, path=path)
-        self.features.extract_path()
-        self.features.extract_headers()
-
-        #Live feature count that has to be comapred with the model
-
-        self.feature_value=self.features.get_count()
-
-
-        #Model Output
-
-        self.model=WAF(self.feature_value)
-        predicted_value=self.model.predict_model()
+            if self.parsed_data.command=="CONNECT":
+                path=self.parsed_data.path.strip(":443")
+                self.connect_request.append(path)
+                self.transport.write(b"HTTP/1.0 200\r\n Connection Established\r\n\r\n")
+                self.is_connect=True
 
 
 
 
+            if not self.is_connect:
+
+                # sending required data for feature extraction
+
+                method=self.parsed_data.command
+
+                headers=self.parsed_data.headers
+
+                path=self.parsed_data.path
 
 
-        # Based on mode Block or Log Request
 
-        if self.mode==0 and predicted_value[0]==1:
-            # Log the file and send the Request
-            self.logger.log(
-                "Attack Detected from :{}:{}".format(self.rhost,self.rport),
-                logtype="warning"
-            )
+                if self.body:
 
-            self.sendRequest()
+                    self.features = Features(body=self.body, method=method, headers=headers, path=path)
+                    self.features.extract_body()
 
-        if self.mode==1 and predicted_value[0]==1:
-            # Reset the Request
-            self.logger.log(
-                "Attack Detected ! Request Blocked from :{}:{}".format(self.rhost, self.rport),
-                logtype="warning"
-            )
-            self.close_transport()
+                else:
 
-        if self.mode==0 and predicted_value[0]==0:
-            # Send the request
-            self.logger.log(
-                "Incoming {} request {} from :{}:{}".format(method,path,self.rhost, self.rport),
-                logtype="info"
-            )
-            self.sendRequest()
+                    self.features = Features(method=method, headers=headers, path=path)
+
+
+                self.features.extract_path()
+                self.features.extract_headers()
+
+               #Live feature count that has to be comapred with the model
+
+                self.feature_value=self.features.get_count()
+
+                #Model Output
+
+                self.model=WAF(self.feature_value)
+                predicted_value=self.model.predict_model()
+
+                # Based on mode Block or Log Request
+
+                if self.mode==0 and predicted_value[0]==1:
+
+                    # Log the file and send the Request
+                    self.logger.log(
+                        "Attack Detected from :{}:{}".format(self.rhost,self.rport),
+                        logtype="warning"
+                    )
+
+                    self.sendRequest()
+
+                if self.mode==1 and predicted_value[0]==1:
+
+                    # Reset the Request
+                    self.logger.log(
+                        "Attack Detected ! Request Blocked from :{}:{}".format(self.rhost, self.rport),
+                        logtype="warning"
+                    )
+                    self.close_transport()
+
+                if self.mode==0 and predicted_value[0]==0:
+
+                    # Send the request
+                    self.logger.log(
+                        "Incoming {} request {} from :{}:{}".format(method,path,self.rhost, self.rport),
+                        logtype="info"
+                    )
+                    self.sendRequest()
+            else:
+
+                self.transport.close()
+        except Exception as E:
+            print(E)
+
+
+            try:
+                   domain=self.connect_request.pop(0)
+                   self.requester=Requester(self.transport)
+                   self.requester.handle_CONNECT(domain)
+                   self.requester.send_data(self.data)
+                   response=self.requester.receive_data()
+
+                   self.transport.write(response)
+                   self.requester.close()
+                   self.close_transport()
+            except :
+                   pass
+
 
 
 
 
 
     def sendRequest(self):
-        """
+
 
         """
-        self.requester=Requester()
+
+        Method that is responsible for connecting to the server to fetch the response
+        from the server based on the client request
+
+        """
+        self.requester=Requester(self.transport)
 
         try:
 
             self.requester.connect(self.data)
             self.requester.send_data(self.data)
             response = self.requester.receive_data()
+
+
             self.transport.write(response)
+
             self.requester.close()
             self.close_transport()
 
@@ -155,6 +205,7 @@ class HTTP(asyncio.Protocol):
 
 
     def close_transport(self):
+
        """
           Close the current instance of the transport for every successful session.
        """

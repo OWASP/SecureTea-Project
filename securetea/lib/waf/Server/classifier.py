@@ -40,19 +40,25 @@ class WAF:
 
         A class that initialise the required variables
 
-
         """
 
 
         self.live_data=[live_data]
 
-        datapath = Path(os.path.dirname(__file__)).parent + "/data/data_update.csv"
-        modelpath = Path(os.path.dirname(__file__)).parent + "/data/model3"
+
+
+        datapath = Path(os.path.dirname(__file__)).parent / "data/data_updated.csv"
+        modelpath = Path(os.path.dirname(__file__)).parent / "data/model-4"
+
+
 
         self.DATA_PATH = datapath
         self.MODEL_PATH = modelpath
 
+
+
         self.data=pd.read_csv(self.DATA_PATH,encoding="cp1252")
+
 
         self.target = self.data["label"]
         self.path_vectorizer = TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
@@ -61,7 +67,7 @@ class WAF:
 
         # Feature selection
 
-        self.X=self.data[['path','body','path_len','useragent_len','spaces', 'curly_open', 'curly_close', 'brackets_open','brackets_close', 'greater_than', 'lesser_than', 'single_quote','double_quote', 'directory', 'semi_colon', 'double_dash', 'amp']]
+        self.X=self.data[['path','body','path_len']]
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
 
@@ -120,6 +126,7 @@ class WAF:
 
         warnings.filterwarnings("ignore",category=UserWarning)
 
+        # Load the model from server
         try:
             with open(self.MODEL_PATH,"rb") as f:
 
@@ -132,20 +139,9 @@ class WAF:
                           columns=['path',
                                    'body',
                                    'path_len',
-                                   'useragent_len',
-                                   'spaces',
-                                   'curly_open',
-                                   'curly_close',
-                                   'brackets_open',
-                                   'brackets_close',
-                                   'greater_than',
-                                   'lesser_than',
-                                   'single_quote',
-                                   'double_quote',
-                                   'directory',
-                                   'semi_colon',
-                                   'double_dash',
-                                   'amp'])
+                                   'special_char',
+                                   'whitespaces'
+                                   ])
         return self.model.predict(self.live_df)
 
 
