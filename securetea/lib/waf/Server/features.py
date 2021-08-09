@@ -11,7 +11,15 @@ Project:
 
 """
 from urllib import parse
+import string
+
+
 class Features:
+
+    """
+       A class responsible for extracting a set of features from the incoming HTTP Request
+
+    """
 
 
 
@@ -46,19 +54,9 @@ class Features:
 
         #features
 
-        self.spaces = 0
-        self.curly_open = 0;
-        self.curly_close = 0;
-        self.brackets_open = 0;
-        self.brackets_close = 0;
-        self.greater_than = 0;
-        self.lesser_than = 0;
-        self.single_quote = 0;
-        self.double_quote = 0;
-        self.directory = 0;
-        self.semi_colon = 0;
-        self.double_dash = 0;
-        self.amp = 0;
+
+        self.special_char=0;
+        self.whitespaces=0;
 
 
     def extract_path(self):
@@ -68,19 +66,12 @@ class Features:
 
         """
 
-        self.spaces = self.spaces + self.path.count(" ")
-        self.curly_open = self.curly_open + self.path.count("{")
-        self.curly_close = self.curly_close + self.path.count("}")
-        self.brackets_open = self.brackets_open + self.path.count("(")
-        self.brackets_close = self.brackets_close + self.path.count(")")
-        self.greater_than = self.greater_than + self.path.count(">")
-        self.lesser_than = self.lesser_than + self.path.count("<")
-        self.single_quote = self.single_quote + self.path.count("'")
-        self.double_quote = self.double_quote + self.path.count('"')
-        self.directory = self.directory + self.path.count("../")
-        self.semi_colon = self.semi_colon + self.path.count(";")
-        self.double_dash = self.double_dash + self.path.count("--")
-        self.amp = self.amp + self.path.count("&")
+
+
+        for e in string.punctuation:
+            self.special_char = self.special_char + self.path.count(e)
+        for e in string.whitespace:
+            self.whitespaces = self.whitespaces + self.path.count(e)
 
 
 
@@ -108,19 +99,12 @@ class Features:
 
 
         """
-        self.spaces = self.spaces + self.body.count(" ")
-        self.curly_open = self.curly_open + self.body.count("{")
-        self.curly_close = self.curly_close + self.body.count("}")
-        self.brackets_open = self.brackets_open + self.body.count("(")
-        self.brackets_close = self.brackets_close + self.body.count(")")
-        self.greater_than = self.greater_than + self.body.count(">")
-        self.lesser_than = self.lesser_than + self.body.count("<")
-        self.single_quote = self.single_quote + self.body.count("'")
-        self.double_quote = self.double_quote + self.body.count('"')
-        self.directory = self.directory + self.body.count("../")
-        self.semi_colon = self.semi_colon + self.body.count(";")
-        self.double_dash = self.double_dash + self.body.count("--")
-        self.amp = self.amp + self.body.count("&")
+
+
+        for e in string.punctuation:
+            self.special_char = self.special_char + self.body.count(e)
+        for e in string.whitespace:
+            self.whitespaces = self.whitespaces + self.body.count(e)
 
     def get_count(self):
         """
@@ -136,20 +120,8 @@ class Features:
             self.path,
             self.body,
             self.path_len,
-            self.useragent_len,
-            self.spaces,
-            self.curly_open,
-            self.curly_close,
-            self.brackets_open,
-            self.brackets_close,
-            self.greater_than,
-            self.lesser_than,
-            self.single_quote,
-            self.double_quote,
-            self.directory,
-            self.semi_colon,
-            self.double_dash,
-            self.amp,
+            self.special_char,
+            self.whitespaces,
         ]
 
 

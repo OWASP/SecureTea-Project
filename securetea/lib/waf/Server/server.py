@@ -12,6 +12,8 @@ Project:
 """
 
 import asyncio
+import uvloop
+
 from  .reqHandler import HTTP
 from securetea import logger
 
@@ -42,11 +44,15 @@ class SecureteaWAF:
 
         try:
             asyncio.run(self.start())
+
+            #asyncio.get_event_loop().run_until_complete(self.start())
+
         except Exception as e:
             print(e)
 
     async def start(self):
 
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         self.loop=asyncio.get_event_loop()
         self.server = await self.loop.create_server(
 

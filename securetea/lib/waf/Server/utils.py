@@ -9,7 +9,7 @@ Project:
     Module: SecureTea
 
 """
-import re
+
 from http.server import BaseHTTPRequestHandler
 import io
 
@@ -122,7 +122,7 @@ def get3Grams(path):
               A list containing the n grams
     """
     payload = str(path)
-    return [payload[i:i + 4] for i in range(len(payload) - 4)]
+    return [payload[i:i + 1] for i in range(len(payload) - 1)]
 
 
 

@@ -22,7 +22,7 @@ class Requester:
     and sends back the response to the client.
     """
 
-    def __init__(self,timeout=5):
+    def __init__(self,transport,timeout=5):
         """
         Args:
             data(bytes): Consists of the raw request.
@@ -33,6 +33,7 @@ class Requester:
         socket.setdefaulttimeout(timeout)
 
         self.socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+        self.transport=transport
 
 
     def connect(self,data):
@@ -46,10 +47,16 @@ class Requester:
         try :
             {
                 self.socket.connect((self.host,80))
-            }
+             }
+        except Exception as e:
+                   print(e)
+
+    def handle_CONNECT(self,domain):
+        try:
+
+                self.socket.connect((domain,443))
         except Exception as e:
             print(e)
-
 
 
     def send_data(self,data):
@@ -58,7 +65,7 @@ class Requester:
         """
 
 
-        self.socket.send(data)
+        self.socket.sendall(data)
 
     def receive_data(self):
 
@@ -71,7 +78,7 @@ class Requester:
 
         while True:
             try:
-                buf = self.socket.recv(640000)
+                buf = self.socket.recv(8888888)
                 if not buf:
                     break
                 else:
