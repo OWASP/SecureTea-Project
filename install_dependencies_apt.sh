@@ -21,3 +21,4 @@ apt-get install python3.8
 apt-get install python3-pip
 python3 -m pip install -r requirements.txt
 python3 -m pip install git+https://github.com/kti/python-netfilterqueue
+python3 -m pip install -r requirements.txt
