@@ -80,7 +80,6 @@ You can install SecureTea using the latest repository:
 ```shell
 git clone https://github.com/OWASP/SecureTea-Project.git
 cd SecureTea-Project/
-sudo python3 -m pip install -r requirements.txt
 sudo python3 setup.py install
 ```
 
