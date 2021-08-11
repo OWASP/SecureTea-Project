@@ -139,6 +139,11 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+Download and Extract the zip file, or use command
+```git clone https://github.com/OWASP/SecureTea-Project.git```
+
+Navigate inside the folder ```SecureTea-Project``` , open Terminal inside and run the following commands
+
 For apt package manager based systems:
 ```shell
 $ sudo bash install install_dependencies_apt.sh
