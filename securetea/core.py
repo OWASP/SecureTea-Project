@@ -80,7 +80,11 @@ class SecureTea(object):
         self.cred = {}
         args = get_args()
         argsHelper = ArgsHelper(args)
-        args_dict = argsHelper.check_args()
+        try:
+            args_dict = argsHelper.check_args()
+        except KeyboardInterrupt:
+            print('\nKeyboard Interrupt detected. \nQuitting....')
+            exit(0)
         credentials = configurations.SecureTeaConf()
 
         self.cred = args_dict['cred']
