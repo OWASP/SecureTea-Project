@@ -23,13 +23,15 @@ class SecureteaWAF:
 
 
     """
-    def __init__(self,mode=0,host="127.0.0.1",port=2640,debug=False):
+    def __init__(self,redirect_table,mode=0,host="127.0.0.1",port=2640,debug=False):
         """
          Initialize host and port for listening
         """
         self.host=host
         self.port=port
         self.mode=mode
+        self.redirect_table=redirect_table
+
 
         # Initialize logger
 
@@ -56,7 +58,7 @@ class SecureteaWAF:
         self.loop=asyncio.get_event_loop()
         self.server = await self.loop.create_server(
 
-            lambda:HTTP(mode=self.mode),host=self.host, port=self.port
+            lambda:HTTP(mode=self.mode,redirect_table=self.redirect_table),host=self.host, port=self.port
         )
 
         ip, port = self.server.sockets[0].getsockname()

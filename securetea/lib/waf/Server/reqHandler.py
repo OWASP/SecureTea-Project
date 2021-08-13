@@ -28,7 +28,7 @@ class HTTP(asyncio.Protocol):
 
 
     """
-    def __init__(self,mode,debug=False):
+    def __init__(self,mode,redirect_table,debug=False):
 
         """
         Initializing the variables
@@ -37,6 +37,7 @@ class HTTP(asyncio.Protocol):
 
         self.mode=int(mode)
         self.connect_request=[]
+        self.redirect_table=redirect_table
         self.is_connect=False
 
 
@@ -96,6 +97,7 @@ class HTTP(asyncio.Protocol):
                 method=self.parsed_data.command
 
                 headers=self.parsed_data.headers
+                self.host=headers["HOST"]
 
                 path=self.parsed_data.path
 
@@ -103,7 +105,7 @@ class HTTP(asyncio.Protocol):
 
                 if self.body:
 
-                    self.features = Features(body=self.body, method=method, headers=headers, path=path)
+                    self.features = Features(body=self.body, method=method, headers=headers, path=path+self.body)
                     self.features.extract_body()
 
                 else:
@@ -118,6 +120,7 @@ class HTTP(asyncio.Protocol):
 
                 self.feature_value=self.features.get_count()
 
+
                 #Model Output
 
                 self.model=WAF(self.feature_value)
@@ -129,7 +132,7 @@ class HTTP(asyncio.Protocol):
 
                     # Log the file and send the Request
                     self.logger.log(
-                        "Attack Detected from :{}:{}".format(self.rhost,self.rport),
+                        "Attack Detected from :{} Payload:{}".format(headers["X-Real-IP"],path),
                         logtype="warning"
                     )
 
@@ -139,16 +142,28 @@ class HTTP(asyncio.Protocol):
 
                     # Reset the Request
                     self.logger.log(
-                        "Attack Detected ! Request Blocked from :{}:{}".format(self.rhost, self.rport),
+                        "Attack Detected ! Request Blocked from :{}".format(headers["X-Real-IP"]),
                         logtype="warning"
                     )
-                    self.close_transport()
+                    self.transport.write(b"HTTP/1.0 403\r\n \r\n\r\n <!DOCTYPE HTML>\r\n<HTML>\r\n<BODY>\r\n<h1>Requested Blocked By server </h1></BODY></HTML>")
+                    self.transport.close()
+
+                if self.mode==1 and predicted_value[0]==0:
+
+                    # Send the request
+                    self.logger.log(
+                        "Incoming {} request {} from :{}".format(method, path, headers["X-Real-IP"]),
+                        logtype="info"
+                    )
+                    self.sendRequest()
+
+
 
                 if self.mode==0 and predicted_value[0]==0:
 
                     # Send the request
                     self.logger.log(
-                        "Incoming {} request {} from :{}:{}".format(method,path,self.rhost, self.rport),
+                        "Incoming {} request {} from :{}:{}".format(method,path,headers["X-Real-IP"], self.rport),
                         logtype="info"
                     )
                     self.sendRequest()
@@ -190,7 +205,7 @@ class HTTP(asyncio.Protocol):
 
         try:
 
-            self.requester.connect(self.data)
+            self.requester.connect(self.host,self.redirect_table)
             self.requester.send_data(self.data)
             response = self.requester.receive_data()
 
