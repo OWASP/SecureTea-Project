@@ -49,7 +49,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 	   -  [Getting Slack tokens](#getting-slack-tokens)
 	   -  [Getting Telegram tokens](#getting-telegram-tokens)
         -  [Get Twilio SMS tokens](#getting-twilio-sms-tokens)
-        -  [Get Whatsapp Twilio tokens](#getting-whatsapp-twilio-tokens)
+        -  [Get Whatsapp Twilio tokens](#getting-whatsapp-number-from-twilio)
 	   - [Get Gmail tokens](#getting-gmail-tokens)
       
 -  [Usage](#usage)
