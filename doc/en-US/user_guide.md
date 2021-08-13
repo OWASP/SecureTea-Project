@@ -1161,6 +1161,8 @@ SecureTea Intrusion Detection System (IDS) deals with the following attack vecto
 - SYN flood attack
 - Ping of death
 - Land attack
+- BGP Abuse
+- DNS Amplification
 - Wireless
      - Deauthentication attack
     - Hidden node attack
