@@ -4,6 +4,7 @@ from securetea.lib.web_deface.monitor import Monitor
 from securetea.lib.web_deface.deface_logger import DefaceLogger
 from securetea.lib.web_deface.gather_file import GatherFile
 from securetea.lib.web_deface.hash_gen import Hash
+from securetea.lib.web_deface.defacement_detector import DefaceDetect
 
 try:
     # if python 3.x.x
@@ -85,3 +86,4 @@ class TestDefaceMonitor(unittest.TestCase):
         self.monitor_obj.monitor()
         mck_log.assert_called_with('Web Deface detected, attempt to delete file: random_path_new',
                                    logtype='warning')
+
