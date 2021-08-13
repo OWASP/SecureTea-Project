@@ -222,7 +222,10 @@ Installing from GitHub involves the following steps:
 2.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-3.  Install SecureTea package:
+3.  Install Python dependencies:
+`$ sudo python3 -m pip install -r requirements.txt`
+
+4.  Install SecureTea package:
 `$ sudo python3 setup.py install`
 
 If done, proceed to [After installation](#after-installation)
@@ -237,7 +240,10 @@ Installing from Zip involves the following steps:
 3.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-4.  Install SecureTea package
+4.  Install python dependencies
+`$ sudo python3 -m pip install -r requirements.txt`
+
+5.  Install SecureTea package
 `$ sudo python3 setup.py install`
 
 Tip: Incase of any error during installation related to NetfilterQueue, try using `$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
