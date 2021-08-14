@@ -706,10 +706,10 @@ def sleep():
         mode = get_list(creds["mode"])
         backend_server_config = get_list(creds["backend_server_config"])
 
-        args_str += " --listenIp" + listen_ip
-        args_str += " --listenPort" + listen_port
-        args_str += " --mode" + mode
-        args_str += " --hostMap" + backend_server_config
+        args_str += " --listenIp=" + listen_ip
+        args_str += " --listenPort=" + listen_port
+        args_str += " --mode=" + mode
+        args_str += " --hostMap=" + backend_server_config
 
     # IoT Anonymity Checker Parsing
     iot_ano = creds['iot_ano']
