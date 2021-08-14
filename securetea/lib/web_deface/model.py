@@ -172,12 +172,13 @@ class MLModel(object):
         model.fit(x_train, y_train)
         self.model = model
         y_pred = model.predict(x_test)
-
+        '''
         msg = 'Model accuracy is: ' + str(accuracy_score(y_test, y_pred))
         self.logger.log(
                         msg,
                         logtype="info"
                     )
+        '''
         
     def prediction(self):
         self.prepare_dataset()
