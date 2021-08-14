@@ -698,6 +698,20 @@ def sleep():
         args_str += " --server-name=" + server_name
         args_str += " --path=" + path
 
+    # Web Application Firewall Parsing
+    waf = creds['waf'] = creds['waf']
+    if waf:
+        listen_ip = get_list(creds["listen_ip"])
+        listen_port = get_list(creds["listen_port"])
+        mode = get_list(creds["mode"])
+        backend_server_config = get_list(creds["backend_server_config"])
+
+        args_str += " --waf"
+        args_str += " --listen_ip" + listen_ip
+        args_str += " --listen_port" + listen_port
+        args_str += " --mode" + mode
+        args_str += " --backend_server_config" + backend_server_config
+
     # IoT Anonymity Checker Parsing
     iot_ano = creds['iot_ano']
     if iot_ano:
