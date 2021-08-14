@@ -346,6 +346,13 @@ Default configuration:
 		"severity_factor": 0.9,
 		"interface": "XXXX"
 	},
+	
+	"waf": {
+              "listen_ip":"127.0.0.1",
+              "listen_port":8865,
+              "mode":0,
+              "backend_server_config":"{'localhost':'localhost:3000'}"
+         },
 	"server-log": {
 		"log-type": "",
 		"log-file": "",
@@ -653,6 +660,11 @@ The following argument options are currently available:
   --insecure_headers, -ih
                         Test URL for insecure headers
   --url URL, -u URL     URL on which operations are to be performed
+  --waf                 Start web application friewall (WAF)
+  --listenIP        	The Ip address in which the WAF listens for incoming connection
+  --listenPort		Port for the WAF to listen on
+  --mode		Mode on which the WAF should work (1--Block ,0--Log Mode)
+  --hostMap		A dictionary containing Key:Value that maps the incoming host(key) to the backend server(value).
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
                         Intrusion Detection System (IDS) threshold
@@ -867,6 +879,31 @@ sudo python3 SecureTea.py --firewall
 | `--dns_list` | None |List of DNS to look for|
 | `--time_lb` | 00:00 |Time lower bound|
 | `--time_ub` | 23:59 |Time upper bound|
+
+#### Setting up Web Application Firewall 
+Example usage:<br>
+#### 1. Using Interactive setup
+```argument
+sudo python3 SecureTea.py --waf
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--listenIP` | 127.0.0.1 |Web Application Firewall (WAF) Listening Server |
+| `--listenPort` | 8865 | Web Application Firewall (WAF) Listening Port |
+| `--mode` | 0 |Web Application Firewall (WAF) Working MODE |
+| `--hostMap` | None | A dictionary consisitng Host to Backend server mapping |
+
+What are **modes**?
+<br>
+Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
+In Log mode , the WAF warns the user when there is an attack .
+In block mode , the WAF blocks the incoming request when it senses the request to be malicious 
+
+What is **hostMap**?
+<br>
+
+
 
 #### Setting up Intrusion Detection System
 Example usage:<br>
@@ -1222,6 +1259,7 @@ The following suspicious activities/attacks can be detected:
    - Denial of Service (DoS) attacks
    - Cross site scripting (XSS) injection
    - SQL injection (SQLi)
+   - Server Side Request Forgery (SSRF)
    - Local file inclusion (LFI)
    - Web shell injection
  
