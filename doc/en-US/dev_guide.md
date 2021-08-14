@@ -382,6 +382,8 @@ Currently, the IDS supports the detection of the following attack vectors:
 - SYN flood attack
 - Ping of death
 - Land attack
+- BGP Abuse
+- DNS Amplification
 - Wireless
     - Deauthentication attack
     - Hidden node attack
@@ -790,7 +792,16 @@ Monitor server files to detect any changes, roll back to default in case of defa
 
 4. Generate SHA 256 hashes of each file and use them for comparison.
 
-SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files.
+5. Scan source code of each web page and find if the web page is defaced based on Attack Signatures found on previoulsty defaced website.
+
+6. Scan the webpage by using Natural Language Processing and Machine Learning, and predict if the webpage is defaced.
+
+SecureTea Web Defacement Detection would detect file addition, deletion and modification and roll back to the original file immediately. It would not allow addition of any new files, deletion of files or any type of modification to the current existing files. It would also tell what content was modified. Additional Features such as Attack Signature Based Detection and Machine Learning detection model, help to detect defacement on dynamic websites. The attack signatures are extracted from defaced web pages and then caompared with server's webpages to detect defacement. We use a hybrid website defacement detection model that is based on machine learning techniques and attack signatures. The machine leaning-based component is able to detect defaced web pages with a high level of accuracy and the detection profile can be learned using a dataset of both normal pages and defaced pages. The signature-based component helps boost the processing speed for common forms of defaced attacks.
+
+
+![image](https://user-images.githubusercontent.com/53997924/129409206-3ce7489c-2051-4b91-a717-dcc76cc92403.png)
+
+![image](https://user-images.githubusercontent.com/53997924/129409187-8e27633e-415a-4167-99d6-77e9d1358960.png)
 
 ##### Extending deface detection support for more OS and servers
 The following servers and the OS are supported, to add new servers and OS, extend the below configuration accordingly.
