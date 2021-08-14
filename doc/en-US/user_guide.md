@@ -905,7 +905,7 @@ SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects 
 
 * Create a virtual hosts file inside the Nginx directory
 
-``` nano /etc/nginx/sites-available/example.com ```
+      ``` nano /etc/nginx/sites-available/example.com ```
 
 * Copy the Configuration shown below and make changes  according to your need , make sure to point **proxy pass to the server address in which the WAFs Listening on.**
 
@@ -931,7 +931,7 @@ server {
 
 * Save the file and create a symbolic link to the ```sites-enabled``` directory.
 
-``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
+      ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
 
 * Perform Config test
     
@@ -939,15 +939,15 @@ server {
      
 * If there are no errors you can start your nginx server
 
- ``` sudo nginx server start ```
+     ``` sudo nginx server start ```
 
 
-> What are **modes**?
+> What are **modes**? --
 Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
 In Log mode , the WAF warns the user when there is an attack .
 In block mode , the WAF blocks the incoming request when it senses the request to be malicious 
 
-> What is **hostMap**?
+> What is **hostMap**?--
 HostMap is a argument which takes in a dictionary , comprising of the Host(Key) and Sever:port(Value). The WAF server needs to know which upstream  server it has to send a request for a particular Host. Lets say the client requests a page with a hostname hello1.dev.com. The nginx server then forwards the client request to the WAF server. WAF then performs analaysis on the request and then uses the HOST name , to check in the hostMap to which upstream server is that particular HOST associated with and then sends the request to that server and fetches the response and sends back to the client.
 
 
@@ -967,12 +967,12 @@ sudo python3 SecureTea.py --ids
 | `--severity_factor` | 0.9 | Intrusion Detection System (IDS) severity factor |
 | `--interface` | None |Name of the [interface](https://www.computerhope.com/unix/uifconfi.htm)|
 
-What are **thresholds**?
+ What are **thresholds**?
 <br>
 It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
-<br>
 
-What is **eligibility traces**?
+
+ What is **eligibility traces**?
 <br>
 Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
 
