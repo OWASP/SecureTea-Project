@@ -11,6 +11,7 @@ Project:
 """
 from securetea import logger
 from .server import SecureteaWAF
+import  json
 import sys
 
 class SecureTeaWaf:
@@ -36,6 +37,7 @@ class SecureTeaWaf:
         self.port=8856
         self.mode=0
 
+
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
             __name__,
@@ -51,7 +53,9 @@ class SecureTeaWaf:
                 self.port=int(self.cred["listen_port"])
             if self.cred["mode"]:
                 self.mode=int(self.cred["mode"])
-            self.wafserver_obj=SecureteaWAF(mode=self.mode,port=self.port,host=self.listen_ip,debug=debug)
+            if self.cred["backend_server_config"]:
+                self.redirect_table=json.loads(self.cred["backend_server_config"])
+            self.wafserver_obj=SecureteaWAF(mode=self.mode,port=self.port,host=self.listen_ip,debug=debug,redirect_table=self.redirect_table)
 
 
     def startWaf(self):

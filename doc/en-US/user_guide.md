@@ -63,6 +63,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
        - [Setting up Gmail](#setting-up-gmail)
 	  
     - [Setting up Firewall](#setting-up-firewall)
+    - [Setting up Web Application Firewall](#setting-up-web-application-firewall)
     - [Setting up Intrusion Detection System](#setting-up-intrusion-detection-system)
     - [Setting up System Log Monitor](#setting-up-system-log-monitor)
     - [Setting up Server Log Monitor](#setting-up-server-log-monitor)
@@ -80,6 +81,8 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Firewall](#firewall)
 
 -  [Intrusion Detection System](#intrusion-detection-system)
+
+-  [Web Application Firewall](#web-application-firewall) 
 
 -  [Insecure Headers](#insecure-headers)
 
@@ -346,6 +349,13 @@ Default configuration:
 		"severity_factor": 0.9,
 		"interface": "XXXX"
 	},
+	
+	"waf": {
+              "listen_ip":"127.0.0.1",
+              "listen_port":8865,
+              "mode":0,
+              "backend_server_config":"{'localhost':'localhost:3000'}"
+         },
 	"server-log": {
 		"log-type": "",
 		"log-file": "",
@@ -653,6 +663,11 @@ The following argument options are currently available:
   --insecure_headers, -ih
                         Test URL for insecure headers
   --url URL, -u URL     URL on which operations are to be performed
+  --waf                 Start web application friewall (WAF)
+  --listenIP        	The Ip address in which the WAF listens for incoming connection
+  --listenPort		Port for the WAF to listen on
+  --mode		Mode on which the WAF should work (1--Block ,0--Log Mode)
+  --hostMap		A dictionary containing Key:Value that maps the incoming host(key) to the backend server(value).
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
                         Intrusion Detection System (IDS) threshold
@@ -868,7 +883,77 @@ sudo python3 SecureTea.py --firewall
 | `--time_lb` | 00:00 |Time lower bound|
 | `--time_ub` | 23:59 |Time upper bound|
 
-#### Setting up Intrusion Detection System
+### Setting up Web Application Firewall 
+Example usage:<br>
+#### 1. Using Interactive setup
+```argument
+sudo python3 SecureTea.py --waf
+```
+#### 2. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--listenIP` | 127.0.0.1 |Web Application Firewall (WAF) Listening Server |
+| `--listenPort` | 8865 | Web Application Firewall (WAF) Listening Port |
+| `--mode` | 0 |Web Application Firewall (WAF) Working MODE |
+| `--hostMap` | None | A dictionary consisitng Host to Backend server mapping |
+
+#### 3. Configuring Nginx 
+
+SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects the incoming web traffic to the WAF server. The Ngnix also helps in SSL/TLS offloading.
+
+##### Setting up nginx configuration file 
+
+* Create a virtual hosts file inside the Nginx directory
+
+      ``` nano /etc/nginx/sites-available/example.com ```
+
+* Copy the Configuration shown below and make changes  according to your need , make sure to point **proxy pass to the server address in which the WAFs Listening on.**
+
+``` 
+server {
+	listen 80;
+        listen 443 ssl;
+        server_name example.com;
+        
+        ssl on;
+        ssl_certificate       /etc/ssl/certs/example.com.crt;
+        ssl_certificate_key   /etc/ssl/certs/example.com.key;
+	
+	
+	location / {
+		    proxy_pass [WAF servers address eg http://127.0.0.1:8865];
+		    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+
+	}
+	}
+```
+
+* Save the file and create a symbolic link to the ```sites-enabled``` directory.
+
+      ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
+
+* Perform Config test
+    
+     ``` service nginx configtest ```
+     
+* If there are no errors you can start your nginx server
+
+     ``` sudo nginx server start ```
+
+
+> What are **modes**? --
+Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
+In Log mode , the WAF warns the user when there is an attack .
+In block mode , the WAF blocks the incoming request when it senses the request to be malicious 
+
+> What is **hostMap**?--
+HostMap is a argument which takes in a dictionary , comprising of the Host(Key) and Sever:port(Value). The WAF server needs to know which upstream  server it has to send a request for a particular Host. Lets say the client requests a page with a hostname hello1.dev.com. The nginx server then forwards the client request to the WAF server. WAF then performs analaysis on the request and then uses the HOST name , to check in the hostMap to which upstream server is that particular HOST associated with and then sends the request to that server and fetches the response and sends back to the client.
+
+
+
+
+### Setting up Intrusion Detection System
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
@@ -882,12 +967,12 @@ sudo python3 SecureTea.py --ids
 | `--severity_factor` | 0.9 | Intrusion Detection System (IDS) severity factor |
 | `--interface` | None |Name of the [interface](https://www.computerhope.com/unix/uifconfi.htm)|
 
-What are **thresholds**?
+ What are **thresholds**?
 <br>
 It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
-<br>
 
-What is **eligibility traces**?
+
+ What is **eligibility traces**?
 <br>
 Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
 
@@ -1222,6 +1307,7 @@ The following suspicious activities/attacks can be detected:
    - Denial of Service (DoS) attacks
    - Cross site scripting (XSS) injection
    - SQL injection (SQLi)
+   - Server Side Request Forgery (SSRF)
    - Local file inclusion (LFI)
    - Web shell injection
  
