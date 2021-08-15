@@ -11,7 +11,7 @@ addons:
     - g++
     - gcc
     - build-essential
-    - python-dev
+    - python3-dev
     - libnetfilter-queue-dev
 install:
 - pip install scapy==2.4.0
