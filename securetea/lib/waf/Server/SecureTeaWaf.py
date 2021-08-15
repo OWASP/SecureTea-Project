@@ -11,7 +11,9 @@ Project:
 """
 from securetea import logger
 from .server import SecureteaWAF
+import  json
 import sys
+import os
 
 class SecureTeaWaf:
 
@@ -36,6 +38,7 @@ class SecureTeaWaf:
         self.port=8856
         self.mode=0
 
+
         # Initialize logger
         self.logger = logger.SecureTeaLogger(
             __name__,
@@ -51,7 +54,31 @@ class SecureTeaWaf:
                 self.port=int(self.cred["listen_port"])
             if self.cred["mode"]:
                 self.mode=int(self.cred["mode"])
-            self.wafserver_obj=SecureteaWAF(mode=self.mode,port=self.port,host=self.listen_ip,debug=debug)
+            if self.cred["backend_server_config"]:
+
+               self.redirect_table=json.loads(self.cred["backend_server_config"])
+
+               if self.redirect_table:
+
+                   if os.getuid()==0:
+                       self.wafserver_obj=SecureteaWAF(mode=self.mode,port=self.port,host=self.listen_ip,debug=debug,redirect_table=self.redirect_table)
+
+                   else:
+                       self.logger.log(
+                           "Run as root",
+                           logtype="error"
+                       )
+                       sys.exit(1)
+               else:
+                   self.logger.log(
+                       "WAF HOST:SERVER Routing details not configured",
+                       logtype="error"
+                   )
+
+
+
+
+
 
 
     def startWaf(self):

@@ -14,6 +14,7 @@ Project:
 import pandas as pd
 import warnings
 import pickle
+import joblib
 from pathlib import Path
 import os
 
@@ -48,7 +49,7 @@ class WAF:
 
 
         datapath = Path(os.path.dirname(__file__)).parent / "data/data_updated.csv"
-        modelpath = Path(os.path.dirname(__file__)).parent / "data/model-4"
+        modelpath = Path(os.path.dirname(__file__)).parent / "data/modeltestgram.sav"
 
 
 
@@ -128,20 +129,13 @@ class WAF:
 
         # Load the model from server
         try:
-            with open(self.MODEL_PATH,"rb") as f:
+                  #cdwith open(self.MODEL_PATH,"rb") as f:
 
-                  self.model=pickle.load(f)
+                  self.model=joblib.load(self.MODEL_PATH)
         except Exception as E:
             print(E)
 
-        self.live_df = pd.DataFrame(self.live_data,
-
-                          columns=['path',
-                                   'body',
-                                   'path_len',
-                                   'special_char',
-                                   'whitespaces'
-                                   ])
+        self.live_df = pd.DataFrame(self.live_data,columns=['path','body','path_len','special_char','whitespaces'])
         return self.model.predict(self.live_df)
 
 

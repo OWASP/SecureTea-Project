@@ -688,14 +688,22 @@ def get_args():
     )
     parser.add_argument(
         "--listenPort",
+        required=False,
         type=int,
         help="Port for the WAF Server to listen on"
     )
     parser.add_argument(
         "--mode",
+        required=False,
         type=int,
         help="Mode for the Waf To work! "
 
+    )
+    parser.add_argument(
+        "--hostMap",
+        required=False,
+        type=str,
+        help="A dictionary containing Key:Value that maps the incoming host(key)  to the backend server(value)"
     )
     mode_group.add_argument(
         '--server-mode',

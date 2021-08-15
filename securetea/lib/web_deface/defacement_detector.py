@@ -71,11 +71,20 @@ class DefaceDetect(object):
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(fields)
             for file in files_list:
-                code = open(file, 'r').read()
-                code = h.handle(code)
-                ' '.join(code.split('\n'))
-                row = ['true', code]
-                csvwriter.writerow(row)
+                try:
+                    code = open(file, 'r').read()
+                    code = h.handle(code)
+                    ' '.join(code.split('\n'))
+                    row = ['true', code]
+                    csvwriter.writerow(row)
+
+                except Exception as e:
+                    msg = "File path unknown: " + file
+                    self.logger.log(
+                        msg,
+                        logtype="info"
+                    )
+                    return {}
                 
         df = pd.read_csv(
             self._DATASET,

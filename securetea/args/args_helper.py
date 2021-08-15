@@ -334,6 +334,7 @@ class ArgsHelper(object):
                 'listen_ip': 'IP address for the server to listen on ',
                 'listen_port': 'Port number the server should listen on',
                 'mode': "1 for Block and 0 for log mode",
+                'backend_server_config':'Enter Host:Server Routing details.Format{"host":"server:port"}',
             },
             "default": default
         }
@@ -783,6 +784,7 @@ class ArgsHelper(object):
                     if creds.get("waf"):
                         self.cred["waf"]=creds["waf"]
 
+
                     if creds.get("ids"):
                         self.cred["ids"] = creds["ids"]
                         interface = self.cred["ids"]["interface"]
@@ -1038,15 +1040,24 @@ class ArgsHelper(object):
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
         if not self.waf_provided:
-            if(isinstance(self.args.listenIp,str) and
-               isinstance(self.args.listenPort,str) and
-               isinstance(self.args.mode,str)):
+
+
+            print(self.args.listenIp)
+            print(self.args.listenPort)
+            print(self.args.mode)
+            if (self.args.listenIp or self.args.listenPort or self.args.mode or self.args.hostMap):
+
+                print("outside")
+
                 waf={}
                 waf["listen_ip"]=self.args.listenIp
-                waf["listne_port"]=self.args.listenPort
+                waf["listen_port"]=self.args.listenPort
                 waf["mode"]=self.args.mode
+                waf["backend_server_config"]=self.args.hostMap
                 self.cred["waf"]=waf
                 self.waf_provided=True;
+                print(self.waf_provided)
+
         if not self.ids_provided:
             if (isinstance(self.args.threshold, str) and
                 isinstance(self.args.eligibility_threshold, str) and
