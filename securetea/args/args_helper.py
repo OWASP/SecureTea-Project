@@ -334,7 +334,7 @@ class ArgsHelper(object):
                 'listen_ip': 'IP address for the server to listen on ',
                 'listen_port': 'Port number the server should listen on',
                 'mode': "1 for Block and 0 for log mode",
-                'backend_server_config':"A dicitonary {Key:Value} pair which routes the incoming host(Key) to a particular backend server(value)",
+                'backend_server_config':'Enter Host:Server Routing details.Format{"host":"server:port"}',
             },
             "default": default
         }
@@ -1040,10 +1040,14 @@ class ArgsHelper(object):
                 self.cred['insecure_headers'] = insecure_headers
                 self.insecure_headers_provided = True
         if not self.waf_provided:
-            if(isinstance(self.args.listenIp,str) and
-               isinstance(self.args.listenPort,str) and
-               isinstance(self.args.mode,str) and
-               isinstance(self.args.hostMap,str)):
+
+
+            print(self.args.listenIp)
+            print(self.args.listenPort)
+            print(self.args.mode)
+            if (self.args.listenIp or self.args.listenPort or self.args.mode or self.args.hostMap):
+
+                print("outside")
 
                 waf={}
                 waf["listen_ip"]=self.args.listenIp
@@ -1052,6 +1056,7 @@ class ArgsHelper(object):
                 waf["backend_server_config"]=self.args.hostMap
                 self.cred["waf"]=waf
                 self.waf_provided=True;
+                print(self.waf_provided)
 
         if not self.ids_provided:
             if (isinstance(self.args.threshold, str) and

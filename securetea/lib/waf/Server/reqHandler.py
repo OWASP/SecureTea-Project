@@ -18,6 +18,7 @@ from .classifier import WAF
 from .requester import Requester
 from .utils import RequestParser
 from securetea import logger
+from .WafLogger import WafLogger
 
 
 class HTTP(asyncio.Protocol):
@@ -41,12 +42,19 @@ class HTTP(asyncio.Protocol):
         self.is_connect=False
 
 
-        # Initialize Logger
+        # Initialize Loggers
 
         self.logger=logger.SecureTeaLogger(
             __name__,
             debug=True
         )
+
+        self.waflogger=WafLogger(
+            __name__,
+            debug=debug
+        )
+
+
 
     def connection_made(self, transport):
         """
@@ -131,42 +139,50 @@ class HTTP(asyncio.Protocol):
                 if self.mode==0 and predicted_value[0]==1:
 
                     # Log the file and send the Request
+                    message="Attack Detected from :{} Payload:{}".format(headers["X-Real-IP"],path)
                     self.logger.log(
-                        "Attack Detected from :{} Payload:{}".format(headers["X-Real-IP"],path),
+                        message,
                         logtype="warning"
                     )
 
                     self.sendRequest()
+                    self.waflogger.write_log(message)
 
                 if self.mode==1 and predicted_value[0]==1:
 
                     # Reset the Request
+                    message="Attack Detected ! Request Blocked from :{}".format(headers["X-Real-IP"])
                     self.logger.log(
-                        "Attack Detected ! Request Blocked from :{}".format(headers["X-Real-IP"]),
+                        message,
                         logtype="warning"
                     )
                     self.transport.write(b"HTTP/1.0 403\r\n \r\n\r\n <!DOCTYPE HTML>\r\n<HTML>\r\n<BODY>\r\n<h1>Requested Blocked By server </h1></BODY></HTML>")
                     self.transport.close()
+                    self.waflogger.write_log(message)
 
                 if self.mode==1 and predicted_value[0]==0:
 
                     # Send the request
+                    message="Incoming {} request {} from :{}".format(method, path, headers["X-Real-IP"])
                     self.logger.log(
-                        "Incoming {} request {} from :{}".format(method, path, headers["X-Real-IP"]),
+                        message,
                         logtype="info"
                     )
                     self.sendRequest()
+                    self.waflogger.write_log(message)
 
 
 
                 if self.mode==0 and predicted_value[0]==0:
 
                     # Send the request
+                    message="Incoming {} request {} from :{}:{}".format(method,path,headers["X-Real-IP"], self.rport)
                     self.logger.log(
-                        "Incoming {} request {} from :{}:{}".format(method,path,headers["X-Real-IP"], self.rport),
+                        message,
                         logtype="info"
                     )
                     self.sendRequest()
+                    self.waflogger.write_log(message)
             else:
 
                 self.transport.close()
