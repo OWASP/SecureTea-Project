@@ -539,6 +539,36 @@
                                 <label>Path of the web files</label>
                                 <input type="text" class="form-control" formControlName="path" placeholder="Path of the web directory, leave blank to auto-detect"/>
                             </div>
+                            <!-- Web Application Firewall-->
+                            <hr style="border-width:2px">
+                            <div class="form-group">
+                                <div class="col-12">
+                                  <div class="row">
+                                    <h1 class="card-title">Web Application Firewall</h1>
+                                  <label class="switch">
+                                    <input type="checkbox" (change)="toggleCheckbox($event)" class="form-control" formControlName="waf" checked/>
+                                    <span class="slider round"></span>
+                                  </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <h3 class="card-subtitle">Configure Web Application Firewall</h3>
+                              <div class="form-group">
+                                  <label>Listening IP</label>
+                                  <input type="text" class="form-control" formControlName="listen_ip" placeholder="IP on which WAF will listen on"/>
+                              </div>
+                              <div class="form-group">
+                                  <label>Listening Port</label>
+                                  <input type="text" class="form-control" formControlName="listen_port" placeholder="Listening Port"/>
+                              </div>
+                              <div class="form-group">
+                                  <label>mode</label>
+                                  <input type="text" class="form-control" formControlName="mode" placeholder="mode eg. 0, 1"/>
+                              </div>
+                              <div class="form-group">
+                                <label>Backend Server Config</label>
+                                <input type="text" class="form-control" formControlName="backend_server_config" placeholder="A dictionary containing Key:Value that maps the incoming host(key) to the backend server(value). eg. {'localhost':'localhost:3000'}"/>
+                            </div>
                             <!-- IoT Anonymity Checker -->
                             <hr style="border-width:2px">
                             <div class="form-group">

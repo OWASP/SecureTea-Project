@@ -88,6 +88,11 @@ export class SecurityComponent implements OnInit {
     web_deface: new FormControl(''),
     server_name: new FormControl(''),
     path: new FormControl(''),
+    waf: new FormControl(''),
+    listen_ip: new FormControl(''),
+    listen_port: new FormControl(''),
+    mode: new FormControl(''),
+    backend_server_config: new FormControl(''),
     iot_ano: new FormControl(''),
     shodan_api: new FormControl(''),
     ip_addr_iot: new FormControl(''),
@@ -456,6 +461,31 @@ export class SecurityComponent implements OnInit {
     {
       this.notificationsForm.value.path = path;
     }
+    var waf = localStorage.getItem('waf')
+    if(waf)
+    {
+      this.notificationsForm.value.waf = waf;
+    }
+    var listen_ip = localStorage.getItem('listen_ip')
+    if(listen_ip)
+    {
+      this.notificationsForm.value.listen_ip = listen_ip;
+    }
+    var listen_port = localStorage.getItem('listen_port')
+    if(listen_port)
+    {
+      this.notificationsForm.value.listen_port = listen_port;
+    }
+    var mode = localStorage.getItem('mode')
+    if(mode)
+    {
+      this.notificationsForm.value.mode = mode;
+    }
+    var backend_server_config = localStorage.getItem('backend_server_config')
+    if(backend_server_config)
+    {
+      this.notificationsForm.value.backend_server_config = backend_server_config;
+    }
     var iot_ano = localStorage.getItem('iot_ano')
     if(iot_ano)
     {
@@ -580,6 +610,11 @@ export class SecurityComponent implements OnInit {
         'web_deface': this.notificationsForm.value.web_deface,
         'server_name': this.notificationsForm.value.server_name,
         'path': this.notificationsForm.value.path,
+        'waf': this.notificationsForm.value.waf,
+        'listen_ip': this.notificationsForm.value.listen_ip,
+        'listen_port': this.notificationsForm.value.listen_port,
+        'mode': this.notificationsForm.value.mode,
+        'backend_server_config': this.notificationsForm.value.backend_server_config,
         'iot_ano': this.notificationsForm.value.iot_ano,
         'shodan_api': this.notificationsForm.value.shodan_api,
         'ip_addr_iot': this.notificationsForm.value.ip_addr_iot,
@@ -675,6 +710,11 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('web_deface', this.notificationsForm.value.web_deface);
               localStorage.setItem('server_name', this.notificationsForm.value.server_name);
               localStorage.setItem('path', this.notificationsForm.value.path);
+              localStorage.setItem('waf', this.notificationsForm.value.path);
+              localStorage.setItem('listen_ip', this.notificationsForm.value.listen_ip);
+              localStorage.setItem('listen_port', this.notificationsForm.value.listen_port);
+              localStorage.setItem('mode', this.notificationsForm.value.mode);
+              localStorage.setItem('backend_server_config', this.notificationsForm.value.backend_server_config);
               localStorage.setItem('iot_ano', this.notificationsForm.value.iot_ano);
               localStorage.setItem('shodan_api', this.notificationsForm.value.shodan_api);
               localStorage.setItem('ip_addr_iot', this.notificationsForm.value.ip_addr_iot);
