@@ -77,6 +77,6 @@ class DNS_Amplification(object):
                         
                 if(flag == 1):
                     self.logger.log(
-                            "Possible dns amplification attack detected.",
-                            logtype="warning"
-                        )
+                        "Possible dns amplification attack detected.",
+                        logtype="warning"
+                    )
