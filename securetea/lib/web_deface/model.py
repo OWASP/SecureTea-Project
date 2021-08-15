@@ -23,6 +23,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from nltk.stem.snowball import SnowballStemmer
 from string import punctuation
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 import pickle
 
