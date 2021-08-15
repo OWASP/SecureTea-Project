@@ -70,7 +70,7 @@ class MLModel(object):
             lambda x: ' '.join(word for word in x.split() if word not in (stopwords.words()))
         )
         df_Positive = df['content'].copy()
-        df_Positive = df_Positive.str.replace('\d+', '')
+        df_Positive = df_Positive.str.replace('\d+', '', regex=True)
 
         #Normal Text vectorization
 
@@ -87,7 +87,7 @@ class MLModel(object):
         )
 
         df_Negative = df['content'].copy()
-        df_Negative = df_Negative.str.replace('\d+', '')
+        df_Negative = df_Negative.str.replace('\d+', '', regex=True)
 
 
         self.NEG_DF = df_Negative

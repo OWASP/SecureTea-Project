@@ -100,7 +100,7 @@ class DefaceDetect(object):
             lambda x: ' '.join(word for word in x.split() if word not in (stopwords.words()))
         )
         df = df['content'].copy()
-        df = df.str.replace('\d+', '')
+        df = df.str.replace('\d+', '', regex=True)
 
         tfidf = TfidfVectorizer(min_df=2,max_df=0.5, ngram_range=(1,3))
         features = tfidf.fit_transform(df)
