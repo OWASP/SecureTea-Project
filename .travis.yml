@@ -2,7 +2,7 @@ os: linux
 dist: xenial
 language: python
 python:
-- '3.8'
+- '3.7'
 addons:
   apt:
     sources:
@@ -15,6 +15,7 @@ addons:
     - libnetfilter-queue-dev
 install:
 - pip install scapy==2.4.0
+- pip3 install -U git+https://github.com/kti/python-netfilterqueue
 before_script:
 - pip install -r requirements.txt
 script:
