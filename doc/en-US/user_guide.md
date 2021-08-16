@@ -142,10 +142,19 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+Download and Extract the zip file, or use command
+```git clone https://github.com/OWASP/SecureTea-Project.git```
+
+Navigate inside the folder ```SecureTea-Project``` , open Terminal inside and run the following commands
+
 For apt package manager based systems:
-  + $ sudo bash install install_dependencies_apt.sh
+```shell
+$ sudo bash install install_dependencies_apt.sh
+```
 For yum package manager based systems:
-  + $ sudo bash install install_dependencies_yum.sh
+```shell
+$ sudo bash install install_dependencies_yum.sh
+```
 Python:<br>
 https://www.python.org/
 
@@ -216,10 +225,7 @@ Installing from GitHub involves the following steps:
 2.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-3.  Install Python dependencies:
-`$ sudo python3 -m pip install -r requirements.txt`
-
-4.  Install SecureTea package:
+3.  Install SecureTea package:
 `$ sudo python3 setup.py install`
 
 If done, proceed to [After installation](#after-installation)
@@ -234,10 +240,7 @@ Installing from Zip involves the following steps:
 3.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-4.  Install python dependencies
-`$ sudo python3 -m pip install -r requirements.txt`
-
-5.  Install SecureTea package
+4.  Install SecureTea package
 `$ sudo python3 setup.py install`
 
 Tip: Incase of any error during installation related to NetfilterQueue, try using `$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
@@ -969,12 +972,13 @@ sudo python3 SecureTea.py --ids
 
  What are **thresholds**?
 <br>
-It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
+It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack. Once it crosses the limit (here threshold), it will start notifying you about the possible attack. The lower the number is, the more sensitive IDS is, and may also give rise to false alarms. The higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
+<br>
 
 
  What is **eligibility traces**?
 <br>
-Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
+Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD(λ) algorithm, the λ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
 
 There are two ways to view eligibility traces. The more theoretical view, which we emphasize here, is that they are a bridge from TD to Monte Carlo methods. When TD methods are augmented with eligibility traces, they produce a family of methods spanning a spectrum that has Monte Carlo methods at one end and one-step TD methods at the other. In between are intermediate methods that are often better than either extreme method. In this sense eligibility traces unify TD and Monte Carlo methods in a valuable and revealing way.
 
@@ -1261,6 +1265,7 @@ The report will contain the following fields:
 3. WHOIS lookup
 4. Other important details
 <br>
+
 **Running Intrusion Detection System**
 
 ![Running IDS Recon](/img/ids_demo.gif)
