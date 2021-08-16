@@ -71,11 +71,20 @@ class DefaceDetect(object):
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(fields)
             for file in files_list:
-                code = open(file, 'r').read()
-                code = h.handle(code)
-                ' '.join(code.split('\n'))
-                row = ['true', code]
-                csvwriter.writerow(row)
+                try:
+                    code = open(file, 'r').read()
+                    code = h.handle(code)
+                    ' '.join(code.split('\n'))
+                    row = ['true', code]
+                    csvwriter.writerow(row)
+
+                except Exception as e:
+                    msg = "File path unknown: " + file
+                    self.logger.log(
+                        msg,
+                        logtype="info"
+                    )
+                    return {}
                 
         df = pd.read_csv(
             self._DATASET,
@@ -91,7 +100,7 @@ class DefaceDetect(object):
             lambda x: ' '.join(word for word in x.split() if word not in (stopwords.words()))
         )
         df = df['content'].copy()
-        df = df.str.replace('\d+', '')
+        df = df.str.replace('\d+', '', regex=True)
 
         tfidf = TfidfVectorizer(min_df=2,max_df=0.5, ngram_range=(1,3))
         features = tfidf.fit_transform(df)

@@ -1,5 +1,812 @@
 status,content
-true,"Skip to main content
+true,"Stack Overflow
+
+  1. About
+  2. Products 
+  3. For Teams
+
+  1. Stack Overflow Public questions & answers
+  2. Stack Overflow for Teams Where developers & technologists share private knowledge with coworkers
+  3. Jobs Programming & related technical career opportunities
+  4. Talent Recruit tech talent & build your employer brand
+  5. Advertising Reach developers & technologists worldwide
+  6. About the company
+
+Loading…
+
+  1.   2. Log in Sign up
+  3. ###  current community
+
+    * Stack Overflow 
+
+help chat
+
+    * Meta Stack Overflow 
+
+###  your communities
+
+Sign up or log in to customize your list.
+
+### more stack exchange communities
+
+company blog
+
+  1. Home 
+
+  2.     1. Public
+    2. Questions
+    3. Tags 
+
+    4. Users 
+
+    5. Collectives
+
+    6. Explore Collectives
+    7. Find a Job
+    8. Jobs 
+
+    9. Companies 
+
+  3. Teams
+
+**Stack Overflow for Teams** – Collaborate and share knowledge with a private
+group. ![](./assert - How to handle AssertionError in Python and find out
+which line or statement it occurred on_ - Stack Overflow_files/teams-illo-
+free-sidebar-promo.svg) Create a free Team What is Teams?
+
+    1. Teams
+
+    2. Create free Team 
+
+Collectives on Stack Overflow
+
+Find centralized, trusted content and collaborate around the technologies you
+use most.
+
+Learn more
+
+**Teams**
+
+Q&A for work
+
+Connect and share knowledge within a single location that is structured and
+easy to search.
+
+Learn more
+
+# How to handle AssertionError in Python and find out which line or statement
+it occurred on?
+
+Ask Question
+
+Asked 9 years ago
+
+Active 3 years, 5 months ago
+
+Viewed 142k times
+
+This question shows research effort; it is useful and clear
+
+67
+
+This question does not show any research effort; it is unclear or not useful
+
+24
+
+Bookmark this question.
+
+Show activity on this post.
+
+I want to handle `AssertionError`s both to hide unnecessary parts of the stack
+trace from the user and to print a message as to why the error occurred and
+what the user should do about it.
+
+**Is there any way to find out on which line or statement the`assert` failed
+within the `except` block?**
+
+    
+    
+    try:
+        assert True
+        assert 7 == 7
+        assert 1 == 2
+        # many more statements like this
+    except AssertionError:
+        print 'Houston, we have a problem.'
+        print
+        print 'An error occurred on line ???? in statement ???'
+        exit(1)
+    
+
+I don't want to have to add this to every assert statement:
+
+    
+    
+    assert 7 == 7, ""7 == 7""
+    
+
+because it repeats information.
+
+python assert
+
+Share
+
+Share a link to this question
+
+Copy linkCC BY-SA 3.0
+
+Improve this question
+
+Follow
+
+Follow this question to receive notifications
+
+edited Feb 28 '18 at 14:51
+
+![](./assert - How to handle AssertionError in Python and find out which line
+or statement it occurred on_ - Stack Overflow_files/jaomO.png)
+
+Stevoisiak
+
+17.1k2020 gold badges9797 silver badges177177 bronze badges
+
+asked Jul 20 '12 at 21:34
+
+![](./assert - How to handle AssertionError in Python and find out which line
+or statement it occurred on_ - Stack
+Overflow_files/c8b9ddff0d6a018dbc0b173995413840)
+
+devtkdevtk
+
+1,57922 gold badges1414 silver badges2222 bronze badges
+
+5
+
+  * 10
+
+Two issues. First, if you are having trouble identifying where the exception
+is happening in your `try..except`, that's a sign your `try..except` block is
+too big. Second, the kind of thing meant to be caught by `assert` isn't
+something the user should ever see. If they see an `AssertionError`, the
+proper course of action is for them to contact the programmer and say ""WTF?!"".
+– John Y Jul 20 '12 at 21:51
+
+  * 3
+
+@John Y, you seem confused. You're saying `AssertionError`s shouldn't be seen
+by the user, and then what the user should do when he sees one. It can't be
+both! – devtk Jul 20 '12 at 22:18
+
+  * 8
+
+BTW: Asserts should be about the structure of your code, that is, an assert
+should fail only if you have a bug in your software. They should not be used
+to check user input. You might consider using a different exception for this
+application. – Ned Batchelder Jul 21 '12 at 0:42
+
+  * 1
+
+@NedBatchelder Thanks, you are correct. I may reconsider using asserts here,
+but the procedure for getting the line code will still be useful. – devtk Jul
+21 '12 at 0:54
+
+  * @NedBatchelder Why should asserts not be used for user input validation? What alternatives are recommended? – Konrad Jul 19 at 21:38
+
+Add a comment  |
+
+##  2 Answers 2
+
+Active Oldest Votes
+
+This answer is useful
+
+76
+
+This answer is not useful
+
+Show activity on this post.
+
+Use the traceback module:
+
+    
+    
+    import sys
+    import traceback
+    
+    try:
+        assert True
+        assert 7 == 7
+        assert 1 == 2
+        # many more statements like this
+    except AssertionError:
+        _, _, tb = sys.exc_info()
+        traceback.print_tb(tb) # Fixed format
+        tb_info = traceback.extract_tb(tb)
+        filename, line, func, text = tb_info[-1]
+    
+        print('An error occurred on line {} in statement {}'.format(line, text))
+        exit(1)
+    
+
+Share
+
+Share a link to this answer
+
+Copy linkCC BY-SA 3.0
+
+Improve this answer
+
+Follow
+
+Follow this answer to receive notifications
+
+edited Feb 10 '15 at 14:46
+
+![](./assert - How to handle AssertionError in Python and find out which line
+or statement it occurred on_ - Stack
+Overflow_files/c42fc6c4a1f02f91834f21038aaa9a51.png)
+
+Quentin Pradet
+
+4,50122 gold badges2828 silver badges4040 bronze badges
+
+answered Jul 20 '12 at 21:37
+
+![](./assert - How to handle AssertionError in Python and find out which line
+or statement it occurred on_ - Stack
+Overflow_files/6f92354195e8874dbee44d5c8714d506.jpeg)
+
+phihagphihag
+
+249k6363 gold badges414414 silver badges444444 bronze badges
+
+3
+
+  * How do I get the actual value instead of the line vars? e.g assert a == b I want to show the values of a and b. I tried sys.exc_info()[1] but it's empty – 0x2bad Jun 30 '19 at 19:46
+
+  * @0x2bad Try `assert a == b, (a, b)`, which will give you the values in `sys.exc_info()[1].args[0]` – or easier, name the AssertionError you catch `ae`, then it's in `ae.args[0]`. You can also create a helper method which does the actual assertion. This is what `unittest.TestCase.assertEqual` does. – phihag Jul 1 '19 at 7:08
+
+  * I took the nose approach here github.com/nose-devs/nose/blob/… to get the exact value. So I can keep the exception message meaning full – 0x2bad Jul 7 '19 at 17:31
+
+Add a comment  |
+
+This answer is useful
+
+31
+
+This answer is not useful
+
+Show activity on this post.
+
+The traceback module and sys.exc_info are overkill for tracking down the
+source of an exception. That's all in the default traceback. So instead of
+calling exit(1) just re-raise:
+
+    
+    
+    try:
+        assert ""birthday cake"" == ""ice cream cake"", ""Should've asked for pie""
+    except AssertionError:
+        print 'Houston, we have a problem.'
+        raise
+    
+
+Which gives the following output that includes the offending statement and
+line number:
+
+    
+    
+    Houston, we have a problem.
+    Traceback (most recent call last):
+      File ""/tmp/poop.py"", line 2, in <module>
+        assert ""birthday cake"" == ""ice cream cake"", ""Should've asked for pie""
+    AssertionError: Should've asked for pie
+    
+
+Similarly the logging module makes it easy to log a traceback for any
+exception (including those which are caught and never re-raised):
+
+    
+    
+    import logging
+    
+    try:
+        assert False == True 
+    except AssertionError:
+        logging.error(""Nothing is real but I can't quit..."", exc_info=True)
+    
+
+Share
+
+Share a link to this answer
+
+Copy linkCC BY-SA 3.0
+
+Improve this answer
+
+Follow
+
+Follow this answer to receive notifications
+
+answered Aug 17 '17 at 9:10
+
+![](./assert - How to handle AssertionError in Python and find out which line
+or statement it occurred on_ - Stack
+Overflow_files/39239b9e4c1bc4a484f33b75c49c453b.jpeg)
+
+notpeternotpeter
+
+78488 silver badges1414 bronze badges
+
+Add a comment  |
+
+##  Your Answer
+
+  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   * 
+
+Thanks for contributing an answer to Stack Overflow!
+
+  * Please be sure to _answer the question_. Provide details and share your research!
+
+But _avoid_ …
+
+  * Asking for help, clarification, or responding to other answers.
+  * Making statements based on opinion; back them up with references or personal experience.
+
+To learn more, see our tips on writing great answers.
+
+Draft saved
+
+Draft discarded
+
+### Sign up or log in
+
+Sign up using Google
+
+Sign up using Facebook
+
+Sign up using Email and Password
+
+Submit
+
+### Post as a guest
+
+Name
+
+Email
+
+Required, but never shown
+
+### Post as a guest
+
+Name
+
+Email
+
+Required, but never shown
+
+Post Your Answer  Discard
+
+By clicking “Post Your Answer”, you agree to our terms of service, privacy
+policy and cookie policy
+
+##  Not the answer you're looking for? Browse other questions tagged python
+assert or ask your own question.
+
+The Overflow Blog
+
+  * Podcast 364: What’s the blast radius when your database goes down?
+
+  * The Overflow #84 and 85: How Dwarf Fortress is built
+
+Featured on Meta
+
+  * Join me in Welcoming Valued Associates: #945 - Slate - and #948 - Vanny
+
+#### Linked
+
+7
+
+In python assert, how to print the condition when the assertion failed?
+
+1
+
+Numpy: Try/except inside the function fails to print the message
+
+#### Related
+
+1218
+
+How can I do a line break (line continuation)?
+
+1131
+
+How do I find the location of my Python site-packages directory?
+
+1159
+
+How to get line count of a large file cheaply in Python?
+
+646
+
+How to find out the number of CPUs using python
+
+452
+
+How to find out if a Python object is a string?
+
+413
+
+How do I find out my PYTHONPATH using Python?
+
+599
+
+How can I fill out a Python string with spaces?
+
+800
+
+What is __future__ in Python used for and how/when to use it, and how it works
+
+1300
+
+How to find if directory exists in Python
+
+####  Hot Network Questions
+
+  * Why is thrust inverse to speed in piston engines? 
+  * Bitcoin difficulty - why leading 0s? 
+  * A priest grants absolution to a man who turns out to be an android 
+  * What is the corresponding adjective derived from the verb ""misuse""? 
+  * Can I replace a 100A meter panel with a 200A meter panel **before** replacing the load center? 
+  * A four digit number using exact same 4 digits 
+  * Can a kid ever dive too deep while snorkeling and breath-hold diving? 
+  * Are there any major left-wing conspiracy theories in the USA? 
+  * What is the expected fluency with fractions at UK key stage 3? 
+  * How to rid a colony of ants from my yard 
+  * Addressing age, resume-gaps and non-related job experience in a research job interview 
+  * Parsing ""quae cum audisset"" 
+  * Gagarin not ejecting from capsule 
+  * Did compilers ever give error messages without line numbers? 
+  * What is meant by the ‘madness’ mentioned in Devarim 28:28? 
+  * How can I omit breaks and page breaks in LilyPond? 
+  * Fourier cosine transform from Erdélyi's Tables of Integral Transforms 
+  * In Disney's animated ""One Hundred and One Dalmatians"", how does a poor couple in 1960s England afford a house maid? 
+  * Why did the TVA arrest variants at all, instead of resetting them? 
+  * Why does print(t) error if t.__str__() returns a non-string, but not print(t.__str__())? 
+  * PMD showing errors for one class, but not another class with the same issue 
+  * What’s the largest animal in the evolutionary history of birds? 
+  * Where does Scrum or Agile Manifesto say that we should avoid stages (development, then testing)? 
+  * Why is a signal that is finite in time domain, infinite in its frequency domain? 
+
+Question feed
+
+#  Subscribe to RSS
+
+Question feed
+
+To subscribe to this RSS feed, copy and paste this URL into your RSS reader.
+
+![](/posts/11587223/ivc/5a19)
+
+lang-py
+
+##### Stack Overflow
+
+  * Questions
+  * Jobs
+  * Developer Jobs Directory
+  * Salary Calculator
+  * Help
+  * Mobile
+  * Disable Responsiveness
+
+##### Products
+
+  * Teams
+  * Talent
+  * Advertising
+  * Enterprise
+
+##### Company
+
+  * About
+  * Press
+  * Work Here
+  * Legal
+  * Privacy Policy
+  * Terms of Service
+  * Contact Us
+  * Cookie Settings
+  * Cookie Policy
+
+##### Stack Exchange  
+Network
+
+  * Technology
+  * Life / Arts
+  * Culture / Recreation
+  * Science
+  * Other
+
+  * Stack Overflow
+  * Server Fault
+  * Super User
+  * Web Applications
+  * Ask Ubuntu
+  * Webmasters
+  * Game Development
+
+  * TeX - LaTeX
+  * Software Engineering
+  * Unix & Linux
+  * Ask Different (Apple)
+  * WordPress Development
+  * Geographic Information Systems
+  * Electrical Engineering
+
+  * Android Enthusiasts
+  * Information Security
+  * Database Administrators
+  * Drupal Answers
+  * SharePoint
+  * User Experience
+  * Mathematica
+
+  * Salesforce
+  * ExpressionEngine® Answers
+  * Stack Overflow em Português
+  * Blender
+  * Network Engineering
+  * Cryptography
+  * Code Review
+
+  * Magento
+  * Software Recommendations
+  * Signal Processing
+  * Emacs
+  * Raspberry Pi
+  * Stack Overflow на русском
+  * Code Golf
+
+  * Stack Overflow en español
+  * Ethereum
+  * Data Science
+  * Arduino
+  * Bitcoin
+  * Software Quality Assurance & Testing
+  * Sound Design
+
+  * Windows Phone
+  * **more (29)**
+
+  * Photography
+  * Science Fiction & Fantasy
+  * Graphic Design
+  * Movies & TV
+  * Music: Practice & Theory
+  * Worldbuilding
+  * Video Production
+
+  * Seasoned Advice (cooking)
+  * Home Improvement
+  * Personal Finance & Money
+  * Academia
+  * Law
+  * Physical Fitness
+  * Gardening & Landscaping
+
+  * Parenting
+  * **more (10)**
+
+  * English Language & Usage
+  * Skeptics
+  * Mi Yodeya (Judaism)
+  * Travel
+  * Christianity
+  * English Language Learners
+  * Japanese Language
+
+  * Chinese Language
+  * French Language
+  * German Language
+  * Biblical Hermeneutics
+  * History
+  * Spanish Language
+  * Islam
+
+  * Русский язык
+  * Russian Language
+  * Arqade (gaming)
+  * Bicycles
+  * Role-playing Games
+  * Anime & Manga
+  * Puzzling
+
+  * Motor Vehicle Maintenance & Repair
+  * Board & Card Games
+  * Bricks
+  * Homebrewing
+  * Martial Arts
+  * The Great Outdoors
+  * Poker
+
+  * Chess
+  * Sports
+  * **more (16)**
+
+  * MathOverflow
+  * Mathematics
+  * Cross Validated (stats)
+  * Theoretical Computer Science
+  * Physics
+  * Chemistry
+  * Biology
+
+  * Computer Science
+  * Philosophy
+  * Linguistics
+  * Psychology & Neuroscience
+  * Computational Science
+  * **more (10)**
+
+  * Meta Stack Exchange
+  * Stack Apps
+  * API
+  * Data
+
+  * Blog
+  * Facebook
+  * Twitter
+  * LinkedIn
+  * Instagram
+
+site design / logo © 2021 Stack Exchange Inc; user contributions licensed
+under cc by-sa. rev 2021.8.5.39930
+
+Stack Overflow works best with JavaScript enabled
+![](https://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif)
+
+
+
+"
+true,"
+
+![Defuse Security Research and Development](/images/1by1.gif)
+
+![Follow me on twitter!](/images/twitter.png) Twitter   *  GitHub
+
+  * Home![▼](/images/downarrow.gif)
+    *  About Defuse
+    *  Contact
+    *  Vulnerability Disclosure
+    *  Blog
+    *  Twitter
+    *  GitHub
+    *  Zcash (Zerocash)
+
+  * Services![▼](/images/downarrow.gif)
+    *  Security Auditing
+    *  Encrypted Pastebin
+    *  Time Capsule
+    *  TRENT - Trusted RNG
+    *  Big Number Calculator
+    *  Online x86 Assembler
+    *  Checksum Calculator
+    *  HTML Sanitizer
+    *  CrackStation.net
+
+  * Software![▼](/images/downarrow.gif)
+    *  Password Generator
+    *  HelloWorld! Secure CMS
+    *  PHP Hash Cracker
+    *  Backup Checker
+
+  * Projects & Code![▼](/images/downarrow.gif)
+    *  Insecure Feedback
+    *  Bochs Disk Images
+    *  GnuTLS PSK Example
+    *  Encryption in PHP
+    *  Ruby Email Spoofing
+    *  PHP & Vim Highlighting
+    *  PHP Hit Counter
+    *  PHP Random Passwords
+    *  PBKDF2 For PHP
+    *  Force Print BG Color
+
+  * Research![▼](/images/downarrow.gif)
+    * Vulns & Exploits»
+      * Side Channels (BHUSA 2016)
+      *  Browser Port Scanner
+      *  Sockstress
+      *  Instruction Filters
+      *  FLUSH+RELOAD
+      *  C++ VTABLES
+      *  Cracking Synergy
+      *  PHP BREACH Defense
+      *  Race Conditions
+      *  File-System Events
+      *  PUP Confusion
+      *  Encoding Side Channels
+    * Crypto»
+      *  Blind Birthday Attack
+      *  Paper Coin TRNG
+      *  CBC Mode IV Security
+      *  EOTP
+      *  TrueCrypt & Game Theory
+      *  Browser Cryptography
+    * Passwords»
+      *  Hash Caching
+      *  Password Hall of Shame
+      *  Salted Password Hashing
+    * Audits»
+      *  EncFS
+      *  eCryptfs
+      *  ZeroBin
+      *  PEFS
+      *  Hash0
+      *  Gocryptfs
+      *  GlobaLeaks
+    * Theory»
+      *  My Master's Thesis
+      *  Robot Modelling
+      *  Is Security Local?
+    * Other»
+      *  Secure Code Delivery
+      *  Hacking Bochs
+      *  Website Security
+      *  BitCoin Centralization
+      *  Skype Spying
+
+  * Miscellaneous![▼](/images/downarrow.gif)
+    *  Advice for CS Students
+    *  NYT Algebra
+    *  Transparency
+    *  Reading List
+    *  X-Plane Combat
+    *  Cheese Universe
+    *  My Vim Configuration
+    *  ASUS G51 Keyboard
+    *  Honestyware
+    *  CS Education
+    *  Working With Me
+    *  Contributors
+    *  Centripetal Accel.
+    * Mirrors»
+      *  PoC || GTFO Mirror
+      *  TrueCrypt Hashes
+
+* * *
+
+5980
+
+# Online Big Number Calculator
+
+**Expression:     **
+
+Output Base:  Decimal Hexadecimal Octal  
+Add spaces
+
+Base Prefixes: | 0x - Hexadecimal, 0 - Octal  
+---|---  
+Math Operations: | +, -, *, /, %, ^, (, )  
+Bitwise Operations: | OR, AND, XOR, SHL, SHR, <<, >>, |, &  
+  
+Your IP: |  49.36.115.26  
+---|---  
+DNT Header:    | Disabled  
+  
+Page Hits: | 4019585  
+---|---  
+Unique Hits: | 694512  
+![Creative Commons License](/images/cc-by-sa.png) Defuse Security | Secure
+Pastebin | Password Generator | » CrackStation
+
+![](https://defuse.ca/piwik/piwik.php?idsite=1)
+
+"
+true,"
+
+Skip to main content
 
   * English
   * हिन्दी
@@ -1586,6 +2393,419 @@ security and prosperity
 "
 true,"
 
+**PRACTICE PROBLEMS**
+
+**               1**
+
+|
+
+**  The Real Number System**
+
+|
+
+**PDF**  
+  
+---|---|---  
+  
+**               2**
+
+|
+
+**  Convergence of a Sequence, Monotone Sequences**
+
+|
+
+**PDF**  
+  
+**               3**
+
+|
+
+**  Cauchy Criterion, Bolzano - Weierstrass Theorem**
+
+|
+
+**PDF**  
+  
+**               4**
+
+|
+
+**  Continuity and Limits**
+
+|
+
+**PDF**  
+  
+              **5**
+
+|
+
+**  Existence of Maxima/Minima, Intermediate Value Property**
+
+|
+
+**PDF**  
+  
+**               6**
+
+|
+
+**  Differentiability, Rolle's Theorem **
+
+|
+
+**PDF**  
+  
+**               7**
+
+|
+
+**  Mean Value Theorem, Cauchy Mean Value Theorem, L'Hospital Rule**
+
+|
+
+**PDF**  
+  
+              **8**
+
+|
+
+**  Fixed Point Iteration Method, Newton's Method**
+
+|
+
+**PDF**  
+  
+**               9**
+
+|
+
+**  Tests for maxima and minima, Curve sketching**
+
+|
+
+**PDF Figures**  
+  
+            **  10**
+
+|
+
+**  Taylor's Theorem**
+
+|
+
+**PDF**  
+  
+              **11**
+
+|
+
+  **Series: Definition, Necessary and sufficient conditions, absolute
+    convergence**
+
+|
+
+**PDF**  
+  
+              **12**
+
+|
+
+  **Comparison, Limit comparison and Cauchy condensation tests**
+
+|
+
+**PDF**  
+  
+**             13**
+
+|
+
+**  Ratio and Root tests, Leibniz's Test**
+
+|
+
+**PDF**  
+  
+**             14**
+
+|
+
+**  Power Series, Taylor Series**
+
+|
+
+**PDF**  
+  
+**              15**
+
+|
+
+**  Integration, Riemann's Criterion for integrability (Part I)**
+
+|
+
+**PDF**  
+  
+**              16 **
+
+|
+
+  **Integration, Riemann's Criterion for integrability (Part II)**
+
+|
+
+**PDF**  
+  
+**              17**
+
+|
+
+  **Fundamental Theorems of Calculus, Riemann Sum**
+
+|
+
+**PDF**  
+  
+**              18**
+
+|
+
+**  Improper Integrals**
+
+|
+
+**PDF Figures**  
+  
+
+
+|
+
+**  Uniform Continuity (Not for Examination)**
+
+|
+
+  
+  
+**             19**
+
+|
+
+**Area of a region between curves; Polar Coordinates**
+
+|
+
+**PDF Figures**  
+  
+**             20 **
+
+|
+
+**Area in Polar Co-ordinates, Volume of a Solid by Slicing**
+
+|
+
+**PDF Figures**  
+  
+**             21**
+
+|
+
+**Washer and Shell Methods, Length of a plane curve**
+
+|
+
+**PDF Figures**  
+  
+**             22**
+
+|
+
+  **Areas of Surfaces of Revolution; Pappus's Theorems**
+
+|
+
+**PDF**  
+  
+**            23**
+
+|
+
+  **Review of vectors, equations of lines and planes, Quadric Surfaces**
+
+|
+
+**PDF Figures**  
+  
+**            24 **
+
+|
+
+**  Calculus of Vector Valued Functions I: Parametric curves**
+
+|
+
+**PDF Figures**  
+  
+**            25**
+
+|
+
+  **Calculus of Vector Valued Functions II: Tangent, Normal and Curvature**
+
+|
+
+**PDF**  
+  
+**            26 **
+
+|
+
+** ** **Functions of several variables : Sequences, continuity and partial
+derivatives**
+
+|
+
+**PDF**  
+  
+**            27**
+
+|
+
+**Functions of several variables : Differentiabilty and Chain Rule**
+
+|
+
+**PDF**  
+  
+  **           28**
+
+|
+
+** ** **Directional derivative, gradient and tangent plane**
+
+|
+
+**PDF**  
+  
+  **           29**
+
+|
+
+**Mixed Partial Derivatives, Mean Value Theorem and Extended Mean Value
+theorem**
+
+|
+
+**PDF**  
+  
+**            30**
+
+|
+
+**Maxima, Minima, Second Derivative Test**
+
+|
+
+**PDF**  
+  
+**            31**
+
+|
+
+**Method of Lagrange Multipliers**
+
+|
+
+**PDF**  
+  
+**            32**
+
+|
+
+**Double integral**
+
+|
+
+**PDFFigures**  
+  
+**            33**
+
+|
+
+  **Change of variables in double integrals, Polar coordinates**
+
+|
+
+**PDF Figures**  
+  
+**            34**
+
+|
+
+  **Triple integral, Change of variables, Cylindrical and Spherical
+    coordinates**
+
+|
+
+**PDF Figures**  
+  
+**            35**
+
+|
+
+  **Parametric surfaces, surface area and surface integrals**
+
+|
+
+**PDF**  
+  
+**            36**
+
+|
+
+  **Line integrals**
+
+|
+
+**PDF**  
+  
+**            37**
+
+|
+
+  **Green's  Theorem**
+
+|
+
+**PDF**  
+  
+**            38**
+
+|
+
+  **Stokes' Theorem**
+
+|
+
+**PDF**  
+  
+**            39**
+
+|
+
+  **Divergence Theorem**
+
+|
+
+**PDF**  
+  
+
+
+"
+true,"
+
 ![GOJEK Tech Logo](./Gojek_files/gojek-white-logo.svg)__
 
   * Home (current)
@@ -1642,5 +2862,643 @@ Gojek tech | 2021 All Rights Reserved
 pixel](https://ghostboard.io/api/noscript/609a7c953a29de7474d49404/pixel.gif)
 
 ![](https://www.facebook.com/tr?id=2299501806947698&ev=PageView&noscript=1)
+
+"
+true,"|
+
+|  
+---  
+  
+|  Wednesday,  August  11, 2021 | 10:38:36 AM  |  |  Skip to main content | |
+Screen Reader Access | |  Sitemap  | |  Home  |  | **A-** Decrease Font Size |
+**A** Normal Font Size | **A+** Increase Font Size  
+---|---|---  
+  
+|  | Passport Seva  
+---  
+Consular, Passport & Visa Division  
+Ministry of External Affairs, Government of India  
+|  
+---  
+  
+  * Home
+  * About Us ![arrow down](./User Registration _ Passport Seva_files/down.gif)
+    * PSP Division
+    * Passport Seva
+  * Passport Offices ![arrow down](./User Registration _ Passport Seva_files/down.gif)
+    * Passport Offices in India
+    * Mission/Post Abroad
+  * Consular / Visa ![arrow down](./User Registration _ Passport Seva_files/down.gif)
+    * Consular Services
+    * Visa Services
+    * Log and Track Grievances
+  * RTI
+  * Citizens' Charter
+  * Contact Us ![arrow down](./User Registration _ Passport Seva_files/down.gif)
+    * ![Left Arrow](./User Registration _ Passport Seva_files/left.gif)Passport
+      * General Information
+      * Chief Passport Officer
+      * Passport Offices
+      * Vigilance Unit
+    * Visa Services
+    * Consular / Visa
+  * What's New
+  * 
+  
+  
+|  |
+
+**PSKs and POPSKs have started resuming the Operations owing to the
+relaxations given by the States in line with the COVID-19 guidelines. Intended
+Applicants can book the appointments to the nearest Operational PSK/POPSK.
+Refer Latest News Section for Operational PSK and POPSK List. In case of
+emergency/medical cases and if none of the PSKs are operational, applicant may
+approach the concerned Passport Office. Restrictions on rescheduling of
+appointments have been relaxed. Applicants are advised to wear a mask, carry
+sanitizer, download and install Aarogya Setu App and follow social distancing
+norms at PSKs/POPSKs during the visit. **173 Indian Mission/Post are connected
+with Passport Seva System.**
+
+|  ![stop](./User Registration _ Passport Seva_files/pause.jpg)
+![start](./User Registration _ Passport Seva_files/play.png)  
+---|---|---  
+  
+|
+
+|
+
+Information Corner
+
+  * Getting Started 
+  * Passport Act and Rules 
+    * Passport Act 1967 _(PDF, 220 KB, 15 Pages)_
+    * Passport Rules 1980 _(PDF, 5.07 MB, 62 Pages)_
+    * Notifications
+  * FAQs 
+    * Services Available 
+    * Special Cases Of Minors Requiring Passports 
+    * Where to apply? 
+    * Application Form 
+    * Fee Payment 
+    * Password Management 
+    * Police Verification 
+    * Postal Dispatch
+    * Call Centre
+    * Lost/Damaged Passports
+    * Tatkaal Passports
+    * Identity Certificate
+    * Miscellaneous
+    * LoC Permit
+    * Passport Seva Camp 
+    * Surrender Certificate
+    * Alias Name
+  * Locate Passport Seva Kendra 
+  * Locate Common Service Centers 
+  * Fee Calculator 
+  * Appointment Availability Status **  New! **
+  * Know your Police Station 
+  * Quick Guides 
+    * Apply for passport 
+    * Fill Passport form online 
+    * Appointment Booking Process 
+    * Submit an Application at PSK 
+    * Check Application Status 
+  * Tatkaal Appointment Opening Time 
+  * Instructions Booklet 
+  * All India Network of Passport Services 
+
+Forms and Affidavits
+
+  * Download e-Form 
+    * | Applicants using eForm, download soft copy of the eForm, fill the same off-line and then must upload it back. The printed copy of the eForm will not be accepted at PSK/RPO.   
+---  
+  * Annexures (Affidavits) 
+  * Print Application Form 
+  * Undertaking as per GSR 570 (E) 
+
+Feedback and Grievance
+
+  * How to access Information and log Grievance
+  * Grievance/Feedback 
+  * Track Grievance Status 
+  * Information
+
+Value Added Services
+
+  * mPassport Seva App |   
+---|---  
+  * Premium SMS Services
+
+  
+  
+You are here : Home > **New User Registration**  
+  
+
+User Registration
+
+Fields marked with asterisk (*) are mandatory
+
+**Important Information:** Passport application can be processed at any
+PSK/POPSK/PSLK WITHIN INDIA irrespective of your residential address.
+
+  * Click here  to check the appointment availability at all PSK/POPSK/PSLK.
+  * Click here to know more about Apply Anywhere in India scheme for Passport Services.
+
+|  
+---  
+Register to apply at*  
+CPV Delhi  
+Passport Office
+
+|  Select the 'CPV Delhi' option to apply for Diplomatic/Official passport at
+Consular, Passport and Visa (CPV) division, Delhi.  
+Passport Office *  (As per Present Residential Address) |  \----- Select -----
+Ahmedabad Amritsar Bareilly Bengaluru Bhopal Bhubaneswar Chandigarh Chennai
+Cochin Coimbatore Dehradun Delhi Ghaziabad Goa Guwahati Hyderabad Jaipur
+Jalandhar Jammu Kolkata Kozhikode Lucknow Madurai Mumbai Nagpur Patna Pune
+Raipur Ranchi Shimla Srinagar Surat Tiruchirappalli Trivandrum Vijayawada
+Visakhapatnam
+
+Tibetan Refugees applying for Identity Certificate must register with 'Delhi'
+Passport Office. |  Tibetan Refugees applying for Identity Certificate must
+register with 'Delhi' Passport Office.  
+Given Name (Max 45 Characters)* |
+
+First Name + Middle NameInitials and honorifics (e.g. Dr.,Col.,etc.) are not
+allowed. |  **First Name + Middle Name**  
+Initials and honorifics (e.g. Dr.,Col.,etc.) are not allowed.  
+Surname (Max 45 Characters) |  
+  
+Date of Birth (DD/MM/YYYY)* |  ![...](./User Registration _ Passport
+Seva_files/ico_cal.gif)
+
+(provide date in DD/MM/YYYY format)  
+E-mail Id (Max 35 Characters)* |  
+  
+Do you want your Login Id  
+to be same as E-mail Id? Yes No  
+  
+Login Id* |
+
+|  Check Availability  
+Password* |
+
+| Password Policy  
+Confirm Password* |  
+  
+Hint Question* |  \----- Select ----- Birth City Favourite Colour Favourite
+Cricketer Favourite Food First School Make of First car Owned Mother's Maiden
+Name  
+  
+Hint Answer* |  
+  
+Enter Characters Displayed * |  ![Captcha](./User Registration _ Passport
+Seva_files/PspTest01Captcha09S.awsti)  
+|  ![Change the picture displayed](./User Registration _ Passport
+Seva_files/refresh.png)  
+![Audio captcha](./User Registration _ Passport Seva_files/audio.png) ![Audio
+captcha](./User Registration _ Passport Seva_files/audio.png)  
+  |  
+  
+|  |  External Links  |  Legal Information  |  Help  |  Connect with Us  
+---|---|---|---  
+|
+
+  * Ministry of External AffairsInformation about Ministry of External Affairs (External website that opens in a new window)
+  * National Portal of IndiaInformation about National Portal of India (External website that opens in a new window)
+  * Visa On ArrivalInformation about National Portal of India (External website that opens in a new window)
+  * Bureau of ImmigrationInformation about Bureau of Immigration (External website that opens in a new window)
+  * Foreigners Division, MHA Information about Foreigners Division (External website that opens in a new window)
+  * National Voters' Services PortalInformation about National Voters' Services Portal (External website that opens in a new window)
+  * 
+
+|
+
+  * Visa ServicesInformation about Ministry of External Affairs (External website that opens in a new window)
+  * eMigrateInformation about eMigrate Application System (External website that opens in a new window)
+  * MADADMADAD-Consular Services Management System(External website that opens in a new window)
+  * India Code PortalInformation about India Code Portal (External website that opens in a new window)
+  * 
+
+|
+
+  * Terms & Conditions
+  * Privacy Policy
+  * Copyright Policy
+  * Hyperlinking Policy
+
+|
+
+  * FAQs
+  * Grievance/Feedback 
+
+|
+
+| Connect with MEA at Facebook (External website that opens in a new window) |
+Connect with MEA at Twitter (External website that opens in a new window) |
+Connect with MEA at Youtube (External website that opens in a new window) |
+Connect with MEA at Flickr (External website that opens in a new window)  
+---|---|---|---  
+  
+© Content Owned by Ministry of External Affairs, Government of India  
+  
+Site Maintained by Tata Consultancy Services Ltd.Information about Tata
+Consultancy Services Limited (External website that opens in a new window)  
+  
+Best Viewed in Internet Explorer 11.0Information about latest version of
+Internet Explorer and above at resolution 1024 X 768  
+  
+Last Updated on
+
+"
+true,"  
+  
+Login
+
+Products Solutions Research Academy Daily Swig Support Company
+
+Customers About Blog Careers Legal Contact Resellers
+
+My account Customers About Blog Careers Legal Contact Resellers
+
+![Burp Suite Enterprise Edition](./Upgrade your skills with the Web Security
+Academy - from PortSwigger_files/enterprise.svg) **Burp Suite Enterprise
+Edition** The enterprise-enabled web vulnerability scanner. ![Burp Suite
+Professional](./Upgrade your skills with the Web Security Academy - from
+PortSwigger_files/professional.svg) **Burp Suite Professional** The world's #1
+web penetration testing toolkit. ![Burp Suite Community Edition](./Upgrade
+your skills with the Web Security Academy - from
+PortSwigger_files/community.svg) **Burp Suite Community Edition** The best
+manual tools to start web security testing. View all product editions
+
+**Burp Scanner**
+
+Learn how Burp's innovative scanning engine finds more bugs, more quickly.
+
+![Burp Scanner](./Upgrade your skills with the Web Security Academy - from
+PortSwigger_files/burp-scanner.jpg)
+
+**Application Security Testing** See how our software enables the world to
+secure the web. **DevSecOps** Catch critical bugs; ship more secure software,
+more quickly. **Penetration Testing** Accelerate penetration testing - find
+more bugs, more quickly. **Automated Scanning** Scale dynamic scanning. Reduce
+risk. Save time/money. **Bug Bounty Hunting** Level up your hacking and earn
+more bug bounties. **Compliance** Enhance security monitoring to comply with
+confidence.
+
+View all solutions
+
+**Burp Suite Enterprise Edition**
+
+Scan it all. Unleash AppSec. Supercharge engineering. Power DevSecOps.
+
+![Burp Suite Enterprise Edition](./Upgrade your skills with the Web Security
+Academy - from PortSwigger_files/enterprise.jpg)
+
+**Support Center** Get help and advice from our experts on all things Burp.
+**Documentation** Browse full documentation for all Burp Suite products. **Get
+Started - Professional** Get started with Burp Suite Professional. **Get
+Started - Enterprise** Get started with Burp Suite Enterprise Edition.
+**Releases** See the latest Burp Suite features and innovations. **User
+Forum** Get your questions answered in the User Forum.
+
+Visit the Support Center
+
+**Burp Suite Enterprise Edition**
+
+Scan it all. Unleash AppSec. Supercharge engineering. Power DevSecOps.
+
+![Burp Suite Enterprise Edition](./Upgrade your skills with the Web Security
+Academy - from PortSwigger_files/enterprise.jpg)
+
+Your download should start automatically. Didn't work? Try downloading again.
+
+1
+
+2
+
+**Thanks for downloading Burp Suite Community Edition!**
+
+Now why not get the most out of it by signing up to the Web Security Academy?
+
+# Want to access free online training from the creators of Burp Suite?
+
+**Get started with the Web Security Academy now** to take your skills to the
+next level.
+
+![The benefits of working through PortSwigger's Web Security
+Academy](./Upgrade your skills with the Web Security Academy - from
+PortSwigger_files/academy.png)
+
+  * Get hands-on learning with over 190 interactive labs.
+
+  * Learn how to test applications like the experts.
+
+  * Keep up with the latest and greatest vulnerabilities.
+
+REGISTER
+
+As we use reCAPTCHA, you need to be able to access Google's servers to use
+this function.
+
+Already got an account? Login here Get started with the Web Security Academy
+
+> I love the #websecurityacademy because IMO, it's one of the best free
+> practical web security courses out there, that isn't snake oil. It helped
+> broaden my knowledge of latest web vulns with top notch practical labs, and
+> has greatly improved my understanding of complex vulns!
+>
+> **@payloadartist**
+
+## Want the latest from the Web Security Academy?
+
+Follow us on Twitter for new topic releases, and to get involved with our
+wider community.
+
+Follow us on twitter
+
+### Visit the Web Security Academy to find out more
+
+Read more
+
+### View all of the labs and learning materials
+
+Read more
+
+### Get some tips and advice from our community
+
+Read more
+
+Burp Suite
+
+Web vulnerability scanner Burp Suite Editions Release Notes
+
+Vulnerabilities
+
+Cross-site scripting (XSS) SQL injection Cross-site request forgery XML
+external entity injection Directory traversal Server-side request forgery
+
+Customers
+
+Organizations Testers Developers
+
+Company
+
+About PortSwigger News Careers Contact Legal Privacy Notice
+
+Insights
+
+Web Security Academy Blog Research The Daily Swig
+
+![PortSwigger Logo](./Upgrade your skills with the Web Security Academy - from
+PortSwigger_files/portswigger-logo.svg) Follow us
+
+© 2021 PortSwigger Ltd.
+
+"
+true,"
+
+For full functionality of this site it is necessary to enable JavaScript. Here
+are the  instructions how to enable JavaScript in your web browser.
+
+### Corporate Membership Drive to celebrate OWASP's 20th Anniversary
+Celebration Event  
+Join or Renew Now!
+
+ __
+
+__ ![OWASP logo](./404 - Not Found _ OWASP_files/logo.png)
+
+  * __
+  * PROJECTS
+
+    * Browse All Projects...
+    * OWASP Top Ten
+    * Dependency Track
+    * Juice Shop
+    * Mobile Security Testing Guide
+    * ModSecurity Core Rule Set
+    * Software Assurance Maturity Model (SAMM)
+    * Security Knowledge Framework
+    * Web Security Testing Guide
+    * Zed Attack Proxy
+    * Start a New Project...
+    * Google Summer of Code 2021
+
+CHAPTERS
+
+    * Find a Local Chapter...
+    * Africa
+    * Asia
+    * Central America
+    * Eastern Europe
+    * European Union
+    * Middle East
+    * North America
+    * Oceania
+    * South America
+    * The Caribbean
+    * Start a Local Chapter...
+
+EVENTS
+
+    * OWASP 20th Anniversary
+    * OWASP Virtual Trainings
+    * Lightning Conference
+    * Brain Break
+    * Call to Battle
+    * Upcoming Chapter Events
+    * Browse All Events...
+
+ABOUT
+
+    * About OWASP
+    * Board & Staff
+    * Careers
+    * Committees
+    * Contact Us
+    * Contributed Content
+    * Donate
+    * Finance
+    * Get OWASP Gear
+    * Global Board
+    * Governance
+    * Membership
+    * Opinions & News
+    * Policies
+    * Staff Projects & Procedures
+    * Corporate Membership
+    * Corporate Event Sponsorship
+    * Video
+
+  * MAKE A DONATION
+  * BECOME A MEMBER
+  * SITEMAP
+
+![](./404 - Not Found _ OWASP_files/logo.png)
+
+  * PROJECTS
+    * Browse All Projects...
+    * OWASP Top Ten
+    * Dependency Track
+    * Juice Shop
+    * Mobile Security Testing Guide
+    * ModSecurity Core Rule Set
+    * Software Assurance Maturity Model (SAMM)
+    * Security Knowledge Framework
+    * Web Security Testing Guide
+    * Zed Attack Proxy
+    * Start a New Project...
+    * Google Summer of Code 2021
+  * CHAPTERS
+    * Find a Local Chapter...
+    * Africa
+    * Asia
+    * Central America
+    * Eastern Europe
+    * European Union
+    * Middle East
+    * North America
+    * Oceania
+    * South America
+    * The Caribbean
+    * Start a Local Chapter...
+  * EVENTS
+    * OWASP 20th Anniversary
+    * OWASP Virtual Trainings
+    * Lightning Conference
+    * Brain Break
+    * Call to Battle
+    * Upcoming Chapter Events
+    * Browse All Events...
+  * ABOUT
+    * About OWASP
+    * Board & Staff
+    * Careers
+    * Committees
+    * Contact Us
+    * Contributed Content
+    * Donate
+    * Finance
+    * Get OWASP Gear
+    * Global Board
+    * Governance
+    * Membership
+    * Opinions & News
+    * Policies
+    * Staff Projects & Procedures
+    * Corporate Membership
+    * Corporate Event Sponsorship
+    * Video
+
+__Store Donate Join
+
+This website uses cookies to analyze our traffic and only share that
+information with our analytics partners.
+
+Accept
+
+x
+
+__Store
+
+Donate
+
+Join
+
+# 404 - Not Found
+
+![](./404 - Not Found _ OWASP_files/404-old-owasp.png)
+
+## WHOA THAT PAGE CANNOT BE FOUND
+
+Try the **SEARCH** function in the main navigation to find something. If you
+are looking for chapter information, please see Chapters for the correct
+chapter. For information about OWASP projects see Projects. For common
+attacks, vulnerabilities, or information about other community-led
+contributions see Contributed Content.
+
+* * *
+
+**If all else fails you can search ourhistorical site.**
+
+* * *
+
+Edit on GitHub
+
+**The OWASP ® Foundation** works to improve the security of software through
+its community-led open source software projects, hundreds of chapters
+worldwide, tens of thousands of members, and by hosting local and global
+conferences.
+
+### Upcoming OWASP Global Events
+
+  * Brain Break
+    * August 18, October 20, and December 16.
+  * Call to Battle
+    * August 28, and December 7.
+  * OWASP Virtual Training Courses
+    * July 20, September 7, and November 16.
+  * Lightning Conference
+    * September 28, and November 3.
+  * OWASP's 20th Anniversary Celebration Event
+    * September 24, 2021
+  * Global AppSec USA 2021 Virtual Event
+    * November 8-12, 2021
+  * OWASP Global AppSec Dublin
+    * June 6-10, 2022
+  * OWASP Global AppSec San Francisco
+    * September 19-23, 2022
+
+## Spotlight: intertrust
+
+![image](./404 - Not Found _ OWASP_files/intertrust.png)
+
+Intertrust provides trusted computing products and services to leading global
+corporations. Products include the world’s leading digital rights management
+(DRM), software tamper resistance, and technologies to enable private data
+exchanges for energy, entertainment, retail/marketing, automotive, fintech,
+and IoT.  Founded in 1990, headquartered in Silicon Valley with offices
+globally. Intertrust has a legacy of invention, and its fundamental
+contributions in the areas of computer security and digital trust are globally
+recognized. Intertrust holds hundreds of patents underpinning Internet
+security, trust, and privacy management components of operating systems,
+trusted mobile code and networked operating environments, web services, and
+cloud computing.
+
+## Corporate Supporters
+
+![image](./404 - Not Found _ OWASP_files/real-ware.png)![image](./404 - Not
+Found _ OWASP_files/FluidAttacks.png)![image](./404 - Not Found _
+OWASP_files/infosec_owasp.png)![image](./404 - Not Found _
+OWASP_files/proack_logo_main_rgb_72dpi.png)![image](./404 - Not Found _
+OWASP_files/Shiftleft_riz_rgb_owasp.png)![image](./404 - Not Found _
+OWASP_files/indusface.jpg)![image](./404 - Not Found _
+OWASP_files/securityinitiative.png)![image](./404 - Not Found _
+OWASP_files/DataDome2020.png)![image](./404 - Not Found _
+OWASP_files/sonarsource.png)
+
+Become a corporate supporter
+
+__________
+
+  * HOME
+  * PROJECTS
+  * CHAPTERS
+  * EVENTS
+  * ABOUT
+  * PRIVACY
+  * SITEMAP
+  * CONTACT
+
+OWASP, Open Web Application Security Project, and Global AppSec are registered
+trademarks and AppSec Days, AppSec California, AppSec Cali, SnowFROC, LASCON,
+and the OWASP logo are trademarks of the OWASP Foundation, Inc. Unless
+otherwise specified, all content on the site is Creative Commons Attribution-
+ShareAlike v4.0 and provided without warranty of service or accuracy. For more
+information, please refer to our General Disclaimer. OWASP does not endorse or
+recommend commercial products or services, allowing our community to remain
+vendor neutral with the collective wisdom of the best minds in software
+security worldwide. Copyright 2021, OWASP Foundation, Inc.
 
 "

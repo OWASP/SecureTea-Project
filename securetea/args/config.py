@@ -83,6 +83,12 @@ def get_config():
         "insecure_headers": {
                 "url": ""
         },
+        "waf": {
+            "listen_ip": "127.0.0.1",
+            "listen_port": 8865,
+            "mode": 0,
+            "backend_server_config": "{}"
+        },
         "ids": {
             "threshold": 10,
             "eligibility_threshold": 0.5,

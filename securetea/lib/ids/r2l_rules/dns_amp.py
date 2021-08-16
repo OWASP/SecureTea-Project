@@ -65,14 +65,18 @@ class DNS_Amplification(object):
 
             # dns ips for top public dns servers
             dns_dst = ['8.8.8.8','8.8.4.4','9.9.9.9','149.112.112.112','208.67.222.222','208.67.220.220','1.1.1.1','1.0.0.1','185.228.168.9','185.228.169.9','76.76.19.19','76.223.122.150','94.140.14.14','94.140.15.15']
-
+            
+            flag = 0
+            
             if ((source_ip in ips) and (udp_port == 53)):
                 for dest in dest_dns:
                     if(re.search('[a-zA-Z]', dest)):
                         dest_dns += check_output(['dig', '+short', dest]).decode('utf-8').split('\n')[:-1]
                     if(dest in dns_dst):
-                        self.logger.log(
-                            "Possible dns amplification attack detected.",
-                            logtype="warning"
-                        )
-                        break
+                        flag = 1
+                        
+                if(flag == 1):
+                    self.logger.log(
+                        "Possible dns amplification attack detected.",
+                        logtype="warning"
+                    )

@@ -12,6 +12,8 @@ Project:
 
 import socket
 from .utils import RequestParser
+from securetea import logger
+
 
 
 
@@ -35,21 +37,45 @@ class Requester:
         self.socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
         self.transport=transport
 
+        # Initialize Logger
 
-    def connect(self,data):
+        self.logger = logger.SecureTeaLogger(
+            __name__,
+            debug=True
+        )
+
+
+    def connect(self,host,redirect_table):
 
         """
         Extracts the host name and connects the socket to the host on port 80
         """
 
-        self.host=(RequestParser(data).headers["HOST"])
+        self.host=host
 
-        try :
-            {
-                self.socket.connect((self.host,80))
-             }
-        except Exception as e:
-                   print(e)
+
+        # Check whether the incoming Host is part of the backend server config
+
+        if self.host in redirect_table.keys():
+            host,port=redirect_table[host].split(":")
+            try :
+                {
+                    self.socket.connect((host,int(port)))
+                 }
+            except Exception as e:
+                       self.logger.log(
+                           "Error:{}".format(e),
+                           logtype="error"
+                                       )
+        else:
+
+            self.logger.log(
+                "Routing table not configured for Incoming HOST:{}".format(self.host),
+                logtype="error"
+
+
+            )
+            self.transport.close();
 
     def handle_CONNECT(self,domain):
         try:
