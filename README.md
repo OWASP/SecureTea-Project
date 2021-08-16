@@ -165,6 +165,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://sam.ukjp.app"><img src="https://avatars1.githubusercontent.com/u/26642976?v=4?s=100" width="100px;" alt=""/><br /><sub><b>sam@ukjp</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=sam-aldis" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/prince-7"><img src="https://avatars.githubusercontent.com/u/53997924?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aman Singh</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=prince-7" title="Code">💻</a> <a href="https://github.com/OWASP/SecureTea-Project/commits?author=prince-7" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/digvijay-bhosale-620a96191/"><img src="https://avatars.githubusercontent.com/u/70275323?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Digvijay Bhosale</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=DigvijayBhosale1729" title="Code">💻</a></td>
   </tr>
 </table>
 
