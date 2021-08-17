@@ -58,6 +58,17 @@
 
 Before installing, please make sure to install the **[pre-requisites](/doc/en-US/user_guide.md#pre-requisites)**.
 
+To install software requirements:
+
+For apt package manager based systems:
+```shell
+$ sudo bash install install_dependencies_apt.sh
+```
+For yum package manager based systems:
+```shell
+$ sudo bash install install_dependencies_yum.sh
+```
+
 You can install SecureTea from PyPi package manager using the following command:
 
 `$ sudo python3 -m pip install securetea`
@@ -69,7 +80,6 @@ You can install SecureTea using the latest repository:
 ```shell
 git clone https://github.com/OWASP/SecureTea-Project.git
 cd SecureTea-Project/
-sudo python3 -m pip install -r requirements.txt
 sudo python3 setup.py install
 ```
 
@@ -155,6 +165,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://sam.ukjp.app"><img src="https://avatars1.githubusercontent.com/u/26642976?v=4?s=100" width="100px;" alt=""/><br /><sub><b>sam@ukjp</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=sam-aldis" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/prince-7"><img src="https://avatars.githubusercontent.com/u/53997924?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aman Singh</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=prince-7" title="Code">💻</a> <a href="https://github.com/OWASP/SecureTea-Project/commits?author=prince-7" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/digvijay-bhosale-620a96191/"><img src="https://avatars.githubusercontent.com/u/70275323?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Digvijay Bhosale</b></sub></a><br /><a href="https://github.com/OWASP/SecureTea-Project/commits?author=DigvijayBhosale1729" title="Code">💻</a></td>
   </tr>
 </table>
 

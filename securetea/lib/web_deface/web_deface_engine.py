@@ -20,7 +20,8 @@ from securetea.lib.web_deface import model
 from securetea.lib.web_deface.file_handler import *
 from securetea.lib.web_deface.utils import *
 import sys
-
+from pathlib import Path
+import os
 
 class Engine(object):
     """
@@ -139,7 +140,8 @@ class Engine(object):
         dump_dict_to_json(path=self._SET_MAP, py_dict=set_dict)
 
         #Defacment Prediction Model
-        self.model = model.MLModel(debug=self.debug)
+        if(not os.path.isfile(str(Path(os.path.dirname(__file__)).parent) + "/web_deface/config/finalized_model.sav")):
+            self.model = model.MLModel(debug=self.debug)
 
         # Create monitor object
         self.monitor = Monitor(debug=self.debug,
