@@ -41,6 +41,7 @@
 
 - [x] [Intrusion Detection System](/doc/en-US/user_guide.md#intrusion-detection-system)
 - [x] [Firewall](/doc/en-US/user_guide.md#firewall)
+- [x] [Web Application Firewall](/doc/en-US/user_guide.md#web-application-firewall)
 - [x] [AntiVirus](/doc/en-US/user_guide.md#antivirus)
 - [x] [Server Log Monitor](/doc/en-US/user_guide.md#server-log-monitor)
 - [x] [System Log Monitor](/doc/en-US/user_guide.md#system-log-monitor)
