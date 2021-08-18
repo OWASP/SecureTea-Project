@@ -1,9 +1,9 @@
 #!/bin/bash
 # SecureTea install Dependencies.
 # Project:
-#        ^u^t   ^u^p   ^u^w   ^t^l   ^t^`   ^t^p   ^t^l   ^t^`   ^t^p   ^t       ^t      ^t      ^t^`   ^t^p   ^t^l   ^t^`   ^t^p   ^u^t   ^u      ^u^w   ^t^l   ^t^
-#        ^u^z   ^u^p   ^u^w   ^t^|   ^t       ^t^b     ^t^b    ^t^b   ^t^|   ^t      ^t^x   ^t^|   ^t        ^u^q    ^t^|   ^t       ^t^|   ^t^`   ^t
-#        ^u^z   ^u^p   ^u^}   ^t^t   ^t^`   ^t^x   ^t^t   ^t^`   ^t^x   ^t^t   ^t^`   ^t^x   ^t      ^t^t   ^t^`   ^t^t   ^t^`   ^t^x    ^u       ^t^t   ^t^`   ^t^x
+#     ╔═╗┌─┐┌─┐┬ ┬┬─┐┌─┐╔╦╗┌─┐┌─┐
+#     ╚═╗├┤ │  │ │├┬┘├┤  ║ ├┤ ├─┤
+#     ╚═╝└─┘└─┘└─┘┴└─└─┘ ╩ └─┘┴ ┴
 #     Version: 2.1
 #     Module: SecureTea
 # Attributes:
