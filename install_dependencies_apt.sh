@@ -22,6 +22,10 @@ apt -y -qq install python3-setuptools build-essential python3-dev libnfnetlink-d
 service rsyslog restart
 apt-get -y -qq install -y clamav # dependencies installed
 
+apt-get install exiftool pngcheck foremost steghide stegosuite # dependencies for steg analysis
+
+apt-get install curl    # dependency for API interaction.
+
 apt-get -y -qq install git # installing git
 python3 -m pip install git+https://github.com/kti/python-netfilterqueue
 
