@@ -121,7 +121,7 @@ For more detailed information, refer to the [usage guide](https://github.com/OWA
 [OWASP-logo]: https://github.com/OWASP/Amass/blob/master/images/owasp_logo.png
 [SecureTea-OWASP]: https://www.owasp.org/index.php/OWASP_SecureTea_Project
 [GSOC-OWASP]: https://summerofcode.withgoogle.com/organizations/6362925392986112/
-[Telegram]: https://t.me/joinchat/Az5yZxQg7Djs-UZWKKCRVQ
+[Telegram]: https://t.me/joinchat/FCDsOABUOJ2ZCWy1
 [Telegram-badge]: https://img.shields.io/badge/chat%20on-telegram-blue.svg
 [Codacy]: https://app.codacy.com/app/rejahrehim/SecureTea-Project?utm_source=github.com&utm_medium=referral&utm_content=OWASP/SecureTea-Project&utm_campaign=Badge_Grade_Settings
 [Codacy-badge]: https://api.codacy.com/project/badge/Grade/7e1de11511084c06bbe25ed4d629e7fd
