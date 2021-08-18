@@ -18,9 +18,9 @@ apt-get update
 apt-get install python3
 apt-get install python3-pip # python3 and pip installed
 
-apt install -y python3-setuptools build-essential python3-dev libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 rsyslog
+apt -y install python3-setuptools build-essential python3-dev libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 rsyslog
 service rsyslog restart
-apt-get install -y clamav # dependencies installed
+apt-get -y install clamav # dependencies installed
 
 apt-get install git # installing git
 python3 -m pip install git+https://github.com/kti/python-netfilterqueue
