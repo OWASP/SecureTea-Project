@@ -1274,6 +1274,7 @@ The WAF is trainned to detect attack vectors like:
 **Running Web Application Firewall**
 
 ![Running WAF Log MODE](/img/waf-working.gif)
+![Running WAF Block Mode](/img/waf-blockmode.gif)
 
 
 ## Intrusion Detection System
