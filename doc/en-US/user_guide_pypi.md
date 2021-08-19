@@ -1023,6 +1023,32 @@ The report will contain the following fields:
 3. WHOIS lookup
 4. Other important details 
 
+## Web Application Firewall 
+SecureTea Web Application Firewall uses Machine Learning model to detect anomalies in web traffic . The WAF uses Logistic regression a supervised learning classification algorithm to predict the quality of the web traffic .
+
+**Modes**
+The WAF offers 2 modes:
+- Log Only  Mode 
+- Block Mode
+
+In log only mode the WAF logs every incoming request to the server and warns the user if it detects any kind of attack on the server .
+In Block mode the WAF logs the incoming request and also blocks the request if it detects any kind of attack on the server.
+
+**Attack Detection** 
+The WAF is trainned to detect attack vectors like:
+
+- Cross Site Scripting (XSS)
+- Sql Injection
+- Command Injection 
+- Path traversal Attacks 
+- Template Injection
+
+**Running Web Application Firewall**
+
+![Running WAF Log MODE](/img/waf-working.gif)
+![Running WAF Block Mode](/img/waf-blockmode.gif)
+
+
 ## Intrusion Detection System
 SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities:
 
