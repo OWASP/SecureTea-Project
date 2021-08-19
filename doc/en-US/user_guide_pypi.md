@@ -722,7 +722,90 @@ sudo SecureTea.py --firewall
 | `--time_lb` | 00:00 |Time lower bound|
 | `--time_ub` | 23:59 |Time upper bound|
 
-#### Setting up Intrusion Detection System
+### Setting up Web Application Firewall 
+Example usage:<br>
+#### 1. Using Interactive setup
+```argument
+sudo python3 SecureTea.py --waf
+```
+  ![Ineractive Setup WAF](/img/waf-cli.gif)
+  
+#### 2. Using GUI
+   
+  ![GUI Setup WAF](/img/waf-gui.gif)
+
+#### 3. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--listenIP` | 127.0.0.1 |Web Application Firewall (WAF) Listening Server |
+| `--listenPort` | 8865 | Web Application Firewall (WAF) Listening Port |
+| `--mode` | 0 |Web Application Firewall (WAF) Working MODE |
+| `--hostMap` | None | A dictionary consisitng Host to Backend server mapping |
+
+#### 4. Configuring Nginx 
+
+SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects the incoming web traffic to the WAF server. The Ngnix also helps in SSL/TLS offloading.
+
+##### Setting up nginx configuration file 
+
+* Create a virtual hosts file inside the Nginx directory
+
+     ``` nano /etc/nginx/sites-available/example.com ```
+
+* Copy the Configuration shown below and make changes  according to your need , make sure to point **proxy pass to the server address in which the WAFs Listening on.**
+
+``` 
+server {
+	listen 80;
+        listen 443 ssl;
+        server_name example.com;
+        
+        ssl on;
+        ssl_certificate       /etc/ssl/certs/example.com.crt;
+        ssl_certificate_key   /etc/ssl/certs/example.com.key;
+	
+	
+	location / {
+		    proxy_pass [WAF servers address eg http://127.0.0.1:8865];
+		    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+
+	}
+	}
+```
+| Value Name | Description |
+|------------|-------------|
+| `proxy_pass` | Value is set to the location where the incoming client request should be redirected |
+| `proxy_set_header Host` | Sets the HOST headers value to the $host variable , which holds the details of the host from the client|
+|` proxy_set_header X-Real-IP`| Sets a header value called X-Real-Ip to the $remote_addr variable, which holds the information of the client IP |
+|`server_name` | The server address that nginx should listen for any incoming request. |
+
+
+
+
+* Save the file and create a symbolic link to the ```sites-enabled``` directory.
+
+     ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
+
+* Perform Config test
+    
+     ``` service nginx configtest ```
+     
+* If there are no errors you can start your nginx server
+
+     ``` sudo nginx server start ```
+
+
+> What are **modes**? --
+Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
+In Log mode , the WAF warns the user when there is an attack .
+In block mode , the WAF blocks the incoming request when it senses the request to be malicious 
+
+> What is **hostMap**?--
+HostMap is a argument which takes in a dictionary , comprising of the Host(Key) and Sever:port(Value). The WAF server needs to know which upstream  server it has to send a request for a particular Host. Lets say the client requests a page with a hostname hello1.dev.com. The nginx server then forwards the client request to the WAF server. WAF then performs analaysis on the request and then uses the HOST name , to check in the hostMap to which upstream server is that particular HOST associated with and then sends the request to that server and fetches the response and sends back to the client.
+
+
+### Setting up Intrusion Detection System
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
