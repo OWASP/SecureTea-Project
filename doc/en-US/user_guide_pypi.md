@@ -221,6 +221,12 @@ Default configuration:
 	"insecure_headers": {
 			"url": ""
 	},
+	"waf": {
+              "listen_ip":"127.0.0.1",
+              "listen_port":8865,
+              "mode":0,
+              "backend_server_config":"{'localhost':'localhost:3000'}"
+         },
 	"ids": {
 		"threshold": 10,
 		"interface": "XXXX"
@@ -509,7 +515,12 @@ The following argument options are currently available:
   --url URL, -u URL     URL on which operations are to be performed
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
-                        Intrusion Detection System (IDS) threshold
+                        Intrusion Detection System (IDS) threshold 
+  --waf                 Start web application friewall (WAF)
+  --listenIP        	The Ip address in which the WAF listens for incoming connection
+  --listenPort		Port for the WAF to listen on
+  --mode		Mode on which the WAF should work (1--Block ,0--Log Mode)
+  --hostMap		A dictionary containing Key:Value that maps the incoming host(key) to the backend server(value)
   --system_log, -sys_log
                         Start system log monitoring process
   --server_log          Start server log monitoring process
