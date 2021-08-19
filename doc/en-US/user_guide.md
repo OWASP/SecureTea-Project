@@ -543,6 +543,11 @@ In order to use the various communication medium you need to get yourself a veri
 
  ##### Getting Whatsapp Number from Twilio
  -  Visit https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile and read on how to setup.
+ 
+
+https://user-images.githubusercontent.com/53997924/130015837-4f1b770b-ce24-462d-a2fc-8302554c1a68.mp4
+
+
 
 ##### Getting AWS-SES tokens
  -  Sign up for AWS https://aws.amazon.com/ (For new users)
@@ -1454,6 +1459,10 @@ defaced web pages with a high level of accuracy and the detection profile can be
 ![image](https://user-images.githubusercontent.com/53997924/129408776-d4973fa7-0ff3-42fa-acb9-81d51aecc42c.png)
 
 ![image](https://user-images.githubusercontent.com/53997924/129408936-41f8dab4-22a3-4a00-ac73-d6fa1e79d706.png)
+
+https://user-images.githubusercontent.com/53997924/130015911-e656a59b-0f74-4f28-b4a5-6358f84585ac.mp4
+
+
 
 ## IoT Anonymity Checker
 
