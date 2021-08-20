@@ -221,6 +221,12 @@ Default configuration:
 	"insecure_headers": {
 			"url": ""
 	},
+	"waf": {
+              "listen_ip":"127.0.0.1",
+              "listen_port":8865,
+              "mode":0,
+              "backend_server_config":"{'localhost':'localhost:3000'}"
+         },
 	"ids": {
 		"threshold": 10,
 		"interface": "XXXX"
@@ -509,7 +515,12 @@ The following argument options are currently available:
   --url URL, -u URL     URL on which operations are to be performed
   --ids                 Start Intrusion Detection System (IDS)
   --threshold THRESHOLD, -th THRESHOLD
-                        Intrusion Detection System (IDS) threshold
+                        Intrusion Detection System (IDS) threshold 
+  --waf                 Start web application friewall (WAF)
+  --listenIP        	The Ip address in which the WAF listens for incoming connection
+  --listenPort		Port for the WAF to listen on
+  --mode		Mode on which the WAF should work (1--Block ,0--Log Mode)
+  --hostMap		A dictionary containing Key:Value that maps the incoming host(key) to the backend server(value)
   --system_log, -sys_log
                         Start system log monitoring process
   --server_log          Start server log monitoring process
@@ -711,7 +722,90 @@ sudo SecureTea.py --firewall
 | `--time_lb` | 00:00 |Time lower bound|
 | `--time_ub` | 23:59 |Time upper bound|
 
-#### Setting up Intrusion Detection System
+### Setting up Web Application Firewall 
+Example usage:<br>
+#### 1. Using Interactive setup
+```argument
+sudo python3 SecureTea.py --waf
+```
+  ![Ineractive Setup WAF](/img/waf-cli.gif)
+  
+#### 2. Using GUI
+   
+  ![GUI Setup WAF](/img/waf-gui.gif)
+
+#### 3. Argument list
+| Argument      | Default value | Description |
+| ------------- | ------------- |--------------
+| `--listenIP` | 127.0.0.1 |Web Application Firewall (WAF) Listening Server |
+| `--listenPort` | 8865 | Web Application Firewall (WAF) Listening Port |
+| `--mode` | 0 |Web Application Firewall (WAF) Working MODE |
+| `--hostMap` | None | A dictionary consisitng Host to Backend server mapping |
+
+#### 4. Configuring Nginx 
+
+SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects the incoming web traffic to the WAF server. The Ngnix also helps in SSL/TLS offloading.
+
+##### Setting up nginx configuration file 
+
+* Create a virtual hosts file inside the Nginx directory
+
+     ``` nano /etc/nginx/sites-available/example.com ```
+
+* Copy the Configuration shown below and make changes  according to your need , make sure to point **proxy pass to the server address in which the WAFs Listening on.**
+
+``` 
+server {
+	listen 80;
+        listen 443 ssl;
+        server_name example.com;
+        
+        ssl on;
+        ssl_certificate       /etc/ssl/certs/example.com.crt;
+        ssl_certificate_key   /etc/ssl/certs/example.com.key;
+	
+	
+	location / {
+		    proxy_pass [WAF servers address eg http://127.0.0.1:8865];
+		    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+
+	}
+	}
+```
+| Value Name | Description |
+|------------|-------------|
+| `proxy_pass` | Value is set to the location where the incoming client request should be redirected |
+| `proxy_set_header Host` | Sets the HOST headers value to the $host variable , which holds the details of the host from the client|
+|` proxy_set_header X-Real-IP`| Sets a header value called X-Real-Ip to the $remote_addr variable, which holds the information of the client IP |
+|`server_name` | The server address that nginx should listen for any incoming request. |
+
+
+
+
+* Save the file and create a symbolic link to the ```sites-enabled``` directory.
+
+     ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
+
+* Perform Config test
+    
+     ``` service nginx configtest ```
+     
+* If there are no errors you can start your nginx server
+
+     ``` sudo nginx server start ```
+
+
+> What are **modes**? --
+Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
+In Log mode , the WAF warns the user when there is an attack .
+In block mode , the WAF blocks the incoming request when it senses the request to be malicious 
+
+> What is **hostMap**?--
+HostMap is a argument which takes in a dictionary , comprising of the Host(Key) and Sever:port(Value). The WAF server needs to know which upstream  server it has to send a request for a particular Host. Lets say the client requests a page with a hostname hello1.dev.com. The nginx server then forwards the client request to the WAF server. WAF then performs analaysis on the request and then uses the HOST name , to check in the hostMap to which upstream server is that particular HOST associated with and then sends the request to that server and fetches the response and sends back to the client.
+
+
+### Setting up Intrusion Detection System
 Example usage:<br>
 #### 1. Using interactive setup
 ```argument
@@ -928,6 +1022,32 @@ The report will contain the following fields:
 2. Geo lookup
 3. WHOIS lookup
 4. Other important details 
+
+## Web Application Firewall 
+SecureTea Web Application Firewall uses Machine Learning model to detect anomalies in web traffic . The WAF uses Logistic regression a supervised learning classification algorithm to predict the quality of the web traffic .
+
+**Modes**
+The WAF offers 2 modes:
+- Log Only  Mode 
+- Block Mode
+
+In log only mode the WAF logs every incoming request to the server and warns the user if it detects any kind of attack on the server .
+In Block mode the WAF logs the incoming request and also blocks the request if it detects any kind of attack on the server.
+
+**Attack Detection** 
+The WAF is trainned to detect attack vectors like:
+
+- Cross Site Scripting (XSS)
+- Sql Injection
+- Command Injection 
+- Path traversal Attacks 
+- Template Injection
+
+**Running Web Application Firewall**
+
+![Running WAF Log MODE](/img/waf-working.gif)
+![Running WAF Block Mode](/img/waf-blockmode.gif)
+
 
 ## Intrusion Detection System
 SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities:

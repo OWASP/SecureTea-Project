@@ -142,10 +142,19 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+Download and Extract the zip file, or use command
+```git clone https://github.com/OWASP/SecureTea-Project.git```
+
+Navigate inside the folder ```SecureTea-Project``` , open Terminal inside and run the following commands
+
 For apt package manager based systems:
-  + $ sudo bash install install_dependencies_apt.sh
+```shell
+$ sudo bash install install_dependencies_apt.sh
+```
 For yum package manager based systems:
-  + $ sudo bash install install_dependencies_yum.sh
+```shell
+$ sudo bash install install_dependencies_yum.sh
+```
 Python:<br>
 https://www.python.org/
 
@@ -216,10 +225,7 @@ Installing from GitHub involves the following steps:
 2.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-3.  Install Python dependencies:
-`$ sudo python3 -m pip install -r requirements.txt`
-
-4.  Install SecureTea package:
+3.  Install SecureTea package:
 `$ sudo python3 setup.py install`
 
 If done, proceed to [After installation](#after-installation)
@@ -234,10 +240,7 @@ Installing from Zip involves the following steps:
 3.  Navigate into the project directory:
 `$ cd SecureTea-Project`
 
-4.  Install python dependencies
-`$ sudo python3 -m pip install -r requirements.txt`
-
-5.  Install SecureTea package
+4.  Install SecureTea package
 `$ sudo python3 setup.py install`
 
 Tip: Incase of any error during installation related to NetfilterQueue, try using `$ sudo apt-get install build-essential python-dev libnetfilter-queue-dev` to resolve the error.
@@ -540,6 +543,11 @@ In order to use the various communication medium you need to get yourself a veri
 
  ##### Getting Whatsapp Number from Twilio
  -  Visit https://www.twilio.com/docs/whatsapp/tutorial/connect-number-business-profile and read on how to setup.
+ 
+
+https://user-images.githubusercontent.com/53997924/130015837-4f1b770b-ce24-462d-a2fc-8302554c1a68.mp4
+
+
 
 ##### Getting AWS-SES tokens
  -  Sign up for AWS https://aws.amazon.com/ (For new users)
@@ -889,7 +897,13 @@ Example usage:<br>
 ```argument
 sudo python3 SecureTea.py --waf
 ```
-#### 2. Argument list
+  ![Ineractive Setup WAF](/img/waf-cli.gif)
+  
+#### 2. Using GUI
+   
+  ![GUI Setup WAF](/img/waf-gui.gif)
+
+#### 3. Argument list
 | Argument      | Default value | Description |
 | ------------- | ------------- |--------------
 | `--listenIP` | 127.0.0.1 |Web Application Firewall (WAF) Listening Server |
@@ -897,7 +911,7 @@ sudo python3 SecureTea.py --waf
 | `--mode` | 0 |Web Application Firewall (WAF) Working MODE |
 | `--hostMap` | None | A dictionary consisitng Host to Backend server mapping |
 
-#### 3. Configuring Nginx 
+#### 4. Configuring Nginx 
 
 SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects the incoming web traffic to the WAF server. The Ngnix also helps in SSL/TLS offloading.
 
@@ -905,7 +919,7 @@ SecureTea WAF uses the Ngnix Server to act as a Reverse Proxy , which redirects 
 
 * Create a virtual hosts file inside the Nginx directory
 
-      ``` nano /etc/nginx/sites-available/example.com ```
+     ``` nano /etc/nginx/sites-available/example.com ```
 
 * Copy the Configuration shown below and make changes  according to your need , make sure to point **proxy pass to the server address in which the WAFs Listening on.**
 
@@ -928,10 +942,19 @@ server {
 	}
 	}
 ```
+| Value Name | Description |
+|------------|-------------|
+| `proxy_pass` | Value is set to the location where the incoming client request should be redirected |
+| `proxy_set_header Host` | Sets the HOST headers value to the $host variable , which holds the details of the host from the client|
+|` proxy_set_header X-Real-IP`| Sets a header value called X-Real-Ip to the $remote_addr variable, which holds the information of the client IP |
+|`server_name` | The server address that nginx should listen for any incoming request. |
+
+
+
 
 * Save the file and create a symbolic link to the ```sites-enabled``` directory.
 
-      ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
+     ``` ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com ```
 
 * Perform Config test
     
@@ -941,7 +964,7 @@ server {
 
      ``` sudo nginx server start ```
 
-
+<br>
 > What are **modes**? --
 Modes define the Web Application Firewall Functions. SecureTea WAF has two modes currently , Log Mode -0 && Block Mode -1.
 In Log mode , the WAF warns the user when there is an attack .
@@ -949,6 +972,9 @@ In block mode , the WAF blocks the incoming request when it senses the request t
 
 > What is **hostMap**?--
 HostMap is a argument which takes in a dictionary , comprising of the Host(Key) and Sever:port(Value). The WAF server needs to know which upstream  server it has to send a request for a particular Host. Lets say the client requests a page with a hostname hello1.dev.com. The nginx server then forwards the client request to the WAF server. WAF then performs analaysis on the request and then uses the HOST name , to check in the hostMap to which upstream server is that particular HOST associated with and then sends the request to that server and fetches the response and sends back to the client.
+
+
+
 
 
 
@@ -969,12 +995,13 @@ sudo python3 SecureTea.py --ids
 
  What are **thresholds**?
 <br>
-It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack, once it crosses the limit (here threshold), it will start notifying you about the possible attack. Lower the number is, the more sensitive IDS is, and may also give rise to false alarms. Higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
+It simply represents the number of times you want to ignore the possibility of an attack. In other words, it is the extent to which IDS will not bother to inform you about the attack. Once it crosses the limit (here threshold), it will start notifying you about the possible attack. The lower the number is, the more sensitive IDS is, and may also give rise to false alarms. The higher the number is, the less sensitive IDS is, it may give rise to less false positives but at the same time choosing a very high number is not suggested either. Choose a mid range number within (10-100) to be on the safer side while keeping alarms of false positives to the minimal.
+<br>
 
 
  What is **eligibility traces**?
 <br>
-Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD($\lambda $) algorithm, the $\lambda $ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
+Eligibility traces are one of the basic mechanisms of reinforcement learning. For example, in the popular TD(λ) algorithm, the λ refers to the use of an eligibility trace. Almost any temporal-difference (TD) method, such as Q-learning or Sarsa, can be combined with eligibility traces to obtain a more general method that may learn more efficiently.
 
 There are two ways to view eligibility traces. The more theoretical view, which we emphasize here, is that they are a bridge from TD to Monte Carlo methods. When TD methods are augmented with eligibility traces, they produce a family of methods spanning a spectrum that has Monte Carlo methods at one end and one-step TD methods at the other. In between are intermediate methods that are often better than either extreme method. In this sense eligibility traces unify TD and Monte Carlo methods in a valuable and revealing way.
 
@@ -1229,6 +1256,32 @@ The report will contain the following fields:
 3. WHOIS lookup
 4. Other important details 
 
+## Web Application Firewall 
+SecureTea Web Application Firewall uses Machine Learning model to detect anomalies in web traffic . The WAF uses Logistic regression a supervised learning classification algorithm to predict the quality of the web traffic .
+
+**Modes**
+The WAF offers 2 modes:
+- Log Only  Mode 
+- Block Mode
+
+In log only mode the WAF logs every incoming request to the server and warns the user if it detects any kind of attack on the server .
+In Block mode the WAF logs the incoming request and also blocks the request if it detects any kind of attack on the server.
+
+**Attack Detection** 
+The WAF is trainned to detect attack vectors like:
+
+- Cross Site Scripting (XSS)
+- Sql Injection
+- Command Injection 
+- Path traversal Attacks 
+- Template Injection
+
+**Running Web Application Firewall**
+
+![Running WAF Log MODE](/img/waf-working.gif)
+![Running WAF Block Mode](/img/waf-blockmode.gif)
+
+
 ## Intrusion Detection System
 SecureTea Intrusion Detection System (IDS) deals with the following attack vectors and logs any abnormalities. It blacklists and whitelists attackers based on eligibility based RL method:
 
@@ -1261,6 +1314,7 @@ The report will contain the following fields:
 3. WHOIS lookup
 4. Other important details
 <br>
+
 **Running Intrusion Detection System**
 
 ![Running IDS Recon](/img/ids_demo.gif)
@@ -1449,6 +1503,10 @@ defaced web pages with a high level of accuracy and the detection profile can be
 ![image](https://user-images.githubusercontent.com/53997924/129408776-d4973fa7-0ff3-42fa-acb9-81d51aecc42c.png)
 
 ![image](https://user-images.githubusercontent.com/53997924/129408936-41f8dab4-22a3-4a00-ac73-d6fa1e79d706.png)
+
+https://user-images.githubusercontent.com/53997924/130015911-e656a59b-0f74-4f28-b4a5-6358f84585ac.mp4
+
+
 
 ## IoT Anonymity Checker
 
