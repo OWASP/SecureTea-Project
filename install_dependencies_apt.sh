@@ -22,7 +22,7 @@ apt -y -qq install python3-setuptools build-essential python3-dev libnfnetlink-d
 service rsyslog restart
 apt-get -y -qq install -y clamav # dependencies installed
 
-apt-get -y -qq install exiftool pngcheck foremost steghide stegosuite # dependencies for steg analysis
+apt-get -y -qq install binwalk exiftool pngcheck foremost steghide stegosuite # dependencies for steg analysis
 
 apt-get -y -qq install curl    # dependency for API interaction.
 
