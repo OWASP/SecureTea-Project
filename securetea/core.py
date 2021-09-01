@@ -19,6 +19,7 @@ import threading
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
+from securetea.lib.notifs import secureteaMalwareAnalysis
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
@@ -91,6 +92,7 @@ class SecureTea(object):
         self.history_logger = self.cred['history_logger']
         self.cred_provided = args_dict['cred_provided']
         self.twitter_provided = args_dict['twitter_provided']
+        self.malware_analysis_provided = args_dict['malware_analysis']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
         self.whatsapp_provided = args_dict['whatsapp_provided']
@@ -143,6 +145,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Twitter configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['malware_analysis']:
+                    self.malware_analysis_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Malware analysis configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -384,6 +396,10 @@ class SecureTea(object):
                 )
             else:
                 self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+
+        if self.malware_analysis_provided:
+            self.malware_analysis_obj = secureteaMalwareAnalysis.SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
+            self.malware_analysis_obj.runner()
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(
