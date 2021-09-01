@@ -87,6 +87,13 @@ def get_args():
     )
 
     parser.add_argument(
+        '--malware_analysis',
+        required=False,
+        action='store_true',
+        help='Setup twitter credentials'
+    )
+
+    parser.add_argument(
         '--twilio_sms',
         required=False,
         action='store_true',
