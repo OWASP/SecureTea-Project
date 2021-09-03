@@ -3,6 +3,7 @@ from . import core
 from . import logger
 from . import configurations
 from .lib.notifs import secureTeaTwitter
+from .lib.notifs import secureTeaMalwareAnalysis
 from .lib.notifs import secureTeaTwilio
 from .lib.notifs import secureTeaWhatsapp
 from .lib.notifs import secureTeaTelegram
