@@ -19,7 +19,7 @@ import threading
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
-from securetea.lib.notifs import secureteaMalwareAnalysis
+from securetea.lib.notifs import secureTeaMalwareAnalysis
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
