@@ -398,7 +398,7 @@ class SecureTea(object):
                 self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
         if self.malware_analysis_provided:
-            self.malware_analysis_obj = secureteaMalwareAnalysis.SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
+            self.malware_analysis_obj = secureTeaMalwareAnalysis.SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
             self.malware_analysis_obj.runner()
 
         if self.telegram_provided:
