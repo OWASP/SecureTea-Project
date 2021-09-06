@@ -1,5 +1,6 @@
 """Summary."""
 from . import secureTeaTwitter
+from . import secureTeaMalwareAnalysis
 from . import secureTeaSlack
 from . import secureTeaTwilio
 from . import secureTeaWhatsapp

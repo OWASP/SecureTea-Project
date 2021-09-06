@@ -181,6 +181,7 @@ class ArgsHelper(object):
 
         self.cred_provided = False
         self.twitter_provided = False
+        self.malware_analysis_provided = False
         self.telegram_provided = False
         self.twilio_provided = False
         self.whatsapp_provided = False
@@ -221,6 +222,23 @@ class ArgsHelper(object):
                 'api_key': 'twitter api key',
                 'access_token': 'twitter access token',
                 'access_token_secret': 'twitter access token secret'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureMalwareAnalysis(self):
+        """
+        Returns the format to configure Malware Analysis
+        """
+        self.logger.log('MalwareAnalysis configuration setup')
+        default = load_default('malware_analysis')
+        return {
+            'input': {
+                'mode': 'mode to scan in\n'
+                        '(C/c) Continuous Malware Defence Mode\n'
+                        '(I/i) Individual file Steganography\n'
+                        '(M/m) Individual file Malware Analysis test\n\t'
             },
             'default': default
         }
@@ -547,6 +565,12 @@ class ArgsHelper(object):
                 self.cred['twitter'] = twitter
                 self.twitter_provided = True
 
+            # Start the malware_analysis configuration setup
+            malware_analysis = self.configureMalwareAnalysis()
+            if malware_analysis:
+                self.cred['malware_analysis'] = malware_analysis
+                self.malware_analysis_provided = True
+
             # Start the telegram configuration setup
             telegram = self.configureTelegram()
             if telegram:
@@ -657,6 +681,12 @@ class ArgsHelper(object):
                 if twitter:
                     self.cred['twitter'] = twitter
                     self.twitter_provided = True
+
+            if self.args.malware_analysis and not self.malware_analysis_provided:
+                malware_analysis = self.configureMalwareAnalysis()
+                if malware_analysis:
+                    self.cred['malware_analysis'] = malware_analysis
+                    self.malware_analysis_provided = True
 
             if self.args.telegram and not self.telegram_provided:
                 telegram = self.configureTelegram()
@@ -1204,6 +1234,7 @@ class ArgsHelper(object):
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
         if (self.twitter_provided or
+            self.malware_analysis_provided or
             self.telegram_provided or
             self.twilio_provided or
             self.whatsapp_provided or
@@ -1230,6 +1261,7 @@ class ArgsHelper(object):
             'cred': self.cred,
             'cred_provided': self.cred_provided,
             'twitter_provided': self.twitter_provided,
+            'malware_analysis': self.malware_analysis_provided,
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
             'whatsapp_provided': self.whatsapp_provided,
