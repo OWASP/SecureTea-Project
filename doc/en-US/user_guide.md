@@ -43,14 +43,15 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
       
       -  [Configuring using CLI arguments](#configuring-using-cli-arguments)
       
-    *  [Getting tokens](#getting-tokens)
+    *  [Getting tokens and API Keys](#getting-tokens)
     
         -  [Getting Twitter tokens](#getting-twitter-tokens)
-	   -  [Getting Slack tokens](#getting-slack-tokens)
-	   -  [Getting Telegram tokens](#getting-telegram-tokens)
+        -  [Getting Slack tokens](#getting-slack-tokens)
+        -  [Getting Telegram tokens](#getting-telegram-tokens)
         -  [Get Twilio SMS tokens](#getting-twilio-sms-tokens)
         -  [Get Whatsapp Twilio tokens](#getting-whatsapp-number-from-twilio)
-	   - [Get Gmail tokens](#getting-gmail-tokens)
+        -  [Get Gmail tokens](#getting-gmail-tokens)
+        -  [Get VirusTotal API Key](#getting-virustotal-api-key)
       
 -  [Usage](#usage)
     - [Setting up Notifiers](#setting-up-notifiers)
@@ -72,6 +73,7 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
     - [Setting up AntiVirus](#setting-up-antivirus)
     - [Setting up Web Deface Detection](#setting-up-web-deface-detection)
     - [Setting up IoT Anonymity Checker](#setting-up-iot-anonymity-checker)
+    - [Setting up Malware Analysis](#setting-up-malware-analysis)
     
     - [Starting up modes](#starting-up-modes)
         - [Starting up in server mode](#starting-up-in-server-mode)
@@ -97,6 +99,8 @@ Read developer guide [here](/doc/en-US/dev_guide.md).
 -  [Web Deface Detection](#web-deface-detection)
 
 -  [IoT Anonymity Checker](#iot-anonymity-checker)
+
+-  [Malware Analysis](#malware-analysis)
   
 -  [License](#license)
 
@@ -142,6 +146,9 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 -  Clam AV
 
 #### Installing pre-requisites
+
+For quick prerequisite installation - 
+
 Download and Extract the zip file, or use command
 ```git clone https://github.com/OWASP/SecureTea-Project.git```
 
@@ -155,6 +162,9 @@ For yum package manager based systems:
 ```shell
 $ sudo bash install install_dependencies_yum.sh
 ```
+
+In case a specific dependency is unmet or is unable to be installed, follow the steps below
+
 Python:<br>
 https://www.python.org/
 
@@ -417,13 +427,14 @@ This will start an interactive setup mode, to skip a particular setup, enter s o
 Arguments list
 
 ```argument
---telegram     Start Telegram interactive setup
---twitter      Start Twitter interactive setup
---twilio_sms   Start Twilio SMS interactive setup
---whatsapp   	 Start Whatsapp Twilio interactive setup
---firewall     Start Firewall interactive setup
---aws_ses      Start Amazon Web Services(AWS-Simple Email Services) interactive setup
---gmail        Start G-Mail interactive setup
+--telegram           Start Telegram interactive setup
+--twitter            Start Twitter interactive setup
+--twilio_sms         Start Twilio SMS interactive setup
+--whatsapp   	       Start Whatsapp Twilio interactive setup
+--firewall           Start Firewall interactive setup
+--aws_ses            Start Amazon Web Services(AWS-Simple Email Services) interactive setup
+--gmail              Start G-Mail interactive setup
+--malware_analysis   Start MalwareAnalysis interactive setup
 ```
 
 Examples:<br>
@@ -567,6 +578,10 @@ https://user-images.githubusercontent.com/53997924/130015837-4f1b770b-ce24-462d-
   - Turn on "Less secure app access" to allow SecureTea be able to send emails
   - Proceed to https://accounts.google.com/DisplayUnlockCaptcha and click on Continue, and then allow
   - Put your sender email ID, password and destination email ID in the `securetea.conf` file.
+
+ ##### Getting Virustotal API Key
+  - Sign up for [VirusTotal](https://www.virustotal.com/) account [here](https://www.virustotal.com/gui/join-us)
+  - Get API key from website.
 
 ## Usage
 The following argument options are currently available:
@@ -723,6 +738,7 @@ The following argument options are currently available:
   --server-mode         Start SecureTea in server mode
   --system-mode         Start SecureTea in system mode
   --iot-mode            Start SecureTea in IoT mode
+	--malware_analysis    Start SecureTea in MalwareAnalysis mode
  ```
  
 ### Example usages
@@ -1176,6 +1192,12 @@ Upon this, it will ask whether to load the previously saved configurations or en
 
 It makes a lot easier to configure SecureTea, with server mode they can easily secure their servers. You need to bother about the various arguments or the toughness of setting up SecureTea individual modules. Also, since you can skip any module among the above 7, it is not necessary to configure them all.
 
+#### Setting up Malware Analysis
+##### Using Interactive Setup
+``` python3 SecureTea.py --malware_analysis```
+
+Virustotal API key will be asked. Rest of the inputs are interactive. 
+
 ##### Starting up in system mode
 ###### Integrations (features) of system mode
 - Firewall
@@ -1535,6 +1557,27 @@ sudo python3 SecureTea.py --hist
 ### 2. Log file
     + Commands are logged at "/var/log/securetea_history_logger.log"
     + Debugger logs at "/etc/securetea/history_logger_log.log"
+
+## Malware Analysis
+#### Features
+##### 1. Continuous Malware Defence
+When this mode is selected, the entire home directory is scanned each hour for Malware/Malicious Files/Ransomware.
+
+Every hour, the scan detects modified/created files and checks them against 63 malware engines, giving a system near complete protection.
+
+Results of each scan and critical alerts are shown on a webbrowser 
+
+##### 2. Individual file analysis
+
+There are 2 modes for individual file analysis
+
+##### A. Steganographic file analysis
+
+Steganography involves the practice of concealing messages or information within other data, usually image files or pdfs. This mode uses latest steganography tools and decodes hidden data, and even encrypted data when a password is provided.
+
+##### B. Individual file Malware Analysis
+
+This module checks a given suspicious file for malware using 63 cutting edge engines including industry leaders like McAfee, Avast, AVG, Avira, Ikarus, Kaspersky and Tencent
 
 ## License
 **MIT License**
