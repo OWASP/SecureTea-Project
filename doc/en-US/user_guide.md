@@ -1205,7 +1205,7 @@ Virustotal API key will be asked. Rest of the inputs are interactive.
 - System Log Monitor
 - Intrusion Detection System (IDS)
 
-Example usgae: <br>
+Example usage: <br>
 ###### 1. Non-debug mode
 ```argument
 sudo python3 SecureTea.py --system-mode
