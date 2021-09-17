@@ -1205,7 +1205,7 @@ Virustotal API key will be asked. Rest of the inputs are interactive.
 - System Log Monitor
 - Intrusion Detection System (IDS)
 
-Example usgae: <br>
+Example usage: <br>
 ###### 1. Non-debug mode
 ```argument
 sudo python3 SecureTea.py --system-mode
@@ -1567,6 +1567,8 @@ Every hour, the scan detects modified/created files and checks them against 63 m
 
 Results of each scan and critical alerts are shown on a webbrowser 
 
+![cont_mal](https://user-images.githubusercontent.com/70275323/133829079-a74f1a0c-0fc2-4b54-8b0f-a684d1151a01.gif)
+
 ##### 2. Individual file analysis
 
 There are 2 modes for individual file analysis
@@ -1575,9 +1577,13 @@ There are 2 modes for individual file analysis
 
 Steganography involves the practice of concealing messages or information within other data, usually image files or pdfs. This mode uses latest steganography tools and decodes hidden data, and even encrypted data when a password is provided.
 
+![file_an](https://user-images.githubusercontent.com/70275323/133829152-2ebe2c04-e495-423d-91a0-349e72bf4e56.gif)
+
 ##### B. Individual file Malware Analysis
 
 This module checks a given suspicious file for malware using 63 cutting edge engines including industry leaders like McAfee, Avast, AVG, Avira, Ikarus, Kaspersky and Tencent
+
+![mal_an](https://user-images.githubusercontent.com/70275323/133830361-f9c33e04-15f0-41a5-8f1a-7eb81998206c.gif)
 
 ## License
 **MIT License**
