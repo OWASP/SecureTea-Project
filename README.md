@@ -43,6 +43,7 @@
 - [x] [Firewall](/doc/en-US/user_guide.md#firewall)
 - [x] [Web Application Firewall](/doc/en-US/user_guide.md#web-application-firewall)
 - [x] [AntiVirus](/doc/en-US/user_guide.md#antivirus)
+- [x] [Malware Analysis](/doc/en-US/user_guide.md#setting-up-malware-analysis)
 - [x] [Server Log Monitor](/doc/en-US/user_guide.md#server-log-monitor)
 - [x] [System Log Monitor](/doc/en-US/user_guide.md#system-log-monitor)
 - [x] [Local Web Deface Detection & Prevention System](/doc/en-US/user_guide.md#web-deface-detection)
