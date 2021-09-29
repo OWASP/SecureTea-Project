@@ -118,11 +118,8 @@ Focusing on what is best for the community
 Showing empathy towards other community members
 Examples of unacceptable behavior by participants include:
 
-The use of sexualized language or imagery and unwelcome sexual attention or advances
-Trolling, insulting/derogatory comments, and personal or political attacks
-Public or private harassment
-Publishing others' private information, such as a physical or electronic address, without explicit permission
-Other conduct which could reasonably be considered inappropriate in a professional setting
+The use of sexualized language or imagery and unwelcome sexual attention or advances, trolling, insulting/derogatory comments, and personal or political attacks, Public or private harassment, Publishing others' private information, such as a physical or electronic address, without explicit permission  or other conduct which could reasonably be considered inappropriate in a professional setting
+
 Our Responsibilities
 Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
 
@@ -196,9 +193,10 @@ SecureTea IDS/IPS            | Yes
 SecureTea System Log Monitor | Yes
 SecureTea Server Log Monitor | Yes
 SecureTea Anti-Virus         | Yes
+SecureTea Malware Analysis   | Yes
 SecureTea Auto Server Patcher| Yes
 Web Defacement Detection     | Yes
-SecureTea OSINT		     | Yes
+SecureTea OSINT		         | Yes
 IoT Anonymity checker	     | Yes
 GUI Last login               | Yes
 Detection of malcious device | Yes
@@ -266,6 +264,94 @@ def configureFeaturename(self):
 ```
 `@takeInput` demands a nested dictionary following the above style in return value of the function.
 Thats it! You don't need to worry more, interactive mode is setup now. Make sure to update the logic flow in `args_helper.py`.
+
+#### Setting up your own module through the main CLI interface
+Step 1 - Add your input fields to ```/securetea/args/config.py```
+```python
+    "module_name": {
+        "input_field_name1": "XXXX",
+        "input_field_name2": "XXXX"
+                },
+```
+Step 2 - If the module is to be accessible like python3 SecureTea.py --module_name add the following to `/securetea/args/arguments.py`
+```python
+parser.add_argument(
+        '--module_name',
+        required=False,
+        action='store_true',
+        help='Help string for Module'
+    )
+```
+Step 3 - Make the following changes to `securetea/args/args_helper.py`
+```python
+self.module_name_provided = False
+# near line 190
+
+
+
+@takeInput
+    def configuremodule_name(self):
+        """
+        Returns the format to configure module_name
+        """
+        self.logger.log('module_name configuration setup')
+        default = load_default('module_name')
+        return {
+            'input': {
+                "input_field_name1": "String to be displayed before taking input_field_name1",
+                "input_field_name2": "String to be displayed before taking input_field_name1"
+            },
+            'default': default
+        }
+
+
+
+# Start module_name configuration setup
+module_name = self.configuremodule_name()
+if module_name:
+    self.cred['module_name'] = module_name
+    self.module_name_provided = True
+
+
+
+if self.args.module_name and not self.module_name_provided:
+    module_name = self.configuremodule_name()
+    if module_name:
+        self.cred['module_name'] = module_name
+        self.module_name_provided = True
+
+
+# near line 1250
+self.malware_analysis_provided or
+# add this in the if statement
+
+
+
+# At end of class ArgsHelper near line 1280 
+'module_name': self.mdule_name_provided,
+# add this in the return statement
+```
+
+Step 4 - To finally integrate all the changes change `securetea/core.py`
+```python
+# near line 100
+self.malware_analysis_provided = args_dict['malware_analysis']
+
+
+
+try:
+    if self.cred['module_name']:
+        self.module_name_provided = True
+        self.cred_provided = True
+except KeyError:
+    self.logger.log(
+        "module_name configuration parameter not set.",
+        logtype="error"
+    )
+
+if self.module_name_provided:
+    # run the actual module working here. 
+```
 
 #### Logger
 -  [Adding-logger-to-your-module](#adding-logger-to-your-module)
