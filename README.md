@@ -64,11 +64,11 @@ To install software requirements:
 
 For apt package manager based systems:
 ```shell
-$ sudo bash install install_dependencies_apt.sh
+$ sudo bash install_dependencies_apt.sh
 ```
 For yum package manager based systems:
 ```shell
-$ sudo bash install install_dependencies_yum.sh
+$ sudo bash install_dependencies_yum.sh
 ```
 
 You can install SecureTea from PyPi package manager using the following command:
