@@ -65,7 +65,7 @@ def get_credentials():
         config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
     else:
         config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-    if config_decision.lower() in ["Y", "y"]:
+    if (config_decision.lower() == "y"):
         _extracted_from_get_credentials_21(args_helper_obj, final_creds)
     else:
         _extracted_from_get_credentials_49(args_helper_obj, final_creds)
