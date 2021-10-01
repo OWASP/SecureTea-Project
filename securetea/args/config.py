@@ -9,6 +9,9 @@ def get_config():
             "access_token": "XXXX",
             "access_token_secret": "XXXX"
         },
+        "malware_analysis": {
+            "mode": "XXXX"
+        },
         "telegram": {
             "token": "XXXX",
             "user_id": "XXXX"
