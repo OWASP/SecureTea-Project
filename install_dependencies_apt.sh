@@ -35,3 +35,6 @@ python3 -m pip install -r requirements.txt # statement repeated on purpose
 # installing NodeJS 14.x LTS for GUI
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 apt-get install -y nodejs
+
+# installing angular 
+npm install -g @angular/cli
