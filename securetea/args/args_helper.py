@@ -131,7 +131,7 @@ def takeInput(func):
     dict: User entered values
     """
     def inner_wrapper(*args):
-        print('\n[!] Enter (S/s) to skip...')
+        print('\n[!] Enter (S/s) to skip and Ctrl+Z to quit...')
         dict_value = func(*args)
         config_dict = dict_value['input']
         default = dict_value['default']
@@ -799,8 +799,7 @@ class ArgsHelper(object):
                     config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-                if (config_decision.lower() == "Y" or
-                    config_decision.lower() == "y"):
+                if (config_decision.lower() == "y"):
                     # Fetch credentials
                     creds = self.securetea_conf.get_creds(self.args)
 
@@ -879,8 +878,7 @@ class ArgsHelper(object):
                     config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-                if (config_decision.lower() == "Y" or
-                    config_decision.lower() == "y"):
+                if (config_decision.lower() == "y"):
                     # Fetch credentials
                     creds = self.securetea_conf.get_creds(self.args)
 
@@ -931,8 +929,7 @@ class ArgsHelper(object):
                     config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
-                if (config_decision.lower() == "Y" or
-                    config_decision.lower() == "y"):
+                if (config_decision.lower() == "y"):
                     # Fetch credentials
                     creds = self.securetea_conf.get_creds(self.args)
 
