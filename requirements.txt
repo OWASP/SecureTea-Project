@@ -35,3 +35,4 @@ textblob
 html2text
 uvloop
 Flask-SQLAlchemy
+flask-socketio
