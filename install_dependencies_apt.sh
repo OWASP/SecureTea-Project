@@ -38,3 +38,8 @@ apt-get install -y nodejs
 
 # installing angular 
 npm install -g @angular/cli
+
+#
+npm install
+ng update
+npm update
