@@ -529,6 +529,7 @@ Follow the following steps to setup Web UI
 Web UI requires ServerApp to be running. To run ServerApp,
 1. in SecureTea-Project, `cd ServerApp`
 2. `python3 run.py`
+
 This is the end-point for the Web UI
 
 #### Getting tokens
