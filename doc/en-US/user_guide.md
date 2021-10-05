@@ -526,6 +526,11 @@ Follow the following steps to setup Web UI
 4.  `sudo python monitor.py`
 5.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
 
+Web UI requires ServerApp to be running. To run ServerApp,
+1. in SecureTea-Project, `cd ServerApp`
+2. `python3 run.py`
+This is the end-point for the Web UI
+
 #### Getting tokens
 In order to use the various communication medium you need to get yourself a verified token from the respective provider.
 -  [Getting Twitter tokens](#getting-twitter-tokens)
