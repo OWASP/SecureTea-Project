@@ -40,6 +40,9 @@ apt-get install -y nodejs
 npm install -g @angular/cli
 
 #
+cd gui
 npm install
 ng update
-npm update
+ng update @angular/cli 
+ng update @angular/core
+npm upate
