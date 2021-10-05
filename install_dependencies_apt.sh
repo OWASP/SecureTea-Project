@@ -39,7 +39,7 @@ apt-get install -y nodejs
 # installing angular 
 npm install -g @angular/cli
 
-#
+# update angular from 7 --> 12
 cd gui
 npm install
 ng update
