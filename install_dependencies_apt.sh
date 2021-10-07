@@ -43,6 +43,7 @@ npm install -g @angular/cli
 cd gui
 npm install
 ng update
+npm install -g npm
 ng update @angular/cli 
 ng update @angular/core
-npm upate
+npm update
