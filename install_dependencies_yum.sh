@@ -7,7 +7,7 @@
 #     Version: 2.1
 #     Module: SecureTea
 # Attributes:
-#     distros : APT package manager based
+#     distros : YUM package manager based
 #     files_definition (TYPE): Dependencies installation script
 
 yum check-update
