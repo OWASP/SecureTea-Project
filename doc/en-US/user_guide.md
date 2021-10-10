@@ -480,16 +480,12 @@ Registering for Web UI
 
 As soon as registration is completed, the website redirects to the dashboard of SecureTea-GUI
 This is what dashboard should look like
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh1.png "Secure Tea Dashboard")
-<br><br>
-![Disk usage](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh2.png "Secure Tea Disk Dashboard")
-![Process](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh3.png "Process")
-<br><br>
-![Last Login](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh4.png "Last Login")
-<br><br>
-![Network](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh5.png "Networks")
+
+![dashboard](https://user-images.githubusercontent.com/70275323/136699037-ff87b4b0-8f09-497d-903f-b5cfa6d0f39c.png)
+![network](https://user-images.githubusercontent.com/70275323/136699038-4900a3b5-7e84-4e7c-93c6-1caab171b948.png)
+![storage](https://user-images.githubusercontent.com/70275323/136699042-3cc2e215-5a4c-4b1d-bd5f-7d441fd6273b.png)
 All securetea features can be run through the Security Section
-![Security](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh7.png "Security")
+![security](https://user-images.githubusercontent.com/70275323/136699041-72568c79-cde5-47d5-8013-be52c1d7f7e4.png)
 
 ##### Configuring using CLI arguments
 ```argument
