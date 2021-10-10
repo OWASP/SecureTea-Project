@@ -464,6 +464,8 @@ Web UI requires ServerApp running. To run ServerApp,
 
 The preffered web browser to use Web UI and test ServerApp is Google Chrome.
 
+ng serve doesn't have to be sudo. ServerApp needs to be run as sudo
+
 Follow the following steps to setup Web UI
 1.  `cd gui`
 2.  `ng serve`
