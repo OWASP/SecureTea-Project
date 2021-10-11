@@ -1,7 +1,6 @@
 requests>=2.25.1
 requests_oauthlib
 psutil>=5.8.0
-flask>=1.1.4
 flask_cors
 pynput>=1.7.3
 python-telegram-bot
@@ -35,10 +34,6 @@ textblob
 html2text
 uvloop
 
-py_cpuinfo
-psutil
-flask
-flask_cors
 flask_sqlalchemy
 Flask-SocketIO>=4.3.1
 python-engineio>=3.13.2
