@@ -15,10 +15,10 @@ echo "Please run this as sudo"
 read -p "Would you like to remove python and pip? (y/N) " user_choice
 if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
   echo "Proceeding to delete python and pip"
-  add-apt-repository --remove ppa:deadsnakes/ppa
   apt-get -y purge python3
   apt-get -y purge python3-pip # python3 and pip purgeed
   apt-get -y purge python3-setuptools
+  add-apt-repository --remove ppa:deadsnakes/ppa
 else
     echo "python installation kept intact"
 fi
