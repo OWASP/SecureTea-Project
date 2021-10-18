@@ -41,7 +41,7 @@ python3 -m pip uninstall -r requirements.txt
 read -p "Would you like to remove all SecureTea directories and files? (y/N) " user_choice
 if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
   echo "Proceeding to delete SecureTea"
-  curr_folder=pwd
+  curr_folder=$(pwd)
   echo "Removing $curr_folder"
   rm -rfv "$curr_folder"
 else
