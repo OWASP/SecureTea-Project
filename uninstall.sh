@@ -29,10 +29,10 @@ fi
 read -p "Would you like to remove python and pip? (y/N) " user_choice
 if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
   echo -e "\e[31m\e[1m Python and Pip will be deleted \e[0m"
-  add-apt-repository --remove ppa:deadsnakes/ppa
   apt-get -y purge python3
   apt-get -y purge python3-pip # python3 and pip purgeed
   apt-get -y purge python3-setuptools
+  add-apt-repository --remove ppa:deadsnakes/ppa
 else
     echo -e "\e[34m\e[1m Python installation is kept intact \e[0m"
 fi
