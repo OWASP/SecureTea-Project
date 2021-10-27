@@ -218,7 +218,7 @@ class ServerMode(object):
                     logtype="error"
                 )
 
-        # Only debug configuratons are required for System Log Monitor, hnece create them plainly
+        # Only debug configuratons are required for System Log Monitor, hence create them plainly
         try:
             self.logger.log(
                 "Initializing System Log Monitor object",
