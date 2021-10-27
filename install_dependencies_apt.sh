@@ -31,3 +31,19 @@ python3 -m pip install git+https://github.com/kti/python-netfilterqueue
 
 python3 -m pip install -r requirements.txt
 python3 -m pip install -r requirements.txt # statement repeated on purpose
+
+# installing NodeJS 14.x LTS for GUI
+curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+apt-get install -y nodejs
+
+# installing angular 
+npm install -g @angular/cli
+
+# update angular from 7 --> 12
+cd gui
+npm install
+ng update
+npm install -g npm
+ng update @angular/cli 
+ng update @angular/core
+npm update

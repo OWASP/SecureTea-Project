@@ -35,7 +35,7 @@
 
 **The OWASP SecureTea Project** provides a one-stop security solution for various devices (personal computers / servers / IoT devices).
 
-![Dashboard][Dashboard]
+![dashboard](https://user-images.githubusercontent.com/70275323/136699660-beb99831-1122-4b75-8a1e-79e23ea18d3f.png)
 
 ## Features
 

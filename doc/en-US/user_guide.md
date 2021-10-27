@@ -147,6 +147,11 @@ OWASP SecureTea Tool project runs on Linux, Windows and macOS operating systems.
 
 #### Installing pre-requisites
 
+User needs to be root for prerequisite installation to work properly. Command for root is 
+```shell
+sudo su
+```
+
 For quick prerequisite installation - 
 
 Download and Extract the zip file, or use command
@@ -415,15 +420,15 @@ Default configuration:
 ###### Using vim<br>
 `vi securetea.conf`
 
-##### Configuring using interactive setup mode
+### Configuring using interactive setup mode
 
-##### Setup all the features
+### Setup all the features
 1.  Start SecureTea without any parameters:<br>
 `sudo python3 SecureTea.py`<br>
 This will start an interactive setup mode, to skip a particular setup, enter s or S.<br><br>
 ![](/img/setup_all.gif)<br>
 
-##### Setup a particular feature
+#### Setup a particular feature
 Arguments list
 
 ```argument
@@ -443,20 +448,50 @@ Examples:<br>
 -  Starting Telegram & Twitter interactive setup: `sudo python3 SecureTea.py --telegram --twitter`<br><br>
 ![TelegramTwitter](/img/tele_twi.gif)<br>
 
-##### Configuring using Web UI
+#### Configuring using Web UI
 
 - [Using local web server over HTTPS](/doc/en-US/web_https.md)
 
-###### Previews
-![Network graph](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh1.png "Secure Tea Dashboard")
-<br><br>
-![Disk usage](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh2.png "Secure Tea Disk Dashboard")
-![Process](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh3.png "Process")
-<br><br>
-![Last Login](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh4.png "Last Login")
-<br><br>
-![Network](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh5.png "Networks")
-![Security](https://raw.githubusercontent.com/OWASP/SecureTea-Project/master/img/dsh7.png "Security")
+
+#### Setting up Web UI
+
+Web UI requires ServerApp running. To run ServerApp, 
+
+1. Navigate to `/ServerApp` by using command `cd ServerApp`
+2. `python3 run.py` to start ServerApp
+3. ServerApp runs on `http://localhost:5000`. This is the END-POINT for the GUI
+4. To check if ServerApp is running, run `http://localhost:5000` in a Web Browser. A white/blank screen indicates proper working of ServerApp
+
+The preffered web browser to use Web UI and test ServerApp is Google Chrome.
+
+ng serve doesn't have to be sudo. ServerApp needs to be run as sudo
+
+Follow the following steps to setup Web UI
+1.  `cd gui`
+2.  `ng serve`
+3.  `sudo python monitor.py`
+4.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
+5.  The EndPoint Secret is `PASSWD` by default.
+
+Registering for Web UI
+
+1. Enter Name
+2. Enter Password
+3. ServerApp should be running. END-POINT is URL where ServerApp runs. By default this is http://localhost:5000`
+4. EndPoint Secret is `PASSWD` by default
+
+As soon as registration is completed, the website redirects to the dashboard of SecureTea-GUI
+This is what dashboard should look like
+
+![dashboard](https://user-images.githubusercontent.com/70275323/136699037-ff87b4b0-8f09-497d-903f-b5cfa6d0f39c.png)
+
+![network](https://user-images.githubusercontent.com/70275323/136699038-4900a3b5-7e84-4e7c-93c6-1caab171b948.png)
+
+![storage](https://user-images.githubusercontent.com/70275323/136699042-3cc2e215-5a4c-4b1d-bd5f-7d441fd6273b.png)
+
+All securetea features can be run through the Security Section
+
+![security](https://user-images.githubusercontent.com/70275323/136699041-72568c79-cde5-47d5-8013-be52c1d7f7e4.png)
 
 ##### Configuring using CLI arguments
 ```argument
@@ -518,13 +553,6 @@ Example usage:
 -  Configuring Slack: `sudo python3 SecureTea.py --slack_user_id <your data> --slack_token <your data>`<br><br>
 ![Slack](/img/slack_cli.gif)<br>
 
-#### Setting up Web UI
-Follow the following steps to setup Web UI
-1.  `cd gui`
-2.  `npm install`
-3.  `ng serve`
-4.  `sudo python monitor.py`
-5.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
 
 #### Getting tokens
 In order to use the various communication medium you need to get yourself a verified token from the respective provider.
