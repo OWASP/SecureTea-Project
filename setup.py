@@ -201,6 +201,11 @@ iot_requirements = [
     "shodan"
 ]
 
+requirements_file = open('requirements.txt', 'r')
+requirements = requirements_file.readlines()
+for i, line in enumerate(requirements):
+    requirements[i] = line.strip()
+
 setup(
     name='securetea',
     version='2.2',
@@ -219,27 +224,7 @@ setup(
     url='https://github.com/OWASP/SecureTea-Project',
     author='OWASP SecureTea',
     author_email='rejah.rehim@owasp.org',
-    install_requires=[
-        "requests",
-        "requests_oauthlib",
-        "py_cpuinfo",
-        "psutil",
-        "flask",
-        "flask_cors",
-        "pynput",
-        "python-telegram-bot",
-        "twilio",
-        "boto3",
-        "geocoder",
-        "pyudev",
-        "ipwhois",
-        "future",
-        "scapy",
-        "wget",
-        "bs4",
-        "shodan",
-        "NetfilterQueue"
-    ],
+    install_requires=requirements,
     extras_require={
         'server': server_requirements,
         'system': system_requirements,
