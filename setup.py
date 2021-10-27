@@ -24,7 +24,7 @@ import subprocess
 import re
 
 
-os_name = distro.linux_distribution()[0]
+os_name = distro.name()[0]
 if not os_name and 'amzn' in platform.uname()[2]:
     os_name = 'centos'
 

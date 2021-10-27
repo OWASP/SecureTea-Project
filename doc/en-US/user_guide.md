@@ -161,11 +161,11 @@ Navigate inside the folder ```SecureTea-Project``` , open Terminal inside and ru
 
 For apt package manager based systems:
 ```shell
-$ bash install_dependencies_apt.sh
+$ sudo bash install_dependencies_apt.sh
 ```
 For yum package manager based systems:
 ```shell
-$ bash install_dependencies_yum.sh
+$ sudo bash install_dependencies_yum.sh
 ```
 
 In case a specific dependency is unmet or is unable to be installed, follow the steps below
