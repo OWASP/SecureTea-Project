@@ -39,23 +39,34 @@ rm -rf /usr/local/bin/cpuinfo
 rm -rf /usr/local/bin/normalizer
 echo -e "\e[105m\e[1m SecureTea install files Deletion Completed \e[0m"
 
-read -p "Would you like to remove git? (y/N) " user_choice
+read -p "Would you like to remove node and angular? (y/N) " user_choice
 if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
-  echo -e "\e[101m\e[1m git will be deleted \e[0m"
-  apt-get -y purge git # purgeing git
+  echo -e "\e[101m\e[1m node and angular will be removed \e[0m"
+  apt-get -y purge nodejs
+  apt-get -y purge python3-pip # python3 and pip purgeed
+  apt-get -y purge python3-setuptools
+  add-apt-repository --remove ppa:nodesource
 else
-  echo -e "\e[104m\e[1m git kept intact \e[0m"
+  echo -e "\e[104m\e[1m Python installation is kept intact \e[0m"
 fi
 
 read -p "Would you like to remove python pip? (y/N) " user_choice
 if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
-  echo -e "\e[101m\e[1m Python and Pip will be deleted \e[0m"
+  echo -e "\e[101m\e[1m Python and Pip will be removed \e[0m"
   apt-get -y purge python3
   apt-get -y purge python3-pip # python3 and pip purgeed
   apt-get -y purge python3-setuptools
   add-apt-repository --remove ppa:deadsnakes/ppa
 else
   echo -e "\e[104m\e[1m Python installation is kept intact \e[0m"
+fi
+
+read -p "Would you like to remove git? (y/N) " user_choice
+if [ "$user_choice" == 'y' ] || [ "$user_choice" == 'Y' ]; then
+  echo -e "\e[101m\e[1m git will be removed \e[0m"
+  apt-get -y purge git # purgeing git
+else
+  echo -e "\e[104m\e[1m git kept intact \e[0m"
 fi
 
 read -p "Would you like to remove all SecureTea directories and files? (y/N) " user_choice
