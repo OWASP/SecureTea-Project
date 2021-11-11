@@ -1,0 +1,16 @@
+<p>Loaded Module name ---> {{ loaded_module }}</p>
+
+<!--
+<p *ngFor="let item of meta | keyvalue" > 
+ModuleName: {{ item.key }}
+<br>
+</p>
+<p *ngFor="let item of module_meta | keyvalue" > 
+ModuleName: {{ item.key }}
+<br>
+</p>
+
+
+-->
+
+<app-forms-display *ngIf="module_meta" [module_meta]="module_meta"></app-forms-display>

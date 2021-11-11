@@ -1,0 +1,12 @@
+<!--
+This displays all modules that can be activate with SecureTea
+-->
+
+<h2>List of all Modules</h2>
+
+<a *ngFor="let item of meta | keyvalue" 
+[routerLink]="'/modules/' + item.key"
+> 
+ModuleName: {{ item.key }}
+<br>
+</a>

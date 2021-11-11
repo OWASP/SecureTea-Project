@@ -1,0 +1,34 @@
+<p> Inside FormsDisplay Component </p>
+
+<p>
+  {{ module_meta }}
+</p>
+<p>
+  {{params_length}}
+</p>
+
+<div class="container" *ngIf="flag==false">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="input_form" (ngSubmit)="onSubmit()">
+        <div class="container" *ngFor="let el of args_html_list">
+          <div class="form-group" *ngIf="el[0] < params_length">
+            <label for="username"> {{ module_meta[0][el[0]] }} </label>
+            <input
+              type="text"
+              id="username"
+              [formControlName]="el[1]"
+              class="form-control">
+              <br> <hr> 
+          </div>
+        </div>
+        <button class="button" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p>
+  Display Data
+  {{display_data}}
+</p>

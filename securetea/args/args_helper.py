@@ -238,7 +238,9 @@ class ArgsHelper(object):
                 'mode': 'mode to scan in\n'
                         '(C/c) Continuous Malware Defence Mode\n'
                         '(I/i) Individual file Steganography\n'
-                        '(M/m) Individual file Malware Analysis test\n\t'
+                        '(M/m) Individual file Malware Analysis test\n\t',
+                'filename': 'filename to be scanned - for Individual file Steganography or Individual file Malware Analysis',
+                'virustotal_api_key': 'virustotal API key'
             },
             'default': default
         }
