@@ -19,7 +19,8 @@ import threading
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
-from securetea.lib.notifs import secureTeaMalwareAnalysis
+# from securetea.lib.notifs import secureTeaMalwareAnalysis
+from securetea.lib.malware_analysis.malware_analysis_runner import SecureTeaMalwareAnalysis
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
@@ -398,7 +399,7 @@ class SecureTea(object):
                 self.twitter.notify("Welcome to SecureTea..!! Initializing System")
 
         if self.malware_analysis_provided:
-            self.malware_analysis_obj = secureTeaMalwareAnalysis.SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
+            self.malware_analysis_obj = SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
             self.malware_analysis_obj.runner()
 
         if self.telegram_provided:
