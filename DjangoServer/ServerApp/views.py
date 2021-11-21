@@ -64,7 +64,7 @@ def check_auth():
 def test_api(request):
     """Endpoint to check if the endpoint works or not"""
     print("Daiseiko")
-    return JsonResponse('Daiseiko', safe=False)
+    return JsonResponse('test_api succcess', safe=False)
 
 def notifs(request):
     """Endpoint to handle notifications to frontend
