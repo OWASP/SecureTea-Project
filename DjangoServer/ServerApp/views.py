@@ -142,7 +142,7 @@ def check_auth():
 def test_api(request):
     """Endpoint to check if the endpoint works or not"""
     print("Daiseiko")
-    return JsonResponse('Daiseiko', safe=False)
+    return JsonResponse('test_api succcess', safe=False)
 
 def notifs(request):
     """Endpoint to handle notifications to frontend
@@ -154,7 +154,7 @@ def notifs(request):
         print("In - /notifs - remote_addr==127.0.0.1")
     else:
         print("In - /notifs - else - remote_addr==127.0.0.1")
-    return JsonResponse('Notifs Daiseiko', safe=False)
+    return JsonResponse('Notifs successful', safe=False)
 
 def get_uptime(request):
     """Endpoint to get the uptime of the system
