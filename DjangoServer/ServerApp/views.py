@@ -71,8 +71,8 @@ def register(request):
         else:
             print("Network Secret is incorrect")
     except sqlite3.IntegrityError:
-        print('Futari onaji Username dame daze')
-        return JsonResponse('Futari onaji Username dame daze', safe=False)
+        print('Two users with same Username')
+        return JsonResponse('Two users with same Username', safe=False)
 
 
     # Save (commit) the changes
@@ -84,7 +84,7 @@ def register(request):
             print(row)
 
     con.close()
-    return JsonResponse('Registration Daiseiko', safe=False)
+    return JsonResponse('Registration Sucessful', safe=False)
 
 def login(request):
     global net_sec
@@ -122,7 +122,45 @@ def login(request):
             print(row)
 
     con.close()
-    return JsonResponse('Registration Daiseiko', safe=False)
+    return JsonResponse('Login Sucessful', safe=False)
+
+def logout(request):
+    global net_sec
+    con = sqlite3.connect('example.db')
+    cur = con.cursor()
+
+    # Insert a row of data
+    uname = request.GET["username"]
+    passwd = request.GET["passwd"]
+    ns = request.GET["ns"]
+    try:
+        if ns == net_sec :
+            temp = 0
+            for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username='" + uname + "' AND password='" + passwd + "')"):
+                temp = c1[0]
+            if temp == 1:
+                sql_query = "UPDATE users SET logged_in = 'false' WHERE username='" + uname + "'"
+                cur.execute(sql_query)
+            else:
+                print("username password incorrect")
+                return JsonResponse('username password incorrect', safe=False)
+        else:
+            print("Network Secret is incorrect")
+    except sqlite3.IntegrityError:
+        print('Something went wrong')
+        return JsonResponse('Something went wrong', safe=False)
+
+
+    # Save (commit) the changes
+    con.commit()
+
+    # We can also close the connection if we are done with it.
+    # Just be sure any changes have been committed or they will be lost.
+    for row in cur.execute('SELECT * FROM users ORDER BY username'):
+            print(row)
+
+    con.close()
+    return JsonResponse('Logout Sucessful', safe=False)
 
 def check_auth():
     """Check if the request is an authorized request

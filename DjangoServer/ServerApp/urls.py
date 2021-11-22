@@ -20,6 +20,6 @@ urlpatterns = {
     url(r'login/$', views.get_login),
     url(r'sleep/$', views.sleep),
     url(r'register/$', views.register),
-    url(r'login/$', views.login),
-
+    url(r'login_user/$', views.login), # userlogin reloves to login hence its login_user
+    url(r'logout/$', views.logout),
 }
