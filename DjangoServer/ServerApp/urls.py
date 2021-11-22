@@ -19,5 +19,7 @@ urlpatterns = {
     url(r'stop/$', views.stop),
     url(r'login/$', views.get_login),
     url(r'sleep/$', views.sleep),
+    url(r'register/$', views.register),
+    url(r'login/$', views.login),
 
 }

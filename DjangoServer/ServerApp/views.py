@@ -16,6 +16,7 @@ import re
 import json
 import pickle
 import socketio
+import sqlite3
 
 from datetime import datetime
 from datetime import timedelta
@@ -35,6 +36,8 @@ async_mode = None
 socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins="*")
 '''
 
+net_sec = "PASSWD"
+
 diskReadNew = 0
 diskReadOld = 0
 diskWriteNew = 0
@@ -45,6 +48,81 @@ processid = False
 from app.user.controllers import mod_user, is_logged_in
 app.register_blueprint(mod_user)
 '''
+
+def register(request):
+    global net_sec
+    con = sqlite3.connect('example.db')
+    cur = con.cursor()
+
+    try:
+        # Create table
+        cur.execute('''CREATE TABLE users(username text NOT NULL PRIMARY KEY, password text, logged_in text)''')
+    except sqlite3.OperationalError:
+        print("Users table exists. Skipping creation")
+
+    # Insert a row of data
+    uname = request.GET["username"]
+    passwd = request.GET["passwd"]
+    ns = request.GET["ns"]
+    try:
+        if ns == net_sec :
+            sql_query = "INSERT INTO users VALUES ('" + uname + "','" + passwd + "','false')"
+            cur.execute(sql_query)
+        else:
+            print("Network Secret is incorrect")
+    except sqlite3.IntegrityError:
+        print('Futari onaji Username dame daze')
+        return JsonResponse('Futari onaji Username dame daze', safe=False)
+
+
+    # Save (commit) the changes
+    con.commit()
+
+    # We can also close the connection if we are done with it.
+    # Just be sure any changes have been committed or they will be lost.
+    for row in cur.execute('SELECT * FROM users ORDER BY username'):
+            print(row)
+
+    con.close()
+    return JsonResponse('Registration Daiseiko', safe=False)
+
+def login(request):
+    global net_sec
+    con = sqlite3.connect('example.db')
+    cur = con.cursor()
+
+    # Insert a row of data
+    uname = request.GET["username"]
+    passwd = request.GET["passwd"]
+    ns = request.GET["ns"]
+    try:
+        if ns == net_sec :
+            temp = 0
+            for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username='" + uname + "' AND password='" + passwd + "')"):
+                temp = c1[0]
+            if temp == 1:
+                sql_query = "UPDATE users SET logged_in = 'true' WHERE username='" + uname + "'"
+                cur.execute(sql_query)
+            else:
+                print("username password incorrect")
+                return JsonResponse('username password incorrect', safe=False)
+        else:
+            print("Network Secret is incorrect")
+    except sqlite3.IntegrityError:
+        print('Something went wrong')
+        return JsonResponse('Something went wrong', safe=False)
+
+
+    # Save (commit) the changes
+    con.commit()
+
+    # We can also close the connection if we are done with it.
+    # Just be sure any changes have been committed or they will be lost.
+    for row in cur.execute('SELECT * FROM users ORDER BY username'):
+            print(row)
+
+    con.close()
+    return JsonResponse('Registration Daiseiko', safe=False)
 
 def check_auth():
     """Check if the request is an authorized request
