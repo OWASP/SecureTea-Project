@@ -17,7 +17,7 @@ python3 -m pip uninstall -yr requirements.txt
 echo -e "\e[105m\e[1m Python Requirements Uninstalled \e[0m"
 
 echo -e "\e[105m\e[1m Deleting installed tools \e[0m"
-apt-get -y purge build-essential python3-dev libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 rsyslog clamav # dependencies purgeed
+apt-get -y purge build-essential python3-dev libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 rsyslog clamav pm-utils # dependencies purgeed
 apt-get -y purge binwalk exiftool pngcheck foremost steghide stegosuite curl # dependencies for steg analysis
 echo -e "\e[105m\e[1m Installed tools deleted \e[0m"
 

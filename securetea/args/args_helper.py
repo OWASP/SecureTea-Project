@@ -42,7 +42,7 @@ def iterate_dict(config_dict, default):
         if not skip:
             if not isinstance(item, dict):
                 if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                    val = raw_input('>> Enter {}: '
+                    val = input('>> Enter {}: '
                                     .format(item)).strip()
                 else:
                     val = str(input('>> Enter {}: '
@@ -238,7 +238,18 @@ class ArgsHelper(object):
                 'mode': 'mode to scan in\n'
                         '(C/c) Continuous Malware Defence Mode\n'
                         '(I/i) Individual file Steganography\n'
-                        '(M/m) Individual file Malware Analysis test\n\t'
+                        '(M/m) Individual file Malware Analysis test\n\t',
+                'filename': 'filename to be scanned - for Individual file Steganography or Individual file Malware Analysis',
+                'stegscan': 'Enter action to take on file\n'
+                            'f/F File Information\n'
+                            's/S View Strings\n'
+                            'e/E Extract Embedded Data\n'
+                            'i/I Run Steganography Tools Individually\n'
+                            'a/A Run all Steganography tools\n'
+                            'q/Q Quit\n'
+                            '\t: ',
+                'passwd': 'Enter Password to use for Steghide or Stegsolve',
+                'virustotal_api_key': 'VirusTotal API Key'
             },
             'default': default
         }
@@ -796,7 +807,7 @@ class ArgsHelper(object):
             if self.args.server_mode and not self.server_mode:
                 self.server_mode = True
                 if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                    config_decision = input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
                 if (config_decision.lower() == "y"):
@@ -875,7 +886,7 @@ class ArgsHelper(object):
             if self.args.system_mode and not self.system_mode:
                 self.system_mode = True
                 if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                    config_decision = input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
                 if (config_decision.lower() == "y"):
@@ -926,7 +937,7 @@ class ArgsHelper(object):
             if self.args.iot_mode and not self.iot_mode:
                 self.iot_mode = True
                 if int(platform.sys.version_info[0]) < 3:  # if Python 2.X.X
-                    config_decision = raw_input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
+                    config_decision = input("[!] Do you want to use the saved configuratons? (Y/y): ").strip(" ")
                 else:
                     config_decision = str(input("[!] Do you want to use the saved configuratons? (Y/y): ")).strip(" ")
                 if (config_decision.lower() == "y"):

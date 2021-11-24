@@ -10,7 +10,11 @@ def get_config():
             "access_token_secret": "XXXX"
         },
         "malware_analysis": {
-            "mode": "XXXX"
+            "mode": "XXXX",
+            "filename": "XXXX",
+            "stegscan": "XXXX",
+            "passwd": "XXXX",
+            "virustotal_api_key": "XXXX"
         },
         "telegram": {
             "token": "XXXX",

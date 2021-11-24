@@ -20,7 +20,8 @@ apt-get -y -qq install python3-pip # python3 and pip installed
 
 apt -y -qq install python3-setuptools build-essential python3-dev libnfnetlink-dev libnetfilter-queue-dev libnetfilter-queue1 rsyslog
 service rsyslog restart
-apt-get -y -qq install -y clamav # dependencies installed
+apt-get -y -qq install -y clamav 
+apt-get -y -qq install pm-utils  # dependencies installed
 
 apt-get -y -qq install binwalk exiftool pngcheck foremost steghide stegosuite # dependencies for steg analysis
 
