@@ -19,8 +19,8 @@ import threading
 from securetea import configurations
 from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
-# from securetea.lib.notifs import secureTeaMalwareAnalysis
 from securetea.lib.malware_analysis.malware_analysis_runner import SecureTeaMalwareAnalysis
+from securetea.lib.scanner.scanner import Scanner
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
@@ -94,6 +94,7 @@ class SecureTea(object):
         self.cred_provided = args_dict['cred_provided']
         self.twitter_provided = args_dict['twitter_provided']
         self.malware_analysis_provided = args_dict['malware_analysis']
+        self.scanner_provided = args_dict['scanner']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
         self.whatsapp_provided = args_dict['whatsapp_provided']
@@ -156,6 +157,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Malware analysis configuration parameter not set.",
+                    logtype="error"
+                )
+            
+            try:
+                if self.cred['scanner']:
+                    self.scanner_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Scanner configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -401,6 +412,10 @@ class SecureTea(object):
         if self.malware_analysis_provided:
             self.malware_analysis_obj = SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
             self.malware_analysis_obj.runner()
+        
+        if self.scanner_provided:
+            self.scanner_obj = Scanner(self.cred["scanner"])
+            self.scanner_obj.runner()
 
         if self.telegram_provided:
             self.telegram = SecureTeaTelegram(

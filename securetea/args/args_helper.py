@@ -182,6 +182,7 @@ class ArgsHelper(object):
         self.cred_provided = False
         self.twitter_provided = False
         self.malware_analysis_provided = False
+        self.scanner_provided = False
         self.telegram_provided = False
         self.twilio_provided = False
         self.whatsapp_provided = False
@@ -250,6 +251,21 @@ class ArgsHelper(object):
                             '\t: ',
                 'passwd': 'Enter Password to use for Steghide or Stegsolve',
                 'virustotal_api_key': 'VirusTotal API Key'
+            },
+            'default': default
+        }
+    
+    @takeInput
+    def configureScanner(self):
+        """
+        Returns the format to configure Scanner
+        """
+        self.logger.log('Scanner configuration setup')
+        default = load_default('scanner')
+        return {
+            'input': {
+                'scan': "Would you like to scan your local network?(Y/n)\n"
+                        "(Nmap can be illegal depending on your country's cyber)\n\t"
             },
             'default': default
         }
@@ -581,6 +597,12 @@ class ArgsHelper(object):
             if malware_analysis:
                 self.cred['malware_analysis'] = malware_analysis
                 self.malware_analysis_provided = True
+            
+            # Start the scanner configuration setup
+            scanner = self.configureScanner()
+            if scanner:
+                self.cred['scanner'] = scanner
+                self.scanner_provided = True
 
             # Start the telegram configuration setup
             telegram = self.configureTelegram()
@@ -698,6 +720,12 @@ class ArgsHelper(object):
                 if malware_analysis:
                     self.cred['malware_analysis'] = malware_analysis
                     self.malware_analysis_provided = True
+            
+            if self.args.scanner and not self.scanner_provided:
+                scanner = self.configureScanner()
+                if scanner:
+                    self.cred['scanner'] = scanner
+                    self.scanner_provided = True
 
             if self.args.telegram and not self.telegram_provided:
                 telegram = self.configureTelegram()
@@ -1243,6 +1271,7 @@ class ArgsHelper(object):
                 self.firewall_provided = True
         if (self.twitter_provided or
             self.malware_analysis_provided or
+            self.scanner_provided or
             self.telegram_provided or
             self.twilio_provided or
             self.whatsapp_provided or
@@ -1270,6 +1299,7 @@ class ArgsHelper(object):
             'cred_provided': self.cred_provided,
             'twitter_provided': self.twitter_provided,
             'malware_analysis': self.malware_analysis_provided,
+            'scanner': self.scanner_provided,
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
             'whatsapp_provided': self.whatsapp_provided,

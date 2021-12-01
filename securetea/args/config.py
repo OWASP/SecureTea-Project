@@ -16,6 +16,9 @@ def get_config():
             "passwd": "XXXX",
             "virustotal_api_key": "XXXX"
         },
+        "scanner": {
+            "scan":"XXXX"
+        },
         "telegram": {
             "token": "XXXX",
             "user_id": "XXXX"

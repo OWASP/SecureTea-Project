@@ -90,7 +90,14 @@ def get_args():
         '--malware_analysis',
         required=False,
         action='store_true',
-        help='Setup twitter credentials'
+        help='Setup malware_analysis credentials'
+    )
+
+    parser.add_argument(
+        '--scanner',
+        required=False,
+        action='store_true',
+        help='Setup Scanner'
     )
 
     parser.add_argument(
