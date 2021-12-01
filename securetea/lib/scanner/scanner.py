@@ -66,7 +66,9 @@ class Scanner:
             for element in ip_data:
                 scan_res = self.scan(ipaddress=element[0], subnet=element[1])
                 print(scan_res)
-            return scan_res
+                element.append(scan_res)
+            
+            return ip_data
         else:
             return "Scanner Inactive"
     
