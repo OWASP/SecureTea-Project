@@ -60,8 +60,8 @@ class Scanner:
                 element.append(str(cidr_data))
             
             print(ip_data)
-            ip_data.pop()
-            print(ip_data)
+            # ip_data.pop()
+            # print(ip_data)
 
             for element in ip_data:
                 scan_res = self.scan(ipaddress=element[0], subnet=element[1])
