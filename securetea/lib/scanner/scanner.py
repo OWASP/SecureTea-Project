@@ -6,7 +6,7 @@ from netaddr import IPAddress
 
 class Scanner:
     def __init__(self, cred):
-        self.scan = cred["scan"].lower()
+        self.scan_creds = cred["scan"].lower()
 
     def get_interface_data(self):
         addr_dict = {}
@@ -47,7 +47,7 @@ class Scanner:
         return json.dumps(scan_range["scan"], indent=4, sort_keys=True)
     
     def runner(self):
-        if self.scan == 'y':
+        if self.scan_creds == 'y':
             # scanner_obj = Scanner()
             addrs = self.get_interface_data() 
             ip_data = self.get_ip_from_IFDATA(addrs=addrs)
@@ -60,13 +60,12 @@ class Scanner:
                 element.append(str(cidr_data))
             
             print(ip_data)
-            # ip_data.pop()
-            # print(ip_data)
+            ip_data.pop()
+            print(ip_data)
 
             for element in ip_data:
-                scan_res = self.scan(element[0], element[1])
-            
-            print(scan_res)
+                scan_res = self.scan(ipaddress=element[0], subnet=element[1])
+                print(scan_res)
             return scan_res
         else:
             return "Scanner Inactive"
