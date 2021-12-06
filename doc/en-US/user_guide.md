@@ -1104,23 +1104,7 @@ For checking multiple mail ids for their reputation, SocialEngineering.py is ava
 
 #### 4. Log file
     + Debugger logs at "/etc/securetea/social_eng_log.log"
-
-#### Setting up Server Log Monitor
-Example usage:<br>
-#### 1. Using interactive setup
-```argument
-sudo python3 SecureTea.py --server-log
-```
-#### 2. Argument list
-| Argument      | Default value | Description |
-| ------------- | ------------- |--------------
-| `--log-file` | XXXX |Path of the log file|
-| `--log-type` | XXXX |Type of the log file (Apache/Nginx)|
-| `--window` | XXXX |Days old log to process|
-| `--ip-list` | XXXX | List of IPs to grab from log file|
-| `--status-code` | XXXX |List of status code to grab from log file|
-
-
+    
 #### Setting up System Log Monitor
 Example usage:<br>
 #### 1. Using interactive setup
