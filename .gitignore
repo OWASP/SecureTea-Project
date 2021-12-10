@@ -322,3 +322,7 @@ blocked.pcap
 ## ServerApp file
 ServerApp/app.db
 ServerApp/logged_in
+ServerApp/example.db
+
+## 
+.angular*

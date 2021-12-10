@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 import * as toastr from 'toastr';
 import * as io from 'socket.io-client';
@@ -17,10 +17,13 @@ export class HeaderComponent implements OnInit {
   socket: any;
 
 
-  constructor(private http: Http, private router: Router) {
-  }
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    /*
     this.apiRoot = localStorage.getItem('endpoint');
     if (!this.apiRoot) {
       this.router.navigate(['/config']);
@@ -44,13 +47,14 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.getUsername();
+    */
   }
 
   getUsername() {
     const geturl = `${this.apiRoot}username`;
     this.http.get(geturl).subscribe((res) => {
-      if (res.status === 200) {
-        res.json().username;
+      if (res === 200) {
+        // res.json().username;
       }
     });
   }

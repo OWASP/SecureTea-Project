@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,13 +26,19 @@ export class DashboardComponent implements OnInit {
   interval;
   uptime = '__ : __ : __';
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private cookie: CookieService
+  ) { }
 
   ngOnInit() {
     this.apiRoot = localStorage.getItem('endpoint');
     if (!this.apiRoot) {
       this.router.navigate(['/config']);
     }
+    console.log(this.cookie.get("api"))
+    this.apiRoot = this.cookie.get("api")
     this.getCpu();
     this.getRam();
     this.getSwap();
@@ -46,10 +53,15 @@ export class DashboardComponent implements OnInit {
 
   getRam() {
     const posturl = `${this.apiRoot}ram`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.ram = res.json().percent;
-        this.ExRam = res.json();
+    this.http.post(
+      posturl,
+      { 
+        "username":this.cookie.get('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.ram = res.json().percent;
+        // this.ExRam = res.json();
       } else {
         this.ram = '0';
       }
@@ -61,10 +73,15 @@ export class DashboardComponent implements OnInit {
 
   getCpu() {
     const posturl = `${this.apiRoot}cpu`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.cpu = res.json().percentage;
-        this.ExCpu = res.json();
+    this.http.post(
+      posturl,
+      { 
+        "username":this.cookie.get('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.cpu = res.json().percentage;
+        // this.ExCpu = res.json();
       } else {
         this.cpu = '0';
       }
@@ -76,10 +93,15 @@ export class DashboardComponent implements OnInit {
 
   getSwap() {
     const posturl = `${this.apiRoot}swap`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.swap = res.json().percent;
-        this.ExSwap = res.json();
+    this.http.post(
+      posturl,
+      { 
+        "username":this.cookie.get('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.swap = res.json().percent;
+        // this.ExSwap = res.json();
       } else {
         this.swap = '0';
       }
@@ -91,14 +113,19 @@ export class DashboardComponent implements OnInit {
 
   getUptime() {
     const posturl = `${this.apiRoot}uptime`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.uptime = res.json().uptime;
+    this.http.post(
+      posturl,
+      { 
+        "username":this.cookie.get('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.uptime = res.json().uptime;
       } else {
-        this.uptime = '__ : __ : __';
+        // this.uptime = '__ : __ : __';
       }
     }, (err) => {
-        this.uptime = '__ : __ : __';
+        // this.uptime = '__ : __ : __';
       }
     );
   }

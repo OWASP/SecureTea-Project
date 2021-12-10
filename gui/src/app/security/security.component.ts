@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 import $ from 'jquery';
@@ -102,7 +102,10 @@ export class SecurityComponent implements OnInit {
     se_mail_id: new FormControl('')
   });
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.apiRoot = localStorage.getItem('endpoint');
@@ -632,8 +635,11 @@ export class SecurityComponent implements OnInit {
       })
       .then((willDelete) => {
         if (willDelete) {
-          this.http.post(posturl, data).subscribe((res) => {
-            if (res.status === 201) {
+          this.http.post(
+            posturl, 
+            data
+          ).subscribe((res) => {
+            if (res === 201) {
               $('#startForm').hide();
               $('#stopForm').show();
               this.error = '';
@@ -722,7 +728,7 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('url_ih', this.notificationsForm.value.url_ih);
               localStorage.setItem('hist_logger', this.notificationsForm.value.hist_logger);
               localStorage.setItem('se_mail_id', this.notificationsForm.value.se_mail_id);
-            } else if (res.status === 200) {
+            } else if (res === 200) {
               $('#startForm').hide();
               $('#stopForm').show();
               swal('Already monitoring', {
@@ -746,7 +752,7 @@ export class SecurityComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete) {
           this.http.get(posturl).subscribe((res) => {
-            if (res.status === 201) {
+            if (res === 201) {
               this.notificationsForm.reset();
               $('#startForm').hide();
               $('#stopForm').show();
@@ -754,7 +760,7 @@ export class SecurityComponent implements OnInit {
               swal('Great! Your system is going to sleep in 5s.', {
                 icon: 'success',
               });
-            } else if (res.status === 200) {
+            } else if (res === 200) {
               $('#startForm').hide();
               $('#stopForm').show();
               swal('Already monitoring', {
@@ -772,8 +778,13 @@ export class SecurityComponent implements OnInit {
 
   Stop() {
     const posturl = `${this.apiRoot}stop`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
+    this.http.post(
+      posturl,
+      { 
+        "username":localStorage.getItem('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
         $('#stopForm').hide();
         $('#startForm').show();
         this.error = '';
@@ -785,12 +796,17 @@ export class SecurityComponent implements OnInit {
 
   checkStatus() {
     const geturl = `${this.apiRoot}status`;
-    this.http.post(geturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
+    this.http.post(
+      geturl,
+      { 
+        "username":localStorage.getItem('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
         $('#startForm').hide();
         $('#stopForm').show();
         this.error = '';
-      } else if (res.status === 204) {
+      } else if (res === 204) {
         $('#startForm').show();
         $('#stopForm').hide();
         this.error = '';

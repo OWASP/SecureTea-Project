@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 
 @Component({
@@ -40,7 +40,10 @@ export class BodyComponent implements OnInit {
   read = 0;
   write = 0;
 
-  constructor(private http: Http,  private router: Router) { }
+  constructor(
+    private http: HttpClient,  
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.apiRoot = localStorage.getItem('endpoint');
@@ -60,8 +63,14 @@ export class BodyComponent implements OnInit {
 
   getProcessor() {
     const posturl = `${this.apiRoot}processor`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
+    this.http.post(
+      posturl,
+      { 
+        "username":localStorage.getItem('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        /*
         this.brand = res.json().brand;
         this.vendor_id = res.json().vendor_id;
         this.bits = res.json().bits;
@@ -71,6 +80,8 @@ export class BodyComponent implements OnInit {
         this.l1_instruction_cache_size = res.json().l1_instruction_cache_size;
         this.l2_cache_size = res.json().l2_cache_size;
         this.l3_cache_size = res.json().l3_cache_size;
+        */
+        console.log(res)   
       }
     }, (err) => {
         console.log(err);
@@ -104,10 +115,16 @@ export class BodyComponent implements OnInit {
   getNetworkSpeed() {
     try {
       const posturl = `${this.apiRoot}diskio`;
-      this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-        if (res.status === 200) {
-          this.read = res.json().read;
-          this.write = res.json().write;
+      this.http.post(
+        posturl,
+        { 
+          "username":localStorage.getItem('user_name')
+        }
+      ).subscribe((res) => {
+        if (res === 200) {
+          // this.read = res.json().read;
+          // this.write = res.json().write;
+          console.log(res)
         }
       }, (err) => {
           console.log(err);

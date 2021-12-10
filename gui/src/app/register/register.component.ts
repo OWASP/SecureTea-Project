@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 
 
@@ -20,7 +20,10 @@ export class RegisterComponent implements OnInit {
   error: String;
 
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.endpoint = new FormControl('');
@@ -40,14 +43,21 @@ export class RegisterComponent implements OnInit {
   var end_point_login=this.endpoint.value.concat('/register').replace("//register","/register");
   if (this.endpoint.valid) {
     this.http.get(this.endpoint.value).subscribe((res) => {
-      if (res.status === 200) {
+      if (res === "test") {
         this.error = 'End point is working';
         if(this.pass.value===this.cpass.value && this.pass.value!='') {
-          this.http.post(end_point_login,{'username':this.uname.value,'password':this.pass.value,'ns':this.sec.value}).subscribe((res) => {
-            if (res.status === 200) {
+          this.http.post(
+            end_point_login,
+            {
+              'username':this.uname.value,
+              'password':this.pass.value,
+              'ns':this.sec.value
+            }
+          ).subscribe((res) => {
+            if (res === "Registration Sucessful") {
               this.router.navigate(['/config']);
             } else {
-              console.log(res.status);
+              console.log(res);
               this.error = 'Wrong Credentials';
             }
           }, (err) => {

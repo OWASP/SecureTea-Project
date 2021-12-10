@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 
 @Component({
@@ -16,7 +16,10 @@ export class TableComponent implements OnInit {
     private sorted = false;
     tableData = [ ];
 
-    constructor(private http: Http, private router: Router) { }
+    constructor(
+        private http: HttpClient, 
+        private router: Router
+    ) { }
 
     toggleVisibility(e) {
         this.reload = !this.reload;
@@ -37,11 +40,11 @@ export class TableComponent implements OnInit {
     getProcess() {
         const geturl = `${this.apiRoot}process`;
         this.http.get(geturl).subscribe((res) => {
-        if (res.status === 200) {
-            this.tableData = res.json()['data'];
+        if (res === 200) {
+            // this.tableData = res;
             // this.sortBy('cpu');
         } else {
-            console.log('Status: ' + res.status);
+            console.log('Status: ' + res);
         }
         }, (err) => {
             console.log(err);

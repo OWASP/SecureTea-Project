@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 
 @Component({
@@ -13,7 +13,10 @@ export class NetworkComponent implements OnInit {
   interval;
   network = [];
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.apiRoot = localStorage.getItem('endpoint');
@@ -28,10 +31,15 @@ export class NetworkComponent implements OnInit {
 
   getNetwork() {
     const posturl = `${this.apiRoot}netio`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.network = res.json()['data'];
-        console.log(this.network);
+    this.http.post(
+      posturl,
+      { 
+        "username":localStorage.getItem('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.network = res.json()['data'];
+        console.log(res);
       }
     });
   }

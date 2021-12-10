@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 
@@ -13,7 +13,10 @@ export class StorageComponent implements OnInit {
   apiRoot = '';
   storage = [];
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.apiRoot = localStorage.getItem('endpoint');
@@ -25,9 +28,15 @@ export class StorageComponent implements OnInit {
 
   getStorage() {
     const geturl = `${this.apiRoot}hdd`;
-    this.http.post(geturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.storage = res.json()['data'];
+    this.http.post(
+      geturl,
+      { 
+        "username":localStorage.getItem('user_name')
+      }
+    ).subscribe((res) => {
+      if (res === 200) {
+        // this.storage = res.json()['data'];
+        console.log(res)
       }
     });
   }
