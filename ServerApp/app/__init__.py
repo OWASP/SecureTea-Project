@@ -58,7 +58,7 @@ def check_auth(request):
 @app.route('/', methods=['GET'])
 def test_api():
     """Endpoint to check if the endpoint works or not"""
-    return jsonify('test'), 200
+    return jsonify('ep_working'), 200
 
 @app.route('/notifs',methods=['GET'])
 def notifs():

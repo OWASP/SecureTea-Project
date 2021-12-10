@@ -52,7 +52,7 @@ export class ConfigurationComponent implements OnInit {
     if (this.endpoint.valid) {
       this.http.get(this.endpoint.value).subscribe(res => {
         // console.log("Check endpoint" + res)
-        if (res === "test") {
+        if (res === "ep_working") {
           this.error = 'End point is working';
           // var orig_url=res;
           this.http.post(

@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   var end_point_login=this.endpoint.value.concat('/register').replace("//register","/register");
   if (this.endpoint.valid) {
     this.http.get(this.endpoint.value).subscribe((res) => {
-      if (res === "test") {
+      if (res === "ep_working") {
         this.error = 'End point is working';
         if(this.pass.value===this.cpass.value && this.pass.value!='') {
           this.http.post(
