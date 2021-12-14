@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-body',
@@ -42,14 +43,18 @@ export class BodyComponent implements OnInit {
 
   constructor(
     private http: HttpClient,  
-    private router: Router
+    private router: Router,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    this.apiRoot = this.cookie.get("api")
+    console.log("body api root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("body api root is null going to config")
       this.router.navigate(['/config']);
     }
+    console.log("body Api isssss" + this.cookie.get("api"))
     this.getRam();
     this.getSwap();
     this.getNetworkSpeed();

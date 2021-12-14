@@ -33,12 +33,13 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    this.apiRoot = this.cookie.get("api")
+    console.log("api root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("api root is null going to config")
       this.router.navigate(['/config']);
     }
-    console.log(this.cookie.get("api"))
-    this.apiRoot = this.cookie.get("api")
+    console.log("Api isssss" + this.cookie.get("api"))
     this.getCpu();
     this.getRam();
     this.getSwap();
@@ -59,9 +60,10 @@ export class DashboardComponent implements OnInit {
         "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        // this.ram = res.json().percent;
-        // this.ExRam = res.json();
+      if (res["status"] === 200) {
+        this.ram = res["percent"];
+        this.ExRam = JSON.parse(JSON.stringify(res));
+        console.log(res)
       } else {
         this.ram = '0';
       }
@@ -79,9 +81,10 @@ export class DashboardComponent implements OnInit {
         "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        // this.cpu = res.json().percentage;
-        // this.ExCpu = res.json();
+      if (res["status"] === 200) {
+        this.cpu = res["percentage"];
+        this.ExCpu = JSON.parse(JSON.stringify(res));
+        console.log(res)
       } else {
         this.cpu = '0';
       }
@@ -99,9 +102,10 @@ export class DashboardComponent implements OnInit {
         "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        // this.swap = res.json().percent;
-        // this.ExSwap = res.json();
+      if (res["status"] === 200) {
+        this.swap = res["percent"];
+        this.ExSwap = JSON.parse(JSON.stringify(res));
+        console.log(res)
       } else {
         this.swap = '0';
       }
@@ -119,13 +123,14 @@ export class DashboardComponent implements OnInit {
         "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        // this.uptime = res.json().uptime;
+      if (res["status"] === 200) {
+        this.uptime = res["uptime"];
+        console.log(JSON.parse(JSON.stringify(res)))
       } else {
-        // this.uptime = '__ : __ : __';
+        this.uptime = '__ : __ : __';
       }
     }, (err) => {
-        // this.uptime = '__ : __ : __';
+        this.uptime = '__ : __ : __';
       }
     );
   }

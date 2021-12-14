@@ -25,10 +25,13 @@ export class ConfigurationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    var apiRoot = localStorage.getItem('endpoint');
-    var uname = localStorage.getItem('user_name');
+    // var apiRoot = localStorage.getItem('endpoint');
+    // var uname = localStorage.getItem('user_name');
+    var apiRoot = this.cookie.get("api")
+    var uname = this.cookie.get("username")
     if(uname && apiRoot)
     {
+      console.log("username and api root exist. Going to dashboard")
       this.router.navigate(['/dashboard']);
     }
     else

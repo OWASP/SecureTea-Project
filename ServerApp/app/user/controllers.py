@@ -24,8 +24,8 @@ def is_logged_in(username):
         print(row)
     
     for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username='" + username + "')"):
-        print("username password is correct")
-        return jsonify('logged in')
+        print("isloggedin username password is correct")
+        return True
 
 
 

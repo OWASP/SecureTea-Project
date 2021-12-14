@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-logout',
@@ -13,10 +14,12 @@ export class LogoutComponent implements OnInit {
 
   constructor(
     private http: HttpClient, 
-    private router: Router
+    private router: Router,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
+    /*
   	  const posturl = localStorage.getItem('endpoint').concat('userlogout');
       this.http.post(
         posturl,
@@ -35,6 +38,10 @@ export class LogoutComponent implements OnInit {
               console.log(err.status);
             }
           );
+    */
 
+
+    this.cookie.delete("username")
+    this.router.navigate(['/config']);
   }
 }
