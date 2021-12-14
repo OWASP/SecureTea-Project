@@ -54,7 +54,7 @@ export class BodyComponent implements OnInit {
       console.log("body api root is null going to config")
       this.router.navigate(['/config']);
     }
-    console.log("body Api isssss" + this.cookie.get("api"))
+    console.log("body Api is" + this.cookie.get("api"))
     this.getRam();
     this.getSwap();
     this.getNetworkSpeed();
@@ -71,21 +71,21 @@ export class BodyComponent implements OnInit {
     this.http.post(
       posturl,
       { 
-        "username":localStorage.getItem('user_name')
+        "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        /*
-        this.brand = res.json().brand;
-        this.vendor_id = res.json().vendor_id;
-        this.bits = res.json().bits;
-        this.count = res.json().count;
-        this.hz_advertised = res.json().hz_advertised;
-        this.l1_data_cache_size = res.json().l1_data_cache_size;
-        this.l1_instruction_cache_size = res.json().l1_instruction_cache_size;
-        this.l2_cache_size = res.json().l2_cache_size;
-        this.l3_cache_size = res.json().l3_cache_size;
-        */
+      if (res["status"] === 200) {
+        
+        this.brand = res["brand"];
+        this.vendor_id = res["vendor_id"];
+        this.bits = res["bits"];
+        this.count = res["count"];
+        this.hz_advertised = res["hz_advertised"];
+        this.l1_data_cache_size = res["l1_data_cache_size"];
+        this.l1_instruction_cache_size = res["l1_instruction_cache_size"];
+        this.l2_cache_size = res["l2_cache_size"];
+        this.l3_cache_size = res["l3_cache_size"];
+        
         console.log(res)   
       }
     }, (err) => {
@@ -96,10 +96,10 @@ export class BodyComponent implements OnInit {
 
   getRam() {
     try {
-      this.ram_total = this.ram.total;
-      this.ram_free = this.ram.free;
-      this.ram_used = this.ram.used;
-      this.ram_percentage = this.ram.percent;
+      this.ram_total = this.ram["total"];
+      this.ram_free = this.ram["free"];
+      this.ram_used = this.ram["used"];
+      this.ram_percentage = this.ram["percent"];
       this.ram_width = this.ram_percentage + '%';
     } catch (error) {
       console.log(error);
@@ -107,10 +107,10 @@ export class BodyComponent implements OnInit {
   }
   getSwap() {
     try {
-      this.swap_total = this.swap.total;
-      this.swap_free = this.swap.free;
-      this.swap_used = this.swap.used;
-      this.swap_percentage = this.swap.percent;
+      this.swap_total = this.swap["total"];
+      this.swap_free = this.swap["free"];
+      this.swap_used = this.swap["used"];
+      this.swap_percentage = this.swap["percent"];
       this.swap_width = this.swap_percentage + '%';
     } catch (error) {
       console.log(error);
@@ -123,12 +123,12 @@ export class BodyComponent implements OnInit {
       this.http.post(
         posturl,
         { 
-          "username":localStorage.getItem('user_name')
+          "username":this.cookie.get('user_name')
         }
       ).subscribe((res) => {
-        if (res === 200) {
-          // this.read = res.json().read;
-          // this.write = res.json().write;
+        if (res["status"] === 200) {
+          this.read = res["read"];
+          this.write = res["write"];
           console.log(res)
         }
       }, (err) => {

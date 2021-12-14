@@ -69,7 +69,7 @@ export class ConfigurationComponent implements OnInit {
             if (res === "logged in") {
               // localStorage.setItem('endpoint', orig_url);
               // localStorage.setItem('user_name', this.uname.value);
-              this.cookie.set("username", this.uname.value)
+              this.cookie.set("user_name", this.uname.value)
               this.cookie.set("api", this.endpoint.value)
               this.router.navigate(['/dashboard']);
             } else {

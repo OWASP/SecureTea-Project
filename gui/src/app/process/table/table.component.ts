@@ -15,7 +15,7 @@ export class TableComponent implements OnInit {
     interval;
     reload = true;
     private sorted = false;
-    tableData = any;
+    tableData :any;
 
     constructor(
         private http: HttpClient, 
