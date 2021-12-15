@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Router} from '@angular/router';
 import $ from 'jquery';
+import { CookieService } from 'ngx-cookie-service';
 declare var require: any;
 const swal = require('sweetalert');
 
@@ -104,14 +105,19 @@ export class SecurityComponent implements OnInit {
 
   constructor(
     private http: HttpClient, 
-    private router: Router
+    private router: Router,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    this.apiRoot = this.cookie.get("api")
+    console.log("security api root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("security api root is null going to config")
       this.router.navigate(['/config']);
     }
+    console.log("security Api is" + this.cookie.get("api"))
+
     this.checkStatus();
 
     var twitter_api_key = localStorage.getItem('twitter_api_key')
@@ -542,7 +548,7 @@ export class SecurityComponent implements OnInit {
     if (this.notificationsForm.valid) {
       this.error = '';
       const data = {
-        'username': localStorage.getItem('user_name'),
+        'username': this.cookie.get('user_name'),
         'twitter_api_key': this.notificationsForm.value.twitter_apikey,
         'twitter_api_secret_key': this.notificationsForm.value.twitter_apiSecret,
         'twitter_access_token': this.notificationsForm.value.twitter_token,
@@ -639,7 +645,7 @@ export class SecurityComponent implements OnInit {
             posturl, 
             data
           ).subscribe((res) => {
-            if (res === 201) {
+            if (res["status"] === 201) {
               $('#startForm').hide();
               $('#stopForm').show();
               this.error = '';
@@ -728,7 +734,7 @@ export class SecurityComponent implements OnInit {
               localStorage.setItem('url_ih', this.notificationsForm.value.url_ih);
               localStorage.setItem('hist_logger', this.notificationsForm.value.hist_logger);
               localStorage.setItem('se_mail_id', this.notificationsForm.value.se_mail_id);
-            } else if (res === 200) {
+            } else if (res["status"] === 200) {
               $('#startForm').hide();
               $('#stopForm').show();
               swal('Already monitoring', {
@@ -752,7 +758,7 @@ export class SecurityComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete) {
           this.http.get(posturl).subscribe((res) => {
-            if (res === 201) {
+            if (res["status"] === 201) {
               this.notificationsForm.reset();
               $('#startForm').hide();
               $('#stopForm').show();
@@ -760,7 +766,7 @@ export class SecurityComponent implements OnInit {
               swal('Great! Your system is going to sleep in 5s.', {
                 icon: 'success',
               });
-            } else if (res === 200) {
+            } else if (res["status"] === 200) {
               $('#startForm').hide();
               $('#stopForm').show();
               swal('Already monitoring', {
@@ -781,10 +787,10 @@ export class SecurityComponent implements OnInit {
     this.http.post(
       posturl,
       { 
-        "username":localStorage.getItem('user_name')
+        "username":this.cookie.get("user_name")
       }
     ).subscribe((res) => {
-      if (res === 200) {
+      if (res["status"] === 200) {
         $('#stopForm').hide();
         $('#startForm').show();
         this.error = '';
@@ -799,14 +805,14 @@ export class SecurityComponent implements OnInit {
     this.http.post(
       geturl,
       { 
-        "username":localStorage.getItem('user_name')
+        "username":this.cookie.get("user_name")
       }
     ).subscribe((res) => {
-      if (res === 200) {
+      if (res["status"] === 200) {
         $('#startForm').hide();
         $('#stopForm').show();
         this.error = '';
-      } else if (res === 204) {
+      } else if (res["status"] === 204) {
         $('#startForm').show();
         $('#stopForm').hide();
         this.error = '';

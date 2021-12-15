@@ -42,7 +42,7 @@ export class NetworkComponent implements OnInit {
         "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
+      if (res["status"] === 200) {
         this.network = res['data'];
         // console.log(res);
       }

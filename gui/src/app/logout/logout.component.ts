@@ -41,7 +41,7 @@ export class LogoutComponent implements OnInit {
     */
 
 
-    this.cookie.delete("username")
+    this.cookie.delete("user_name")
     this.router.navigate(['/config']);
   }
 }

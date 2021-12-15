@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,18 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private http: HttpClient, 
-    private router: Router
+    private router: Router,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    this.apiRoot = this.cookie.get("api")
+    console.log(" Login api root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("Login api root is null going to config")
       this.router.navigate(['/config']);
     }
+    console.log("Login Api is" + this.cookie.get("api"))
     this.getLogin();
     this.interval = setInterval(() => {
       this.getLogin();
@@ -34,11 +39,11 @@ export class LoginComponent implements OnInit {
     this.http.post(
       posturl,
       { 
-        "username":localStorage.getItem('user_name')
+        "username":this.cookie.get('user_name')
       }
     ).subscribe((res) => {
-      if (res === 200) {
-        // this.login = res.json()['data'];
+      if (res["status"] === 200) {
+        this.login = res['data'];
         console.log(res);
       }
     });

@@ -280,7 +280,6 @@ def get_hdd():
             free = free / 1000000000
             percent = drive.percent
             drives = {
-                "status": 200,
                 "device": device,
                 "path": path,
                 "fstype": fstype,
@@ -291,8 +290,11 @@ def get_hdd():
             }
             data.append(drives)
         if data:
-            return jsonify(data=data), 200
-
+            data_dict = {
+                "status": 200,
+                "data": data,
+            }
+            return jsonify(data_dict), 200
     except Exception as e:
         print(e)
     return jsonify(error_404), 404
@@ -308,7 +310,11 @@ def process():
         pids = psutil.pids()
         data = get_process_details(pids)
         if data:
-            return jsonify(data=data), 200
+            data_dict = {
+                "status": 200,
+                "data": data,
+            }
+            return jsonify(data_dict), 200
 
     except Exception:
         return jsonify(error_404), 404
@@ -407,7 +413,6 @@ def getnetworks():
                 sent = (newnetwork.bytes_sent - oldnetwork.bytes_sent) / 1024
                 receive = (newnetwork.bytes_recv - oldnetwork.bytes_recv) / 1024
                 net = {
-                    "status": 200,
                     "name": key,
                     "sent": sent, 
                     "receive": receive,
@@ -418,7 +423,11 @@ def getnetworks():
                 data.append(net)
             except Exception as e:
                 print('key' + str(e))
-        return jsonify(data=data), 200
+        data_dict = {
+            "status": 200,
+            "data": data,
+        }
+        return jsonify(data_dict), 200
     except Exception as e:
         print(e)
     return jsonify(error_404), 404
@@ -434,7 +443,10 @@ def checkstatus():
         return jsonify(error_404), 404
     global processid
     if processid:
-        return '200', 200
+        data = {
+            "status": 200
+        }
+        return jsonify(data), 200
     return "204", 204
 
 
@@ -450,7 +462,10 @@ def stop():
             if pid:
                 os.killpg(os.getpgid(pid), signal.SIGTERM)
             processid = None
-        return '200', 200
+        data = {
+            "status": 200
+        }
+        return jsonify(data), 200
     except Exception as e:
         print(e)
 
@@ -482,11 +497,18 @@ def sleep():
     if request.method == 'GET':
         try:
             if not processid:
+                print("""processid = subprocess.Popen('python3 ../SecureTea.py', stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)""")
                 processid = subprocess.Popen(
                     'python3 ../SecureTea.py', stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
-                return '201', 201
+                data = {
+                    "status": 200
+                }
+                return jsonify(data), 200
             else:
-                return '200', 200
+                data = {
+                    "status": 200
+                }
+                return jsonify(data), 200
         except Exception as e:
             print(e)
         return jsonify(error_404), 404
@@ -768,12 +790,22 @@ def sleep():
     print(args_str)
     try:
         if not processid:
+            print("""processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
+                                         stdout=subprocess.PIPE, shell=True,
+                                         preexec_fn=os.setsid)""")
+            print("Wih args str ------------------------------------------------------------")
             processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
                                          stdout=subprocess.PIPE, shell=True,
                                          preexec_fn=os.setsid)
-            return '201', 201
+            data = {
+                "status": 201
+            }
+            return jsonify(data), 201
         else:
-            return '200', 200
+            data = {
+                "status": 200
+            }
+            return jsonify(data), 200
     except Exception as e:
         print(e)
     return jsonify(error_404), 404
@@ -827,7 +859,11 @@ def get_login():
                             "login_status": status
                         }
                         data.append(login_row)
-        return jsonify(data=data), 200
+        data_dict = {
+            "status": 200,
+            "data": data,
+        }
+        return jsonify(data_dict), 200
     except Exception as e:
         print(e)
     return jsonify(error_404), 404

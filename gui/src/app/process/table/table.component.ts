@@ -46,7 +46,7 @@ export class TableComponent implements OnInit {
         const geturl = `${this.apiRoot}process`;
         this.http.get(geturl).subscribe((res) => {
         if (res["status"] === 200) {
-            this.tableData = res;
+            this.tableData = res["data"];
             this.sortBy('cpu');
         } else {
             console.log('Status: ' + res);
