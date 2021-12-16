@@ -19,29 +19,10 @@ export class LogoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /*
-  	  const posturl = localStorage.getItem('endpoint').concat('userlogout');
-      this.http.post(
-        posturl,
-        {
-          'username':localStorage.getItem('user_name')
-        }
-      ).subscribe((res) => {
-            if (res === 200) {
-                    localStorage.removeItem('endpoint');
-                    localStorage.removeItem('user_name');
-                    this.router.navigate(['/config']);
-            } else {
-              console.log(res);
-            }
-          }, (err) => {
-              console.log(err.status);
-            }
-          );
-    */
+    this.cookie.deleteAll()
+    // sessionStorage.clear();
+    // localStorage.clear();
 
-
-    this.cookie.delete("user_name")
-    this.router.navigate(['/config']);
+    this.router.navigate(['/dashboard']);
   }
 }

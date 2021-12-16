@@ -28,7 +28,7 @@ export class ConfigurationComponent implements OnInit {
     // var apiRoot = localStorage.getItem('endpoint');
     // var uname = localStorage.getItem('user_name');
     var apiRoot = this.cookie.get("api")
-    var uname = this.cookie.get("username")
+    var uname = this.cookie.get("user_name")
     if(uname && apiRoot)
     {
       console.log("username and api root exist. Going to dashboard")

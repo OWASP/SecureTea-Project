@@ -66,3 +66,4 @@ yarn-debug.log*
 ### DB ###
 logged_in
 app.db
+example.db
