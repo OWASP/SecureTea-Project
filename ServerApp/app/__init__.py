@@ -787,7 +787,7 @@ def sleep():
 
         args_str += " --insecure_headers"
         args_str += " --url=" + url
-    print(args_str)
+    print("\033[95m" + args_str + "\033[0m")
     try:
         if not processid:
             print("""processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
