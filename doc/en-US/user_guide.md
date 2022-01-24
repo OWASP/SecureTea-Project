@@ -774,7 +774,7 @@ The following argument options are currently available:
   --server-mode         Start SecureTea in server mode
   --system-mode         Start SecureTea in system mode
   --iot-mode            Start SecureTea in IoT mode
-	--malware_analysis    Start SecureTea in MalwareAnalysis mode
+  --malware_analysis    Start SecureTea in MalwareAnalysis mode
  ```
  
 ### Example usages
