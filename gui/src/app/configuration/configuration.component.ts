@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-configuration',
@@ -17,13 +18,20 @@ export class ConfigurationComponent implements OnInit {
   sec: FormControl;
   error: String;
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private cookie: CookieService
+  ) { }
 
   ngOnInit() {
-    var apiRoot = localStorage.getItem('endpoint');
-    var uname = localStorage.getItem('user_name');
+    // var apiRoot = localStorage.getItem('endpoint');
+    // var uname = localStorage.getItem('user_name');
+    var apiRoot = this.cookie.get("api")
+    var uname = this.cookie.get("user_name")
     if(uname && apiRoot)
     {
+      console.log("username and api root exist. Going to dashboard")
       this.router.navigate(['/dashboard']);
     }
     else
@@ -45,17 +53,27 @@ export class ConfigurationComponent implements OnInit {
     var end_point_login=this.endpoint.value.concat('/userlogin').replace("//userlogin","/userlogin");
     console.log(end_point_login)
     if (this.endpoint.valid) {
-      this.http.get(this.endpoint.value).subscribe((res) => {
-        if (res.status === 200) {
+      this.http.get(this.endpoint.value).subscribe(res => {
+        // console.log("Check endpoint" + res)
+        if (res === "ep_working") {
           this.error = 'End point is working';
-          var orig_url=res.url;
-          this.http.post(end_point_login,{'username':this.uname.value,'password':this.pass.value,'ns':this.sec.value}).subscribe((res) => {
-            if (res.status === 200) {
-              localStorage.setItem('endpoint', orig_url);
-              localStorage.setItem('user_name', this.uname.value);
+          // var orig_url=res;
+          this.http.post(
+            end_point_login,
+            {
+              'username':this.uname.value,
+              'password':this.pass.value,
+              'ns':this.sec.value
+            }
+          ).subscribe((res) => {
+            if (res === "logged in") {
+              // localStorage.setItem('endpoint', orig_url);
+              // localStorage.setItem('user_name', this.uname.value);
+              this.cookie.set("user_name", this.uname.value)
+              this.cookie.set("api", this.endpoint.value)
               this.router.navigate(['/dashboard']);
             } else {
-              console.log(res.status);
+              // console.log(res.status);
               this.error = 'Wrong Credentials';
             }
           }, (err) => {

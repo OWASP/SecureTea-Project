@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-table',
@@ -14,18 +15,25 @@ export class TableComponent implements OnInit {
     interval;
     reload = true;
     private sorted = false;
-    tableData = [ ];
+    tableData :any;
 
-    constructor(private http: Http, private router: Router) { }
+    constructor(
+        private http: HttpClient, 
+        private router: Router,
+        private cookie: CookieService
+    ) { }
 
     toggleVisibility(e) {
         this.reload = !this.reload;
     }
     ngOnInit() {
-        this.apiRoot = localStorage.getItem('endpoint');
-        if (!this.apiRoot) {
-            this.router.navigate(['/config']);
+        this.apiRoot = this.cookie.get("api")
+        console.log("Table api root" + this.apiRoot + "api root")
+        if (this.apiRoot == "") {
+          console.log("Table api root is null going to config")
+          this.router.navigate(['/config']);
         }
+        console.log("Table Api is" + this.cookie.get("api"))
         this.getProcess();
         this.interval = setInterval(() => {
             if (this.reload) {
@@ -37,11 +45,11 @@ export class TableComponent implements OnInit {
     getProcess() {
         const geturl = `${this.apiRoot}process`;
         this.http.get(geturl).subscribe((res) => {
-        if (res.status === 200) {
-            this.tableData = res.json()['data'];
-            // this.sortBy('cpu');
+        if (res["status"] === 200) {
+            this.tableData = res["data"];
+            this.sortBy('cpu');
         } else {
-            console.log('Status: ' + res.status);
+            console.log('Status: ' + res);
         }
         }, (err) => {
             console.log(err);

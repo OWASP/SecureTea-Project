@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,20 @@ export class LoginComponent implements OnInit {
   interval;
   login = [];
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private cookie: CookieService
+  ) { }
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    this.apiRoot = this.cookie.get("api")
+    console.log(" Login api root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("Login api root is null going to config")
       this.router.navigate(['/config']);
     }
+    console.log("Login Api is" + this.cookie.get("api"))
     this.getLogin();
     this.interval = setInterval(() => {
       this.getLogin();
@@ -28,10 +36,15 @@ export class LoginComponent implements OnInit {
 
   getLogin() {
     const posturl = `${this.apiRoot}login`;
-    this.http.post(posturl,{ "username":localStorage.getItem('user_name')}).subscribe((res) => {
-      if (res.status === 200) {
-        this.login = res.json()['data'];
-        console.log(this.login);
+    this.http.post(
+      posturl,
+      { 
+        "username":this.cookie.get('user_name')
+      }
+    ).subscribe((res) => {
+      if (res["status"] === 200) {
+        this.login = res['data'];
+        console.log(res);
       }
     });
   }

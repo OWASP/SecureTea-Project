@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router} from '@angular/router';
 import * as toastr from 'toastr';
 import * as io from 'socket.io-client';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -17,17 +18,26 @@ export class HeaderComponent implements OnInit {
   socket: any;
 
 
-  constructor(private http: Http, private router: Router) {
-  }
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private cookie: CookieService
+  ) {}
 
   ngOnInit() {
-    this.apiRoot = localStorage.getItem('endpoint');
-    if (!this.apiRoot) {
+    
+    this.apiRoot = this.cookie.get("api")
+    console.log("api header root" + this.apiRoot + "api root")
+    if (this.apiRoot == "") {
+      console.log("api root is null going to config")
       this.router.navigate(['/config']);
     }
+    console.log("Api header is" + this.cookie.get("api"))
+
     toastr.options ={
       "progressBar": true
     }
+    /*
     this.socket = io(this.apiRoot);
     this.socket.on('newmessage', (msg) => {
       if(msg.message.charAt(0) === "W")
@@ -43,14 +53,15 @@ export class HeaderComponent implements OnInit {
         toastr.error(msg.message.substring(1));
       }
     });
+    */
     this.getUsername();
   }
 
   getUsername() {
     const geturl = `${this.apiRoot}username`;
     this.http.get(geturl).subscribe((res) => {
-      if (res.status === 200) {
-        res.json().username;
+      if (res["status"] === 200) {
+        res["username"];
       }
     });
   }
