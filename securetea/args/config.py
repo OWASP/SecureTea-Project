@@ -9,13 +9,6 @@ def get_config():
             "access_token": "XXXX",
             "access_token_secret": "XXXX"
         },
-        "malware_analysis": {
-            "mode": "XXXX",
-            "filename": "XXXX",
-            "stegscan": "XXXX",
-            "passwd": "XXXX",
-            "virustotal_api_key": "XXXX"
-        },
         "telegram": {
             "token": "XXXX",
             "user_id": "XXXX"
@@ -45,6 +38,13 @@ def get_config():
             "sender_email": "XXXX",
             "to_email": "XXXX",
             "password": "XXXX"
+        },
+        "malware_analysis": {
+            "mode": "XXXX",
+            "filename": "XXXX",
+            "stegscan": "XXXX",
+            "passwd": "XXXX",
+            "virustotal_api_key": "XXXX"
         },
         "firewall": {
             "interface": "",

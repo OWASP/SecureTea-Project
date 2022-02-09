@@ -316,6 +316,11 @@ Default configuration:
 		"to_email": "XXXX",
 		"password": "XXXX"
 	},
+	"malware_analysis": {
+		"mode": "XXXX",
+		"api_key": "XXXX",
+		"filename": "XXXX"
+	},
 	"firewall": {
 		"interface": "",
 		"inbound_IPRule": {
@@ -366,13 +371,16 @@ Default configuration:
 		"severity_factor": 0.9,
 		"interface": "XXXX"
 	},
-	
 	"waf": {
-              "listen_ip":"127.0.0.1",
-              "listen_port":8865,
-              "mode":0,
-              "backend_server_config":"{'localhost':'localhost:3000'}"
-         },
+         "listen_ip":"127.0.0.1",
+         "listen_port":8865,
+         "mode":0,
+         "backend_server_config":{}
+
+
+
+
+    },
 	"server-log": {
 		"log-type": "",
 		"log-file": "",
@@ -406,6 +414,7 @@ Default configuration:
         "social_eng": {
             "email": "XXXX"
         },
+
 	"history_logger": false,
 	"clamav": false,
 	"yara": false,
@@ -765,7 +774,7 @@ The following argument options are currently available:
   --server-mode         Start SecureTea in server mode
   --system-mode         Start SecureTea in system mode
   --iot-mode            Start SecureTea in IoT mode
-	--malware_analysis    Start SecureTea in MalwareAnalysis mode
+  --malware_analysis    Start SecureTea in MalwareAnalysis mode
  ```
  
 ### Example usages
