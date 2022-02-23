@@ -41,7 +41,7 @@ def get_args():
         '--debug',
         default=False,
         action="store_true",
-        help='Degug true or false'
+        help='Debug true or false'
     )
 
     args = parser.parse_args()
