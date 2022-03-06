@@ -23,6 +23,7 @@ Read user guide [here](/doc/en-US/user_guide.md).
  - [Contributing](#contributing)
 
    - [Setting up development environment](#setting-up-development-environment)
+     - [Web GUI](#setting-up-web-gui-for-development)
 
    - [Arguments](#arguments)
 
@@ -94,6 +95,7 @@ Read user guide [here](/doc/en-US/user_guide.md).
      - [Using unittest](#running-using-unittest)
      
      - [Using pytest](#running-using-pytest)
+     
 
 ### Contributing guidelines
 
@@ -241,6 +243,33 @@ Before continuing go through the **Before installation**.
 `cd SecureTea-Project`
 7.  Install the dependencies using<br>
 `pip install -r requirements.txt`
+
+#### Setting up web GUI for development
+If you want to work on Angular JS, the web GUI is the portion for you..The Web UI requires ServerApp running. To run ServerApp, 
+
+1. Navigate to `/ServerApp` by using command `cd ServerApp`
+2. `python3 run.py` to start ServerApp
+3. ServerApp runs on `http://localhost:5000`. This is the END-POINT for the GUI
+4. To check if ServerApp is running, run `http://localhost:5000` in a Web Browser. A white/blank screen indicates proper working of ServerApp
+
+The preffered web browser to use Web UI and test ServerApp is Google Chrome.
+
+ng serve doesn't have to be sudo, i.e, it doesn't require root privileges. ServerApp needs to be run as sudo, i.e., you require root privilege to run it.
+
+Follow the following steps to setup Web UI
+1.  `cd gui`
+2.  `ng serve`
+3.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
+4.  The EndPoint Secret is `PASSWD` by default.
+
+Registering for Web UI
+
+1. Enter Name
+2. Enter Password
+3. ServerApp should be running. END-POINT is URL where ServerApp runs. By default this is http://localhost:5000`
+4. EndPoint Secret is `PASSWD` by default
+
+You can now login and edit the files and further develop the Web Gui.
 
 #### Arguments
 -  [Setting up an interactive setup with takeInput](#setting-up-an-interactive-setup-with-takeinput)

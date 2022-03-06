@@ -477,9 +477,8 @@ ng serve doesn't have to be sudo. ServerApp needs to be run as sudo
 Follow the following steps to setup Web UI
 1.  `cd gui`
 2.  `ng serve`
-3.  `sudo python monitor.py`
-4.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
-5.  The EndPoint Secret is `PASSWD` by default.
+3.  Visit http://localhost:4200 to view your project, END-POINT is http://localhost:5000.
+4.  The EndPoint Secret is `PASSWD` by default.
 
 Registering for Web UI
 
