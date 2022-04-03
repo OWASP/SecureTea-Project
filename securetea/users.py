@@ -84,8 +84,7 @@ class SecureTeaUserLogger():
         users = list(connection.execute("SELECT NAME,IP FROM USERS"))
         for user in users:
             if user not in cur_users:
-                connection.execute("DELETE FROM USERS WHERE NAME=\"" + \
-                                    user[0] + "\" AND IP=\"" + user[1] + "\"")
+                connection.execute("DELETE FROM USERS WHERE NAME=%s AND IP=%s",(user[0], user[1]))
                 message += ("REMOVED USER:- NAME: " +
                             user[0] + " IP: " + user[1] + "\n")
 
