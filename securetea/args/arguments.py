@@ -10,7 +10,7 @@ Project:
     Version: 1.1
     Module: SecureTea
 
-"""
+""" 
 import argparse
 
 
@@ -98,6 +98,13 @@ def get_args():
         required=False,
         action='store_true',
         help='Setup twilio SMS credentials'
+    )
+
+    parser.add_argument(
+        '--discord',
+        required=False,
+        action='store_true',
+        help="Setup discord credentials"
     )
 
     parser.add_argument(
@@ -261,6 +268,14 @@ def get_args():
         type=str,
         required=False,
         help='Slack user id'
+    )
+
+    parser.add_argument(
+        '--webhookurl',
+        '--url',
+        type=str,
+        required=False,
+        help="Your discord channerl webhook url"
     )
 
     parser.add_argument(

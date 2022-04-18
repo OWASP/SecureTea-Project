@@ -40,7 +40,8 @@ class SecureTeaConf():
             'twitter',
             'telegram',
             'twilio',
-            'whatsapp'
+            'whatsapp',
+            'discord'
         ]
 
     def get_creds(self, args):

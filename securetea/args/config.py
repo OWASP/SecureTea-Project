@@ -29,6 +29,9 @@ def get_config():
             "token": "XXXX",
             "user_id": "XXXX"
         },
+        "discord": {
+            "webhookurl": "XXXX"
+        },
         "aws_ses": {
             "aws_email": "XXXX",
             "aws_access_key": "XXXX",

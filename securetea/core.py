@@ -21,6 +21,7 @@ from securetea import logger
 from securetea.lib.notifs import secureTeaTwitter
 # from securetea.lib.notifs import secureTeaMalwareAnalysis
 from securetea.lib.malware_analysis.malware_analysis_runner import SecureTeaMalwareAnalysis
+from securetea.lib.notifs import secureTeaDiscord
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
 from securetea.lib.notifs import secureTeaSlack
 from securetea.lib.notifs.aws import secureTeaAwsSES
@@ -99,6 +100,7 @@ class SecureTea(object):
         self.whatsapp_provided = args_dict['whatsapp_provided']
         self.social_eng_provided = args_dict['social_eng_provided']
         self.slack_provided = args_dict['slack_provided']
+        self.discord_provided = args_dict['discord_provided']
         self.aws_ses_provided = args_dict['aws_ses_provided']
         self.gmail_provided = args_dict['gmail_provided']
         self.firewall_provided = args_dict['firewall_provided']
@@ -196,6 +198,16 @@ class SecureTea(object):
             except KeyError:
                 self.logger.log(
                     "Slack configuration parameter not set.",
+                    logtype="error"
+                )
+
+            try:
+                if self.cred['discord']:
+                    self.discord_provided = True
+                    self.cred_provided = True
+            except KeyError:
+                self.logger.log(
+                    "Discord configuration parameter not set.",
                     logtype="error"
                 )
 
@@ -458,6 +470,20 @@ class SecureTea(object):
             else:
                 self.slack.notify("Welcome to SecureTea..!! Initializing System")
 
+        if self.discord_provided:
+            self.discord = secureTeaDiscord.SecureTeaDiscord(
+                self.cred['discord'],
+                self.cred['debug']
+            )
+
+            if not self.discord.enabled:
+                self.logger.log(
+                    "Discord not configured properly.",
+                    logtype="error"
+                )
+            else:
+                self.discord.notify("Welcome to SecureTea..!! Initializing System")
+        
         if self.aws_ses_provided:
             self.aws_ses = secureTeaAwsSES.SecureTeaAwsSES(
                 self.cred['aws_ses'],
@@ -675,6 +701,10 @@ class SecureTea(object):
         # Send a warning message via slack bot app
         if self.slack_provided:
             self.slack.notify(msg)
+
+        # Send a warning message via Discord channel
+        if self.discord_provided:
+            self.discord.notify(msg)
 
         # Send a warning message via aws ses bot3 app
         if self.aws_ses_provided:

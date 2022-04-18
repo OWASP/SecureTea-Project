@@ -8,3 +8,4 @@ from . import secureTeaTelegram
 from . import secureTeaGmail
 from .aws import secureTeaAwsSES
 from .aws import helper_email
+from . import secureTeaDiscord
