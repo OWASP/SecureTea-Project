@@ -23,7 +23,7 @@ def is_logged_in(username):
     for row in cur.execute('SELECT * FROM users ORDER BY username'):
         print(row)
     
-    for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username='" + username + "')"):
+    for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username=%s)",(username,)):
         print("isloggedin username password is correct")
         return True
 
@@ -43,7 +43,7 @@ def login():
     try:
         if ns == net_sec :
             temp = 0
-            for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username='" + uname + "' AND password='" + passwd + "')"):
+            for c1 in cur.execute("SELECT EXISTS(SELECT * FROM users WHERE username=%s AND password=%s)",(uname,passwd)):
                 print("username password is correct")
                 return jsonify('logged in')
             else:
