@@ -186,6 +186,7 @@ class ArgsHelper(object):
         self.twilio_provided = False
         self.whatsapp_provided = False
         self.slack_provided = False
+        self.discord_provided=False
         self.aws_ses_provided = False
         self.gmail_provided = False
         self.firewall_provided = False
@@ -299,6 +300,20 @@ class ArgsHelper(object):
                 'whatsapp_token': 'twilio token',
                 'whatsapp_from': 'Whatsapp Sandbox number twilio',
                 'whatsapp_to': 'Whatsapp (user) phone number'
+            },
+            'default': default
+        }
+
+    @takeInput
+    def configureDiscord(self):
+        """
+        Returns the format to configure Discord
+        """
+        self.logger.log('Discord configuraton setup')
+        default = load_default('Discord')
+        return {
+            'input': {
+                'webhookurl': 'Your channel webhook url'
             },
             'default': default
         }
@@ -605,6 +620,14 @@ class ArgsHelper(object):
             if slack:
                 self.cred['slack'] = slack
                 self.slack_provided = True
+
+
+            # Start the Discord configuration setup
+            discord = self.configureDiscord()
+            if discord:
+                self.cred['discord'] = discord
+                self.discord_provided = True
+
 
             # Start the aws ses configuration setup
             aws_ses = self.configureAwsSES()
@@ -1049,6 +1072,13 @@ class ArgsHelper(object):
                 self.cred['slack'] = slack
                 self.slack_provided = True
 
+        if not self.discord_provided:
+            if(self.args.webhookurl):
+                discord = {}
+                discord['webhookurl'] = self.args.webhookurl
+                self.cred['discord'] = discord
+                self.discord_provided = True
+
         if not self.gmail_provided:
             if (self.args.sender_email and
                 self.args.to_email and
@@ -1248,6 +1278,7 @@ class ArgsHelper(object):
             self.whatsapp_provided or
             self.slack_provided or
             self.aws_ses_provided or
+            self.discord_provided or
             self.firewall_provided or
             self.insecure_headers_provided or
             self.gmail_provided or
@@ -1274,6 +1305,7 @@ class ArgsHelper(object):
             'twilio_provided': self.twilio_provided,
             'whatsapp_provided': self.whatsapp_provided,
             'slack_provided': self.slack_provided,
+            'discord_provided': self.discord_provided,
             'aws_ses_provided': self.aws_ses_provided,
             'gmail_provided': self.gmail_provided,
             'social_eng_provided': self.social_eng_provided,

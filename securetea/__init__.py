@@ -1,4 +1,5 @@
 """Summary."""
+import imp
 from . import core
 from . import logger
 from . import configurations
@@ -8,6 +9,7 @@ from .lib.notifs import secureTeaTwilio
 from .lib.notifs import secureTeaWhatsapp
 from .lib.notifs import secureTeaTelegram
 from .lib.notifs import secureTeaSlack
+from .lib.notifs import secureTeaDiscord
 from .lib.notifs import secureTeaGmail
 from .lib.notifs.aws import secureTeaAwsSES
 from .lib.notifs.aws import helper_email
