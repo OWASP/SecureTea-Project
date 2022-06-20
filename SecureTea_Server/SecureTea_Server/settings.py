@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'base',
+    'securetea_api'
 ]
 
 MIDDLEWARE = [

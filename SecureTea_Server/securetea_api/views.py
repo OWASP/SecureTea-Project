@@ -1,9 +1,10 @@
 from configparser import InterpolationMissingOptionError
 import imp
-from urllib import response
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
 from .models import User
 from .serializers import UserSerializer
@@ -22,4 +23,4 @@ def addUser(request):
     if serializer.is_valid():
         serializer.save()
     
-    return response(serializer.data)
+    return Response(serializer.data)
