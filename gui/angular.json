@@ -140,7 +140,6 @@
       }
     }
   },
-  "defaultProject": "Monitor",
   "cli": {
     "analytics": false
   }
