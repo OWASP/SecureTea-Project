@@ -6,7 +6,7 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ['username', 'password']
 
     def create(self, validated_data):
         """
@@ -18,7 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Update and return an existing `User` instance, given the validated data.
         """
-        instance.id = validated_data.get('id', instance.id)
         instance.username = validated_data.get('username', instance.username)
         instance.password = validated_data.get('password', instance.password)
         instance.save()

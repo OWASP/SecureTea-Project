@@ -11,8 +11,6 @@ class User(models.Model):
         username (string): Username for a user
         password (string): Hashed password of a user
     """
-
-    __tablename__ = 'users'
-    id = models.CharField(max_length=200, primary_key=True)
-    username = models.CharField(max_length=200)
-    password = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, primary_key=True)
+    password = models.CharField(max_length=200, default="")
+    cookie = models.CharField(max_length=400, default="")
