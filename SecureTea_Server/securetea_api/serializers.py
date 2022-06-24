@@ -6,7 +6,7 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'cookie']
 
     def create(self, validated_data):
         """
@@ -20,5 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
         """
         instance.username = validated_data.get('username', instance.username)
         instance.password = validated_data.get('password', instance.password)
+        instance.cookie = validated_data.get('cookie', instance.cookie)
         instance.save()
         return instance
