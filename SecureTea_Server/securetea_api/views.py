@@ -1,3 +1,4 @@
+from curses.ascii import US
 from urllib.parse import uses_fragment
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -22,24 +23,24 @@ import hashlib
 
 """
 
-@api_view(['GET'])
-def getData(request):
+@api_view(['post'])
+def test(request):
+    req_data = request.data
     users = User.objects.all()
-    # serializer = UserSerializer(users, many=True)
-    # userdict = serializer.data
-    # print(userdict)
-    userlist = list(users.filter(username="Fox"))
-    print(userlist)
-    if userlist:
-        user = UserSerializer(userlist, many=True).data
-        print(user)
+    user = list(users.filter(cookie=req_data["cookie"]))
+    print(user)
+    if user:
         return Response(True)
     else:
-        print("User Doesn't Exist")
         return Response(False)
+
+
 
 @api_view(['POST'])
 def login(request):
+    """
+    If user exists, Set a cookie to log in
+    """
     req_data = request.data
 
     users = User.objects.all()
@@ -64,6 +65,9 @@ def login(request):
         return Response(False)
 
 def is_logged_in(request):
+    """
+    checks if the cookie value is present in the databse. If present, User is logged in.
+    """
     req_data = request.data
     users = User.objects.all()
     user = list(users.filter(cookie=req_data["cookie"]))[0]
@@ -76,9 +80,17 @@ def is_logged_in(request):
     
 
 @api_view(['POST'])
-def addUser(request):
-    serializer  = UserSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
-    
-    return Response(serializer.data)
+def register(request):
+    """
+    Register new user
+    """
+    req_data = request.data
+
+    users = User.objects.all()
+    user = list(users.filter(username=req_data["username"]))
+    if user:
+        return Response(False) #if username exists, return False
+    else:
+        store_corporate = User(username=req_data["username"], password=req_data["password"])
+        store_corporate.save()
+        return Response(True)
