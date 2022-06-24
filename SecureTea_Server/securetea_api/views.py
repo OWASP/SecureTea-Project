@@ -63,26 +63,6 @@ def login(request):
         print("Incorrect Credentials")
         return Response(False)
 
-    now = datetime.now()
-    date_time = now.strftime("%m%d%Y%H%M%S")
-    print("date and time:",date_time)	
-
-    if user:
-        user_data = UserSerializer(user).data
-        now = datetime.now()
-        date_time = now.strftime("%m%d%Y%H%M%S")
-        cookie_string = bytes(user_data["username"] + date_time, 'utf-8')
-        cookie_string = hashlib.sha256(cookie_string).hexdigest()
-
-        user.cookie = cookie_string
-        user.save()
-
-        return Response(cookie_string)
-    else:
-        print("Incorrect Credentials")
-        return Response(False)
-
-
 def is_logged_in(request):
     req_data = request.data
     users = User.objects.all()
