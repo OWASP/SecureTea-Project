@@ -424,7 +424,7 @@ The following argument options are currently available:
    -h, --help           show this help message and exit
   --conf CONF           Path of config file. default:-
                         "~/.securetea/securetea.conf"
-  --debug               Degug true or false
+  --debug               Debug true or false
   --twitter             Setup twitter credentials
   --twilio_sms          Setup twilio SMS credentials
   --whatsapp						Setup whatsapp credentials

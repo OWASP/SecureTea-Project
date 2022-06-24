@@ -2,22 +2,24 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
 <nav class="navbar top-navbar navbar-expand-md navbar-light">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/dashboard">
-            <b><img src="../assets/images/logo.png" alt="homepage" class="dark-logo" /></b>
-            <span><img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
-        </a>
-    </div>
-    <div class="navbar-collapse">
-        <ul class="navbar-nav mr-auto mt-md-0">
-        </ul>
-        <ul class="navbar-nav my-lg-0">
-            <li class="nav-item dropdown ">
-                <div class="username">{{ username | titlecase}}</div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/5.jpg" alt="user" class="profile-pic" /></a>
-            </li>
-        </ul>
+    <div style="display: flex;">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/dashboard">
+                <b><img src="../assets/images/logo.png" alt="homepage" class="dark-logo" /></b>
+                <span><img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+            </a>
+        </div>
+        <div class="navbar-collapse" style="margin-left:auto!important; margin-right:0!important;">
+            <ul class="navbar-nav my-lg-0">
+                <li class="nav-item dropdown ">
+                    <div class="username">{{ username | titlecase}}</div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"><img src="../../assets/images/users/5.png" alt="user"
+                            class="profile-pic" /></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
