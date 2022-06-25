@@ -284,6 +284,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+SecureTea_Server/
 
 # Spyder project settings
 .spyderproject
