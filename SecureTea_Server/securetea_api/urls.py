@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.test_api),
-    path('login/', views.login),
+    path('userlogin/', views.login),
     path('register/', views.register),
 
     path('uptime/', views.get_uptime),
@@ -17,8 +17,8 @@ urlpatterns = [
     path('diskio/', views.get_diskio),
     path('netio/', views.get_networks),
     path('status/', views.check_status),
+    path('login/', views.get_login),
+    path('stop/', views.stop),
+    path('sleep/', views.sleep),
 
-
-
-    
 ]

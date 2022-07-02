@@ -18,6 +18,10 @@ import psutil
 import cpuinfo
 import os
 import time
+import signal
+import subprocess
+import re
+
 
 # Create your views here.
 
@@ -442,3 +446,408 @@ def check_status(request):
         return Response(data)
     return HttpResponse(status=204)
 
+@api_view(["POST"])
+def stop(request):
+    """Endpoint to stop running securetea app"""
+    if not is_logged_in(request):
+        raise Http404
+    
+    runserver_kill = subprocess.run(["pkill", "-f", "runserver"])
+    return Response(status=204)
+
+def get_list(list_var):
+    """Returns empty string if variable is None."""
+    if list_var:
+        return list_var
+    else:
+        return ""
+
+
+def get_integer(bool_var):
+    """Returns string value for the bool variable."""
+    if bool_var:
+        return "1"
+    else:
+        return "0"
+
+
+@api_view(["GET", "POST"])
+def sleep(request):
+    """Endpoint to get start running securetea app with given configuration"""
+    if not is_logged_in(request):
+        raise Http404
+    global processid
+    if request.method == 'GET':
+        try:
+            if not processid:
+                print("""processid = subprocess.Popen('python3 ../SecureTea.py', stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)""")
+                processid = subprocess.Popen(
+                    'python3 ../SecureTea.py', stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+                data = {
+                    "status": 200
+                }
+                return Response(data)
+            else:
+                data = {
+                    "status": 200
+                }
+                return Response(data)
+        except Exception as e:
+            print(e)
+        raise Http404
+
+    creds = request.get_json()
+    args_str = " --debug --skip_input --skip_config_file "
+
+    if "hist_logger" in creds and creds["hist_logger"]:
+        args_str+="--hist "
+
+    # Twitter parsing
+    if ("twitter_api_key" in creds and
+        "twitter_access_token" in creds and
+        "twitter_access_token_secret" in creds and
+        "twitter_api_secret_key" in creds):
+        if (bool(creds['twitter_api_key']) and
+            bool(creds['twitter_api_secret_key']) and
+            bool(creds['twitter_access_token']) and
+            bool(creds['twitter_access_token_secret'])):
+            args_str += ' --twitter_api_key="' + creds['twitter_api_key'] + '"'
+            args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
+            args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
+            args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
+
+    # Telegram parsing
+    if ("telegram_token" in creds and
+        "telegram_user_id" in creds):
+        if (bool(creds['telegram_token']) and
+            bool(creds['telegram_user_id'])):
+            args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
+            args_str += ' --telegram_user_id="' + creds['telegram_user_id'] + '"'
+
+    # Twilio SMS parsing
+    if ("twilio_sid" in creds and
+        "twilio_token" in creds and
+        "twilio_from" in creds and
+        "twilio_to" in creds):
+        if (bool(creds['twilio_sid']) and
+            bool(creds['twilio_token']) and
+            bool(creds['twilio_from']) and
+            bool(creds['twilio_to'])):
+            args_str += ' --twilio_sid="' + creds['twilio_sid'] + '"'
+            args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
+            args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
+            args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
+
+    # Whatsapp parsing
+    if ("whatsapp_sid" in creds and
+        "whatsapp_token" in creds and
+        "whatsapp_from" in creds and
+        "whatsapp_to" in creds):
+        if (bool(creds['whatsapp_sid']) and
+            bool(creds['whatsapp_token']) and
+            bool(creds['whatsapp_from']) and
+            bool(creds['whatsapp_to'])):
+            args_str += ' --whatsapp_sid="' + creds['whatsapp_sid'] + '"'
+            args_str += ' --whatsapp_token="' + creds['whatsapp_token'] + '"'
+            args_str += ' --whatsapp_from="' + creds['whatsapp_from'] + '"'
+            args_str += ' --whatsapp_to="' + creds['whatsapp_to'] + '"'
+
+    # Slack parsing
+    if ("slack_token" in creds and
+        "slack_user_id" in creds):
+        if (bool(creds['slack_token']) and
+            bool(creds['slack_user_id'])):
+            args_str += ' --slack_token="' + creds['slack_token'] + '"'
+            args_str += ' --slack_user_id="' + creds['slack_user_id'] + '"'
+
+    # AWS parsing
+    if ("aws_access_key" in creds and
+        "aws_email" in creds and
+        "aws_secret_key" in creds):
+        if (bool(creds['aws_email']) and
+            bool(creds['aws_access_key']) and
+            bool(creds['aws_secret_key'])):
+            args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
+            args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
+            args_str += ' --aws_email="' + creds['aws_email'] + '"'
+
+    # Gmail parsing
+    if ("sender_email" in creds and
+        "to_email" in creds and
+        "password" in creds):
+        if (bool(creds["sender_email"] and
+            bool(creds["to_email"]) and
+            bool(creds["password"]))):
+            args_str += ' --sender_email="' + creds['sender_email'] + '"'
+            args_str += ' --to_email="' + creds['to_email'] + '"'
+            args_str += ' --password="' + creds['password'] + '"'
+
+    # AntiVirus parsing
+    antivirus = creds['antivirus']
+    custom_scan = creds['custom_scan']
+    virustotal_api_key = creds['virustotal_api_key']
+    update = creds['update']
+    auto_delete = creds['auto_delete']
+    monitor_usb = creds['monitor_usb']
+    monitor_file_changes = creds['monitor_file_changes']
+
+    if antivirus:
+        if custom_scan:
+            args_str += ' --custom-scan=' + custom_scan
+        if virustotal_api_key:
+            args_str += ' --virustotal_api_key=' + virustotal_api_key
+        if update:
+            args_str += ' --update=1'
+        else:
+            args_str += ' --update=0'
+        if auto_delete:
+            args_str += ' --auto-delete=1'
+        else:
+            args_str += ' --auto-delete=0'
+        if monitor_usb:
+            args_str += ' --monitor-usb=1'
+        else:
+            args_str += ' --monitor-usb=0'
+        if monitor_file_changes:
+            args_str += ' --monitor-file-changes=1'
+        else:
+            args_str += ' --monitor-file-changes=0'
+
+    # Auto Server Patcher parsing
+    asp = creds['asp']
+    sslvuln = creds['sslvuln']
+    apache = creds['apache']
+    login = creds['login']
+    ssh = creds['ssh']
+    sysctl = creds['sysctl']
+    asp_state = False
+
+    if asp:
+        if sslvuln:
+            args_str += ' --ssl --url=' + sslvuln
+            asp_state = True
+        if apache:
+            args_str += ' --apache'
+            asp_state = True
+        if login:
+            args_str += ' --login'
+            asp_state = True
+        if ssh:
+            args_str += ' --ssh'
+            asp_state = True
+        if sysctl:
+            args_str += ' --sysctl'
+            asp_state = True
+
+    if asp_state:
+        args_str += ' --auto-server-patcher'
+
+    # System Log Parsing
+    sys_log = creds['sys_log']
+    if sys_log:
+        args_str += ' --system_log'
+
+    # Firewall parsing
+    firewall = creds['firewall']
+    if firewall:
+        interface = creds['interface']
+        ip_inbound = get_list(creds['ip_inbound'])
+        inbound_action = get_integer(creds['inbound_action'])
+        ip_outbound = get_list(creds['ip_outbound'])
+        outbound_action = get_integer(creds['outbound_action'])
+        protocols = get_list(creds['protocols'])
+        protocol_action = get_integer(creds['protocol_action'])
+        extensions = get_list(creds['extensions'])
+        scan_load_action = get_integer(creds['scan_load_action'])
+        sports = get_list(creds['sports'])
+        sports_action = get_integer(creds['sports_action'])
+        dest_ports = get_list(creds['dest_ports'])
+        dest_ports_action = get_integer(creds['dest_ports_action'])
+        dns = get_list(creds['dns'])
+        dns_action = get_integer(creds['dns_action'])
+        time_lb = creds['time_lb']
+        time_ub = creds['time_ub']
+        http_req = get_integer(creds['http_req'])
+        http_resp = get_integer(creds['http_resp'])
+
+        # Set default values for time
+        if not time_lb:
+            time_lb = "00:00"
+        if not time_ub:
+            time_ub = "23:59"
+
+        if interface:
+            args_str += " --interface=" + interface
+
+        args_str += " --inbound_IP_list=" + ip_inbound
+        args_str += " --inbound_IP_action=" + inbound_action
+        args_str += " --outbound_IP_list=" + ip_outbound
+        args_str += " --outbound_IP_action=" + outbound_action
+        args_str += " --protocol_list=" + protocols
+        args_str += " --protocol_action=" + protocol_action
+        args_str += " --scan_list=" + extensions
+        args_str += " --scan_action=" + scan_load_action
+        args_str += " --source_port_list=" + sports
+        args_str += " --source_port_action=" + sports_action
+        args_str += " --dest_port_list=" + dest_ports
+        args_str += " --dest_port_action=" + dest_ports_action
+        args_str += " --dns_list=" + dns
+        args_str += " --dns_action=" + dns_action
+        args_str += " --time_lb=" + time_lb
+        args_str += " --time_ub=" + time_ub
+        args_str += " --HTTP_request_action=" + http_req
+        args_str += " --HTTP_response_action=" + http_resp
+
+    # Server Log Parsing
+    server_log = creds['server_log']
+    if server_log:
+        log_type = get_list(creds['log_type'])
+        log_file = get_list(creds['log_file'])
+        window = get_list(creds['window'])
+        ip_list = get_list(creds['ip_list'])
+        status_code = get_list(creds['status_code'])
+
+        args_str += " --log-type=" + log_type
+        args_str += " --log-file=" + log_file
+        args_str += " --window=" + window
+        args_str += " --ip-list=" + ip_list
+        args_str += " --status-code=" + status_code
+
+    # Intrusion Detection System
+    ids = creds['ids']
+    if ids:
+        interface = get_list(creds['ids_interface'])
+        threshold = get_list(creds['threshold'])
+        ethreshold = get_list(creds['ethreshold'])
+        sfactor = get_list(creds['sfactor'])
+
+        args_str += " --interface=" + interface
+        args_str += " --threshold=" + threshold
+        args_str += " --eligibility_threshold=" + ethreshold
+        args_str += " --severity_factor=" + sfactor
+
+    se_mail_id = get_list(creds["se_mail_id"])
+    if se_mail_id:
+        args_str += " --social_eng_email=" + se_mail_id
+
+    # Local Web Deface Detection Parsing
+    web_deface = creds['web_deface']
+    if web_deface:
+        server_name = get_list(creds["server_name"])
+        path = get_list(creds["path"])
+
+        args_str += " --web-deface"
+        args_str += " --server-name=" + server_name
+        args_str += " --path=" + path
+
+    # Web Application Firewall Parsing
+    waf = creds['waf'] = creds['waf']
+    if waf:
+        listen_ip = get_list(creds["listen_ip"])
+        listen_port = get_list(creds["listen_port"])
+        mode = get_list(creds["mode"])
+        backend_server_config = get_list(creds["backend_server_config"])
+
+        args_str += " --listenIp=" + listen_ip
+        args_str += " --listenPort=" + listen_port
+        args_str += " --mode=" + mode
+        args_str += " --hostMap=" + backend_server_config
+
+    # IoT Anonymity Checker Parsing
+    iot_ano = creds['iot_ano']
+    if iot_ano:
+        shodan_api_key = get_list(creds["shodan_api"])
+        ip_addr_iot = get_list(creds["ip_addr_iot"])
+
+        args_str += " --iot-checker"
+        args_str += " --shodan-api-key=" + shodan_api_key
+        args_str += " --ip=" + ip_addr_iot
+
+    # Insecure Headers Parsing
+    insecure_headers = creds['insecure_headers']
+    if insecure_headers:
+        url = get_list(creds["url_ih"])
+
+        args_str += " --insecure_headers"
+        args_str += " --url=" + url
+    print("\033[95m" + args_str + "\033[0m")
+    try:
+        if not processid:
+            print("""processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
+                                         stdout=subprocess.PIPE, shell=True,
+                                         preexec_fn=os.setsid)""")
+            print("Wih args str ------------------------------------------------------------")
+            processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
+                                         stdout=subprocess.PIPE, shell=True,
+                                         preexec_fn=os.setsid)
+            data = {
+                "status": 201
+            }
+            return Response(data)
+        else:
+            data = {
+                "status": 200
+            }
+            return Response(data)
+    except Exception as e:
+        print(e)
+    raise Http404
+
+def findpid():
+    """Endpoint to find pid of securetea app
+        Returns:
+            pid of securetea app
+    """
+    proce = get_process()
+    if proce[0] == 200:
+        response = proce[1].get_data()
+        for res in response:
+            cmds = res['cmd']
+            if 'SecureTea.py' in cmds:
+                print("PID is - " + str(res["pid"]))
+                return res['pid']
+    return None
+
+@api_view(["POST"])
+def get_login(request):
+    """Get last login details.
+
+    Returns:
+        login details of a user
+    """
+    if not is_logged_in(request):
+        raise Http404
+    try:
+        data = []
+
+        details_regex = r"([a-zA-Z]+\s[a-zA-Z]+\s+[0-9]+\s[0-9]+:[0-9]+)\s+(.*)"
+        username_regex = r"^[a-zA-Z0-9]+\s"
+
+        output = subprocess.check_output("last")
+        output = output.decode("utf-8").split("\n")
+
+        for line in output:
+            username = re.findall(username_regex, line)
+            if username != []:
+                username = username[0].strip(" ")
+                if username != "reboot":
+                    details = re.findall(details_regex, line)
+                    if details != []:
+                        date = details[0][0]
+                        status = details[0][1].strip("-")
+                        status = status.strip(" ")
+                        login_row = {
+                            "status": 200,
+                            "name": username, 
+                            "date": date, 
+                            "login_status": status
+                        }
+                        data.append(login_row)
+        data_dict = {
+            "status": 200,
+            "data": data,
+        }
+        return Response(data_dict)
+    except Exception as e:
+        print(e)
+    raise Http404
