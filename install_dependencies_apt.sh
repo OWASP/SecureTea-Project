@@ -31,7 +31,7 @@ apt-get -y -qq install git # installing git
 python3 -m pip install git+https://github.com/kti/python-netfilterqueue
 
 python3 -m pip install -r requirements.txt
-python3 -m pip install -r requirements.txt # statement repeated on purpose
+pip install -r requirements.txt # statement repeated on purpose
 
 # installing NodeJS 14.x LTS for GUI
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
