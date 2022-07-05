@@ -272,10 +272,10 @@ def get_args():
 
     parser.add_argument(
         '--webhookurl',
-        '--url',
+        '--w_url',
         type=str,
         required=False,
-        help="Your discord channerl webhook url"
+        help="Your discord channel webhook url"
     )
 
     parser.add_argument(

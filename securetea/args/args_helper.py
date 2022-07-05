@@ -310,7 +310,7 @@ class ArgsHelper(object):
         Returns the format to configure Discord
         """
         self.logger.log('Discord configuraton setup')
-        default = load_default('Discord')
+        default = load_default('discord')
         return {
             'input': {
                 'webhookurl': 'Your channel webhook url'
@@ -591,12 +591,6 @@ class ArgsHelper(object):
                 self.cred['twitter'] = twitter
                 self.twitter_provided = True
 
-            # Start the malware_analysis configuration setup
-            malware_analysis = self.configureMalwareAnalysis()
-            if malware_analysis:
-                self.cred['malware_analysis'] = malware_analysis
-                self.malware_analysis_provided = True
-
             # Start the telegram configuration setup
             telegram = self.configureTelegram()
             if telegram:
@@ -621,13 +615,11 @@ class ArgsHelper(object):
                 self.cred['slack'] = slack
                 self.slack_provided = True
 
-
             # Start the Discord configuration setup
             discord = self.configureDiscord()
             if discord:
                 self.cred['discord'] = discord
                 self.discord_provided = True
-
 
             # Start the aws ses configuration setup
             aws_ses = self.configureAwsSES()
@@ -640,6 +632,12 @@ class ArgsHelper(object):
             if gmail:
                 self.cred['gmail'] = gmail
                 self.gmail_provided = True
+            
+            # Start the malware_analysis configuration setup
+            malware_analysis = self.configureMalwareAnalysis()
+            if malware_analysis:
+                self.cred['malware_analysis'] = malware_analysis
+                self.malware_analysis_provided = True
 
             waf=self.configureWaf()
             if waf:
