@@ -78,19 +78,21 @@ def get_args():
         action="store_true",
         help='Skip taking configuration from config file'
     )
-
+    
+    """
     parser.add_argument(
         '--twitter',
         required=False,
         action='store_true',
         help='Setup twitter credentials'
     )
+    """
 
     parser.add_argument(
         '--malware_analysis',
         required=False,
         action='store_true',
-        help='Setup twitter credentials'
+        help='Setup malware Analysis credentials'
     )
 
     parser.add_argument(
@@ -142,6 +144,7 @@ def get_args():
         help='Setup AWS SES credentials'
     )
 
+    """
     parser.add_argument(
         '--twitter_api_key',
         '-tak',
@@ -149,6 +152,7 @@ def get_args():
         required=False,
         help='Twitter api key'
     )
+
 
     parser.add_argument(
         '--twitter_api_secret_key',
@@ -173,6 +177,7 @@ def get_args():
         required=False,
         help='Twitter access token secret'
     )
+    """
 
     parser.add_argument(
         '--telegram_bot_token',

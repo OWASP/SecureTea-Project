@@ -18,8 +18,7 @@ import threading
 
 from securetea import configurations
 from securetea import logger
-from securetea.lib.notifs import secureTeaTwitter
-# from securetea.lib.notifs import secureTeaMalwareAnalysis
+# from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.malware_analysis.malware_analysis_runner import SecureTeaMalwareAnalysis
 from securetea.lib.notifs import secureTeaDiscord
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
@@ -93,7 +92,7 @@ class SecureTea(object):
         self.cred = args_dict['cred']
         self.history_logger = self.cred['history_logger']
         self.cred_provided = args_dict['cred_provided']
-        self.twitter_provided = args_dict['twitter_provided']
+        # self.twitter_provided = args_dict['twitter_provided']
         self.malware_analysis_provided = args_dict['malware_analysis']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
@@ -140,7 +139,8 @@ class SecureTea(object):
                     "Social Engineering configuration parameter not set.",
                     logtype="error"
                 )
-
+            
+            """
             try:
                 if self.cred['twitter']:
                     self.twitter_provided = True
@@ -150,6 +150,7 @@ class SecureTea(object):
                     "Twitter configuration parameter not set.",
                     logtype="error"
                 )
+            """
 
             try:
                 if self.cred['malware_analysis']:
@@ -395,7 +396,8 @@ class SecureTea(object):
             self.firewall_provided = False
             self.ids_provided = False
             self.iot_checker_provided = False
-
+        
+        """
         if self.twitter_provided:
             self.twitter = secureTeaTwitter.SecureTeaTwitter(
                 self.cred['twitter'],
@@ -409,6 +411,7 @@ class SecureTea(object):
                 )
             else:
                 self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+        """
 
         if self.malware_analysis_provided:
             self.malware_analysis_obj = SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
@@ -682,9 +685,12 @@ class SecureTea(object):
         Returns:
             None
         """
+        
+        """        
         # Send a warning message via twitter account
         if self.twitter_provided:
             self.twitter.notify(msg)
+        """
 
         # Send a warning message via telegram bot
         if self.telegram_provided:

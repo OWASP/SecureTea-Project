@@ -180,7 +180,7 @@ class ArgsHelper(object):
         self.securetea_conf = SecureTeaConf()
 
         self.cred_provided = False
-        self.twitter_provided = False
+        # self.twitter_provided = False
         self.malware_analysis_provided = False
         self.telegram_provided = False
         self.twilio_provided = False
@@ -210,11 +210,13 @@ class ArgsHelper(object):
             self.cred['debug']
         )
 
+    """
+
     @takeInput
     def configureTwitter(self):
-        """
+        '''
         Returns the format to configure Twitter
-        """
+        '''
         self.logger.log('Twitter configuration setup')
         default = load_default('twitter')
         return {
@@ -226,6 +228,7 @@ class ArgsHelper(object):
             },
             'default': default
         }
+    """
 
     @takeInput
     def configureMalwareAnalysis(self):
@@ -585,11 +588,13 @@ class ArgsHelper(object):
            (len(sys.argv) == 3 + int(self.args.skip_input) + int(self.cred['skip_config_file']) and self.args.debug and self.args.hist) or
            (len(sys.argv) == 2 + int(self.args.skip_input) + int(self.cred['skip_config_file']) and (self.args.debug or self.args.hist)))):  # Peform all integration
 
+            """
             # Start the twitter configuration setup
             twitter = self.configureTwitter()
             if twitter:
                 self.cred['twitter'] = twitter
                 self.twitter_provided = True
+            """
 
             # Start the telegram configuration setup
             telegram = self.configureTelegram()
@@ -706,13 +711,14 @@ class ArgsHelper(object):
                 if social_eng:
                     self.cred['social_eng'] = social_eng
                     self.social_eng_provided = True
-
-
+            
+            """
             if self.args.twitter and not self.twitter_provided:
                 twitter = self.configureTwitter()
                 if twitter:
                     self.cred['twitter'] = twitter
                     self.twitter_provided = True
+            """
 
             if self.args.malware_analysis and not self.malware_analysis_provided:
                 malware_analysis = self.configureMalwareAnalysis()
@@ -1005,7 +1011,8 @@ class ArgsHelper(object):
                             self.cred["ids"]["interface"] = interface
                     if iot_check:
                         self.cred["iot-check"] = iot_check
-
+        
+        """
         if not self.twitter_provided:
             if (self.args.twitter_api_key and
                 self.args.twitter_api_secret_key and
@@ -1018,6 +1025,7 @@ class ArgsHelper(object):
                 twitter['access_token_secret'] = self.args.twitter_access_token_secret
                 self.cred['twitter'] = twitter
                 self.twitter_provided = True
+        """
 
         if not self.social_eng_provided:
             if self.args.social_eng_email:
@@ -1269,7 +1277,7 @@ class ArgsHelper(object):
 
                 self.cred['firewall'] = firewall
                 self.firewall_provided = True
-        if (self.twitter_provided or
+        if (# self.twitter_provided or
             self.malware_analysis_provided or
             self.telegram_provided or
             self.twilio_provided or
@@ -1297,7 +1305,7 @@ class ArgsHelper(object):
         return {
             'cred': self.cred,
             'cred_provided': self.cred_provided,
-            'twitter_provided': self.twitter_provided,
+            # 'twitter_provided': self.twitter_provided,
             'malware_analysis': self.malware_analysis_provided,
             'telegram_provided': self.telegram_provided,
             'twilio_provided': self.twilio_provided,
