@@ -3,12 +3,14 @@
 def get_config():
     """Get default configuration credentials."""
     return {
+        """
         "twitter": {
             "api_key": "XXXX",
             "api_secret_key": "XXXX",
             "access_token": "XXXX",
             "access_token_secret": "XXXX"
         },
+        """
         "telegram": {
             "token": "XXXX",
             "user_id": "XXXX"

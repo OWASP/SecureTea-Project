@@ -18,8 +18,7 @@ import threading
 
 from securetea import configurations
 from securetea import logger
-from securetea.lib.notifs import secureTeaTwitter
-# from securetea.lib.notifs import secureTeaMalwareAnalysis
+# from securetea.lib.notifs import secureTeaTwitter
 from securetea.lib.malware_analysis.malware_analysis_runner import SecureTeaMalwareAnalysis
 from securetea.lib.notifs import secureTeaDiscord
 from securetea.lib.notifs.secureTeaTelegram import SecureTeaTelegram
@@ -93,7 +92,7 @@ class SecureTea(object):
         self.cred = args_dict['cred']
         self.history_logger = self.cred['history_logger']
         self.cred_provided = args_dict['cred_provided']
-        self.twitter_provided = args_dict['twitter_provided']
+        # self.twitter_provided = args_dict['twitter_provided']
         self.malware_analysis_provided = args_dict['malware_analysis']
         self.telegram_provided = args_dict['telegram_provided']
         self.twilio_provided = args_dict['twilio_provided']
@@ -134,28 +133,30 @@ class SecureTea(object):
             try:
                 if self.cred['social_eng']:
                     self.social_eng_provided = True
-            except KeyError:
+                    self.cred_provided = True
+            except TypeError:
                 self.logger.log(
                     "Social Engineering configuration parameter not set.",
                     logtype="error"
                 )
-
-
+            
+            """
             try:
                 if self.cred['twitter']:
                     self.twitter_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Twitter configuration parameter not set.",
                     logtype="error"
                 )
+            """
 
             try:
                 if self.cred['malware_analysis']:
                     self.malware_analysis_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Malware analysis configuration parameter not set.",
                     logtype="error"
@@ -165,7 +166,7 @@ class SecureTea(object):
                 if self.cred['telegram']:
                     self.telegram_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Telegram configuration parameter not set.",
                     logtype="error"
@@ -175,7 +176,7 @@ class SecureTea(object):
                 if self.cred['twilio']:
                     self.twilio_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Twilio configuration parameter not set.",
                     logtype="error"
@@ -185,7 +186,7 @@ class SecureTea(object):
                 if self.cred['whatsapp']:
                     self.whatsapp_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Whatsapp configuration parameter not set.",
                     logtype="error"
@@ -195,7 +196,7 @@ class SecureTea(object):
                 if self.cred['slack']:
                     self.slack_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Slack configuration parameter not set.",
                     logtype="error"
@@ -205,7 +206,7 @@ class SecureTea(object):
                 if self.cred['discord']:
                     self.discord_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Discord configuration parameter not set.",
                     logtype="error"
@@ -215,7 +216,7 @@ class SecureTea(object):
                 if self.cred['aws_ses']:
                     self.aws_ses_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "AWS SES configuration parameter not set.",
                     logtype="error"
@@ -225,7 +226,7 @@ class SecureTea(object):
                 if self.cred['gmail']:
                     self.gmail_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Gmail configuraton parameter not set.",
                     logtype="error"
@@ -235,7 +236,7 @@ class SecureTea(object):
                 if self.cred['firewall']:
                     self.firewall_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Firewall configuraton parameter not set.",
                     logtype="error"
@@ -245,7 +246,7 @@ class SecureTea(object):
                 if self.cred['insecure_headers']:
                     self.insecure_headers_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Insecure headers parameter not set.",
                     logtype="error"
@@ -255,7 +256,7 @@ class SecureTea(object):
                 if self.cred['ids']:
                     self.ids_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Intrusion Detection System (IDS) not set.",
                     logtype="error"
@@ -265,7 +266,7 @@ class SecureTea(object):
                 if self.cred['server_log']:
                     self.server_log_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Server Log configuraton parameter not set.",
                     logtype="error"
@@ -275,7 +276,7 @@ class SecureTea(object):
                 if self.cred['auto_server_patcher']:
                     self.auto_server_patcher_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Auto server patcher configuraton not set.",
                     logtype="error"
@@ -285,7 +286,7 @@ class SecureTea(object):
                 if self.cred['web-deface']:
                     self.web_deface_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Web Deface Detection configuraton not set.",
                     logtype="eror"
@@ -295,7 +296,7 @@ class SecureTea(object):
                 if self.cred['antivirus']:
                     self.antivirus_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "AntiVirus configuraton not set.",
                     logtype="error"
@@ -305,7 +306,7 @@ class SecureTea(object):
                 if self.cred['iot-check']:
                     self.iot_checker_provided = True
                     self.cred_provided = True
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "IoT Checker configuraton not set.",
                     logtype="error"
@@ -395,7 +396,8 @@ class SecureTea(object):
             self.firewall_provided = False
             self.ids_provided = False
             self.iot_checker_provided = False
-
+        
+        """
         if self.twitter_provided:
             self.twitter = secureTeaTwitter.SecureTeaTwitter(
                 self.cred['twitter'],
@@ -409,6 +411,7 @@ class SecureTea(object):
                 )
             else:
                 self.twitter.notify("Welcome to SecureTea..!! Initializing System")
+        """
 
         if self.malware_analysis_provided:
             self.malware_analysis_obj = SecureTeaMalwareAnalysis(self.cred['malware_analysis'])
@@ -518,7 +521,7 @@ class SecureTea(object):
                     firewallObj = secureTeaFirewall.SecureTeaFirewall(cred=self.cred,
                                                                       debug=self.cred['debug'])
                     firewallObj.start_firewall()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Firewall configuration parameter not configured.",
                     logtype="error"
@@ -531,7 +534,7 @@ class SecureTea(object):
                     insecure_headers_obj = secureTeaHeaders.SecureTeaHeaders(url=url,
                                                                              debug=self.cred['debug'])
                     insecure_headers_obj.analyze()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Insecure headers parameter not configured.",
                     logtype="error"
@@ -543,7 +546,7 @@ class SecureTea(object):
                     ids_obj = secureTeaIDS.SecureTeaIDS(cred=self.cred['ids'],
                                                         debug=self.cred['debug'])
                     ids_obj.start_ids()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Intrusion Detection System (IDS) parameter not configured.",
                     logtype="error"
@@ -554,7 +557,7 @@ class SecureTea(object):
 
                     waf_obj=SecureTeaWaf.SecureTeaWaf(cred=self.cred['waf'],debug=self.cred["debug"])
                     waf_obj.startWaf()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "WAF parameter not configured ",
                     logtype="error"
@@ -580,7 +583,7 @@ class SecureTea(object):
                                                 ip_list=server_cred['ip-list'],
                                                 status_code=server_cred['status-code'])
                 server_obj.run()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Server Log parameters not configured.",
                     logtype="error"
@@ -597,7 +600,7 @@ class SecureTea(object):
                 patcher_obj = SecureTeaAutoServerPatcher(debug=self.cred['debug'],
                                                          cred=auto_server_patcher_cred)
                 patcher_obj.start()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Auto Server Patcher parameters not configured.",
                     logtype="error"
@@ -615,7 +618,7 @@ class SecureTea(object):
                                            path=web_deface['path'],
                                            server_name=web_deface['server-name'])
                 web_deface_obj.start()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "Web Deface Detection parameters not configured.",
                     logtype="error"
@@ -641,7 +644,7 @@ class SecureTea(object):
             try:
                 antivirus_obj = SecureTeaAntiVirus(debug=self.cred['debug'], cred=antivirus, use_clamav=self.cred['clamav'], use_yara=self.cred['yara'])
                 antivirus_obj.start()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "AntiVirus parameters not configured.",
                     logtype="error"
@@ -658,7 +661,7 @@ class SecureTea(object):
                                                          api_key=self.cred['iot-check']['shodan-api-key'],
                                                          ip=self.cred['iot-check']['ip'])
                 iot_checker_obj.check_shodan_range()
-            except KeyError:
+            except TypeError:
                 self.logger.log(
                     "IoT checker parameters not configured.",
                     logtype="error"
@@ -682,9 +685,12 @@ class SecureTea(object):
         Returns:
             None
         """
+        
+        """        
         # Send a warning message via twitter account
         if self.twitter_provided:
             self.twitter.notify(msg)
+        """
 
         # Send a warning message via telegram bot
         if self.telegram_provided:
