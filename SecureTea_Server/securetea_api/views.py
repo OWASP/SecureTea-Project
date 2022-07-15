@@ -501,7 +501,8 @@ def sleep(request):
 
     if "hist_logger" in creds and creds["hist_logger"]:
         args_str+="--hist "
-
+    
+    """
     # Twitter parsing
     if ("twitter_api_key" in creds and
         "twitter_access_token" in creds and
@@ -515,6 +516,7 @@ def sleep(request):
             args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
             args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
             args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
+    """
 
     # Telegram parsing
     if ("telegram_token" in creds and
