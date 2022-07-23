@@ -38,3 +38,6 @@ main {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+.profile-photo {
+    border-radius: 100%;
+}
