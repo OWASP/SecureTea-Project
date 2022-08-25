@@ -1,5 +1,5 @@
 from urllib.parse import uses_fragment
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 from numpy import empty
 from rest_framework.response import Response
@@ -21,6 +21,7 @@ import time
 import signal
 import subprocess
 import re
+import json
 
 
 # Create your views here.
@@ -104,7 +105,31 @@ def register(request):
 @api_view(["GET"])
 def test_api(request):
     """Endpoint to check if the endpoint works or not"""
-    return Response('ep_working')
+    data ={
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "address": {
+            "street": "Kulas Light",
+            "suite": "Apt. 556",
+            "city": "Gwenborough",
+            "zipcode": "92998-3874",
+            "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+            }
+        },
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+            "name": "Romaguera-Crona",
+            "catchPhrase": "Multi-layered client-server neural-net",
+            "bs": "harness real-time e-markets"
+        }
+    }
+    output = json.dumps(data, indent=2)
+    return HttpResponse(output, content_type="application/json")
 
 @api_view(["POST"])
 def get_uptime(request):
@@ -501,7 +526,8 @@ def sleep(request):
 
     if "hist_logger" in creds and creds["hist_logger"]:
         args_str+="--hist "
-
+    
+    """
     # Twitter parsing
     if ("twitter_api_key" in creds and
         "twitter_access_token" in creds and
@@ -515,6 +541,7 @@ def sleep(request):
             args_str += ' --twitter_api_secret_key="' + creds['twitter_api_secret_key'] + '"'
             args_str += ' --twitter_access_token="' + creds['twitter_access_token'] + '"'
             args_str += ' --twitter_access_token_secret="' + creds['twitter_access_token_secret'] + '"'
+    """
 
     # Telegram parsing
     if ("telegram_token" in creds and

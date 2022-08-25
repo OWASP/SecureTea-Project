@@ -693,10 +693,12 @@ class SecureTea(object):
         """
 
         # Send a warning message via telegram bot
+        # Telegram works  - 12/8/2022
         if self.telegram_provided:
             self.telegram.notify(msg)
 
         # Send a warning message via twilio account
+        # Twilio works  - 12/8/2022
         if self.twilio_provided:
             self.twilio.notify(msg)
 
