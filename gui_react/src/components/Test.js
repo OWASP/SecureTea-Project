@@ -1,4 +1,7 @@
 import React from "react";
+import Cookies from "universal-cookie";
+
+const browser_cookies = new Cookies();
 
 class Test extends React.Component {
 
@@ -16,10 +19,11 @@ class Test extends React.Component {
 
     componentDidMount() {
         fetch('http://127.0.0.1:8000/')
-        .then(res => {
+        .then((res) => res.json())
+        .then(json => {
             this.setState({
                 isLoaded: true,
-                items: res, 
+                item: json, 
             })
         });
 
@@ -27,7 +31,9 @@ class Test extends React.Component {
 
     render() {
 
-        var {isLoaded, items} = this.state;
+        browser_cookies.set("id", "testid", { path: '/' });
+
+        var {isLoaded, item} = this.state;
 
         if (!isLoaded) {
             return <div>Loading Data ... </div>
@@ -36,9 +42,7 @@ class Test extends React.Component {
         else{
             return (
                 <div className="App">
-                    Data has been delivered
-
-
+                    <h1>{item.status} </h1>
                 </div>
             )
         }
