@@ -38,7 +38,7 @@ processid = False
 
 
 {
-"cookie": "e0a67ce65c6c94bffd7e2f97ed30fa85cdfbed82f87f2913332efd81126af8b0"
+"cookie": "cf6ff459d594b5d337d5ef62f1d7ca718c31c1293164da8dc47f8c46d81f2c1e"
 }
 
 
@@ -48,9 +48,13 @@ def is_logged_in(request):
     """
     checks if the cookie value is present in the databse. If present, User is logged in.
     """
+
     req_data = request.data
     users = User.objects.all()
-    if not list(users.filter(cookie=req_data["cookie"])):
+    try:
+        if not list(users.filter(cookie=req_data["cookie"])):
+            return False
+    except KeyError:
         return False
     user = list(users.filter(cookie=req_data["cookie"]))[0]
     print("USER" + str(user))
@@ -80,7 +84,13 @@ def login(request):
         user.cookie = cookie_string
         user.save()
 
-        return Response(cookie_string)
+        data = {
+            "cookie" : cookie_string
+        }
+
+        
+
+        return Response(data)
 
     else:
         print("Incorrect Credentials")
@@ -105,31 +115,10 @@ def register(request):
 @api_view(["GET"])
 def test_api(request):
     """Endpoint to check if the endpoint works or not"""
-    data ={
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "address": {
-            "street": "Kulas Light",
-            "suite": "Apt. 556",
-            "city": "Gwenborough",
-            "zipcode": "92998-3874",
-            "geo": {
-            "lat": "-37.3159",
-            "lng": "81.1496"
-            }
-        },
-        "phone": "1-770-736-8031 x56442",
-        "website": "hildegard.org",
-        "company": {
-            "name": "Romaguera-Crona",
-            "catchPhrase": "Multi-layered client-server neural-net",
-            "bs": "harness real-time e-markets"
-        }
+    data = {
+        "status" : "ep_working"
     }
-    output = json.dumps(data, indent=2)
-    return HttpResponse(output, content_type="application/json")
+    return Response(data)
 
 @api_view(["POST"])
 def get_uptime(request):
@@ -498,9 +487,10 @@ def get_integer(bool_var):
 
 @api_view(["GET", "POST"])
 def sleep(request):
-    """Endpoint to get start running securetea app with given configuration"""
+    """Endpoint to get start running securetea app with given configuration"""  
     if not is_logged_in(request):
         raise Http404
+    
     global processid
     if request.method == 'GET':
         try:
@@ -521,7 +511,9 @@ def sleep(request):
             print(e)
         raise Http404
 
-    creds = request.get_json()
+    print("C1")
+
+    creds = request.data
     args_str = " --debug --skip_input --skip_config_file "
 
     if "hist_logger" in creds and creds["hist_logger"]:

@@ -30,7 +30,7 @@ apt-get -y -qq install curl    # dependency for API interaction.
 apt-get -y -qq install git # installing git
 python3 -m pip install git+https://github.com/kti/python-netfilterqueue
 
-python3 -m pip install -r requirements.txt
+pip install -r requirements.txt
 pip install -r requirements.txt # statement repeated on purpose
 
 # installing NodeJS 14.x LTS for GUI
