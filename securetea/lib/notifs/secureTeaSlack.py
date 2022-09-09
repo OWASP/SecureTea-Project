@@ -45,7 +45,7 @@ class SecureTeaSlack():
 
         self.slack_token = cred['token']
         self.user_id = cred['user_id']
-        self.slack_channel_open_url = 'https://slack.com/api/im.open'
+        self.slack_channel_open_url = 'https://slack.com/api/conversations.open'
         self.slack_post_message_url = 'https://slack.com/api/chat.postMessage'
         self.auth_header = 'Bearer ' + self.slack_token
 
@@ -70,6 +70,7 @@ class SecureTeaSlack():
             headers={"Authorization": self.auth_header},
             data={"user": self.user_id}
         ).json()
+        print(channel_info)
         channel_id = channel_info['channel']['id']
 
         post_message = requests.post(

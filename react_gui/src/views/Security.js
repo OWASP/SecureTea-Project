@@ -557,6 +557,8 @@ class Security extends React.Component {
       })
     };
 
+    alert("New Monitoring set up. System will go to sleep in a few seconds")
+
     fetch(
       url + "sleep/", requestOptions
       )
@@ -568,7 +570,7 @@ class Security extends React.Component {
             });
         })
 
-    alert("New Monitoring set up. System will go to sleep")
+    
     event.preventDefault();
 
 
@@ -596,35 +598,7 @@ class Security extends React.Component {
                   <form role="form" class="text-start" onSubmit={this.handleSubmit}>
 
 
-                    <div class="row">
-
-
-                      <div class="col-lg-4 col-md-6 col-12 mx-auto">
-                        <div class="card z-index-0 fadeIn3 fadeInBottom">
-                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-info shadow-info border-radius-lg py-2 pe-1">
-                              <h4 class="text-white font-weight-bolder text-center mt-2 mb-1">Twitter</h4>
-                            </div>
-                          </div>
-                          <div class="card-body">
-                            
-                              <div class="input-group input-group-outline my-2">
-                                <input type="text" class="form-control" placeholder="twitter_apikey" value={this.state.twitter_apikey} onChange={this.handletwitter_apikeyChange} />
-                              </div>
-                              <div class="input-group input-group-outline my-2">
-                                <input type="text" class="form-control" placeholder="twitter_apikey" value={this.state.twitter_apiSecret} onChange={this.handletwitter_apiSecretChange} />
-                              </div>
-                              <div class="input-group input-group-outline my-2">
-                                <input type="text" class="form-control" placeholder="twitter_apikey" value={this.state.twitter_token} onChange={this.handletwitter_tokenChange} />
-                              </div>
-                              <div class="input-group input-group-outline my-2">
-                                <input type="text" class="form-control" placeholder="twitter_apikey" value={this.state.twitter_tokenSecret} onChange={this.handletwitter_tokenSecretChange} />
-                              </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    
+                    <div class="row">                    
 
                       <div class="col-lg-4 col-md-6 col-12 mx-auto">
                         <div class="card z-index-0 fadeIn3 fadeInBottom">
@@ -777,7 +751,7 @@ class Security extends React.Component {
                           <div class="card z-index-0 fadeIn3 fadeInBottom">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                               <div class="bg-gradient-info shadow-info border-radius-lg py-2 pe-1">
-                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-1">SECURITY</h4>
+                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-1">AntiVirus</h4>
                               </div>
                             </div>
                             <div class="card-body container-fluid">
@@ -876,10 +850,10 @@ class Security extends React.Component {
                             <div class="card-body container-fluid">
                               
                                 <div class="input-group input-group-outline mb-2 col-lg-6 col-md-6 col-12">
-                                  <input type="text" class="form-control" placeholder="inter_face" value={this.state.inter_face} onChange={this.handleinter_faceChange}  />
+                                  <input type="text" class="form-control" placeholder="firewall" value={this.state.firewall} onChange={this.handlefirewallChange}  />
                                 </div>
                                 <div class="input-group input-group-outline mb-2 col-lg-6 col-md-6 col-12">
-                                  <input type="text" class="form-control" placeholder="firewall" value={this.state.firewall} onChange={this.handlefirewallChange}  />
+                                  <input type="text" class="form-control" placeholder="inter_face" value={this.state.inter_face} onChange={this.handleinter_faceChange}  />
                                 </div>
                                 <div class="input-group input-group-outline mb-2 col-lg-6 col-md-6 col-12">
                                   <input type="text" class="form-control" placeholder="ip_inbound" value={this.state.ip_inbound} onChange={this.handleip_inboundChange}  />

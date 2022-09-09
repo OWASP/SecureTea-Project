@@ -28,22 +28,6 @@ import json
 
 processid = False
 
-"""
-
-{
-"username": "fox",
-"password": "1234"
-}
-
-
-
-{
-"cookie": "cf6ff459d594b5d337d5ef62f1d7ca718c31c1293164da8dc47f8c46d81f2c1e"
-}
-
-
-"""
-
 def is_logged_in(request):
     """
     checks if the cookie value is present in the databse. If present, User is logged in.
@@ -511,9 +495,8 @@ def sleep(request):
             print(e)
         raise Http404
 
-    print("C1")
-
     creds = request.data
+    print(json.dumps(creds, indent=4, sort_keys=True))
     args_str = " --debug --skip_input --skip_config_file "
 
     if "hist_logger" in creds and creds["hist_logger"]:
@@ -536,70 +519,58 @@ def sleep(request):
     """
 
     # Telegram parsing
-    if ("telegram_token" in creds and
-        "telegram_user_id" in creds):
-        if (bool(creds['telegram_token']) and
-            bool(creds['telegram_user_id'])):
-            args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
-            args_str += ' --telegram_user_id="' + creds['telegram_user_id'] + '"'
+    if (creds["telegram_token"] and
+        creds["telegram_userId"]):
+
+        args_str += ' --telegram_bot_token="' + creds['telegram_token'] + '"'
+        args_str += ' --telegram_user_id="' + creds['telegram_userId'] + '"'
 
     # Twilio SMS parsing
-    if ("twilio_sid" in creds and
-        "twilio_token" in creds and
-        "twilio_from" in creds and
-        "twilio_to" in creds):
-        if (bool(creds['twilio_sid']) and
-            bool(creds['twilio_token']) and
-            bool(creds['twilio_from']) and
-            bool(creds['twilio_to'])):
-            args_str += ' --twilio_sid="' + creds['twilio_sid'] + '"'
-            args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
-            args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
-            args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
+    if (creds["twilio_sid"] and
+        creds["twilio_token"] and
+        creds["twilio_from"] and
+        creds["twilio_to"]):
+
+        args_str += ' --twilio_sid="' + creds['twilio_sid'] + '"'
+        args_str += ' --twilio_token="' + creds['twilio_token'] + '"'
+        args_str += ' --twilio_from="' + creds['twilio_from'] + '"'
+        args_str += ' --twilio_to="' + creds['twilio_to'] + '"'
 
     # Whatsapp parsing
-    if ("whatsapp_sid" in creds and
-        "whatsapp_token" in creds and
-        "whatsapp_from" in creds and
-        "whatsapp_to" in creds):
-        if (bool(creds['whatsapp_sid']) and
-            bool(creds['whatsapp_token']) and
-            bool(creds['whatsapp_from']) and
-            bool(creds['whatsapp_to'])):
-            args_str += ' --whatsapp_sid="' + creds['whatsapp_sid'] + '"'
-            args_str += ' --whatsapp_token="' + creds['whatsapp_token'] + '"'
-            args_str += ' --whatsapp_from="' + creds['whatsapp_from'] + '"'
-            args_str += ' --whatsapp_to="' + creds['whatsapp_to'] + '"'
+    if (creds["whatsapp_sid"] and
+        creds["whatsapp_token"] and
+        creds["whatsapp_from"] and
+        creds["whatsapp_to"]):
+        
+        args_str += ' --whatsapp_sid="' + creds['whatsapp_sid'] + '"'
+        args_str += ' --whatsapp_token="' + creds['whatsapp_token'] + '"'
+        args_str += ' --whatsapp_from="' + creds['whatsapp_from'] + '"'
+        args_str += ' --whatsapp_to="' + creds['whatsapp_to'] + '"'
 
     # Slack parsing
-    if ("slack_token" in creds and
-        "slack_user_id" in creds):
-        if (bool(creds['slack_token']) and
-            bool(creds['slack_user_id'])):
-            args_str += ' --slack_token="' + creds['slack_token'] + '"'
-            args_str += ' --slack_user_id="' + creds['slack_user_id'] + '"'
+    if (creds["slack_token"] and
+        creds["slack_userId"]):
+
+        args_str += ' --slack_token="' + creds['slack_token'] + '"'
+        args_str += ' --slack_user_id="' + creds['slack_userId'] + '"'
 
     # AWS parsing
-    if ("aws_access_key" in creds and
-        "aws_email" in creds and
-        "aws_secret_key" in creds):
-        if (bool(creds['aws_email']) and
-            bool(creds['aws_access_key']) and
-            bool(creds['aws_secret_key'])):
-            args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
-            args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
-            args_str += ' --aws_email="' + creds['aws_email'] + '"'
+    if (creds["aws_secretKey"] and
+        creds["aws_accessKey"] and
+        creds["aws_email"]):
+
+        args_str += ' --aws_secret_key="' + creds['aws_secret_key'] + '"'
+        args_str += ' --aws_access_key="' + creds['aws_access_key'] + '"'
+        args_str += ' --aws_email="' + creds['aws_email'] + '"'
 
     # Gmail parsing
-    if ("sender_email" in creds and
-        "to_email" in creds and
-        "password" in creds):
-        if (bool(creds["sender_email"] and
-            bool(creds["to_email"]) and
-            bool(creds["password"]))):
-            args_str += ' --sender_email="' + creds['sender_email'] + '"'
-            args_str += ' --to_email="' + creds['to_email'] + '"'
-            args_str += ' --password="' + creds['password'] + '"'
+    if (creds["sender_email"] and
+        creds["to_email"] and
+        creds["password"]):
+
+        args_str += ' --sender_email="' + creds['sender_email'] + '"'
+        args_str += ' --to_email="' + creds['to_email'] + '"'
+        args_str += ' --password="' + creds['password'] + '"'
 
     # AntiVirus parsing
     antivirus = creds['antivirus']
@@ -614,7 +585,7 @@ def sleep(request):
         if custom_scan:
             args_str += ' --custom-scan=' + custom_scan
         if virustotal_api_key:
-            args_str += ' --virustotal_api_key=' + virustotal_api_key
+            args_str += ' --virustotal-api-key=' + str(virustotal_api_key)
         if update:
             args_str += ' --update=1'
         else:
@@ -669,7 +640,7 @@ def sleep(request):
     # Firewall parsing
     firewall = creds['firewall']
     if firewall:
-        interface = creds['interface']
+        interface = creds['inter_face']
         ip_inbound = get_list(creds['ip_inbound'])
         inbound_action = get_integer(creds['inbound_action'])
         ip_outbound = get_list(creds['ip_outbound'])
@@ -735,7 +706,7 @@ def sleep(request):
     # Intrusion Detection System
     ids = creds['ids']
     if ids:
-        interface = get_list(creds['ids_interface'])
+        interface = get_list(creds['ids_inter_face'])
         threshold = get_list(creds['threshold'])
         ethreshold = get_list(creds['ethreshold'])
         sfactor = get_list(creds['sfactor'])
@@ -789,10 +760,12 @@ def sleep(request):
 
         args_str += " --insecure_headers"
         args_str += " --url=" + url
+
+
     print("\033[95m" + args_str + "\033[0m")
     try:
         if not processid:
-            print("""processid = subprocess.Popen('python3 ../SecureTea.py' + args_str + ' &',
+            print("""processid = subprocess.Popen('python3 ../SecureTea.py' """ + args_str + """ ' &',
                                          stdout=subprocess.PIPE, shell=True,
                                          preexec_fn=os.setsid)""")
             print("Wih args str ------------------------------------------------------------")
