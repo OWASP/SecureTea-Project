@@ -70,9 +70,18 @@ class MonitorEngine(object):
         self.config_dict = utils.json_to_dict(self._CONFIG_PATH)
         # Categorize OS
         self.os_name = utils.categorize_os()
+
+        if debug:
+            self._AV_CONFIG_PATH = "securetea/lib/antivirus/config/config.json"
+            self.config_dict = utils.json_to_dict(self._AV_CONFIG_PATH)
+        else:
+            self._AV_CONFIG_PATH = "/etc/securetea/antivirus/config/config.json"
+
+
         if self.os_name:
             # Load malicious-file log path
             self.changes_min_time = int(self.config_dict[self.os_name]["monitor"]["threshold_min"])
+        
 
         self.monitor_changes = int(monitor_changes)
         self.monitor_usb = int(monitor_usb)

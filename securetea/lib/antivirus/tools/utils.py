@@ -58,11 +58,12 @@ def categorize_os():
         None
     """
     os_name = get_system_name()
-    if os_name in ["ubuntu", "kali", "backtrack", "debian"]:
-        return "debian"
+    for allowed_name in ["ubuntu", "kali", "backtrack", "debian"]:
+        if allowed_name in os_name:
+            return "debian"
     # elif some other OS, add their  name
-    else:  # if OS not in list
-        return None
+    # if OS not in list
+    return None
 
 
 def get_system_name():
@@ -78,7 +79,7 @@ def get_system_name():
     Returns:
         os_name (str): Name of the operating system
     """
-    os_name = platform.dist()[0]
+    os_name = platform.version()
     return os_name.lower()
 
 

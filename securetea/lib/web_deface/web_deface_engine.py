@@ -63,7 +63,10 @@ class Engine(object):
             sys.exit(0)
 
         # OS to Server file map path
-        self._MAP_PATH = "/etc/securetea/web_deface/path_map.json"
+        if debug:
+            self._MAP_PATH = "securetea/lib/web_deface/config/path_map.json"
+        else:
+            self._MAP_PATH = "/etc/securetea/web_deface/path_map.json"
         # Server file backup map path
         self._BACKUP_MAP = "/etc/securetea/web_deface/backup.json"
         # Server file hash map path

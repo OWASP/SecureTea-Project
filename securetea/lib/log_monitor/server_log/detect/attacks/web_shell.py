@@ -39,7 +39,7 @@ class WebShell(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing web_shell payloads
             self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/web_shell.txt"
         else:

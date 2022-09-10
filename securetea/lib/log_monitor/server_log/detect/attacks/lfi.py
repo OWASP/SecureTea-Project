@@ -39,7 +39,7 @@ class LFI(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing lfi payloads
             self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/lfi.txt"
         else:

@@ -38,6 +38,7 @@ class HashScanner(Scanner):
             None
         """
         # Initialize parent class
+
         super().__init__(debug, config_path, file_list, vt_api_key)
 
         if self.os_name:

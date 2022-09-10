@@ -41,7 +41,7 @@ class SQLi(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing sqli regex rules
             self.REGEX_FILE = "securetea/lib/log_monitor/server_log/rules/regex/sqli.txt"
             # Path of file containing sqli payloads

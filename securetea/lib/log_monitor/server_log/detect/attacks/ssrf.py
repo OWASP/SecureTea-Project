@@ -39,7 +39,7 @@ class Ssrf (object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing SSRF payloads
             self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/ssrf.txt"
             # Path of file containing SSRF regex rules

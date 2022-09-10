@@ -52,6 +52,13 @@ class Cleaner(object):
 
         # Load Configuration
         self.config_dict = utils.json_to_dict(self._CONFIG_PATH)
+
+        if debug:
+            self._AV_CONFIG_PATH = "securetea/lib/antivirus/config/config.json"
+            self.config_dict = utils.json_to_dict(self._AV_CONFIG_PATH)
+        else:
+            self._AV_CONFIG_PATH = "/etc/securetea/asp/config.json"
+
         # Categorize OS
         self.os_name = utils.categorize_os()
         if self.os_name:

@@ -34,7 +34,13 @@ class AntiVirusLogger(logger.SecureTeaLogger):
             None
         """
         # AntiVirus Log Path
-        self._PATH = "/etc/securetea/antivirus/antivirus_log.log"
+
+
+        if debug:
+            self._PATH = "securetea/lib/antivirus/antivirus_log.log"
+        else:
+            self._PATH = "/etc/securetea/antivirus/antivirus_log.log"
+
         # Call the parent class
         logger.SecureTeaLogger.__init__(self, modulename, debug)
 
