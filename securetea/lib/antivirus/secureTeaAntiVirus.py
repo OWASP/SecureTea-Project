@@ -57,7 +57,7 @@ class SecureTeaAntiVirus(object):
             sys.exit(0)
 
         # JSON configuration file path
-        self._CONFIG_PATH = "/etc/securetea/antivirus/config.json"
+        self._CONFIG_PATH = "securetea.conf"
 
         # Initialize required parameters from the credentials passed
         self.vt_api_key = self.cred["virustotal-api-key"]
@@ -72,6 +72,9 @@ class SecureTeaAntiVirus(object):
         self.auto_delete = int(self.cred["auto-delete"])
 
         # Create CoreEngine object
+        
+        print("C0")
+
         self.core_engine_obj = core_engine.CoreEngine(debug=debug,
                                                       config_path=self._CONFIG_PATH,
                                                       vt_api_key=self.vt_api_key,
@@ -82,6 +85,7 @@ class SecureTeaAntiVirus(object):
                                                       update=self.update,
                                                       custom_scan=self.custom_scan,
                                                       auto_delete=self.auto_delete)
+        
 
     def start(self):
         """
@@ -102,6 +106,7 @@ class SecureTeaAntiVirus(object):
                 "Antivirus started.",
                 logtype="info"
             )
+            print("C1")
             self.core_engine_obj.start_engine()
         except Exception as e:
             self.logger.log(

@@ -39,7 +39,7 @@ class SpiderDetect(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing spider user agents payloads
             self._PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/bad_ua.txt"
         else:

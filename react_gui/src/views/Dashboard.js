@@ -50,6 +50,7 @@ class Dashboard extends React.Component {
     componentDidMount() {
 
       const cookie_val = cookies.get('cookie');
+      const server_url = cookies.get('url');
       console.log(cookie_val);
 
       const requestOptions = {
@@ -61,7 +62,7 @@ class Dashboard extends React.Component {
       };
 
       fetch(
-        "http://127.0.0.1:8000/cpu/", requestOptions)
+        server_url + "cpu/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -71,7 +72,7 @@ class Dashboard extends React.Component {
           })
 
       fetch(
-        "http://127.0.0.1:8000/ram/", requestOptions)
+        server_url + "ram/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -81,7 +82,7 @@ class Dashboard extends React.Component {
           })
 
       fetch(
-        "http://127.0.0.1:8000/swap/", requestOptions)
+        server_url + "swap/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -91,7 +92,7 @@ class Dashboard extends React.Component {
           })
 
       fetch(
-        "http://127.0.0.1:8000/uptime/", requestOptions)
+        server_url + "uptime/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -101,7 +102,7 @@ class Dashboard extends React.Component {
           })
 
       fetch(
-        "http://127.0.0.1:8000/diskio/", requestOptions)
+        server_url + "diskio/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -111,7 +112,7 @@ class Dashboard extends React.Component {
           })
       
       fetch(
-        "http://127.0.0.1:8000/uptime/", requestOptions)
+        server_url + "uptime/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -121,7 +122,7 @@ class Dashboard extends React.Component {
           })
 
       fetch(
-        "http://127.0.0.1:8000/processor/", requestOptions)
+        server_url + "processor/", requestOptions)
           .then((res) => res.json())
           .then((json) => {
               this.setState({

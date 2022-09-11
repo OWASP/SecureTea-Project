@@ -39,6 +39,7 @@ class ScannerEngine(object):
         Returns:
             None
         """
+
         # Initialize logger
         self.logger = AntiVirusLogger(
                 __name__,
@@ -65,6 +66,8 @@ class ScannerEngine(object):
                                         config_path=self._CONFIG_PATH,
                                         file_list=self.file_list,
                                         vt_api_key=vt_api_key)
+
+
         # Create YaraScanner object
         self.yara_scanner = YaraScanner(debug=debug,
                                         config_path=self._CONFIG_PATH,

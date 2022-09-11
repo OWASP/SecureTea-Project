@@ -13,6 +13,7 @@ Project:
 
 import sys
 import threading
+from securetea.lib.log_monitor.server_log import parser
 # Import logger
 from securetea.lib.log_monitor.server_log.server_logger import ServerLogger
 # Import utilities
@@ -114,6 +115,7 @@ class Engine(object):
                 self.parser_obj = apache.ApacheParser(debug=debug,
                                                       window=window,
                                                       path=self.log_file_path)
+
             elif log_type == "nginx":  # if Nginx log file
                 self.parser_obj = nginx.NginxParser(debug=debug,
                                                     window=window,

@@ -34,6 +34,7 @@ class Lastlogin extends React.Component {
     componentDidMount() {
 
       const cookie_val = cookies.get('cookie');
+      const server_url = cookies.get('url');
       console.log(cookie_val);
 
       const requestOptions = {
@@ -45,7 +46,7 @@ class Lastlogin extends React.Component {
       };
 
       fetch(
-        "http://127.0.0.1:8000/login/", requestOptions
+        server_url + "login/", requestOptions
         )
           .then((res) => res.json())
           .then((json) => {

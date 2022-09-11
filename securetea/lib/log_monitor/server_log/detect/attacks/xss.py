@@ -41,7 +41,7 @@ class CrossSite(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing XSS payloads
             self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/xss.txt"
             # Path of file containing XSS regex rules

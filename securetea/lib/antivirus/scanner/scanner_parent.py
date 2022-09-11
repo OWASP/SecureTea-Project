@@ -16,7 +16,7 @@ from securetea.lib.antivirus.tools import utils
 from securetea.lib.antivirus.scanner.virus_total import VirusTotal
 
 from concurrent.futures import ThreadPoolExecutor
-import sys
+import sys, json
 
 
 class Scanner(object):
@@ -57,6 +57,13 @@ class Scanner(object):
         self.config_dict = utils.json_to_dict(self._CONFIG_PATH)
         # Categorize OS
         self.os_name = utils.categorize_os()
+
+        if debug:
+            self._AV_CONFIG_PATH = "securetea/lib/antivirus/config/config.json"
+            self.config_dict = utils.json_to_dict(self._AV_CONFIG_PATH)
+        else:
+            self._AV_CONFIG_PATH = "/etc/securetea/asp/config.json"
+
         if self.os_name:
             # Load malicious-file log path
             self._MAL_FILE_PATH = self.config_dict[self.os_name]["scanner"]["malicious_file_log_path"]
@@ -78,6 +85,7 @@ class Scanner(object):
         if self.vt_api_key and self.vt_api_key != "XXXX":
             # If VirusTotal API Key is provided & valid
             self.vt_obj = VirusTotal(debug=debug, api_key=self.vt_api_key)
+        
 
     def scan_file(self, file_path):
         """

@@ -27,7 +27,7 @@ from securetea.lib.antivirus.antivirus_logger import AntiVirusLogger
 # Import necessary
 import multiprocessing
 import time
-
+import sys
 
 class CoreEngine(object):
     """CoreEngine class."""
@@ -99,6 +99,7 @@ class CoreEngine(object):
 
         self.use_clamav = use_clamav
         self.use_yara = use_yara
+        
 
         # Create ScannerEngine object
         self.scanner_engine_obj = ScannerEngine(debug=debug,
@@ -107,6 +108,9 @@ class CoreEngine(object):
                                                 vt_api_key=self.vt_api_key,
                                                 use_clamav=self.use_clamav,
                                                 use_yara=self.use_yara)
+
+        print("C1")
+
         # Create MonitorEngine object
         self.monitor_engine_obj = MonitorEngine(debug=debug,
                                                 config_path=self._CONFIG_PATH,
@@ -117,6 +121,8 @@ class CoreEngine(object):
                                                 use_yara=self.use_yara)
         # Create Cleaner object
         self.cleaner_obj = Cleaner(debug=debug, config_path=self._CONFIG_PATH)
+
+
 
     def start_update(self):
         """

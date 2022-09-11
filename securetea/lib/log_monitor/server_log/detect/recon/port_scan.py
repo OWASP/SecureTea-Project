@@ -39,7 +39,7 @@ class PortScan(object):
             debug=debug
         )
 
-        if test:
+        if debug:
             # Path of file containing port_scan payloads
             self.PAYLOAD_FILE = "securetea/lib/log_monitor/server_log/rules/payloads/port_scan_ua.txt"
         else:

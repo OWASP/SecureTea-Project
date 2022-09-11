@@ -13,6 +13,7 @@ Project:
 
 import os
 import time
+import sys
 
 from securetea.lib.antivirus.tools import file_gather
 from securetea.lib.antivirus.tools import utils
