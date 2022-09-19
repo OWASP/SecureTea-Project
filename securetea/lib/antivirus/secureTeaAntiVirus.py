@@ -73,7 +73,6 @@ class SecureTeaAntiVirus(object):
 
         # Create CoreEngine object
         
-        print("C0")
 
         self.core_engine_obj = core_engine.CoreEngine(debug=debug,
                                                       config_path=self._CONFIG_PATH,
@@ -106,7 +105,6 @@ class SecureTeaAntiVirus(object):
                 "Antivirus started.",
                 logtype="info"
             )
-            print("C1")
             self.core_engine_obj.start_engine()
         except Exception as e:
             self.logger.log(

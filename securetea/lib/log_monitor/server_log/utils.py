@@ -14,7 +14,7 @@ Project:
 import time
 import os
 import datetime
-import platform
+import distro
 import threading
 from requests.utils import quote
 import socket
@@ -185,7 +185,7 @@ def get_system_name():
     Returns:
         os_name (str): Name of the operating system
     """
-    os_name = platform.dist()[0]
+    os_name = distro.name()
     return os_name.lower()
 
 

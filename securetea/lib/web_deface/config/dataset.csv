@@ -1,18 +1,5 @@
 status,content
-true,"# Welcome to nginx!
-
-If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.
-
-For online documentation and support please refer to nginx.org.  
-Commercial support is available at nginx.com.
-
-_Thank you for using nginx._
-
-"
-true,"
-
-![Ubuntu Logo](icons/ubuntu-logo.png)
+true,"![Ubuntu Logo](icons/ubuntu-logo.png)
 
 Apache2 Default Page
 
@@ -80,5 +67,18 @@ Ubuntu. However, check existing bug reports before reporting a new bug.
 
 Please report bugs specific to modules (such as PHP and others) to their
 respective packages, not to the web server itself.
+
+"
+true,"
+
+# Welcome to nginx!
+
+If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.
+
+For online documentation and support please refer to nginx.org.  
+Commercial support is available at nginx.com.
+
+_Thank you for using nginx._
 
 "

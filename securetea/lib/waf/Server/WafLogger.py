@@ -26,7 +26,7 @@ class WafLogger (logger.SecureTeaLogger):
             f_create = open("/etc/securetea/waf.log", "a")
             f_create.close()
         except Exception as e:
-            print(E)
+            print(e)
 
 
         logger.SecureTeaLogger.__init__(self, modulename, debug)

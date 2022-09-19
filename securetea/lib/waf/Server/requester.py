@@ -55,8 +55,6 @@ class Requester:
 
 
         # Check whether the incoming Host is part of the backend server config
-        print(self.host)
-        print(redirect_table)
 
         if self.host in redirect_table.keys():
             host,port=redirect_table[host].split(":")
