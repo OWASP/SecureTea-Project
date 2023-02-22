@@ -29,7 +29,12 @@ socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins="*")
 error_404 = {
     "status": 404
 }
-
+error_401 = {
+    "status": 401
+}
+error_500 = {
+    "status": 500
+}
 diskReadNew = 0
 diskReadOld = 0
 diskWriteNew = 0
@@ -99,7 +104,7 @@ def get_uptime():
             json object of "uptime" mapped to uptime in seconds
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
         uptime = str(timedelta(seconds=uptime.seconds))
@@ -110,7 +115,7 @@ def get_uptime():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 def get_value(data, key):
@@ -136,7 +141,7 @@ def get_processor():
             json object of information containing bits,count, brand, frequency, l3 cache size, l2 cache size, l1 cache size, l1 instruction cache size and vendor
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         info = cpuinfo.get_cpu_info()
         data = {
@@ -154,7 +159,7 @@ def get_processor():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/cpu', methods=['POST'])
@@ -164,7 +169,7 @@ def get_cpu():
             json object of information containing percentage usage, number of cpus, percentage usage per cpu
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         percent = psutil.cpu_percent()
         count = psutil.cpu_count()
@@ -178,7 +183,7 @@ def get_cpu():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/username', methods=['GET'])
@@ -188,7 +193,7 @@ def get_username():
             username of logged in user
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         username = os.getlogin()
         data = {
@@ -198,7 +203,7 @@ def get_username():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/ram', methods=['POST'])
@@ -208,7 +213,7 @@ def get_ram():
             json object of information containing total ram of the system, percentage used, amount used and amount free
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         ram = psutil.virtual_memory()
         total = float(ram.total / 1073741824)
@@ -225,7 +230,7 @@ def get_ram():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/swap', methods=['POST'])
@@ -235,7 +240,7 @@ def get_swap():
             json object of information containing total swap memory of the system, percentage used, amount used and amount free
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         swap = psutil.swap_memory()
         total = float(swap.total / 1073741824)
@@ -252,7 +257,7 @@ def get_swap():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500 
 
 
 @app.route('/hdd', methods=['POST'])
@@ -262,7 +267,7 @@ def get_hdd():
             json object of information containing hdd device, path, type of formatting, total hdd available, percentage used, amount used and amount free
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_500), 500
     try:
         hdd = psutil.disk_partitions()
         data = []
@@ -297,7 +302,7 @@ def get_hdd():
             return jsonify(data_dict), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/process', methods=['GET'])
@@ -317,7 +322,7 @@ def process():
             return jsonify(data_dict), 200
 
     except Exception:
-        return jsonify(error_404), 404
+        return jsonify(error_500), 500
 
 
 def get_process_details(pids):
@@ -361,7 +366,7 @@ def getdiskio():
             json object of information containing reads and writes happening
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         diskiocounters = psutil.disk_io_counters()
         diskreadold = diskiocounters.read_bytes
@@ -380,7 +385,7 @@ def getdiskio():
         return jsonify(data), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/netio', methods=['POST'])
@@ -390,7 +395,7 @@ def getnetworks():
             json object of information containing packet transfers happening over the network
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     try:
         data = []
         oldnetio = psutil.net_io_counters(pernic=True)
@@ -430,7 +435,7 @@ def getnetworks():
         return jsonify(data_dict), 200
     except Exception as e:
         print(e)
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 @app.route('/status', methods=['POST'])
@@ -440,7 +445,7 @@ def checkstatus():
             get status of securetea app running
     """
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     global processid
     if processid:
         data = {
@@ -469,7 +474,7 @@ def stop():
     except Exception as e:
         print(e)
 
-    return jsonify(error_404), 404
+    return jsonify(error_500), 500
 
 
 def get_list(list_var):
@@ -492,7 +497,7 @@ def get_integer(bool_var):
 def sleep():
     """Endpoint to get start running securetea app with given configuration"""
     if not check_auth(request):
-        return jsonify(error_404), 404
+        return jsonify(error_401), 401
     global processid
     if request.method == 'GET':
         try:
@@ -511,7 +516,7 @@ def sleep():
                 return jsonify(data), 200
         except Exception as e:
             print(e)
-        return jsonify(error_404), 404
+        return jsonify(error_500s), 500
 
     creds = request.get_json()
     args_str = " --debug --skip_input --skip_config_file "
