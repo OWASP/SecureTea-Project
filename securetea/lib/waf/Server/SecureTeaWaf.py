@@ -35,7 +35,7 @@ class SecureTeaWaf:
         """
         self.cred = cred
         self.listen_ip="127.0.0.1"
-        self.port=8856
+        self.port=8865
         self.mode=0
 
 

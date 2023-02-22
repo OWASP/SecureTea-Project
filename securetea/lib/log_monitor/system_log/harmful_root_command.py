@@ -61,7 +61,11 @@ class HarmfulCommands(object):
             return
 
         # Path for file of harmful commands
-        self.COMMNAND_FILE_PATH = "/etc/securetea/log_monitor/system_log/harmful_command.txt"
+        if debug:
+            self.COMMNAND_FILE_PATH = "securetea/lib/log_monitor/system_log/harmful_command.txt"
+        else:
+            self.COMMNAND_FILE_PATH = "/etc/securetea/log_monitor/system_log/harmful_command.txt"
+
         self.COMMAND = r'COMMAND=(.*\s)'  # regex to extract commands
         self.harmful_commands = utils.open_file(self.COMMNAND_FILE_PATH)
         self.found_harmful = []  # list of harmful commands found

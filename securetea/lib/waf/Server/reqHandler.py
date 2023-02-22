@@ -105,7 +105,7 @@ class HTTP(asyncio.Protocol):
                 method=self.parsed_data.command
 
                 headers=self.parsed_data.headers
-                self.host=headers["HOST"]
+                self.host=headers["HOST"].split(":")[0]
 
                 path=self.parsed_data.path
 
@@ -220,6 +220,7 @@ class HTTP(asyncio.Protocol):
         self.requester=Requester(self.transport)
 
         try:
+            print("Self.host" + self.host)
 
             self.requester.connect(self.host,self.redirect_table)
             self.requester.send_data(self.data)
