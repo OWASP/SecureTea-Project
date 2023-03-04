@@ -35,7 +35,7 @@ export class NetworkComponent implements OnInit {
   }
 
   getNetwork() {
-    const posturl = `${this.apiRoot}netio`;
+    const posturl = `${this.apiRoot}/netio`;
     this.http.post(
       posturl,
       { 
