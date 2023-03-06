@@ -37,12 +37,15 @@ pip install -r requirements.txt # statement repeated on purpose
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 apt-get install -y nodejs
 
+#install node modules
+npm install
+
 # installing angular 
 npm install -g @angular/cli
 
 # update angular from 7 --> 12
 cd gui
-npm install
+npm install --legacy-peer-deps
 ng update
 npm install -g npm
 ng update @angular/cli 

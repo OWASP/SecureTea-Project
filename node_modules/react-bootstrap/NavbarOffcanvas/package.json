@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/NavbarOffcanvas",
-  "private": true,
-  "main": "../cjs/NavbarOffcanvas.js",
-  "module": "../esm/NavbarOffcanvas.js",
-  "types": "../esm/NavbarOffcanvas.d.ts"
-}

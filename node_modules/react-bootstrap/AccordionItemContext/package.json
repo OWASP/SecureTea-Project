@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/AccordionItemContext",
-  "private": true,
-  "main": "../cjs/AccordionItemContext.js",
-  "module": "../esm/AccordionItemContext.js",
-  "types": "../esm/AccordionItemContext.d.ts"
-}

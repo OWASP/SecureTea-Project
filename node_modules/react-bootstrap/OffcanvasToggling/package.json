@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/OffcanvasToggling",
-  "private": true,
-  "main": "../cjs/OffcanvasToggling.js",
-  "module": "../esm/OffcanvasToggling.js",
-  "types": "../esm/OffcanvasToggling.d.ts"
-}

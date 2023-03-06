@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/PopoverBody",
-  "private": true,
-  "main": "../cjs/PopoverBody.js",
-  "module": "../esm/PopoverBody.js",
-  "types": "../esm/PopoverBody.d.ts"
-}

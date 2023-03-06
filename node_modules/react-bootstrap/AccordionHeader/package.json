@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/AccordionHeader",
-  "private": true,
-  "main": "../cjs/AccordionHeader.js",
-  "module": "../esm/AccordionHeader.js",
-  "types": "../esm/AccordionHeader.d.ts"
-}

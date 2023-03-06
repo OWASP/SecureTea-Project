@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/FormRange",
-  "private": true,
-  "main": "../cjs/FormRange.js",
-  "module": "../esm/FormRange.js",
-  "types": "../esm/FormRange.d.ts"
-}

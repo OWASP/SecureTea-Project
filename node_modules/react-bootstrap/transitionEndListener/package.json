@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/transitionEndListener",
-  "private": true,
-  "main": "../cjs/transitionEndListener.js",
-  "module": "../esm/transitionEndListener.js",
-  "types": "../esm/transitionEndListener.d.ts"
-}

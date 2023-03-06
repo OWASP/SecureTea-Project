@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/Stack",
-  "private": true,
-  "main": "../cjs/Stack.js",
-  "module": "../esm/Stack.js",
-  "types": "../esm/Stack.d.ts"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "@restart/ui/usePopper",
-  "private": true,
-  "main": "../cjs/usePopper.js",
-  "module": "../esm/usePopper.js",
-  "types": "../esm/usePopper.d.ts"
-}

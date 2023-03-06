@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/getTabTransitionComponent",
-  "private": true,
-  "main": "../cjs/getTabTransitionComponent.js",
-  "module": "../esm/getTabTransitionComponent.js",
-  "types": "../esm/getTabTransitionComponent.d.ts"
-}
