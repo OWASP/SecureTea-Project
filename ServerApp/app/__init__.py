@@ -148,13 +148,13 @@ def get_processor():
             "status": 200,
             "bits": get_value(info, 'bits'),
             "count": get_value(info, 'count'),
-            "brand": get_value(info, 'brand'),
+            "brand": get_value(info, 'brand_raw'),
             "hz_advertised": get_value(info, 'hz_advertised'),
             "l3_cache_size": get_value(info, 'l3_cache_size'),
             "l2_cache_size": get_value(info, 'l2_cache_size'),
             "l1_data_cache_size": get_value(info, 'l1_data_cache_size'),
             "l1_instruction_cache_size": get_value(info, 'l1_instruction_cache_size'),
-            "vendor_id": get_value(info, 'vendor_id')
+            "vendor_id": get_value(info, 'vendor_id_raw')
         }
         return jsonify(data), 200
     except Exception as e:
