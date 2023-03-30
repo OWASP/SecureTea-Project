@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/SSRProvider",
-  "private": true,
-  "main": "../cjs/SSRProvider.js",
-  "module": "../esm/SSRProvider.js",
-  "types": "../esm/SSRProvider.d.ts"
-}

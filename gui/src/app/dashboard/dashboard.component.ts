@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getRam() {
-    const posturl = `${this.apiRoot}ram`;
+    const posturl = `${this.apiRoot}/ram`;
     this.http.post(
       posturl,
       { 
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCpu() {
-    const posturl = `${this.apiRoot}cpu`;
+    const posturl = `${this.apiRoot}/cpu`;
     this.http.post(
       posturl,
       { 
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSwap() {
-    const posturl = `${this.apiRoot}swap`;
+    const posturl = `${this.apiRoot}/swap`;
     this.http.post(
       posturl,
       { 
@@ -116,7 +116,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUptime() {
-    const posturl = `${this.apiRoot}uptime`;
+    const posturl = `${this.apiRoot}/uptime`;
     this.http.post(
       posturl,
       { 

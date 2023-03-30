@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/PlaceholderButton",
-  "private": true,
-  "main": "../cjs/PlaceholderButton.js",
-  "module": "../esm/PlaceholderButton.js",
-  "types": "../esm/PlaceholderButton.d.ts"
-}

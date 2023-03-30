@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/CardHeader",
-  "private": true,
-  "main": "../cjs/CardHeader.js",
-  "module": "../esm/CardHeader.js",
-  "types": "../esm/CardHeader.d.ts"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/ToastContainer",
-  "private": true,
-  "main": "../cjs/ToastContainer.js",
-  "module": "../esm/ToastContainer.js",
-  "types": "../esm/ToastContainer.d.ts"
-}

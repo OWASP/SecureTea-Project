@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/FloatingLabel",
-  "private": true,
-  "main": "../cjs/FloatingLabel.js",
-  "module": "../esm/FloatingLabel.js",
-  "types": "../esm/FloatingLabel.d.ts"
-}

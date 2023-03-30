@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/createUtilityClasses",
-  "private": true,
-  "main": "../cjs/createUtilityClasses.js",
-  "module": "../esm/createUtilityClasses.js",
-  "types": "../esm/createUtilityClasses.d.ts"
-}

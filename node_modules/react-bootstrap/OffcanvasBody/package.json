@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/OffcanvasBody",
-  "private": true,
-  "main": "../cjs/OffcanvasBody.js",
-  "module": "../esm/OffcanvasBody.js",
-  "types": "../esm/OffcanvasBody.d.ts"
-}

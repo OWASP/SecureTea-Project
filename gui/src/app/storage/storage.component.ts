@@ -32,7 +32,7 @@ export class StorageComponent implements OnInit {
   }
 
   getStorage() {
-    const geturl = `${this.apiRoot}hdd`;
+    const geturl = `${this.apiRoot}/hdd`;
     console.log(geturl)
     this.http.post(
       geturl,

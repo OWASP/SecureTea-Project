@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   getLogin() {
-    const posturl = `${this.apiRoot}login`;
+    const posturl = `${this.apiRoot}/login`;
     this.http.post(
       posturl,
       { 

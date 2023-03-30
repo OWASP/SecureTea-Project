@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/useOverlayOffset",
-  "private": true,
-  "main": "../cjs/useOverlayOffset.js",
-  "module": "../esm/useOverlayOffset.js",
-  "types": "../esm/useOverlayOffset.d.ts"
-}

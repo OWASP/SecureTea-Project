@@ -1,7 +1,0 @@
-{
-  "name": "react-bootstrap/OffcanvasTitle",
-  "private": true,
-  "main": "../cjs/OffcanvasTitle.js",
-  "module": "../esm/OffcanvasTitle.js",
-  "types": "../esm/OffcanvasTitle.d.ts"
-}

@@ -1,7 +1,0 @@
-{
-  "name": "@restart/ui/ssr",
-  "private": true,
-  "main": "../cjs/ssr.js",
-  "module": "../esm/ssr.js",
-  "types": "../esm/ssr.d.ts"
-}
