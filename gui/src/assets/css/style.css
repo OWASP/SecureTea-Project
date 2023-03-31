@@ -1913,6 +1913,7 @@ textarea {
 .page-titles {
   background: #ffffff;
   margin: 0 0 30px;
+  margin-top: 61px;
   padding: 15px 10px;
   position: relative;
   z-index: 10;
