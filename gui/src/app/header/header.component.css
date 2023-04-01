@@ -1,3 +1,12 @@
 .username{
     margin-top:20px;
 }
+
+.custom-navbar {
+    height: 60px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo-text {
+    height: 60px;
+}
