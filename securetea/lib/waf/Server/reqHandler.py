@@ -19,6 +19,7 @@ from .requester import Requester
 from .utils import RequestParser
 from securetea import logger
 from .WafLogger import WafLogger
+from .database import DatabaseLogs
 
 
 class HTTP(asyncio.Protocol):
@@ -137,6 +138,14 @@ class HTTP(asyncio.Protocol):
                 # Based on mode Block or Log Request
 
                 if self.mode==0 and predicted_value[0]==1:
+                    
+                    # Inserts block status, attacker IP, payload to the database for frontend
+                    db_log = {'blocked': 0,
+                              'From': headers["X-Real-IP"],
+                              'payload': path}
+                    
+                    dataObj = DatabaseLogs(db_log)
+                    dataObj.insert_log()
 
                     # Log the file and send the Request
                     message="Attack Detected from :{} Payload:{}".format(headers["X-Real-IP"],path)
@@ -149,6 +158,14 @@ class HTTP(asyncio.Protocol):
                     self.waflogger.write_log(message)
 
                 if self.mode==1 and predicted_value[0]==1:
+                    
+                    # Inserts block status, attacker IP, payload to the database for frontend
+                    db_log = {'blocked': 1,
+                              'From': headers["X-Real-IP"],
+                              'payload': path}
+                    
+                    dataObj = DatabaseLogs(db_log)
+                    dataObj.insert_log()
 
                     # Reset the Request
                     message="Attack Detected ! Request Blocked from :{}".format(headers["X-Real-IP"])
