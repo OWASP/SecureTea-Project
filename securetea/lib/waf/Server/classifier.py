@@ -24,7 +24,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from .utils import get3Grams
-
+from .trainDDoS import TrainDDoS
 
 
 class WAF:
@@ -106,6 +106,10 @@ class WAF:
 
         with open("model", "wb") as f:
             pickle.dump(self.pipe, f)
+            
+            
+        self.ddos = TrainDDoS()
+        self.ddos.train()
 
 
 
