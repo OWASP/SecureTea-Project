@@ -20,6 +20,7 @@ from .utils import RequestParser
 from securetea import logger
 from .WafLogger import WafLogger
 from .database import DatabaseLogs
+from .detectDDoS import DetectDDoS
 
 
 class HTTP(asyncio.Protocol):
@@ -134,6 +135,25 @@ class HTTP(asyncio.Protocol):
 
                 self.model=WAF(self.feature_value)
                 predicted_value=self.model.predict_model()
+                
+                # Model to detect DDoS attacks
+                
+                self.ddos = DetectDDoS(self.feature_value)
+                self.predicted_ddos = self.ddos.predict()
+                
+                # Blocks if detects ddos
+                
+                if self.predicted_ddos == 1:
+                    
+                    message="DoS from {}".format(headers["X-Real-IP"])
+                    
+                    self.logger.log(
+                        message,
+                        logtype="warning"
+                    )
+                
+                self.transport.close()
+                self.waflogger.write_log(message)
 
                 # Based on mode Block or Log Request
 
@@ -200,6 +220,7 @@ class HTTP(asyncio.Protocol):
                     )
                     self.sendRequest()
                     self.waflogger.write_log(message)
+                    
             else:
 
                 self.transport.close()
