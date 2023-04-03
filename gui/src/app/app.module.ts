@@ -23,6 +23,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WAFComponent } from './waf/waf.component';
+import { IDSComponent } from './ids/ids.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { WAFComponent } from './waf/waf.component';
     LogoutComponent,
     LoginComponent,
     RegisterComponent,
-    WAFComponent
+    WAFComponent,
+    IDSComponent
   ],
   imports: [
     BrowserModule,
