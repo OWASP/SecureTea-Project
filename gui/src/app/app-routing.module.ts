@@ -10,6 +10,8 @@ import { SecurityComponent } from './security/security.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { IDSComponent } from './ids/ids.component';
+import { WAFComponent } from './waf/waf.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'security', component: SecurityComponent},
   { path: 'logout', component: LogoutComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'waf', component: WAFComponent},
+  { path: 'ids', component: IDSComponent},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: ErrorComponent },
 ];
