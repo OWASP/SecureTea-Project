@@ -138,34 +138,34 @@ class HTTP(asyncio.Protocol):
                 
                 # Model to detect DDoS attacks
                 
-                self.ddos = DetectDDoS(self.feature_value)
-                self.predicted_ddos = self.ddos.predict()
+                # self.ddos = DetectDDoS(self.feature_value)
+                # self.predicted_ddos = self.ddos.predict()
                 
                 # Blocks if detects ddos
                 
-                if self.predicted_ddos == 1:
+                # if self.predicted_ddos == 1:
                     
-                    message="DoS from {}".format(headers["X-Real-IP"])
+                #     message="DoS from {}".format(headers["X-Real-IP"])
                     
-                    self.logger.log(
-                        message,
-                        logtype="warning"
-                    )
+                #     self.logger.log(
+                #         message,
+                #         logtype="warning"
+                #     )
                 
-                self.transport.close()
-                self.waflogger.write_log(message)
+                # # self.transport.close()
+                # self.waflogger.write_log(message)
 
                 # Based on mode Block or Log Request
 
                 if self.mode==0 and predicted_value[0]==1:
                     
-                    # Inserts block status, attacker IP, payload to the database for frontend
-                    db_log = {'blocked': 0,
+                    # TODO: Inserts block status, attacker IP, payload to the database for frontend
+                    """ db_log = {'blocked': 0,
                               'From': headers["X-Real-IP"],
                               'payload': path}
                     
                     dataObj = DatabaseLogs(db_log)
-                    dataObj.insert_log()
+                    dataObj.insert_log() """
 
                     # Log the file and send the Request
                     message="Attack Detected from :{} Payload:{}".format(headers["X-Real-IP"],path)
@@ -179,13 +179,13 @@ class HTTP(asyncio.Protocol):
 
                 if self.mode==1 and predicted_value[0]==1:
                     
-                    # Inserts block status, attacker IP, payload to the database for frontend
-                    db_log = {'blocked': 1,
+                    # TODO: Inserts block status, attacker IP, payload to the database for frontend
+                    """ db_log = {'blocked': 1,
                               'From': headers["X-Real-IP"],
                               'payload': path}
                     
                     dataObj = DatabaseLogs(db_log)
-                    dataObj.insert_log()
+                    dataObj.insert_log() """
 
                     # Reset the Request
                     message="Attack Detected ! Request Blocked from :{}".format(headers["X-Real-IP"])

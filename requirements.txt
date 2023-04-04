@@ -97,3 +97,4 @@ Werkzeug>=2.1.2
 wget>=3.2
 XlsxWriter>=3.0.3
 yara-python>=4.2.0
+tensorflow>=2.12.0
