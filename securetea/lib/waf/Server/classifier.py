@@ -42,14 +42,13 @@ class WAF:
         A class that initialise the required variables
 
         """
-
-
-        self.live_data=[live_data]
+        # Takes 2 live data
+        self.live_data=[[live_data[0], live_data[2]]]
 
 
 
         datapath = Path(os.path.dirname(__file__)).parent / "data/data_updated.csv"
-        modelpath = Path(os.path.dirname(__file__)).parent / "data/modeltestgram.sav"
+        modelpath = Path(os.path.dirname(__file__)).parent / "data/model"
 
 
 
@@ -63,12 +62,14 @@ class WAF:
 
         self.target = self.data["label"]
         self.path_vectorizer = TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
+        
+        # TODO: body currently contains no useful values, for which predictions are False. Will be updated soon.
         self.body_vectorizer = TfidfVectorizer(tokenizer=get3Grams,encoding="cp1252")
         self.model=GaussianNB()
 
         # Feature selection
 
-        self.X=self.data[['path','body','path_len']]
+        self.X=self.data[['path','path_len']]
 
         self.X_train,self.X_test,self.Y_train,self.Y_test=train_test_split(self.X,self.target,test_size=0.2)
 
@@ -90,7 +91,7 @@ class WAF:
 
         # Column Transformer
 
-        self.column_transformer = ColumnTransformer([('tf-1', self.path_vectorizer, 'path'),('tf-2',self.body_vectorizer,'body'),], remainder='passthrough', sparse_threshold=0)
+        self.column_transformer = ColumnTransformer([('tf-1', self.path_vectorizer, 'path')], remainder='passthrough', sparse_threshold=0)
 
         # Creating Pipeline
 
@@ -104,12 +105,12 @@ class WAF:
 
         self.pipe.fit(self.X_train,self.Y_train)
 
-        with open("model", "wb") as f:
-            pickle.dump(self.pipe, f)
+        joblib.dump(self.pipe, self.MODEL_PATH)
             
-            
-        self.ddos = TrainDDoS()
-        self.ddos.train()
+        
+        # TODO: will be implemented soon   
+        """ self.ddos = TrainDDoS()
+         self.ddos.train() """
 
 
 
@@ -139,7 +140,7 @@ class WAF:
         except Exception as E:
             print(E)
 
-        self.live_df = pd.DataFrame(self.live_data,columns=['path','body','path_len','special_char','whitespaces'])
+        self.live_df = pd.DataFrame(self.live_data,columns=['path','path_len'])
         return self.model.predict(self.live_df)
 
 
