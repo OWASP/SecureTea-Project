@@ -149,7 +149,7 @@ class SecureTeaHeaders(object):
             )
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -172,7 +172,7 @@ class SecureTeaHeaders(object):
             )
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -190,7 +190,7 @@ class SecureTeaHeaders(object):
             )
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -208,7 +208,7 @@ class SecureTeaHeaders(object):
             )
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -304,7 +304,7 @@ class SecureTeaHeaders(object):
                 )
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
