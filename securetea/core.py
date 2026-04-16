@@ -569,7 +569,7 @@ class SecureTea(object):
                 sys_obj.run()
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
@@ -590,7 +590,7 @@ class SecureTea(object):
                 )
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
@@ -607,7 +607,7 @@ class SecureTea(object):
                 )
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
@@ -625,7 +625,7 @@ class SecureTea(object):
                 )
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
@@ -651,7 +651,7 @@ class SecureTea(object):
                 )
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
@@ -668,7 +668,7 @@ class SecureTea(object):
                 )
             except Exception as e:
                 self.logger.log(
-                    "Error occured: " + str(e),
+                    "Error occurred: " + str(e),
                     logtype="error"
                 )
 
