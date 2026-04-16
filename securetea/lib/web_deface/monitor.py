@@ -138,7 +138,7 @@ class Monitor(object):
                     pass
                 except Exception as e:
                     self.logger.log(
-                        "Error occured: " + str(e),
+                        "Error occurred: " + str(e),
                         logtype="error"
                     )
 
