@@ -87,7 +87,7 @@ class ConfigPatcher(object):
                 return f.readlines()
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -110,7 +110,7 @@ class ConfigPatcher(object):
                 return data
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
@@ -134,7 +134,7 @@ class ConfigPatcher(object):
                     wf.write(line + "\n")
         except Exception as e:
             self.logger.log(
-                "Error occured: " + str(e),
+                "Error occurred: " + str(e),
                 logtype="error"
             )
 
